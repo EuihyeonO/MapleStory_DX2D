@@ -10,7 +10,7 @@ class GameEngineInput
 	friend GameEngineWindow;
 
 private:
-	class GameEngineKey 
+	class GameEngineKey
 	{
 		friend GameEngineInput;
 
@@ -22,7 +22,7 @@ private:
 		float PressTime; // 몇초간 눌렀다.
 		int Key = -1;
 
-		bool KeyCheck() 
+		bool KeyCheck()
 		{
 			return 0 != GetAsyncKeyState(Key);
 		}
@@ -52,7 +52,7 @@ public:
 
 	static void MouseCursorOff();
 
-	static bool IsAnyKey() 
+	static bool IsAnyKey()
 	{
 		return IsAnyKeyValue;
 	}

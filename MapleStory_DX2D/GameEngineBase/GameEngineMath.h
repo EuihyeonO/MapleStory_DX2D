@@ -58,17 +58,17 @@ public:
 		return static_cast<int>(x);
 	}
 
-	int iy() const 
+	int iy() const
 	{
 		return static_cast<int>(y);
 	}
 
-	int iz() const 
+	int iz() const
 	{
 		return static_cast<int>(z);
 	}
 
-	int iw() const 
+	int iw() const
 	{
 		return static_cast<int>(w);
 	}
@@ -114,7 +114,7 @@ public:
 		return w * 0.5f;
 	}
 
-	float GetAnagleDeg() 
+	float GetAnagleDeg()
 	{
 		return GetAnagleRad() * GameEngineMath::RadToDeg;
 	}
@@ -145,7 +145,7 @@ public:
 		AngleCheck.Normalize();
 		// functon(1) == 50; 1을 50으로 바꾸는 함수
 		// afuncton(50) == 1; 50이 1로 바꿔주는 함수라고도 할수 있지만 functon에 들어갔던 인자값을 알아내는 함수라고도 할수 있죠? <= 역함수
-		
+
 		// cosf(각도);
 
 		float Result = acosf(AngleCheck.x);
@@ -158,14 +158,14 @@ public:
 
 	}
 
-	POINT ToWindowPOINT() 
+	POINT ToWindowPOINT()
 	{
 		return POINT(ix(), iy());
 	}
 
 	float4 half() const
 	{
-		return {x * 0.5f,y * 0.5f,z * 0.5f,w};
+		return { x * 0.5f,y * 0.5f,z * 0.5f,w };
 	}
 
 	bool IsZero() const
@@ -180,7 +180,7 @@ public:
 
 	// 2, 0
 	// 0, 2
-	void Normalize() 
+	void Normalize()
 	{
 		float SizeValue = Size();
 		x /= SizeValue;
@@ -266,10 +266,10 @@ public:
 
 	float4 operator -() const
 	{
-		return {-x, -y, -z, 1.0f};
+		return { -x, -y, -z, 1.0f };
 	}
 
-	float4& operator +=(const float4& _Other) 
+	float4& operator +=(const float4& _Other)
 	{
 		x += _Other.x;
 		y += _Other.y;
@@ -310,7 +310,7 @@ public:
 		return *this;
 	}
 
-	std::string ToString() 
+	std::string ToString()
 	{
 		char ArrReturn[256];
 
@@ -346,7 +346,7 @@ public:
 
 	float4 LeftTop() const
 	{
-		return float4{Left(), Top()};
+		return float4{ Left(), Top() };
 	}
 	float4 RightTop() const
 	{
