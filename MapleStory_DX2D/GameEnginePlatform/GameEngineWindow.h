@@ -26,7 +26,7 @@ public:
 		return ScreenSize;
 	}
 
-	static HWND GetHWnd()
+	static HWND GetHWnd() 
 	{
 		return HWnd;
 	}
@@ -55,8 +55,8 @@ public:
 	// void(*Start)(), void(*Loop)(), void(*End)() 외부에서 함수포인터를 맡기는 방식.
 	// => 컨텐츠와 기능을 분리하기 위해서
 	static int WindowLoop(
-		std::function<void()> _Start,
-		std::function<void()> _Loop,
+		std::function<void()> _Start, 
+		std::function<void()> _Loop, 
 		std::function<void()> _End
 	);
 
@@ -71,7 +71,7 @@ public:
 	GameEngineWindow& operator=(const GameEngineWindow& _Other) = delete;
 	GameEngineWindow& operator=(GameEngineWindow&& _Other) noexcept = delete;
 
-
+	
 
 protected:
 

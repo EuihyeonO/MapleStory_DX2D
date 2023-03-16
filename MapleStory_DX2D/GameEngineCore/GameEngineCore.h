@@ -27,7 +27,7 @@ public:
 	static void Start(HINSTANCE _instance, std::function<void()> _Start, std::function<void()> _End);
 
 	template<typename LevelType>
-	static void CreateLevel(const std::string_view& _Name = "")
+	static void CreateLevel(const std::string_view& _Name = "") 
 	{
 		LevelType* NewLevel = new LevelType();
 

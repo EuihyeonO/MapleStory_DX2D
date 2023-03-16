@@ -1,11 +1,11 @@
 #include "GameEngineSerializer.h"
 #include "GameEngineDebug.h"
 
-GameEngineSerializer::GameEngineSerializer()
+GameEngineSerializer::GameEngineSerializer() 
 {
 }
 
-GameEngineSerializer::~GameEngineSerializer()
+GameEngineSerializer::~GameEngineSerializer() 
 {
 }
 

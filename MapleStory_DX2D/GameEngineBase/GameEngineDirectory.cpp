@@ -3,11 +3,11 @@
 #include <GameEngineBase/GameEngineDebug.h>
 
 
-GameEngineDirectory::GameEngineDirectory()
+GameEngineDirectory::GameEngineDirectory() 
 {
 }
 
-GameEngineDirectory::~GameEngineDirectory()
+GameEngineDirectory::~GameEngineDirectory() 
 {
 }
 void GameEngineDirectory::MoveParentToDirectory(const std::string_view& _String)

@@ -4,19 +4,19 @@
 
 std::map<std::string, std::shared_ptr<GameEngineLevel>> GameEngineCore::LevelMap;
 
-GameEngineCore::GameEngineCore()
+GameEngineCore::GameEngineCore() 
 {
 }
 
-GameEngineCore::~GameEngineCore()
+GameEngineCore::~GameEngineCore() 
 {
 }
 
-void GameEngineCore::EngineStart()
+void GameEngineCore::EngineStart() 
 {
 
 }
-void GameEngineCore::EngineUpdate()
+void GameEngineCore::EngineUpdate() 
 {
 
 }
@@ -37,7 +37,7 @@ void GameEngineCore::Start(HINSTANCE _instance, std::function<void()> _Start, st
 	GameEngineWindow::WindowLoop(GameEngineCore::EngineStart, GameEngineCore::EngineUpdate, GameEngineCore::EngineEnd);
 }
 
-void GameEngineCore::ChangeLevel(const std::string_view& _Name)
+void GameEngineCore::ChangeLevel(const std::string_view& _Name) 
 {
 
 }
