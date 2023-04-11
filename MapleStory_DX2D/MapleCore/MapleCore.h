@@ -12,7 +12,7 @@ public:
 	MapleCore(MapleCore&& _Other) noexcept = delete;
 	MapleCore& operator=(const MapleCore& _Other) = delete;
 	MapleCore& operator=(MapleCore&& _Other) noexcept = delete;
-	
+
 	static void GameStart();
 	static void GameEnd();
 

@@ -1,3 +1,4 @@
+#include "PrecompileHeader.h"
 #include "GameEngineWindow.h"
 #include <GameEngineBase/GameEngineDebug.h>
 #include <GameEnginePlatform/GameEngineImage.h>
@@ -7,7 +8,7 @@
 
 HWND GameEngineWindow::HWnd = nullptr;
 HDC GameEngineWindow::WindowBackBufferHdc = nullptr;
-float4 GameEngineWindow::WindowSize = {800, 600};
+float4 GameEngineWindow::WindowSize = { 800, 600 };
 float4 GameEngineWindow::WindowPos = { 100, 100 };
 float4 GameEngineWindow::ScreenSize = { 800, 600 };
 GameEngineImage* GameEngineWindow::BackBufferImage = nullptr;
@@ -25,7 +26,7 @@ LRESULT CALLBACK GameEngineWindow::MessageFunction(HWND _hWnd, UINT _message, WP
         int a = 0;
         break;
     }
-        // 내 윈도우가 선택되었다.
+    // 내 윈도우가 선택되었다.
     case WM_SETFOCUS:
     {
         int a = 0;
@@ -60,13 +61,13 @@ LRESULT CALLBACK GameEngineWindow::MessageFunction(HWND _hWnd, UINT _message, WP
     return 0;
 }
 
-GameEngineWindow::GameEngineWindow() 
+GameEngineWindow::GameEngineWindow()
 {
 }
 
-GameEngineWindow::~GameEngineWindow() 
+GameEngineWindow::~GameEngineWindow()
 {
-    
+
 }
 
 void GameEngineWindow::WindowCreate(HINSTANCE _hInstance, const std::string_view& _TitleName, float4 _Size, float4 _Pos)
@@ -172,7 +173,7 @@ int GameEngineWindow::WindowLoop(
 
             GameEngineInput::IsAnyKeyOff();
             continue;
-        } 
+        }
 
         // 데드타임
         // 데드타임에 게임을 실행하는것. 
@@ -214,7 +215,7 @@ void GameEngineWindow::SettingWindowSize(float4 _Size)
     // 내가 원하는 크기를 넣으면 타이틀바까지 고려한 크기를 리턴주는 함수.
     AdjustWindowRect(&Rc, WS_OVERLAPPEDWINDOW, FALSE);
 
-    WindowSize = { static_cast<float>(Rc.right - Rc.left), static_cast<float>(Rc.bottom - Rc.top)};
+    WindowSize = { static_cast<float>(Rc.right - Rc.left), static_cast<float>(Rc.bottom - Rc.top) };
     // 0을 넣어주면 기존의 크기를 유지한다.
     SetWindowPos(HWnd, nullptr, WindowPos.ix(), WindowPos.iy(), WindowSize.ix(), WindowSize.iy(), SWP_NOZORDER);
 

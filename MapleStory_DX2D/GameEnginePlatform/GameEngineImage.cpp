@@ -1,3 +1,4 @@
+#include "PrecompileHeader.h"
 #include "GameEngineImage.h"
 #include <GameEngineBase/GameEnginePath.h>
 #include <GameEngineBase/GameEngineDebug.h>
@@ -6,11 +7,11 @@
 // 다른 lib를 사용하겠다.
 #pragma comment(lib, "msimg32.lib")
 
-GameEngineImage::GameEngineImage() 
+GameEngineImage::GameEngineImage()
 {
 }
 
-GameEngineImage::~GameEngineImage() 
+GameEngineImage::~GameEngineImage()
 {
 	if (nullptr != BitMap)
 	{
@@ -92,7 +93,7 @@ bool GameEngineImage::ImageLoad(const GameEnginePath& _Path)
 
 #define TEST(Value) Value
 
-bool GameEngineImage::ImageLoad(const std::string_view& _Path) 
+bool GameEngineImage::ImageLoad(const std::string_view& _Path)
 {
 	//HDC ImageDC;
 	//HBITMAP BitMap;
@@ -109,7 +110,7 @@ bool GameEngineImage::ImageLoad(const std::string_view& _Path)
 	if (nullptr == BitMap)
 	{
 		std::string Path = _Path.data();
-		MsgAssert(Path + " 이미지 로드에 실패했습니다." );
+		MsgAssert(Path + " 이미지 로드에 실패했습니다.");
 		return false;
 	}
 
@@ -166,7 +167,7 @@ void GameEngineImage::TransCopy(const GameEngineImage* _OtherImage, int _CutInde
 
 	ImageCutData Data = _OtherImage->GetCutData(_CutIndex);
 
-	TransCopy(_OtherImage,  _CopyCenterPos, _CopySize, Data.GetStartPos(), Data.GetScale(), _Color);
+	TransCopy(_OtherImage, _CopyCenterPos, _CopySize, Data.GetStartPos(), Data.GetScale(), _Color);
 }
 
 void GameEngineImage::TransCopy(const GameEngineImage* _OtherImage, float4 _CopyCenterPos, float4 _CopySize, float4 _OtherImagePos, float4 _OtherImageSize, int _Color)
@@ -234,11 +235,11 @@ void GameEngineImage::PlgCopy(const GameEngineImage* _OtherImage, int _CutIndex,
 	PlgCopy(_OtherImage, _CopyCenterPos, _CopySize, Data.GetStartPos(), Data.GetScale(), _Angle, _FilterImage);
 }
 
-void GameEngineImage::PlgCopy(const GameEngineImage* _OtherImage, float4 _CopyCenterPos, float4 _CopySize, float4 _OtherImagePos, float4 _OtherImageSize, float _Angle,  GameEngineImage* _FilterImage)
+void GameEngineImage::PlgCopy(const GameEngineImage* _OtherImage, float4 _CopyCenterPos, float4 _CopySize, float4 _OtherImagePos, float4 _OtherImageSize, float _Angle, GameEngineImage* _FilterImage)
 {
 	POINT ArrRotPoint[3];
 
-	CollisionData Data = {float4::Zero, _CopySize };
+	CollisionData Data = { float4::Zero, _CopySize };
 
 	float4 LeftTop = Data.LeftTop();
 	float4 RightTop = Data.RightTop();

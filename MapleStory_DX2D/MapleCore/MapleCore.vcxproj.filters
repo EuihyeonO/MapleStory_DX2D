@@ -2,8 +2,12 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="MapleCore.h" />
+    <ClInclude Include="Level_Title.h" />
+    <ClInclude Include="PrecompileHeader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MapleCore.cpp" />
+    <ClCompile Include="Level_Title.cpp" />
+    <ClCompile Include="PrecompileHeader.cpp" />
   </ItemGroup>
 </Project>
