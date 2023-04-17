@@ -2,12 +2,30 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="MapleCore.h" />
-    <ClInclude Include="Level_Title.h" />
     <ClInclude Include="PrecompileHeader.h" />
+    <ClInclude Include="Level_Title.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Test.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MapleCore.cpp" />
-    <ClCompile Include="Level_Title.cpp" />
     <ClCompile Include="PrecompileHeader.cpp" />
+    <ClCompile Include="Level_Title.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Test.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Level">
+      <UniqueIdentifier>{9bdd7259-6a98-49a1-bf2c-ceb140b89aba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor">
+      <UniqueIdentifier>{7d874f87-79f2-48ce-8a89-dce9b0f9891b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

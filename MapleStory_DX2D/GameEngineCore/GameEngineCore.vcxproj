@@ -165,6 +165,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="EngineEnum.h" />
     <ClInclude Include="GameEngineActor.h">
       <SubType>
       </SubType>
@@ -181,11 +182,27 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="GameEngineConstantBuffer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="GameEngineCore.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="GameEngineDevice.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="GameEngineDirectBuffer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="GameEngineIndexBuffer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="GameEngineInputLayOut.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -209,7 +226,19 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="GameEnginePixelShader.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="GameEngineRasterizer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="GameEngineRenderer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="GameEngineRenderingPipeLine.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -218,6 +247,14 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="GameEngineResource.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="GameEngineShader.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="GameEngineShaderResHelper.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -230,6 +267,18 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="GameEngineUpdateObject.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="GameEngineVertex.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="GameEngineVertexBuffer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="GameEngineVertexShader.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -255,12 +304,28 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="GameEngineConstantBuffer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="GameEngineCore.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="GameEngineCore_Resources.cpp" />
     <ClCompile Include="GameEngineDevice.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="GameEngineDirectBuffer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="GameEngineIndexBuffer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="GameEngineInputLayOut.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -284,7 +349,19 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="GameEnginePixelShader.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="GameEngineRasterizer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="GameEngineRenderer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="GameEngineRenderingPipeLine.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -293,6 +370,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="GameEngineResource.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="GameEngineShader.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="GameEngineShaderResHelper.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -305,6 +390,18 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="GameEngineUpdateObject.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="GameEngineVertex.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="GameEngineVertexBuffer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="GameEngineVertexShader.cpp">
       <SubType>
       </SubType>
     </ClCompile>

@@ -16,7 +16,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 {
 	GameEngineCore::Start(hInstance,
 		MapleCore::GameStart,
-		MapleCore::GameEnd
+		MapleCore::GameEnd,
+		{ 560, 240 },
+		{ 800, 600 }
 	);
 }
 
