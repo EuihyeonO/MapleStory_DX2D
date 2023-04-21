@@ -1,5 +1,5 @@
 #pragma once
-#include "EngineEnum.h"
+#include "GameEngineEnum.h"
 #include "GameEngineShaderResHelper.h"
 
 // Ό³Έν :
@@ -25,6 +25,11 @@ public:
 	inline const GameEngineShaderResHelper& GetShaderResHelper() const
 	{
 		return ResHelper;
+	}
+
+	inline ShaderType GetType()
+	{
+		return Type;
 	}
 
 protected:
