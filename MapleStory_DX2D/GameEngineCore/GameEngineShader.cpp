@@ -83,7 +83,6 @@ void GameEngineShader::ShaderResCheck()
 
 			ResHelper.CreateConstantBufferSetter(Setter);
 
-
 			int a = 0;
 
 			break;
@@ -104,6 +103,11 @@ void GameEngineShader::ShaderResCheck()
 		case D3D_SIT_SAMPLER:
 		{
 			std::shared_ptr<GameEngineSampler> Res = GameEngineSampler::Find(UpperName);
+
+			if (nullptr == Res)
+			{
+				MsgAssert("다음의 샘플러가 존재하지 않아서 쉐이더에 세팅해줄수가 없습니다. : " + UpperName);
+			}
 
 			GameEngineSamplerSetter Setter;
 			Setter.ParentShader = this;

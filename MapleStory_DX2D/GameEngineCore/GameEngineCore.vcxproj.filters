@@ -94,6 +94,18 @@
     <ClInclude Include="GameEngineSampler.h">
       <Filter>Resources\Texture</Filter>
     </ClInclude>
+    <ClInclude Include="GameEngineSpriteRenderer.h">
+      <Filter>Object\Rendering\Component\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineBlend.h">
+      <Filter>Resources\RenderingSetting</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineVideo.h">
+      <Filter>Resources\Movie</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineDepthState.h">
+      <Filter>Resources\RenderingSetting</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngineCore.cpp" />
@@ -188,6 +200,18 @@
     <ClCompile Include="GameEngineSampler.cpp">
       <Filter>Resources\Texture</Filter>
     </ClCompile>
+    <ClCompile Include="GameEngineSpriteRenderer.cpp">
+      <Filter>Object\Rendering\Component\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineBlend.cpp">
+      <Filter>Resources\RenderingSetting</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineVideo.cpp">
+      <Filter>Resources\Movie</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineDepthState.cpp">
+      <Filter>Resources\RenderingSetting</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Object">
@@ -243,6 +267,12 @@
     </Filter>
     <Filter Include="ThirdParty\DirectXTex\bin\Release">
       <UniqueIdentifier>{0a7def1e-b4ef-42fd-867b-339b90377df5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Rendering\Component\2D">
+      <UniqueIdentifier>{e8c4491f-03a2-4594-8903-a55ed51399d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Movie">
+      <UniqueIdentifier>{a84362cc-bb81-4a66-9f8c-7878e5e71039}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -1,23 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="MapleCore.h" />
-    <ClInclude Include="PrecompileHeader.h" />
     <ClInclude Include="Level_Title.h">
       <Filter>Level</Filter>
     </ClInclude>
     <ClInclude Include="Test.h">
       <Filter>Actor</Filter>
     </ClInclude>
+    <ClInclude Include="MapleCore.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="PrecompileHeader.h">
+      <Filter>Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerValue.h">
+      <Filter>Global</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MapleCore.cpp" />
-    <ClCompile Include="PrecompileHeader.cpp" />
     <ClCompile Include="Level_Title.cpp">
       <Filter>Level</Filter>
     </ClCompile>
     <ClCompile Include="Test.cpp">
       <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="MapleCore.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="PrecompileHeader.cpp">
+      <Filter>Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerValue.cpp">
+      <Filter>Global</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -26,6 +40,18 @@
     </Filter>
     <Filter Include="Actor">
       <UniqueIdentifier>{7d874f87-79f2-48ce-8a89-dce9b0f9891b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{fc99f389-d1c0-4ec1-8212-dbfecb87c461}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Etc">
+      <UniqueIdentifier>{a0627e47-3bd2-4d18-a239-92efd5ada023}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Global">
+      <UniqueIdentifier>{e59c36e9-5efc-41d4-b327-305974bc8460}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{33f83c1a-1b44-437b-b4f6-2dc22dfb6afe}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

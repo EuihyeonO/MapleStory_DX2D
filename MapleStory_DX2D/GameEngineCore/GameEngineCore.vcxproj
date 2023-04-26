@@ -165,6 +165,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GameEngineBlend.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="GameEngineDepthState.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="GameEngineEnum.h" />
     <ClInclude Include="GameEngineActor.h">
       <SubType>
@@ -262,6 +270,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="GameEngineSpriteRenderer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="GameEngineTexture.h">
       <SubType>
       </SubType>
@@ -286,6 +298,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="GameEngineVideo.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="PrecompileHeader.h">
       <SubType>
       </SubType>
@@ -294,6 +310,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngineActor.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="GameEngineBlend.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -318,6 +338,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="GameEngineCore_Resources.cpp" />
+    <ClCompile Include="GameEngineDepthState.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="GameEngineDevice.cpp">
       <SubType>
       </SubType>
@@ -390,6 +414,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="GameEngineSpriteRenderer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="GameEngineTexture.cpp">
       <SubType>
       </SubType>
@@ -411,6 +439,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="GameEngineVertexShader.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="GameEngineVideo.cpp">
       <SubType>
       </SubType>
     </ClCompile>

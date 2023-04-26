@@ -29,11 +29,8 @@ void Level_Title::Start()
 		}
 	}
 
-	GetMainCamera()->SetProjectionType(CameraType::Perspective);
-	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, -1000.0f });
+	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
+	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, 0.0f });
 
-	std::shared_ptr<Test> NewPlayer = CreateActor<Test>("Test");
-
-
-
+	std::shared_ptr<Test> NewPlayer = CreateActor<Test>();
 }

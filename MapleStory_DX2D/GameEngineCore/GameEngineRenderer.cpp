@@ -36,8 +36,12 @@ void GameEngineRenderer::Render(float _Delta)
 	// GameEngineDevice::GetContext()->PSSetConstantBuffers();
 
 	// 텍스처 세팅 상수버퍼 세팅 이런것들이 전부다 처리 된다.
+
+	Pipe->RenderingPipeLineSetting();
+
 	ShaderResHelper.Setting();
 
+	// 이걸하기 전에 각 세팅이 완벽하게 되어있으면 된다.
 	Pipe->Render();
 }
 
@@ -60,7 +64,6 @@ void GameEngineRenderer::SetPipeLine(const std::string_view& _Name)
 		const TransformData& Data = GetTransform()->GetTransDataRef();
 		ShaderResHelper.SetConstantBufferLink("TransformData", Data);
 	}
-
 
 	GetTransform()->GetWorldMatrix();
 }

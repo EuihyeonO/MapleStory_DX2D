@@ -1,10 +1,15 @@
 #include "PrecompileHeader.h"
 #include "Test.h"
+
+#include "PlayerValue.h"
+
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
-#include <GameEngineCore/GameEngineRenderer.h>
+#include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEnginePlatform/GameEngineInput.h>
+
+#include <ctime>
 
 Test::Test()
 {
@@ -18,135 +23,60 @@ Test::~Test()
 void Test::Update(float _DeltaTime)
 {
 
-	float RotSpeed = 180.0f;
+	//TimeCount();
 
-	float Speed = 200.0f;
+	//RenderTime += CountTime;
 
-	if (true == GameEngineInput::IsPress("TestSpeedBoost"))
-	{
-		Speed = 500.0f;
-	}
+	//if (RenderTime >= 0.03f)
+	//{
+	//	if (RenderIndex == 180)
+	//	{
+	//		return;
+	//	}
 
-	if (true == GameEngineInput::IsPress("TestMoveLeft"))
-	{
-		GetTransform()->AddLocalPosition(float4::Left * Speed * _DeltaTime);
-	}
-	if (true == GameEngineInput::IsPress("TestMoveRight"))
-	{
-		GetTransform()->AddLocalPosition(float4::Right * Speed * _DeltaTime);
-	}
-	if (true == GameEngineInput::IsPress("TestMoveUp"))
-	{
-		GetTransform()->AddLocalPosition(float4::Up * Speed * _DeltaTime);
-	}
-	if (true == GameEngineInput::IsPress("TestMoveDown"))
-	{
-		GetTransform()->AddLocalPosition(float4::Down * Speed * _DeltaTime);
-	}
-	if (true == GameEngineInput::IsPress("TestMoveForward"))
-	{
-		GetTransform()->AddLocalPosition(GetTransform()->GetLocalForwardVector() * Speed * _DeltaTime);
-		// GetTransform()->AddLocalPosition(float4::Forward * Speed * _DeltaTime);
-	}
-	if (true == GameEngineInput::IsPress("TestMoveBack"))
-	{
-		GetTransform()->AddLocalPosition(float4::Back * Speed * _DeltaTime);
-	}
+	//	RenderIndex++;
 
-	if (true == GameEngineInput::IsPress("TestRotY+"))
-	{
-		GetTransform()->AddLocalRotation({ 0.0f, RotSpeed * _DeltaTime, 0.0f });
-	}
-	if (true == GameEngineInput::IsPress("TestRotY-"))
-	{
-		GetTransform()->AddLocalRotation({ 0.0f, -RotSpeed * _DeltaTime, 0.0f });
-	}
-	if (true == GameEngineInput::IsPress("TestRotZ+"))
-	{
-		GetTransform()->AddLocalRotation({ 0.0f, 0.0f, RotSpeed * _DeltaTime });
-	}
-	if (true == GameEngineInput::IsPress("TestRotZ-"))
-	{
-		GetTransform()->AddLocalRotation({ 0.0f, 0.0f, -RotSpeed * _DeltaTime });
-	}
-	if (true == GameEngineInput::IsPress("TestRotX+"))
-	{
-		GetTransform()->AddLocalRotation({ RotSpeed * _DeltaTime, 0.0f, 0.0f });
-	}
-	if (true == GameEngineInput::IsPress("TestRotX-"))
-	{
-		GetTransform()->AddLocalRotation({ -RotSpeed * _DeltaTime, 0.0f, 0.0f });
-	}
+	//	std::string Index = "Scene" + std::to_string(RenderIndex) + ".png";
+	//	
+	//	Render1->GetShaderResHelper().SetTexture("DiffuseTex", Index);
+	//	RenderTime = 0.0f;
+	//}
 
-	float ScaleSpeed = 10.0f;
-
-	if (true == GameEngineInput::IsPress("TestScaleY+"))
-	{
-		TestColor.x += _DeltaTime;
-		GetTransform()->AddLocalScale({ 0.0f, ScaleSpeed * _DeltaTime, 0.0f });
-	}
-	if (true == GameEngineInput::IsPress("TestScaleY-"))
-	{
-		TestColor.x -= _DeltaTime;
-		GetTransform()->AddLocalScale({ 0.0f, -ScaleSpeed * _DeltaTime, 0.0f });
-	}
-	if (true == GameEngineInput::IsPress("TestScaleZ+"))
-	{
-		GetTransform()->AddLocalScale({ 0.0f, 0.0f, ScaleSpeed * _DeltaTime });
-	}
-	if (true == GameEngineInput::IsPress("TestScaleZ-"))
-	{
-		GetTransform()->AddLocalScale({ 0.0f, 0.0f, -ScaleSpeed * _DeltaTime });
-	}
-	if (true == GameEngineInput::IsPress("TestScaleX+"))
-	{
-		GetTransform()->AddLocalScale({ ScaleSpeed * _DeltaTime, 0.0f, 0.0f });
-	}
-	if (true == GameEngineInput::IsPress("TestScaleX-"))
-	{
-		GetTransform()->AddLocalScale({ -ScaleSpeed * _DeltaTime, 0.0f, 0.0f });
-	}
+	
 }
 
 void Test::Start()
 {
-	if (false == GameEngineInput::IsKey("TestMoveLeft"))
-	{
-		GameEngineInput::CreateKey("TestMoveLeft", 'A');
-		GameEngineInput::CreateKey("TestMoveRight", 'D');
-		GameEngineInput::CreateKey("TestMoveUp", 'Q');
-		GameEngineInput::CreateKey("TestMoveDown", 'E');
-		GameEngineInput::CreateKey("TestMoveForward", 'W');
-		GameEngineInput::CreateKey("TestMoveBack", 'S');
+	Render1 = CreateComponent<GameEngineSpriteRenderer>();
+	Render1->SetPipeLine("2DTexture");
+	Render1->GetShaderResHelper().SetTexture("DiffuseTex", "AAAA.png");
+	Render1->GetTransform()->SetLocalScale({800.0f, 600.0f, 0.0f});
+	TimeCount();
 
-		GameEngineInput::CreateKey("TestScaleY+", 'Y');
-		GameEngineInput::CreateKey("TestScaleY-", 'U');
-		GameEngineInput::CreateKey("TestScaleZ+", 'H');
-		GameEngineInput::CreateKey("TestScaleZ-", 'J');
-		GameEngineInput::CreateKey("TestScaleX+", 'N');
-		GameEngineInput::CreateKey("TestScaleX-", 'M');
+	Color2 = { 0, 0, 0, 1.0f };
 
+	Render0 = CreateComponent<GameEngineSpriteRenderer>();
+	Render0->SetPipeLine("2DTexture");
+	Render0->GetShaderResHelper().SetTexture("DiffuseTex", "Test.png");
 
-		GameEngineInput::CreateKey("TestRotY+", VK_NUMPAD1);
-		GameEngineInput::CreateKey("TestRotY-", VK_NUMPAD2);
-		GameEngineInput::CreateKey("TestRotZ+", VK_NUMPAD4);
-		GameEngineInput::CreateKey("TestRotZ-", VK_NUMPAD5);
-		GameEngineInput::CreateKey("TestRotX+", VK_NUMPAD7);
-		GameEngineInput::CreateKey("TestRotX-", VK_NUMPAD8);
-		GameEngineInput::CreateKey("TestSpeedBoost", VK_LSHIFT);
-	}
+	Color = { 0, 0, 0, 0.5f };
 
+	Render0->GetTransform()->SetLocalScale({ 800.0f, 600.0f, 0.0f });
 
-	// 나는 스케일을 1로 고정해 놓는게 좋다.
-	Render0 = CreateComponent<GameEngineRenderer>();
-	Render0->SetPipeLine("2DTexture");	
-
-	Render0->GetTransform()->SetLocalScale({ 100.0f, 100.0f , 100.0f });
-	TestColor = { 0.0f, 0.0f, 0.0f, 1.0f };
+	int a = 0;
 }
 
 // 이건 디버깅용도나 
 void Test::Render(float _Delta)
 {
-	// GetTransform()->AddLocalRotation({0.0f, 0.0f, 360.0f * _Delta});
 };
+
+
+void Test::TimeCount()
+{
+	CurTime = static_cast<float>(clock());
+
+	CountTime = (CurTime - PrevTime) / 1000.0f;
+
+	PrevTime = CurTime;
+}

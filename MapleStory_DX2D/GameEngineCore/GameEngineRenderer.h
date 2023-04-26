@@ -27,6 +27,7 @@ public:
 		return ShaderResHelper;
 	}
 
+
 protected:
 	void Render(float _Delta) override;
 
@@ -36,5 +37,6 @@ private:
 	std::shared_ptr<class GameEngineRenderingPipeLine > Pipe;
 
 	GameEngineShaderResHelper ShaderResHelper;
+	
 };
 
