@@ -65,5 +65,6 @@ void GameEngineRenderer::SetPipeLine(const std::string_view& _Name)
 		ShaderResHelper.SetConstantBufferLink("TransformData", Data);
 	}
 
+
 	GetTransform()->GetWorldMatrix();
 }

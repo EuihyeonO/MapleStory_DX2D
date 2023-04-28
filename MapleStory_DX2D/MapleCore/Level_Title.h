@@ -19,7 +19,12 @@ public:
 
 protected:
 	void Start() override;
-private:
+	void Update(float _DeltaTime) override;
 
+private:
+	bool isCamUp = false;
+	bool isCamSet = false;
+	bool isCam2Up = false;
+	bool isCam2Set = false;
 };
 

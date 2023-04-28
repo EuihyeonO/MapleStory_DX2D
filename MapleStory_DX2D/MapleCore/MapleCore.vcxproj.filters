@@ -4,9 +4,6 @@
     <ClInclude Include="Level_Title.h">
       <Filter>Level</Filter>
     </ClInclude>
-    <ClInclude Include="Test.h">
-      <Filter>Actor</Filter>
-    </ClInclude>
     <ClInclude Include="MapleCore.h">
       <Filter>Core</Filter>
     </ClInclude>
@@ -16,13 +13,13 @@
     <ClInclude Include="PlayerValue.h">
       <Filter>Global</Filter>
     </ClInclude>
+    <ClInclude Include="TitleObjects.h">
+      <Filter>Actor\TitleActors</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Level_Title.cpp">
       <Filter>Level</Filter>
-    </ClCompile>
-    <ClCompile Include="Test.cpp">
-      <Filter>Actor</Filter>
     </ClCompile>
     <ClCompile Include="MapleCore.cpp">
       <Filter>Core</Filter>
@@ -32,6 +29,9 @@
     </ClCompile>
     <ClCompile Include="PlayerValue.cpp">
       <Filter>Global</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleObjects.cpp">
+      <Filter>Actor\TitleActors</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +52,9 @@
     </Filter>
     <Filter Include="Util">
       <UniqueIdentifier>{33f83c1a-1b44-437b-b4f6-2dc22dfb6afe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\TitleActors">
+      <UniqueIdentifier>{c2351875-d817-4aec-ad63-ed735405243d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
