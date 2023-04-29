@@ -16,7 +16,10 @@
     <ClInclude Include="TitleObjects.h">
       <Filter>Actor\TitleActors</Filter>
     </ClInclude>
-    <ClInclude Include="Test.h">
+    <ClInclude Include="Mouse.h">
+      <Filter>Actor\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Logo.h">
       <Filter>Actor\TitleActors</Filter>
     </ClInclude>
   </ItemGroup>
@@ -33,10 +36,13 @@
     <ClCompile Include="PlayerValue.cpp">
       <Filter>Global</Filter>
     </ClCompile>
+    <ClCompile Include="Mouse.cpp">
+      <Filter>Actor\UI</Filter>
+    </ClCompile>
     <ClCompile Include="TitleObjects.cpp">
       <Filter>Actor\TitleActors</Filter>
     </ClCompile>
-    <ClCompile Include="Test.cpp">
+    <ClCompile Include="Logo.cpp">
       <Filter>Actor\TitleActors</Filter>
     </ClCompile>
   </ItemGroup>
@@ -61,6 +67,9 @@
     </Filter>
     <Filter Include="Actor\TitleActors">
       <UniqueIdentifier>{c2351875-d817-4aec-ad63-ed735405243d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\UI">
+      <UniqueIdentifier>{280ec37f-b029-4b9e-af89-bd9692474b60}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -24,7 +24,7 @@ void TitleObjects::Start()
 	BackGround->GetTransform()->SetLocalScale({ 800, 2396 });
 	BackGround->GetTransform()->SetLocalPosition({ -40, 900 });
 
-	CreateLoginBox();
+	Create_LoginBox();
 
 	Logo = CreateComponent<GameEngineSpriteRenderer>();
 	Logo->SetTexture("TitleLogo.png");
@@ -36,15 +36,16 @@ void TitleObjects::Start()
 	ChScroll->GetTransform()->SetLocalScale({ 513, 152 });
 	ChScroll->GetTransform()->SetLocalPosition({ 0,745});
 
-	CreateChannelButton();
-	CreateCharSelectButton();
-	CreateCharacterObject();
+	Create_ChannelButton();
+	Create_CharSelectButton();
+	Create_CharacterObject();
+	Create_CharCreateObject();
 
 	Frame = CreateComponent<GameEngineSpriteRenderer>();
 	Frame->SetTexture("Frame.png");
 	Frame->GetTransform()->SetLocalScale({ 800, 600 });
 
-	CreateFrameObject();
+	Create_FrameObject();
 }
 
 void TitleObjects::Update(float _DeltaTime)
@@ -62,7 +63,7 @@ void TitleObjects::Render(float _DeltaTime)
 
 }
 
-void TitleObjects::CreateLoginBox()
+void TitleObjects::Create_LoginBox()
 {
 	LoginBoard = CreateComponent<GameEngineSpriteRenderer>();
 	LoginBoard->SetTexture("LoginBox.png");
@@ -112,7 +113,7 @@ void TitleObjects::CreateLoginBox()
 	Check->GetTransform()->SetLocalPosition(LoginBoardPos + float4{ -80 , 15 });
 }
 
-void TitleObjects::CreateChannelButton()
+void TitleObjects::Create_ChannelButton()
 {
 	Zenis = CreateComponent<GameEngineSpriteRenderer>();
 	Zenis->SetTexture("ZenisRelease.png");
@@ -180,7 +181,7 @@ void TitleObjects::CreateChannelButton()
 	Stierce->GetTransform()->SetLocalPosition({ 180, 752 });
 }
 
-void TitleObjects::CreateCharSelectButton()
+void TitleObjects::Create_CharSelectButton()
 {
 	CharSelectBox = CreateComponent<GameEngineSpriteRenderer>();
 	CharSelectBox->SetTexture("CharSelectBox.png");
@@ -205,7 +206,7 @@ void TitleObjects::CreateCharSelectButton()
 	CharDelete->GetTransform()->SetLocalPosition(BoxPos + float4{ 1, -8 });
 }
 
-void TitleObjects::CreateCharacterObject()
+void TitleObjects::Create_CharacterObject()
 {
 	//추후에 캐릭터가 있을 때는 이 렌더러를 어떻게 해야하는지 고민 후 변경을 해야할 듯
 
@@ -273,7 +274,37 @@ void TitleObjects::EmptySlotAnimation()
 	}
 }
 
-void TitleObjects::CreateFrameObject()
+void TitleObjects::Create_FrameObject()
 {
 	//추후에 구현하자
+}
+
+void TitleObjects::Create_CharCreateObject()
+{
+	CharInfo = CreateComponent<GameEngineSpriteRenderer>();
+	CharInfo->SetTexture("CharInfo.png");
+	CharInfo->GetTransform()->SetLocalScale({ 201, 332 });
+	CharInfo->GetTransform()->SetLocalPosition({ 175, 1842 });
+
+	InfoScroll = CreateComponent<GameEngineSpriteRenderer>();
+	InfoScroll->SetTexture("InfoScrollOpen3.png");
+	InfoScroll->GetTransform()->SetLocalScale({ 242, 169 });
+	InfoScroll->GetTransform()->SetLocalPosition({ -170, 1842 });
+
+	float4 CharInfoPos = CharInfo->GetTransform()->GetLocalPosition();
+
+	Dice = CreateComponent<GameEngineSpriteRenderer>();
+	Dice->SetTexture("Dice0.png");
+	Dice->GetTransform()->SetLocalScale({ 37, 56 });
+	Dice->GetTransform()->SetLocalPosition(CharInfoPos + float4{50, -40});
+
+	OkButton = CreateComponent<GameEngineSpriteRenderer>();
+	OkButton->SetTexture("OkRelease.png");
+	OkButton->GetTransform()->SetLocalScale({ 76, 41 });
+	OkButton->GetTransform()->SetLocalPosition(CharInfoPos + float4{ -34, -140 });
+
+	NoButton = CreateComponent<GameEngineSpriteRenderer>();
+	NoButton->SetTexture("NoRelease.png");
+	NoButton->GetTransform()->SetLocalScale({ 81, 41 });
+	NoButton->GetTransform()->SetLocalPosition(CharInfoPos + float4{ 43, -140 });
 }

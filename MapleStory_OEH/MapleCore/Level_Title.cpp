@@ -1,7 +1,7 @@
 #include "PrecompileHeader.h"
 #include "Level_Title.h"
+#include "Logo.h"
 #include "TitleObjects.h"
-#include "Test.h"
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineTexture.h>
 #include <GameEngineCore/GameEngineShader.h>
@@ -34,7 +34,8 @@ void Level_Title::Start()
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, 0.0f });
 
-	std::shared_ptr<TitleObjects> NewTitleObjects = CreateActor<TitleObjects>();
+	std::shared_ptr<Logo> GameLogo = CreateActor<Logo>();
+	//std::shared_ptr<TitleObjects> NewTitleObjects = CreateActor<TitleObjects>();
 	//std::shared_ptr<Test> NewTitleObjects = CreateActor<Test>();
 }
 

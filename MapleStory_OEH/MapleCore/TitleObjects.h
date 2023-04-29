@@ -23,12 +23,12 @@ protected:
 private:
 	void TimeCounting();
 
-	void CreateLoginBox();
-	void CreateChannelButton();
-	void CreateFrameObject();
-	void CreateCharSelectButton();
-	void CreateCharacterObject();
-
+	void Create_LoginBox();
+	void Create_ChannelButton();
+	void Create_FrameObject();
+	void Create_CharSelectButton();
+	void Create_CharacterObject();
+	void Create_CharCreateObject();
 	void EmptySlotAnimation();
 
 	std::shared_ptr<GameEngineSpriteRenderer> Frame;
@@ -81,6 +81,13 @@ private:
 	std::shared_ptr<GameEngineSpriteRenderer> EmptyAnimation1;
 	std::shared_ptr<GameEngineSpriteRenderer> EmptyAnimation2;
 	std::shared_ptr<GameEngineSpriteRenderer> EmptyAnimation3;
+	
+	//캐릭터 생성창 오브젝트
+	std::shared_ptr<GameEngineSpriteRenderer> CharInfo;
+	std::shared_ptr<GameEngineSpriteRenderer> InfoScroll;
+	std::shared_ptr<GameEngineSpriteRenderer> Dice;
+	std::shared_ptr<GameEngineSpriteRenderer> OkButton;
+	std::shared_ptr<GameEngineSpriteRenderer> NoButton;
 
 	//프레임에 달려있는 버튼
 	std::shared_ptr<GameEngineSpriteRenderer> ToLogin;
