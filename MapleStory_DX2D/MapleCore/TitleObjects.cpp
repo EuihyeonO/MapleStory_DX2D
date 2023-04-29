@@ -5,6 +5,8 @@
 #include <gameengineCore/GameEngineCamera.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 
+#include <ctime>
+
 TitleObjects::TitleObjects()
 {
 }
@@ -15,7 +17,8 @@ TitleObjects::~TitleObjects()
 
 void TitleObjects::Start()
 {
-	
+	TimeCounting();
+
 	BackGround = CreateComponent<GameEngineSpriteRenderer>();
 	BackGround->SetTexture("FullBackGround.png");
 	BackGround->GetTransform()->SetLocalScale({ 800, 2396 });
@@ -34,32 +37,24 @@ void TitleObjects::Start()
 	ChScroll->GetTransform()->SetLocalPosition({ 0,745});
 
 	CreateChannelButton();
+	CreateCharSelectButton();
+	CreateCharacterObject();
 
 	Frame = CreateComponent<GameEngineSpriteRenderer>();
 	Frame->SetTexture("Frame.png");
 	Frame->GetTransform()->SetLocalScale({ 800, 600 });
+
+	CreateFrameObject();
 }
 
 void TitleObjects::Update(float _DeltaTime)
 {
+	TimeCounting();
+	EmptySlotAnimation();
+
+	//Frame 고정
 	float4 CamPos = GetLevel()->GetMainCamera()->GetTransform()->GetWorldPosition();
 	Frame->GetTransform()->SetLocalPosition(CamPos);
-
-	if (GameEngineInput::IsKey("Scorll") == false)
-	{
-		GameEngineInput::CreateKey("Scorll", 'E');
-	}
-
-	if (GameEngineInput::IsDown("Scorll") == true)
-	{
-		ScrollIndex++;
-		std::string Name = "ScrollOpen" + std::to_string(ScrollIndex) + ".png";
-		ChScroll->SetTexture(Name);
-		//스크롤 이미지 크기가 조금씩 다름 ( 나중에 수정해야 함 )
-		ChScroll->GetTransform()->SetLocalScale({ 513, 401 });
-		ChScroll->GetTransform()->SetLocalPosition({ 0,620 });
-	}
-
 }
 
 void TitleObjects::Render(float _DeltaTime)
@@ -183,4 +178,102 @@ void TitleObjects::CreateChannelButton()
 	Stierce->SetTexture("StierceRelease.png");
 	Stierce->GetTransform()->SetLocalScale({ 28, 95 });
 	Stierce->GetTransform()->SetLocalPosition({ 180, 752 });
+}
+
+void TitleObjects::CreateCharSelectButton()
+{
+	CharSelectBox = CreateComponent<GameEngineSpriteRenderer>();
+	CharSelectBox->SetTexture("CharSelectBox.png");
+	CharSelectBox->GetTransform()->SetLocalScale({ 133, 238 });
+	CharSelectBox->GetTransform()->SetLocalPosition({ 211, 1256 });
+
+	float4 BoxPos = CharSelectBox->GetTransform()->GetLocalPosition();
+
+	CharCreate = CreateComponent<GameEngineSpriteRenderer>();
+	CharCreate->SetTexture("CreateRelease.png");
+	CharCreate->GetTransform()->SetLocalScale({ 101, 35 });
+	CharCreate->GetTransform()->SetLocalPosition(BoxPos + float4{1, 48});
+
+	CharSelect = CreateComponent<GameEngineSpriteRenderer>();
+	CharSelect->SetTexture("SelectRelease.png");
+	CharSelect->GetTransform()->SetLocalScale({ 101, 30 });
+	CharSelect->GetTransform()->SetLocalPosition(BoxPos + float4{ 1, 86 });
+
+	CharDelete = CreateComponent<GameEngineSpriteRenderer>();
+	CharDelete->SetTexture("DeleteRelease.png");
+	CharDelete->GetTransform()->SetLocalScale({ 101, 43 });
+	CharDelete->GetTransform()->SetLocalPosition(BoxPos + float4{ 1, -8 });
+}
+
+void TitleObjects::CreateCharacterObject()
+{
+	//추후에 캐릭터가 있을 때는 이 렌더러를 어떻게 해야하는지 고민 후 변경을 해야할 듯
+
+	EmptySlot1 = CreateComponent<GameEngineSpriteRenderer>();
+	EmptySlot1->SetTexture("EmptyChar.png");
+	EmptySlot1->GetTransform()->SetLocalScale({ 51, 71 });
+	EmptySlot1->GetTransform()->SetLocalPosition({-160, 1174});
+
+
+	EmptySlot2 = CreateComponent<GameEngineSpriteRenderer>();
+	EmptySlot2->SetTexture("EmptyChar.png");
+	EmptySlot2->GetTransform()->SetLocalScale({ 51, 71 });
+	EmptySlot2->GetTransform()->SetLocalPosition({ -38, 1174 });
+
+	
+	EmptySlot2 = CreateComponent<GameEngineSpriteRenderer>();
+	EmptySlot2->SetTexture("EmptyChar.png");
+	EmptySlot2->GetTransform()->SetLocalScale({ 51, 71 });
+	EmptySlot2->GetTransform()->SetLocalPosition({ 84, 1174 });
+
+	EmptyAnimation1 = CreateComponent<GameEngineSpriteRenderer>();
+	EmptyAnimation1->SetTexture("EmptyCharAni0.png");
+	EmptyAnimation1->GetTransform()->SetLocalScale({ 62, 9 });
+	EmptyAnimation1->GetTransform()->SetLocalPosition({ -160, 1139});
+
+	EmptyAnimation2 = CreateComponent<GameEngineSpriteRenderer>();
+	EmptyAnimation2->SetTexture("EmptyCharAni0.png");
+	EmptyAnimation2->GetTransform()->SetLocalScale({ 62, 9 });
+	EmptyAnimation2->GetTransform()->SetLocalPosition({ -38, 1139 });
+
+	EmptyAnimation3 = CreateComponent<GameEngineSpriteRenderer>();
+	EmptyAnimation3->SetTexture("EmptyCharAni0.png");
+	EmptyAnimation3->GetTransform()->SetLocalScale({ 62, 9 });
+	EmptyAnimation3->GetTransform()->SetLocalPosition({ 84, 1139 });
+}
+
+void TitleObjects::TimeCounting()
+{
+	CurTime = static_cast<float>(clock());
+
+	TimeCount = (CurTime - PrevTime) / 1000.0f;
+
+	PrevTime = CurTime;
+}
+
+void TitleObjects::EmptySlotAnimation()
+{
+	EmptyAniTimeCount += TimeCount;
+
+	if (EmptyAniTimeCount >= 0.13f)
+	{
+		EmptyAniTimeCount = 0.0f;
+		EmptyAniIndex++;
+
+		if (EmptyAniIndex > 7)
+		{
+			EmptyAniIndex = 0;
+		}
+
+		std::string AniName = "EmptyCharAni" + std::to_string(EmptyAniIndex) + ".png";
+
+		EmptyAnimation1->SetTexture(AniName);
+		EmptyAnimation2->SetTexture(AniName);
+		EmptyAnimation3->SetTexture(AniName);
+	}
+}
+
+void TitleObjects::CreateFrameObject()
+{
+	//추후에 구현하자
 }

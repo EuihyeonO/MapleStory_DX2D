@@ -16,6 +16,9 @@
     <ClInclude Include="TitleObjects.h">
       <Filter>Actor\TitleActors</Filter>
     </ClInclude>
+    <ClInclude Include="Test.h">
+      <Filter>Actor\TitleActors</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Level_Title.cpp">
@@ -31,6 +34,9 @@
       <Filter>Global</Filter>
     </ClCompile>
     <ClCompile Include="TitleObjects.cpp">
+      <Filter>Actor\TitleActors</Filter>
+    </ClCompile>
+    <ClCompile Include="Test.cpp">
       <Filter>Actor\TitleActors</Filter>
     </ClCompile>
   </ItemGroup>

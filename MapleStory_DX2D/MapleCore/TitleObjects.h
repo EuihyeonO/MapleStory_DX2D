@@ -21,9 +21,15 @@ protected:
 	void Render(float _DeltaTime) override;
 
 private:
+	void TimeCounting();
 
 	void CreateLoginBox();
 	void CreateChannelButton();
+	void CreateFrameObject();
+	void CreateCharSelectButton();
+	void CreateCharacterObject();
+
+	void EmptySlotAnimation();
 
 	std::shared_ptr<GameEngineSpriteRenderer> Frame;
 	std::shared_ptr<GameEngineSpriteRenderer> BackGround;
@@ -45,9 +51,6 @@ private:
 	std::shared_ptr<GameEngineSpriteRenderer> FindPass;
 	std::shared_ptr<GameEngineSpriteRenderer> Check;
 
-	//std::shared_ptr<GameEngineSpriteRenderer> LoginBoard;
-	//std::shared_ptr<GameEngineSpriteRenderer> LoginBoard;
-
 	//채널
 	std::shared_ptr<GameEngineSpriteRenderer> Demetos;
 	std::shared_ptr<GameEngineSpriteRenderer> Bellokan;
@@ -64,6 +67,37 @@ private:
 	std::shared_ptr<GameEngineSpriteRenderer> Yellond;
 	std::shared_ptr<GameEngineSpriteRenderer> Plana;
 	
+	//캐릭터선택창
+	std::shared_ptr<GameEngineSpriteRenderer> CharSelectBox;
+	std::shared_ptr<GameEngineSpriteRenderer> CharCreate;
+	std::shared_ptr<GameEngineSpriteRenderer> CharSelect;
+	std::shared_ptr<GameEngineSpriteRenderer> CharDelete;
+
+	//캐릭터 관련 오브젝트
+	std::shared_ptr<GameEngineSpriteRenderer> EmptySlot1;
+	std::shared_ptr<GameEngineSpriteRenderer> EmptySlot2;
+	std::shared_ptr<GameEngineSpriteRenderer> EmptySlot3;
+
+	std::shared_ptr<GameEngineSpriteRenderer> EmptyAnimation1;
+	std::shared_ptr<GameEngineSpriteRenderer> EmptyAnimation2;
+	std::shared_ptr<GameEngineSpriteRenderer> EmptyAnimation3;
+
+	//프레임에 달려있는 버튼
+	std::shared_ptr<GameEngineSpriteRenderer> ToLogin;
+	std::shared_ptr<GameEngineSpriteRenderer> SelectedWorld;
+	std::shared_ptr<GameEngineSpriteRenderer> SelectWorldStage;
+	std::shared_ptr<GameEngineSpriteRenderer> SelectCharStage;
+	std::shared_ptr<GameEngineSpriteRenderer> CreateCharStage;
+
+
+
+	float EmptyAniTimeCount = 0.0f;
+	int EmptyAniIndex = 0;
+
 	int ScrollIndex = 0;
+
+	float CurTime = 0.0f;
+	float PrevTime = 0.0f;
+	float TimeCount = 0.0f;
 };
 

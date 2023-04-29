@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "Level_Title.h"
 #include "TitleObjects.h"
+#include "Test.h"
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineTexture.h>
 #include <GameEngineCore/GameEngineShader.h>
@@ -34,9 +35,15 @@ void Level_Title::Start()
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, 0.0f });
 
 	std::shared_ptr<TitleObjects> NewTitleObjects = CreateActor<TitleObjects>();
+	//std::shared_ptr<Test> NewTitleObjects = CreateActor<Test>();
 }
 
 void Level_Title::Update(float _DeltaTime)
+{
+	CameraMove(_DeltaTime);
+}
+
+void Level_Title::CameraMove(float _DeltaTime)
 {
 	if (GameEngineInput::IsKey("CameraUp") == false)
 	{
@@ -45,49 +52,60 @@ void Level_Title::Update(float _DeltaTime)
 
 	if (GameEngineInput::IsDown("CameraUp") == true)
 	{
+		if (CameraIndex >= 3 || isCamDown == true)
+		{
+			return;
+		}
+
 		isCamUp = true;
 	}
 
-	if (isCamUp == true && isCamSet == false)
+	if (GameEngineInput::IsKey("CameraDown") == false)
 	{
-		float4 CamPos = GetMainCamera()->GetTransform()->GetWorldPosition();
+		GameEngineInput::CreateKey("CameraDown", 'S');
+	}
 
-		GetMainCamera()->GetTransform()->SetWorldPosition({ CamPos.x, CamPos.y + 3500.0f * _DeltaTime, CamPos.z });
-
-		float4 CurCamPos = GetMainCamera()->GetTransform()->GetWorldPosition();
-
-		if (CurCamPos.y >= 600.0f)
+	if (GameEngineInput::IsDown("CameraDown") == true)
+	{
+		if (CameraIndex <= 0 || isCamDown == true)
 		{
-			float4 CurCamPos = GetMainCamera()->GetTransform()->GetWorldPosition();
+			return;
+		}
 
-			GetMainCamera()->GetTransform()->SetWorldPosition({ CurCamPos.x, 600.0f, CurCamPos.z });
-			isCamSet = true;
+		isCamDown = true;
+	}
+
+	if (isCamUp == true)
+	{
+		DestiPos = { 0,(CameraIndex + 1) * 600.0f };
+		CamPos = GetMainCamera()->GetTransform()->GetLocalPosition();
+
+		LerpRatio += _DeltaTime * LerpSpeed;
+		GetMainCamera()->GetTransform()->SetLocalPosition(LerpCamPos.LerpClamp(CamPos, DestiPos, LerpRatio));
+
+		if (LerpRatio >= 1.0f)
+		{
+			isCamUp = false;
+			GetMainCamera()->GetTransform()->SetLocalPosition({ 0,(CameraIndex + 1) * 600.0f });
+			CameraIndex++;
+			LerpRatio = 0.0f;
 		}
 	}
 
-	if (isCamUp == true && isCamSet == true)
+	if (isCamDown == true)
 	{
+		DestiPos = { 0,(CameraIndex - 1) * 600.0f };
+		CamPos = GetMainCamera()->GetTransform()->GetLocalPosition();
 
-		if (GameEngineInput::IsDown("CameraUp") == true)
+		LerpRatio += _DeltaTime * LerpSpeed;
+		GetMainCamera()->GetTransform()->SetLocalPosition(LerpCamPos.LerpClamp(CamPos, DestiPos, LerpRatio));
+
+		if (LerpRatio >= 1.0f)
 		{
-			isCam2Up = true;
-		}
-	}
-	
-	if(isCam2Up == true && isCam2Set == false)
-	{
-		float4 CamPos = GetMainCamera()->GetTransform()->GetWorldPosition();
-
-		GetMainCamera()->GetTransform()->SetWorldPosition({ CamPos.x, CamPos.y + 3500.0f * _DeltaTime, CamPos.z });
-
-		float4 CurCamPos = GetMainCamera()->GetTransform()->GetWorldPosition();
-
-		if (CurCamPos.y >= 1200.0f)
-		{
-			float4 CurCamPos = GetMainCamera()->GetTransform()->GetWorldPosition();
-
-			GetMainCamera()->GetTransform()->SetWorldPosition({ CurCamPos.x, 1200.0f, CurCamPos.z });
-			isCam2Set = true;
+			isCamDown = false;
+			GetMainCamera()->GetTransform()->SetLocalPosition({ 0,(CameraIndex - 1) * 600.0f });
+			CameraIndex--;
+			LerpRatio = 0.0f;
 		}
 	}
 }

@@ -22,9 +22,20 @@ protected:
 	void Update(float _DeltaTime) override;
 
 private:
+
+	void CameraMove(float _DeltaTime);
+
 	bool isCamUp = false;
-	bool isCamSet = false;
-	bool isCam2Up = false;
-	bool isCam2Set = false;
+	bool isCamDown = false;
+
+	int CameraIndex = 0;
+
+	float4 DestiPos;
+	float4 CamPos;
+
+	float LerpRatio = 0.0f;
+	float LerpSpeed = 3.f;
+
+	float4 LerpCamPos = {0,0};
 };
 
