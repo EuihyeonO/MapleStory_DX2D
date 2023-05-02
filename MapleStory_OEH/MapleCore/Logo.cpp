@@ -1,8 +1,8 @@
 #include "PrecompileHeader.h"
 #include "Logo.h"
 #include "TitleObjects.h"
-#include <gameengineCore/GameEngineSpriteRenderer.h>
-#include <gameengineCore/GameEngineLevel.h>
+#include <gameEngineCore/GameEngineSpriteRenderer.h>
+#include <gameEngineCore/GameEngineLevel.h>
 #include <ctime>
 
 Logo::Logo()

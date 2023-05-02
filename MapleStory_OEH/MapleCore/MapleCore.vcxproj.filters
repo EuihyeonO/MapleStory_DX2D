@@ -22,6 +22,12 @@
     <ClInclude Include="Logo.h">
       <Filter>Actor\TitleActors</Filter>
     </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Actor\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Level_BeginnersTown.h">
+      <Filter>Level</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Level_Title.cpp">
@@ -44,6 +50,12 @@
     </ClCompile>
     <ClCompile Include="Logo.cpp">
       <Filter>Actor\TitleActors</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Actor\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Level_BeginnersTown.cpp">
+      <Filter>Level</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +82,9 @@
     </Filter>
     <Filter Include="Actor\UI">
       <UniqueIdentifier>{280ec37f-b029-4b9e-af89-bd9692474b60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Character">
+      <UniqueIdentifier>{72807388-c3ae-43c9-9a87-0a98cb9ca31a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

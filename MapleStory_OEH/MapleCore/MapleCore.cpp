@@ -2,6 +2,7 @@
 #include "MapleCore.h"
 #include "PlayerValue.h"
 #include "Level_Title.h"
+#include "Level_BeginnersTown.h"
 
 #include <GameEngineCore/GameEngineCore.h>
 #include <GameEngineCore/GameEngineLevel.h>
@@ -24,6 +25,7 @@ void MapleCore::ContentsResourcesCreate()
 void MapleCore::GameStart()
 {
 	GameEngineCore::CreateLevel<Level_Title>();
+	//GameEngineCore::CreateLevel<Level_BeginnersTown>();
 	GameEngineCore::ChangeLevel("Level_Title");
 }
 

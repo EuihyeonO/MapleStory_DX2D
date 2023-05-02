@@ -174,11 +174,19 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Level_BeginnersTown.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Logo.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="Mouse.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Player.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -204,11 +212,19 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Level_BeginnersTown.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Logo.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="Mouse.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
       <SubType>
       </SubType>
     </ClCompile>

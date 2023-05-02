@@ -4,9 +4,10 @@
 
 class PlayerValue
 {
+	friend class Player;
 
 public: //static
-	
+
 	static PlayerValue* GetValue()
 	{
 		return &Value;
@@ -173,6 +174,7 @@ private:
 
 	std::string Hair;
 	std::string Skin;
+	std::string Face;
 
 };
 
