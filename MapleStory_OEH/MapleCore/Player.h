@@ -23,10 +23,10 @@ private:
 
 	void TimeCounting();
 	void AnimationUpdate();
-	void FaceAndHairTextureUpdate();
-	void FaceAndHairPosUpdate();
 
-	void SetAllPartInfoPerFrame();
+	void SetAllTexturePosVector();
+
+	void Test();
 
 	float AnimationCount = 0.0f;
 	int AniIndex = 0;
@@ -35,7 +35,6 @@ private:
 	float PrevTime = 0.0f;
 	float TimeCount = 0.0f;
 
-	GameEngineTransform PlayerTransForm;
 	float4 PlayerPos = {0,0};
 
 	std::string MoveType = "";
@@ -56,20 +55,23 @@ private:
 	std::string WeaponName = "";
 
 	std::map <std::string, float> AniFrameList;
-
-	std::map<std::string, std::vector<std::pair<float4, float4>>> ArmScaleAndPosList;
-	std::map<std::string, std::vector<std::pair<float4, float4>>> BodyScaleAndPosList;
-	std::map<std::string, std::vector<std::pair<float4, float4>>> HeadScaleAndPosList;
-
-	std::map<std::string, std::map<std::string, std::vector<std::pair<float4, float4>>>> CoatScaleAndPosList;
-	std::map<std::string, std::map<std::string, std::vector<std::pair<float4, float4>>>> CoatArmScaleAndPosList;
-	std::map<std::string, std::map<std::string, std::vector<std::pair<float4, float4>>>> PantsScaleAndPosList;
-
-	std::map<std::string, std::map<std::string, std::vector<std::pair<float4, float4>>>> WeaponScaleAndPosList;
 	
-	std::map<std::string, std::map<std::string, std::map<std::string, std::pair<float4, float4>>>> HairScaleAndPosList;
-	std::map<std::string, std::map<std::string, std::pair<float4, float4>>> FaceScaleAndPosList;
-	
+	std::map<std::string, std::vector<float4>> BodyOriginPos;
+	std::map<std::string, std::vector<float4>> BodyNavelPos;
+	std::map<std::string, std::vector<float4>> BodyNeckPos;
+
+	std::map<std::string, std::vector<float4>> ArmOriginPos;
+	std::map<std::string, std::vector<float4>> ArmToNavelPos;
+
+	std::map<std::string, float4> HeadOriginPos;
+	std::map<std::string, float4> HeadToNeckPos;
+	std::map<std::string, float4> HeadBrowPos;
+
+	std::map<std::string, std::map<std::string, float4>> HairOriginPos;
+	std::map<std::string, std::map<std::string, float4>> HairToBrowPos;
+
+	std::map<std::string, std::map<std::string, float4>> FaceOriginPos;
+	std::map<std::string, std::map<std::string, float4>> FaceToBrowPos;
 
 	std::shared_ptr<GameEngineSpriteRenderer> Body;
 	std::shared_ptr<GameEngineSpriteRenderer> Arm;
