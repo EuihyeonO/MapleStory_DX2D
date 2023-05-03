@@ -7,6 +7,8 @@
 #include <GameEnginePlatform\GameEngineInput.h>
 #include <GameEngineBase\GameEngineTime.h>
 #include "GameEngineDevice.h"
+#include "GameEngineVideo.h"
+#include "GameEngineGUI.h"
 
 std::map<std::string, std::shared_ptr<GameEngineLevel>> GameEngineCore::LevelMap;
 std::shared_ptr<GameEngineLevel> GameEngineCore::MainLevel = nullptr;
@@ -29,6 +31,8 @@ void GameEngineCore::EngineStart(std::function<void()> _ContentsStart)
 
 	CoreResourcesInit();
 
+	GameEngineGUI::Initialize();
+
 	if (nullptr == _ContentsStart)
 	{
 		MsgAssert("시작 컨텐츠가 존재하지 않습니다.");
@@ -40,7 +44,20 @@ void GameEngineCore::EngineUpdate()
 {
 	if (nullptr != NextLevel)
 	{
+		if (nullptr != MainLevel)
+		{
+			MainLevel->LevelChangeEnd();
+		}
+
 		MainLevel = NextLevel;
+
+		if (nullptr != MainLevel)
+		{
+			MainLevel->LevelChangeStart();
+		}
+
+		NextLevel = nullptr;
+		GameEngineTime::GlobalTime.Reset();
 	}
 
 	if (nullptr == MainLevel)
@@ -50,6 +67,13 @@ void GameEngineCore::EngineUpdate()
 	}
 
 	float TimeDeltaTime = GameEngineTime::GlobalTime.TimeCheck();
+
+	// 별로 좋은건 아닙니다.
+	if (TimeDeltaTime > 1 / 30.0f)
+	{
+		TimeDeltaTime = 1 / 30.0f;
+	}
+
 	GameEngineInput::Update(TimeDeltaTime);
 	GameEngineSound::SoundUpdate();
 
@@ -57,10 +81,14 @@ void GameEngineCore::EngineUpdate()
 	MainLevel->Update(TimeDeltaTime);
 	MainLevel->ActorUpdate(TimeDeltaTime);
 
-	GameEngineDevice::RenderStart();
-	MainLevel->Render(TimeDeltaTime);
-	MainLevel->ActorRender(TimeDeltaTime);
-	GameEngineDevice::RenderEnd();
+	GameEngineVideo::VideoState State = GameEngineVideo::GetCurState();
+	if (State != GameEngineVideo::VideoState::Running)
+	{
+		GameEngineDevice::RenderStart();
+		MainLevel->Render(TimeDeltaTime);
+		MainLevel->ActorRender(TimeDeltaTime);
+		GameEngineDevice::RenderEnd();
+	}
 }
 
 void GameEngineCore::EngineEnd(std::function<void()> _ContentsEnd)
@@ -72,9 +100,14 @@ void GameEngineCore::EngineEnd(std::function<void()> _ContentsEnd)
 
 	_ContentsEnd();
 
+	GameEngineGUI::Release();
+
 	LevelMap.clear();
 	CoreResourcesEnd();
+
+
 	GameEngineDevice::Release();
+	GameEngineWindow::Release();
 }
 
 void GameEngineCore::Start(HINSTANCE _instance, std::function<void()> _Start, std::function<void()> _End, float4 _Pos, float4 _Size)

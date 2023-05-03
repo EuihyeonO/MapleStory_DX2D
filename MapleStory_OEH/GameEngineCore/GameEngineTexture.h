@@ -2,6 +2,47 @@
 #include "GameEngineResource.h"
 #include <GameEngineCore/ThirdParty/DirectXTex/inc/DirectXTex.h>
 
+class GameEnginePixelColor
+{
+public:
+	static GameEnginePixelColor Black;
+
+	union
+	{
+		struct
+		{
+			unsigned char r;
+			unsigned char g;
+			unsigned char b;
+			unsigned char a;
+		};
+
+		unsigned char ColorChar[4];
+		int Color;
+	};
+
+	bool operator==(GameEnginePixelColor _Color)
+	{
+		return Color == _Color.Color;
+	}
+
+	float4 Tofloat4()
+	{
+
+	}
+
+	GameEnginePixelColor()
+	{
+
+	}
+
+	GameEnginePixelColor(char _r, char _g, char _b, char _a)
+		: r(_r), g(_g), b(_b), a(_a)
+	{
+
+	}
+};
+
 // Ό³Έν :
 class GameEngineTexture : public GameEngineResource<GameEngineTexture>
 {
@@ -45,19 +86,45 @@ public:
 		return NewTexture;
 	}
 
+	static std::shared_ptr<GameEngineTexture> Create(const D3D11_TEXTURE2D_DESC& _Value)
+	{
+		std::shared_ptr<GameEngineTexture> NewTexture = GameEngineResource::CreateUnNamed();
+		NewTexture->ResCreate(_Value);
+		return NewTexture;
+	}
+
+
 	ID3D11RenderTargetView* GetRTV()
 	{
 		return RTV;
 	}
 
+	ID3D11DepthStencilView* GetDSV()
+	{
+		return DSV;
+	}
 
+	int GetWidth()
+	{
+		return Desc.Width;
+	}
+
+	int GetHeight()
+	{
+		return Desc.Height;
+	}
+
+	GameEnginePixelColor GetPixel(int _X, int _Y, GameEnginePixelColor DefaultColor = GameEnginePixelColor::Black);
 
 protected:
 
 private:
 	ID3D11Texture2D* Texture2D = nullptr;
 	ID3D11RenderTargetView* RTV = nullptr;
+	ID3D11DepthStencilView* DSV = nullptr;
 	ID3D11ShaderResourceView* SRV = nullptr;
+
+	D3D11_TEXTURE2D_DESC Desc;
 
 	DirectX::TexMetadata Data;
 	DirectX::ScratchImage Image;
@@ -66,7 +133,10 @@ private:
 
 	void ResCreate(ID3D11Texture2D* _Value);
 
+	void ResCreate(const D3D11_TEXTURE2D_DESC& _Value);
+
 	void CreateRenderTargetView();
+	void CreateDepthStencilView();
 
 	void VSSetting(UINT _Slot);
 	void PSSetting(UINT _Slot);

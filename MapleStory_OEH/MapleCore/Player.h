@@ -23,8 +23,10 @@ private:
 
 	void TimeCounting();
 	void AnimationUpdate();
-	void FashionTextureUpdate();
-	void FashionPosUpdate();
+	void FaceAndHairTextureUpdate();
+	void FaceAndHairPosUpdate();
+
+	void SetAllPartInfoPerFrame();
 
 	float AnimationCount = 0.0f;
 	int AniIndex = 0;
@@ -48,11 +50,22 @@ private:
 	std::string FaceName = "Face1";
 	std::string Expression = "Default";
 
+	std::string CoatName = "";
+	std::string PantsName = "";
+
+	std::string WeaponName = "";
+
 	std::map <std::string, float> AniFrameList;
 
 	std::map<std::string, std::vector<std::pair<float4, float4>>> ArmScaleAndPosList;
 	std::map<std::string, std::vector<std::pair<float4, float4>>> BodyScaleAndPosList;
 	std::map<std::string, std::vector<std::pair<float4, float4>>> HeadScaleAndPosList;
+
+	std::map<std::string, std::map<std::string, std::vector<std::pair<float4, float4>>>> CoatScaleAndPosList;
+	std::map<std::string, std::map<std::string, std::vector<std::pair<float4, float4>>>> CoatArmScaleAndPosList;
+	std::map<std::string, std::map<std::string, std::vector<std::pair<float4, float4>>>> PantsScaleAndPosList;
+
+	std::map<std::string, std::map<std::string, std::vector<std::pair<float4, float4>>>> WeaponScaleAndPosList;
 	
 	std::map<std::string, std::map<std::string, std::map<std::string, std::pair<float4, float4>>>> HairScaleAndPosList;
 	std::map<std::string, std::map<std::string, std::pair<float4, float4>>> FaceScaleAndPosList;
@@ -61,10 +74,16 @@ private:
 	std::shared_ptr<GameEngineSpriteRenderer> Body;
 	std::shared_ptr<GameEngineSpriteRenderer> Arm;
 	std::shared_ptr<GameEngineSpriteRenderer> Head;
+	std::shared_ptr<GameEngineSpriteRenderer> Coat;
+	std::shared_ptr<GameEngineSpriteRenderer> CoatArm;
+	std::shared_ptr<GameEngineSpriteRenderer> Pants;
+
+	std::shared_ptr<GameEngineSpriteRenderer> Weapon;
 
 	std::shared_ptr<GameEngineSpriteRenderer> Hair;
 	std::shared_ptr<GameEngineSpriteRenderer> Face;
 
-	std::shared_ptr<GameEngineSpriteRenderer> TopClothe;
+
+
 };
 
