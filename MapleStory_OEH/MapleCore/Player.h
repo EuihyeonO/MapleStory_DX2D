@@ -22,11 +22,12 @@ protected:
 private:
 
 	void TimeCounting();
-	void AnimationUpdate();
+
+	void TextureAnimationUpdate();
+	void TexturePosUpdate();
 
 	void SetAllTexturePosVector();
 
-	void Test();
 
 	float AnimationCount = 0.0f;
 	int AniIndex = 0;
@@ -54,7 +55,7 @@ private:
 
 	std::string WeaponName = "";
 
-	std::map <std::string, float> AniFrameList;
+	std::map <std::string, std::vector<float>> AniFrameList;
 	
 	std::map<std::string, std::vector<float4>> BodyOriginPos;
 	std::map<std::string, std::vector<float4>> BodyNavelPos;
