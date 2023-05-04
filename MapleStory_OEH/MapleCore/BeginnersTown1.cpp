@@ -12,6 +12,9 @@ BeginnersTown1::~BeginnersTown1()
 
 void BeginnersTown1::Start()
 {
+	BackGroundLayer = CreateComponent<GameEngineSpriteRenderer>();
+	BackGroundLayer->SetScaleToTexture("BeginnersTown1Layer.png");
+
 	BackGround = CreateComponent<GameEngineSpriteRenderer>();
 	BackGround->SetScaleToTexture("BeginnersTown1.png");
 }

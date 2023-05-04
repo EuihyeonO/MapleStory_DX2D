@@ -27,5 +27,6 @@ private:
 	std::string ColMapName = "ColBeginnersTown1.png";
 
 	std::shared_ptr<GameEngineSpriteRenderer> BackGround = nullptr;
+	std::shared_ptr<GameEngineSpriteRenderer> BackGroundLayer = nullptr;
 };
 

@@ -31,6 +31,9 @@
     <ClInclude Include="BeginnersTown1.h">
       <Filter>Actor\Map</Filter>
     </ClInclude>
+    <ClInclude Include="ContentEnums.h">
+      <Filter>Global</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Level_Title.cpp">

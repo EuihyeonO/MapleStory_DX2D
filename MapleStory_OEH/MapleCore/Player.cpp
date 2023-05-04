@@ -1,6 +1,8 @@
 #include "PrecompileHeader.h"
 #include "Player.h"
 #include "PlayerValue.h"
+#include "ContentEnums.h"
+
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
@@ -48,17 +50,12 @@ void Player::Start()
 	MoveType = "Stand";
 	CoatName = "WhiteTshirt";
 	PantsName = "BluePants";
-	WeaponName = "Ganier";
+	WeaponName = "BasicSword";
 	
-	//상하의, 머리, 얼굴 등
-	// 
-	//FaceAndHairTextureUpdate();
+	MoveSpeed = 100.0f;
 
-	//초기 애니메이션 바로 시작하도록
 	SetAllTexturePosVector();
-
-	//AnimationCount += AniFrameList[MoveType];
-
+	CreateAllKey();
 }
 
 void Player::Update(float _DeltaTime) 
@@ -75,10 +72,14 @@ void Player::Update(float _DeltaTime)
 
 	TimeCounting();
 
+	ActingUpdate(_DeltaTime);
+	GravityUpdate(_DeltaTime);
+
 	TextureAnimationUpdate();
 	TextureUpdate();
 	TexturePosUpdate();
-	GravityUpdate(_DeltaTime);
+
+	CameraUpdate();
 }
 
 void Player::Render(float _DeltaTime) 
@@ -144,7 +145,6 @@ void Player::TexturePosUpdate()
 	Body->GetTransform()->SetLocalPosition({ BodyScale.hx(), -BodyScale.hy()});	
 	//Origin
 	Body->GetTransform()->AddLocalPosition(BodyOriginPos[MoveType][AniIndex]);
- ;
 
 	float4 ArmScale = Arm->GetTransform()->GetLocalScale();
 	Arm->GetTransform()->SetLocalPosition({ ArmScale.hx(), -ArmScale.hy() });
@@ -209,22 +209,193 @@ void Player::SetMoveType(const std::string_view& _MoveType)
 
 void Player::GravityUpdate(float _DeltaTime)
 {
-	float Gravity = 30.0f;
-
-	GetTransform()->AddLocalPosition({ 0, -Gravity * _DeltaTime });
-
+	Gravity = 300.0f;
+	
 	float4 PlayerPos = GetTransform()->GetLocalPosition();
 
 	float4 MapHalfScale = { static_cast<float>(ColMap->GetWidth() / 2) ,  static_cast<float>(ColMap->GetHeight() / 2) };
-	float4 ColorPos = MapHalfScale + float4{PlayerPos.x, -PlayerPos.y};
+	float4 ColorPos = MapHalfScale + float4{ PlayerPos.x, -PlayerPos.y };
 
-	GameEnginePixelColor Color = {(char)255, 0, (char)255, (char)255};
+	GameEnginePixelColor Color = { (char)255, 0, (char)255, (char)255 };
 	GameEnginePixelColor MapColor = ColMap->GetPixel(ColorPos.x, ColorPos.y);
-
-	if (Color == MapColor)
+	
+	if (Color != MapColor)
 	{
-		float PlayerYPos = static_cast<int>(PlayerPos.y);
+		GetTransform()->AddLocalPosition({ 0, -Gravity * _DeltaTime });
+		isGround = false;
+	}
+	else
+	{
+		float Count = 0.0f;
+
+		while (Color == MapColor)
+		{
+			ColorPos.y--;
+			MapColor = ColMap->GetPixel(ColorPos.x, ColorPos.y);
+			Count++;
+		}
+		GetTransform()->AddLocalPosition({ 0, Count - 1 });
+		isGround = true;
+	}
+}
+
+void Player::Idle()
+{
+	MoveType = "Stand";
+}
+
+void Player::Move(float _DeltaTime)
+{
+
+	if (GameEngineInput::IsPress("LMove") == true)
+	{
+		SetLeft();
+		LeftRightDir = "Left";
+		MoveType = "Walk";
+
+		float4 NextPlayerPos = GetTransform()->GetLocalPosition() + float4{-1 * MoveSpeed * _DeltaTime, 0 };
+
+		float4 MapHalfScale = { static_cast<float>(ColMap->GetWidth() / 2) ,  static_cast<float>(ColMap->GetHeight() / 2) };
+		float4 ColorPos = MapHalfScale + float4{ NextPlayerPos.x, -NextPlayerPos.y };
+
+		GameEnginePixelColor Color = { (char)255, 0, (char)255, (char)255 };
+		GameEnginePixelColor MapColor = ColMap->GetPixel(ColorPos.x, ColorPos.y);
+
+		if (Color == MapColor)
+		{
+			float Count = 0;
+			
+			while (Color == MapColor)
+			{
+				ColorPos.y--;
+				MapColor = ColMap->GetPixel(ColorPos.x, ColorPos.y);
+				Count++;
+			}
+
+			float4 Vector1 = {-1, 0};
+			Vector1.Normalize();
+			float4 Vector2 = { -1, Count };
+			Vector2.Normalize();
+
+			float Angle = (Vector1.x) * (Vector2.x) + (Vector1.y) * (Vector2.y);
+
+			if (Angle > 0.5f)
+			{
+				GetTransform()->AddLocalPosition({ -1 * MoveSpeed * _DeltaTime, 0 });
+			}
+		}
+		else
+		{
+			GetTransform()->AddLocalPosition({ -1 * MoveSpeed * _DeltaTime, 0 });
+		}
 	}
 
+	if (GameEngineInput::IsPress("RMove") == true)
+	{
+		SetRight();
+		LeftRightDir = "Right";
+		MoveType = "Walk";
 
+		float4 NextPlayerPos = GetTransform()->GetLocalPosition() + float4{ 1 * MoveSpeed * _DeltaTime, 0 };
+
+		float4 MapHalfScale = { static_cast<float>(ColMap->GetWidth() / 2) ,  static_cast<float>(ColMap->GetHeight() / 2) };
+		float4 ColorPos = MapHalfScale + float4{ NextPlayerPos.x, -NextPlayerPos.y };
+
+		GameEnginePixelColor Color = { (char)255, 0, (char)255, (char)255 };
+		GameEnginePixelColor MapColor = ColMap->GetPixel(ColorPos.x, ColorPos.y);
+
+		if (Color == MapColor)
+		{
+			float Count = 0;
+
+			while (Color == MapColor)
+			{
+				ColorPos.y--;
+				MapColor = ColMap->GetPixel(ColorPos.x, ColorPos.y);
+				Count++;
+			}
+
+			float4 Vector1 = { 1, 0 };
+			Vector1.Normalize();
+			float4 Vector2 = { 1, Count };
+			Vector2.Normalize();
+
+			float Angle = (Vector1.x) * (Vector2.x) + (Vector1.y) * (Vector2.y);
+
+			if (Angle > 0.5f)
+			{
+				GetTransform()->AddLocalPosition({ 1 * MoveSpeed * _DeltaTime, 0 });
+			}
+		}
+		else
+		{
+			GetTransform()->AddLocalPosition({ 1 * MoveSpeed * _DeltaTime, 0 });
+		}		
+	}
+}
+
+void Player::CreateAllKey()
+{
+	if (GameEngineInput::IsKey("LMove") == false)
+	{
+		GameEngineInput::CreateKey("LMove", VK_LEFT);
+		GameEngineInput::CreateKey("RMove", VK_RIGHT);
+	}
+}
+
+void Player::ActingUpdate(float _DeltaTime)
+{
+	int Key = GetKeyInput();
+
+	switch (Key)
+	{
+	case static_cast<int>(InputKey::Move):
+		Move(_DeltaTime);
+		break;
+	case static_cast<int>(InputKey::Jump):
+		break;
+	case -1:
+		Idle();
+	}
+}
+
+int Player::GetKeyInput()
+{
+	if (GameEngineInput::IsPress("LMove") == true || GameEngineInput::IsPress("RMove") == true)
+	{
+		return static_cast<int>(InputKey::Move);
+	}
+	else
+	{
+		return -1;
+	}
+}
+
+void Player::CameraUpdate()
+{
+	int HalfWidth = ColMap->GetWidth() * 0.5f;
+	int HalfHeight = ColMap->GetHeight() * 0.5f;
+
+	float4 PlayerPos = GetTransform()->GetLocalPosition();
+	float4 CameraPos = PlayerPos;
+
+	if (CameraPos.x - 400 < -HalfWidth)
+	{
+		CameraPos.x = -HalfWidth + 400;
+	}
+	else if (CameraPos.x + 400 > HalfWidth - 40)
+	{
+		CameraPos.x = HalfWidth - 40 - 400;
+	}
+
+	if (CameraPos.y - 300 < -(HalfHeight - 185))
+	{
+		CameraPos.y = -(HalfHeight - 185) + 300;
+	}
+	else if (CameraPos.y + 300 > HalfHeight)
+	{
+		CameraPos.y = HalfHeight - 300;
+	}
+
+	GetLevel()->GetMainCamera()->GetTransform()->SetLocalPosition(CameraPos);
 }

@@ -40,9 +40,23 @@ private:
 	void TexturePosUpdate();
 
 	void SetAllTexturePosVector();
+	void CreateAllKey();
 
-	void GravityUpdate(float _DeltaTime);
+	void GravityUpdate(float _DeltaTime);	
+	void ActingUpdate(float _DeltaTime);
 
+	void Idle();
+	void Move(float _DeltaTime);
+
+	void CameraUpdate();
+
+	int GetKeyInput();
+
+
+	bool isGround = false;
+
+	float Gravity = 0.0f;
+	float MoveSpeed = 0.0f;
 	float AnimationCount = 0.0f;
 	int AniIndex = 0;
 
