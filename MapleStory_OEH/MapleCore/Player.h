@@ -1,11 +1,21 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
+#include <GameEngineCore/GameEngineTexture.h>
 
 class GameEngineSpriteRenderer;
 class Player : public GameEngineActor
 {
 
 public:
+	
+	void SetColMap(const std::string_view& _MapName)
+	{		
+		ColMap = GameEngineTexture::Find(_MapName);
+	}
+
+	void SetLeft();
+	void SetRight();
+	void SetMoveType(const std::string_view& _MoveType);
 
 	Player();
 	~Player();
@@ -20,14 +30,18 @@ protected:
 	void Update(float _DeltaTime) override;
 	void Render(float _DeltaTime) override;
 private:
+	
+	std::shared_ptr<GameEngineTexture> ColMap;
 
 	void TimeCounting();
 
+	void TextureUpdate();
 	void TextureAnimationUpdate();
 	void TexturePosUpdate();
 
 	void SetAllTexturePosVector();
 
+	void GravityUpdate(float _DeltaTime);
 
 	float AnimationCount = 0.0f;
 	int AniIndex = 0;
@@ -39,7 +53,6 @@ private:
 	float4 PlayerPos = {0,0};
 
 	std::string MoveType = "";
-	std::string SkinType = "Basic";
 
 	std::string LeftRightDir = ""; //좌우 방향
 	std::string FrontBackDir = "Front"; //앞뒤 방향 ( ex 사다리를 탔을 땐 뒤 )
@@ -49,6 +62,8 @@ private:
 
 	std::string FaceName = "Face1";
 	std::string Expression = "Default";
+
+	std::string SkinType = "Basic";
 
 	std::string CoatName = "";
 	std::string PantsName = "";
@@ -64,6 +79,8 @@ private:
 	std::map<std::string, std::vector<float4>> ArmOriginPos;
 	std::map<std::string, std::vector<float4>> ArmToNavelPos;
 
+	std::map<std::string, std::vector<float4>> ArmHandPos;
+
 	std::map<std::string, float4> HeadOriginPos;
 	std::map<std::string, float4> HeadToNeckPos;
 	std::map<std::string, float4> HeadBrowPos;
@@ -74,17 +91,34 @@ private:
 	std::map<std::string, std::map<std::string, float4>> FaceOriginPos;
 	std::map<std::string, std::map<std::string, float4>> FaceToBrowPos;
 
+	std::map<std::string, std::map<std::string, std::vector<float4>>> CoatOriginPos;
+	std::map<std::string, std::map<std::string, std::vector<float4>>> CoatToNavelPos;
+
+	std::map<std::string, std::map<std::string, std::vector<float4>>> CoatArmOriginPos;
+	std::map<std::string, std::map<std::string, std::vector<float4>>> CoatArmToNavelPos;
+
+	std::map<std::string, std::map<std::string, std::vector<float4>>> PantsOriginPos;
+	std::map<std::string, std::map<std::string, std::vector<float4>>> PantsToNavelPos;
+
+	std::map<std::string, std::map<std::string, std::vector<float4>>> WeaponOriginPos;
+	std::map<std::string, std::map<std::string, std::vector<float4>>> WeaponToHandPos;
+
+
 	std::shared_ptr<GameEngineSpriteRenderer> Body;
 	std::shared_ptr<GameEngineSpriteRenderer> Arm;
 	std::shared_ptr<GameEngineSpriteRenderer> Head;
+
 	std::shared_ptr<GameEngineSpriteRenderer> Coat;
 	std::shared_ptr<GameEngineSpriteRenderer> CoatArm;
+
 	std::shared_ptr<GameEngineSpriteRenderer> Pants;
 
 	std::shared_ptr<GameEngineSpriteRenderer> Weapon;
 
 	std::shared_ptr<GameEngineSpriteRenderer> Hair;
 	std::shared_ptr<GameEngineSpriteRenderer> Face;
+
+
 
 
 

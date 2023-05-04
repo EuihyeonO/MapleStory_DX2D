@@ -14,6 +14,7 @@ public: //static
 	}
 
 public: //local
+	
 
 	int GetHp()
 	{
@@ -134,10 +135,14 @@ protected:
 
 private:
 
+
 	PlayerValue();
 	~PlayerValue();
 
 	static PlayerValue Value;
+	void AddToPlayerToPlayerList(class Player* _Player);
+
+	std::vector<class Player*> PlayerList;
 
 	std::string Name = "";
 	std::string Class = "";

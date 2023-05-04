@@ -1,5 +1,6 @@
 #include "PrecompileHeader.h"
 #include "Logo.h"
+#include "Player.h"
 #include "TitleObjects.h"
 #include <gameEngineCore/GameEngineSpriteRenderer.h>
 #include <gameEngineCore/GameEngineLevel.h>
@@ -36,8 +37,9 @@ void Logo::Update(float _DeltaTime)
 
 		if (DeathWaitingCount >= 1.0f)
 		{
-			GetLevel()->CreateActor<TitleObjects>();
+			GetLevel()->CreateActor<TitleObjects>();			
 			isCreateObject = true;
+			//이 때 Death 해야함
 		}
 	}
 }

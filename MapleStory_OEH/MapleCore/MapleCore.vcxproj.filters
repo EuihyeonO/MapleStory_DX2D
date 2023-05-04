@@ -25,8 +25,11 @@
     <ClInclude Include="Player.h">
       <Filter>Actor\Character</Filter>
     </ClInclude>
-    <ClInclude Include="Level_BeginnersTown.h">
+    <ClInclude Include="Level_BeginnersTown1.h">
       <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="BeginnersTown1.h">
+      <Filter>Actor\Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -54,8 +57,14 @@
     <ClCompile Include="Player.cpp">
       <Filter>Actor\Character</Filter>
     </ClCompile>
-    <ClCompile Include="Level_BeginnersTown.cpp">
+    <ClCompile Include="PlayerTexturePos.cpp">
+      <Filter>Actor\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Level_BeginnersTown1.cpp">
       <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="BeginnersTown1.cpp">
+      <Filter>Actor\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -85,6 +94,9 @@
     </Filter>
     <Filter Include="Actor\Character">
       <UniqueIdentifier>{72807388-c3ae-43c9-9a87-0a98cb9ca31a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Map">
+      <UniqueIdentifier>{b2e85509-f8ad-4a5e-84e4-a72648b8cbd9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

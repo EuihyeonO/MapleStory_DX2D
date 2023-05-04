@@ -101,6 +101,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>PrecompileHeader.h</PrecompiledHeaderFile>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -118,6 +119,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>PrecompileHeader.h</PrecompiledHeaderFile>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -174,7 +176,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Level_BeginnersTown.h">
+    <ClInclude Include="BeginnersTown1.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Level_BeginnersTown1.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -212,7 +218,11 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Level_BeginnersTown.cpp">
+    <ClCompile Include="BeginnersTown1.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Level_BeginnersTown1.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -225,6 +235,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Player.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="PlayerTexturePos.cpp">
       <SubType>
       </SubType>
     </ClCompile>

@@ -18,6 +18,8 @@ Level_Title::~Level_Title()
 
 void Level_Title::Start()
 {
+	SetName("TITLE");
+
 	{
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("MapleResources");
@@ -36,10 +38,15 @@ void Level_Title::Start()
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, 0.0f });
 
 
-	std::shared_ptr<Player> _Player = CreateActor<Player>();
+	//std::shared_ptr<Player> _Player = CreateActor<Player>();
 	
 	//std::shared_ptr<Logo> GameLogo = CreateActor<Logo>();
-	//std::shared_ptr<TitleObjects> NewTitleObjects = CreateActor<TitleObjects>();
+	std::shared_ptr<TitleObjects> NewTitleObjects = CreateActor<TitleObjects>();
+	std::shared_ptr<Player> NewPlayer = CreateActor<Player>();
+
+	NewPlayer->GetTransform()->SetLocalPosition({ -20, 1768 });
+	NewPlayer->SetRight();
+
 	//std::shared_ptr<Test> NewTitleObjects = CreateActor<Test>();
 }
 

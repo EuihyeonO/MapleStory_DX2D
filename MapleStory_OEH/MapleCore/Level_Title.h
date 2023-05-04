@@ -3,7 +3,6 @@
 #include <GameEngineBase/GameEngineTimeEvent.h>
 #include <GameEngineCore\GameEngineLevel.h>
 
-// Ό³Έν :
 class Level_Title : public GameEngineLevel
 {
 
