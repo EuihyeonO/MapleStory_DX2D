@@ -1,6 +1,6 @@
 #pragma once
 
-enum class InputKey
+enum class State
 {
 	Move = 0,
 	Jump,

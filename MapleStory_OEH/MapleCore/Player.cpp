@@ -72,8 +72,8 @@ void Player::Update(float _DeltaTime)
 
 	TimeCounting();
 
-	ActingUpdate(_DeltaTime);
 	GravityUpdate(_DeltaTime);
+	ActingUpdate(_DeltaTime);
 
 	TextureAnimationUpdate();
 	TextureUpdate();
@@ -98,6 +98,12 @@ void Player::TimeCounting()
 
 void Player::TextureAnimationUpdate()
 {
+	if (MoveType == "Jump")
+	{
+		AniIndex = 0;
+		return;
+	}
+
 	AnimationCount += TimeCount;
 
 	if (AnimationCount >= AniFrameList[MoveType][AniIndex])
@@ -179,9 +185,19 @@ void Player::TexturePosUpdate()
 
 	float4 HandPos = ArmHandPos[MoveType][AniIndex] + Arm->GetTransform()->GetLocalPosition();
 
-	float4 WeaponScale = Weapon->GetTransform()->GetLocalScale();
-	Weapon->GetTransform()->SetLocalPosition({ WeaponScale.hx(), -WeaponScale.hy() });
-	Weapon->GetTransform()->AddLocalPosition(HandPos + WeaponToHandPos[MoveType][WeaponName][AniIndex] + WeaponOriginPos[MoveType][WeaponName][AniIndex]);
+	if(MoveType != "Jump")
+	{
+		float4 WeaponScale = Weapon->GetTransform()->GetLocalScale();
+		Weapon->GetTransform()->SetLocalPosition({ WeaponScale.hx(), -WeaponScale.hy() });
+		Weapon->GetTransform()->AddLocalPosition(HandPos + WeaponToHandPos[MoveType][WeaponName][AniIndex] + WeaponOriginPos[MoveType][WeaponName][AniIndex]);
+	}
+	else
+	{
+		float4 WeaponScale = Weapon->GetTransform()->GetLocalScale();
+		Weapon->GetTransform()->SetLocalPosition({ WeaponScale.hx(), -WeaponScale.hy() });
+		Weapon->GetTransform()->AddLocalPosition(BodyNavelPos[MoveType][AniIndex] + WeaponToNavelPos[MoveType][WeaponName][AniIndex] + WeaponOriginPos[MoveType][WeaponName][AniIndex]);
+	}
+
 
 }
 
@@ -209,8 +225,9 @@ void Player::SetMoveType(const std::string_view& _MoveType)
 
 void Player::GravityUpdate(float _DeltaTime)
 {
-	Gravity = 300.0f;
-	
+	Gravity = 200.0f;
+	Gravity += GravityAccel * _DeltaTime;
+
 	float4 PlayerPos = GetTransform()->GetLocalPosition();
 
 	float4 MapHalfScale = { static_cast<float>(ColMap->GetWidth() / 2) ,  static_cast<float>(ColMap->GetHeight() / 2) };
@@ -222,6 +239,17 @@ void Player::GravityUpdate(float _DeltaTime)
 	if (Color != MapColor)
 	{
 		GetTransform()->AddLocalPosition({ 0, -Gravity * _DeltaTime });
+		MoveType = "Jump";
+
+		if(LeftRightDir == "Left")
+		{
+			Weapon->GetTransform()->SetLocalScale({1, 1});
+		}
+		else
+		{
+			Weapon->GetTransform()->SetLocalScale({ -1, 1 });
+		}
+
 		isGround = false;
 	}
 	else
@@ -234,7 +262,11 @@ void Player::GravityUpdate(float _DeltaTime)
 			MapColor = ColMap->GetPixel(ColorPos.x, ColorPos.y);
 			Count++;
 		}
+
 		GetTransform()->AddLocalPosition({ 0, Count - 1 });
+		Gravity = 0.0f;
+
+		MoveType = "Idle";
 		isGround = true;
 	}
 }
@@ -246,6 +278,10 @@ void Player::Idle()
 
 void Player::Move(float _DeltaTime)
 {
+	if (MoveType == "Jump")
+	{
+		return;
+	}
 
 	if (GameEngineInput::IsPress("LMove") == true)
 	{
@@ -345,25 +381,25 @@ void Player::CreateAllKey()
 
 void Player::ActingUpdate(float _DeltaTime)
 {
-	int Key = GetKeyInput();
+	int State = GetStateByKeyInput();
 
-	switch (Key)
+	switch (State)
 	{
-	case static_cast<int>(InputKey::Move):
+	case static_cast<int>(State::Move):
 		Move(_DeltaTime);
 		break;
-	case static_cast<int>(InputKey::Jump):
+	case static_cast<int>(State::Jump):
 		break;
 	case -1:
 		Idle();
 	}
 }
 
-int Player::GetKeyInput()
+int Player::GetStateByKeyInput() const
 {
 	if (GameEngineInput::IsPress("LMove") == true || GameEngineInput::IsPress("RMove") == true)
 	{
-		return static_cast<int>(InputKey::Move);
+		return static_cast<int>(State::Move);
 	}
 	else
 	{

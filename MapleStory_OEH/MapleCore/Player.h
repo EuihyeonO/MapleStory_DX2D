@@ -50,12 +50,13 @@ private:
 
 	void CameraUpdate();
 
-	int GetKeyInput();
+	int GetStateByKeyInput() const;
 
 
 	bool isGround = false;
 
 	float Gravity = 0.0f;
+	float GravityAccel = 50.0f;
 	float MoveSpeed = 0.0f;
 	float AnimationCount = 0.0f;
 	int AniIndex = 0;
@@ -116,6 +117,7 @@ private:
 
 	std::map<std::string, std::map<std::string, std::vector<float4>>> WeaponOriginPos;
 	std::map<std::string, std::map<std::string, std::vector<float4>>> WeaponToHandPos;
+	std::map<std::string, std::map<std::string, std::vector<float4>>> WeaponToNavelPos;
 
 
 	std::shared_ptr<GameEngineSpriteRenderer> Body;
