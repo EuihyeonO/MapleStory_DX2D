@@ -47,6 +47,8 @@ private:
 
 	void Idle();
 	void Move(float _DeltaTime);
+	void Jump(float _DeltaTime);
+	void JumpUpdate(float _DeltaTime);
 
 	void CameraUpdate();
 
@@ -54,10 +56,16 @@ private:
 
 
 	bool isGround = false;
+	bool isKeyJump = false;
 
-	float Gravity = 0.0f;
-	float GravityAccel = 50.0f;
+	float Gravity = 200.0f;
+	float GravityAccel = 1000.0f;
+
+	float JumpPower = 550.0f;
+	float JumpMove = 0.0f;
+
 	float MoveSpeed = 0.0f;
+
 	float AnimationCount = 0.0f;
 	int AniIndex = 0;
 
@@ -68,6 +76,7 @@ private:
 	float4 PlayerPos = {0,0};
 
 	std::string MoveType = "";
+	std::string PrevMoveType = "";
 
 	std::string LeftRightDir = ""; //좌우 방향
 	std::string FrontBackDir = "Front"; //앞뒤 방향 ( ex 사다리를 탔을 땐 뒤 )

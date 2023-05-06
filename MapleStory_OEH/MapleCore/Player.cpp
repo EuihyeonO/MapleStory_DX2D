@@ -225,7 +225,6 @@ void Player::SetMoveType(const std::string_view& _MoveType)
 
 void Player::GravityUpdate(float _DeltaTime)
 {
-	Gravity = 200.0f;
 	Gravity += GravityAccel * _DeltaTime;
 
 	float4 PlayerPos = GetTransform()->GetLocalPosition();
@@ -234,11 +233,11 @@ void Player::GravityUpdate(float _DeltaTime)
 	float4 ColorPos = MapHalfScale + float4{ PlayerPos.x, -PlayerPos.y };
 
 	GameEnginePixelColor Color = { (char)255, 0, (char)255, (char)255 };
-	GameEnginePixelColor MapColor = ColMap->GetPixel(ColorPos.x, ColorPos.y);
+	GameEnginePixelColor MapColor = ColMap->GetPixel(static_cast<int>(ColorPos.x), static_cast<int>(ColorPos.y));
 	
 	if (Color != MapColor)
 	{
-		GetTransform()->AddLocalPosition({ 0, -Gravity * _DeltaTime });
+		GetTransform()->AddLocalPosition({ 0 , -Gravity * _DeltaTime });
 		MoveType = "Jump";
 
 		if(LeftRightDir == "Left")
@@ -259,14 +258,14 @@ void Player::GravityUpdate(float _DeltaTime)
 		while (Color == MapColor)
 		{
 			ColorPos.y--;
-			MapColor = ColMap->GetPixel(ColorPos.x, ColorPos.y);
+			MapColor = ColMap->GetPixel(static_cast<int>(ColorPos.x), static_cast<int>(ColorPos.y));
 			Count++;
 		}
 
 		GetTransform()->AddLocalPosition({ 0, Count - 1 });
-		Gravity = 0.0f;
 
-		MoveType = "Idle";
+		Gravity = 200.0f;
+		MoveType = "Stand";
 		isGround = true;
 	}
 }
@@ -295,7 +294,7 @@ void Player::Move(float _DeltaTime)
 		float4 ColorPos = MapHalfScale + float4{ NextPlayerPos.x, -NextPlayerPos.y };
 
 		GameEnginePixelColor Color = { (char)255, 0, (char)255, (char)255 };
-		GameEnginePixelColor MapColor = ColMap->GetPixel(ColorPos.x, ColorPos.y);
+		GameEnginePixelColor MapColor = ColMap->GetPixel(static_cast<int>(ColorPos.x), static_cast<int>(ColorPos.y));
 
 		if (Color == MapColor)
 		{
@@ -304,7 +303,7 @@ void Player::Move(float _DeltaTime)
 			while (Color == MapColor)
 			{
 				ColorPos.y--;
-				MapColor = ColMap->GetPixel(ColorPos.x, ColorPos.y);
+				MapColor = ColMap->GetPixel(static_cast<int>(ColorPos.x), static_cast<int>(ColorPos.y));
 				Count++;
 			}
 
@@ -338,7 +337,7 @@ void Player::Move(float _DeltaTime)
 		float4 ColorPos = MapHalfScale + float4{ NextPlayerPos.x, -NextPlayerPos.y };
 
 		GameEnginePixelColor Color = { (char)255, 0, (char)255, (char)255 };
-		GameEnginePixelColor MapColor = ColMap->GetPixel(ColorPos.x, ColorPos.y);
+		GameEnginePixelColor MapColor = ColMap->GetPixel(static_cast<int>(ColorPos.x), static_cast<int>(ColorPos.y));
 
 		if (Color == MapColor)
 		{
@@ -376,12 +375,14 @@ void Player::CreateAllKey()
 	{
 		GameEngineInput::CreateKey("LMove", VK_LEFT);
 		GameEngineInput::CreateKey("RMove", VK_RIGHT);
+		GameEngineInput::CreateKey("Jump", VK_MENU);
 	}
 }
 
 void Player::ActingUpdate(float _DeltaTime)
-{
+{	
 	int State = GetStateByKeyInput();
+	
 
 	switch (State)
 	{
@@ -389,15 +390,65 @@ void Player::ActingUpdate(float _DeltaTime)
 		Move(_DeltaTime);
 		break;
 	case static_cast<int>(State::Jump):
+		Jump(_DeltaTime);
 		break;
 	case -1:
 		Idle();
+		break;
+	}
+
+	if (isKeyJump == true)
+	{
+		JumpUpdate(_DeltaTime);
+	}
+}
+
+void Player::Jump(float _DeltaTime)
+{
+
+	if (GameEngineInput::IsDown("LMove") == true || GameEngineInput::IsPress("LMove") == true)
+	{
+		JumpMove = -MoveSpeed;
+	}
+	else if (GameEngineInput::IsDown("RMove") == true || GameEngineInput::IsPress("RMove") == true)
+	{
+		JumpMove = MoveSpeed;
+	}
+
+	MoveType = "Jump";
+
+	isKeyJump = true;	
+}
+
+void Player::JumpUpdate(float _DeltaTime)
+{
+	MoveType = "Jump";
+
+	GetTransform()->AddLocalPosition({ JumpMove * _DeltaTime , JumpPower * _DeltaTime });
+
+	float4 PlayerPos = GetTransform()->GetLocalPosition();
+
+	float4 MapHalfScale = { static_cast<float>(ColMap->GetWidth() / 2) ,  static_cast<float>(ColMap->GetHeight() / 2) };
+	float4 ColorPos = MapHalfScale + float4{ PlayerPos.x, -PlayerPos.y };
+
+	GameEnginePixelColor Color = { (char)255, 0, (char)255, (char)255 };
+	GameEnginePixelColor MapColor = ColMap->GetPixel(static_cast<int>(ColorPos.x), static_cast<int>(ColorPos.y));
+
+	if (Color == MapColor)
+	{
+		isKeyJump = false;
+		JumpMove = 0.0f;
+		MoveType = "Stand";
 	}
 }
 
 int Player::GetStateByKeyInput() const
 {
-	if (GameEngineInput::IsPress("LMove") == true || GameEngineInput::IsPress("RMove") == true)
+	if (GameEngineInput::IsDown("Jump") == true)
+	{
+		return static_cast<int>(State::Jump);
+	}
+	else if (GameEngineInput::IsPress("LMove") == true || GameEngineInput::IsPress("RMove") == true)
 	{
 		return static_cast<int>(State::Move);
 	}
@@ -409,8 +460,8 @@ int Player::GetStateByKeyInput() const
 
 void Player::CameraUpdate()
 {
-	int HalfWidth = ColMap->GetWidth() * 0.5f;
-	int HalfHeight = ColMap->GetHeight() * 0.5f;
+	float HalfWidth = ColMap->GetWidth() * 0.5f;
+	float HalfHeight = ColMap->GetHeight() * 0.5f;
 
 	float4 PlayerPos = GetTransform()->GetLocalPosition();
 	float4 CameraPos = PlayerPos;
