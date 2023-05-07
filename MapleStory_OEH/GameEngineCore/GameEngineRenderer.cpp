@@ -65,6 +65,12 @@ void GameEngineRenderer::SetPipeLine(const std::string_view& _Name)
 		ShaderResHelper.SetConstantBufferLink("TransformData", Data);
 	}
 
+	if (true == ShaderResHelper.IsConstantBuffer("MyTime"))
+	{
+		const TransformData& Data = GetTransform()->GetTransDataRef();
+		ShaderResHelper.SetConstantBufferLink("MyTime", MyTime);
+	}
+
 
 	GetTransform()->GetWorldMatrix();
 }

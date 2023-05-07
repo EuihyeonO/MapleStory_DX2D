@@ -27,6 +27,11 @@ public:
 		return ShaderResHelper;
 	}
 
+	void SetMoveTime(float4 _MoveTime)
+	{
+		MyTime = _MoveTime;
+	}
+
 protected:
 	void Render(float _Delta) override;
 
@@ -36,5 +41,7 @@ private:
 	std::shared_ptr<class GameEngineRenderingPipeLine > Pipe;
 
 	GameEngineShaderResHelper ShaderResHelper;
+
+	float4 MyTime;
 };
 

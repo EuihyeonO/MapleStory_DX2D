@@ -32,8 +32,20 @@ void Player::SetAllTexturePosVector()
 	AniFrameList["Jump"].push_back(0.0f);
 
 	//Origin은 X반전 Y그대로
+	SetBodyTexturePosVector();
+	//Coat
+	SetCoatTexturePosVector();
+	//Pants	
+	SetPantsTexturePosVector();
+	//Weapon
+	SetWeaponTexturePosVector();
+	//HairAndFace
+	SetHairAndFaceTexturePosVector();
+}
 
-//Body
+void Player::SetBodyTexturePosVector()
+{
+	//Body
 	BodyOriginPos["Stand"].push_back({ -16, 31 });
 	BodyOriginPos["Stand"].push_back({ -17, 31 });
 	BodyOriginPos["Stand"].push_back({ -18, 31 });
@@ -139,9 +151,18 @@ void Player::SetAllTexturePosVector()
 	ArmHandPos["Swing1"].push_back({ 5, -4 });
 
 	ArmHandPos["Jump"].push_back({ -3, 3 });
+	
+	
+	//
+	HeadOriginPos["Front"] = float4{ -19, 17 };
 
-	//Coat
+	HeadToNeckPos["Front"] = float4{ 0, 15 };
+	//x,y 둘다반전
+	HeadBrowPos["Front"] = float4{ -4, 5 };
+}
 
+void Player::SetCoatTexturePosVector()
+{
 	CoatOriginPos["Stand"]["WhiteTshirt"].push_back({ -11, 9 });
 	CoatOriginPos["Stand"]["WhiteTshirt"].push_back({ -10, 9 });
 	CoatOriginPos["Stand"]["WhiteTshirt"].push_back({ -10, 9 });
@@ -206,8 +227,10 @@ void Player::SetAllTexturePosVector()
 
 	CoatArmToNavelPos["Jump"]["WhiteTshirt"].push_back({ 13, 5 });
 
-	//Pants
+}
 
+void Player::SetPantsTexturePosVector()
+{
 	PantsOriginPos["Stand"]["BluePants"].push_back({ -9, 6 });
 	PantsOriginPos["Stand"]["BluePants"].push_back({ -9, 6 });
 	PantsOriginPos["Stand"]["BluePants"].push_back({ -9, 6 });
@@ -233,8 +256,10 @@ void Player::SetAllTexturePosVector()
 
 	PantsToNavelPos["Jump"]["BluePants"].push_back({ 2, -5 });
 
-	//Weapon
+}
 
+void Player::SetWeaponTexturePosVector()
+{
 	WeaponOriginPos["Stand"]["BasicSword"].push_back({ -25, 7 });
 	WeaponOriginPos["Stand"]["BasicSword"].push_back({ -25, 7 });
 	WeaponOriginPos["Stand"]["BasicSword"].push_back({ -25, 7 });
@@ -272,7 +297,6 @@ void Player::SetAllTexturePosVector()
 	WeaponToHandPos["Stand"]["BasicSword"].push_back({ -6, -5 });
 	WeaponToHandPos["Stand"]["BasicSword"].push_back({ -6, -5 });
 	WeaponToHandPos["Stand"]["BasicSword"].push_back({ -6, -5 });
-
 	WeaponToHandPos["Walk"]["BasicSword"].push_back({ -8, -2 });
 	WeaponToHandPos["Walk"]["BasicSword"].push_back({ -6, 6 });
 	WeaponToHandPos["Walk"]["BasicSword"].push_back({ -8, -2 });
@@ -282,7 +306,6 @@ void Player::SetAllTexturePosVector()
 	WeaponToHandPos["Stand"]["Ganier"].push_back({ 20, -2 });
 	WeaponToHandPos["Stand"]["Ganier"].push_back({ 20, -2 });
 	WeaponToHandPos["Stand"]["Ganier"].push_back({ 20, -2 });
-
 	WeaponToHandPos["Walk"]["Ganier"].push_back({ 20, -2 });
 	WeaponToHandPos["Walk"]["Ganier"].push_back({ 20, 0 });
 	WeaponToHandPos["Walk"]["Ganier"].push_back({ 20, -2 });
@@ -292,7 +315,6 @@ void Player::SetAllTexturePosVector()
 	WeaponToHandPos["Stand"]["Club"].push_back({ -5, -4 });
 	WeaponToHandPos["Stand"]["Club"].push_back({ -5, -4 });
 	WeaponToHandPos["Stand"]["Club"].push_back({ -5, -4 });
-
 	WeaponToHandPos["Walk"]["Club"].push_back({ -7, -1 });
 	WeaponToHandPos["Walk"]["Club"].push_back({ -7,  6 });
 	WeaponToHandPos["Walk"]["Club"].push_back({ -7, -1 });
@@ -300,16 +322,11 @@ void Player::SetAllTexturePosVector()
 
 	//
 	WeaponToNavelPos["Jump"]["BasicSword"].push_back({ 11, 27 });
-	//Head
 
-	HeadOriginPos["Front"] = float4{ -19, 17 };
+}
 
-	HeadToNeckPos["Front"] = float4{ 0, 15 };
-	//x,y 둘다반전
-	HeadBrowPos["Front"] = float4{ -4, 5 };
-
-	//Hair
-
+void Player::SetHairAndFaceTexturePosVector()
+{
 	HairOriginPos["Toven"]["Front"] = float4{ -24, 15 };
 	//x,y 둘다반전
 	HairToBrowPos["Toven"]["Front"] = float4{ 9, -1 };
@@ -321,3 +338,106 @@ void Player::SetAllTexturePosVector()
 	FaceToBrowPos["Face1"]["Default"] = float4{ 1, -12 };
 }
 
+void Player::TextureUpdate()
+{
+	std::string BodyTexture = SkinType + "Body" + MoveType + std::to_string(AniIndex) + ".png";
+	std::string ArmTexture = SkinType + "Arm" + MoveType + std::to_string(AniIndex) + ".png";
+	std::string HeadTexture = SkinType + "Head" + "Front" + ".png";
+	std::string HairTexture = HairName + FrontBackDir + HairStatus + ".png";
+	std::string FaceTexture = FaceName + Expression + ".png";
+
+	std::string CoatTexture = CoatName + MoveType + std::to_string(AniIndex) + ".png";
+	std::string CoatArmTexture = CoatName + "Arm" + MoveType + std::to_string(AniIndex) + ".png";
+	std::string PantsTexture = PantsName + MoveType + std::to_string(AniIndex) + ".png";
+
+	std::string WeaponTexture = WeaponName + MoveType + std::to_string(AniIndex) + ".png";
+
+	Body->SetScaleToTexture(BodyTexture);
+	Arm->SetScaleToTexture(ArmTexture);
+	Head->SetScaleToTexture(HeadTexture);
+	Hair->SetScaleToTexture(HairTexture);
+	Face->SetScaleToTexture(FaceTexture);
+	Coat->SetScaleToTexture(CoatTexture);
+	CoatArm->SetScaleToTexture(CoatArmTexture);
+	Pants->SetScaleToTexture(PantsTexture);
+	Weapon->SetScaleToTexture(WeaponTexture);
+}
+
+
+void Player::TextureAnimationUpdate()
+{
+	if (MoveType == "Jump")
+	{
+		AniIndex = 0;
+		return;
+	}
+
+	AnimationCount += TimeCount;
+
+	if (AnimationCount >= AniFrameList[MoveType][AniIndex])
+	{
+		AniIndex++;
+
+		if (AniIndex >= AniFrameList[MoveType].size())
+		{
+			AniIndex = 0;
+		}
+
+		AnimationCount = 0.0f;
+	}
+}
+
+void Player::TexturePosUpdate()
+{
+
+	float4 BodyScale = Body->GetTransform()->GetLocalScale();
+	Body->GetTransform()->SetLocalPosition({ BodyScale.hx(), -BodyScale.hy() });
+	//Origin
+	Body->GetTransform()->AddLocalPosition(BodyOriginPos[MoveType][AniIndex]);
+
+	float4 ArmScale = Arm->GetTransform()->GetLocalScale();
+	Arm->GetTransform()->SetLocalPosition({ ArmScale.hx(), -ArmScale.hy() });
+	Arm->GetTransform()->AddLocalPosition(BodyNavelPos[MoveType][AniIndex] + ArmToNavelPos[MoveType][AniIndex] + ArmOriginPos[MoveType][AniIndex]);
+
+	float4 HeadScale = Head->GetTransform()->GetLocalScale();
+	Head->GetTransform()->SetLocalPosition({ HeadScale.hx(), -HeadScale.hy() });
+	Head->GetTransform()->AddLocalPosition(BodyNeckPos[MoveType][AniIndex] + HeadToNeckPos[FrontBackDir] + HeadOriginPos[FrontBackDir]);
+
+	float4 HeadPos = Head->GetTransform()->GetLocalPosition();
+	float4 BrowPos = HeadPos + HeadBrowPos[FrontBackDir];
+
+	float4 HairScale = Hair->GetTransform()->GetLocalScale();
+	Hair->GetTransform()->SetLocalPosition({ HairScale.hx(), -HairScale.hy() });
+	Hair->GetTransform()->AddLocalPosition(BrowPos + HairToBrowPos[HairName][FrontBackDir] + HairOriginPos[HairName][FrontBackDir]);
+
+	float4 FaceScale = Face->GetTransform()->GetLocalScale();
+	Face->GetTransform()->SetLocalPosition({ FaceScale.hx(), -FaceScale.hy() });
+	Face->GetTransform()->AddLocalPosition(BrowPos + FaceToBrowPos[FaceName][Expression] + FaceOriginPos[FaceName][Expression]);
+
+	float4 CoatScale = Coat->GetTransform()->GetLocalScale();
+	Coat->GetTransform()->SetLocalPosition({ CoatScale.hx(), -CoatScale.hy() });
+	Coat->GetTransform()->AddLocalPosition(BodyNavelPos[MoveType][AniIndex] + CoatToNavelPos[MoveType][CoatName][AniIndex] + CoatOriginPos[MoveType][CoatName][AniIndex]);
+
+	float4 CoatArmScale = CoatArm->GetTransform()->GetLocalScale();
+	CoatArm->GetTransform()->SetLocalPosition({ CoatArmScale.hx(), -CoatArmScale.hy() });
+	CoatArm->GetTransform()->AddLocalPosition(BodyNavelPos[MoveType][AniIndex] + CoatArmToNavelPos[MoveType][CoatName][AniIndex] + CoatArmOriginPos[MoveType][CoatName][AniIndex]);
+
+	float4 PantsScale = Pants->GetTransform()->GetLocalScale();
+	Pants->GetTransform()->SetLocalPosition({ PantsScale.hx(), -PantsScale.hy() });
+	Pants->GetTransform()->AddLocalPosition(BodyNavelPos[MoveType][AniIndex] + PantsToNavelPos[MoveType][PantsName][AniIndex] + PantsOriginPos[MoveType][PantsName][AniIndex]);
+
+	float4 HandPos = ArmHandPos[MoveType][AniIndex] + Arm->GetTransform()->GetLocalPosition();
+
+	if (MoveType != "Jump")
+	{
+		float4 WeaponScale = Weapon->GetTransform()->GetLocalScale();
+		Weapon->GetTransform()->SetLocalPosition({ WeaponScale.hx(), -WeaponScale.hy() });
+		Weapon->GetTransform()->AddLocalPosition(HandPos + WeaponToHandPos[MoveType][WeaponName][AniIndex] + WeaponOriginPos[MoveType][WeaponName][AniIndex]);
+	}
+	else
+	{
+		float4 WeaponScale = Weapon->GetTransform()->GetLocalScale();
+		Weapon->GetTransform()->SetLocalPosition({ WeaponScale.hx(), -WeaponScale.hy() });
+		Weapon->GetTransform()->AddLocalPosition(BodyNavelPos[MoveType][AniIndex] + WeaponToNavelPos[MoveType][WeaponName][AniIndex] + WeaponOriginPos[MoveType][WeaponName][AniIndex]);
+	}
+}

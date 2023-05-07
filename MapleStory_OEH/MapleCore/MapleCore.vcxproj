@@ -242,7 +242,8 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="PlayerTexturePos.cpp">
+    <ClCompile Include="PlayerAct.cpp" />
+    <ClCompile Include="PlayerTexture.cpp">
       <SubType>
       </SubType>
     </ClCompile>

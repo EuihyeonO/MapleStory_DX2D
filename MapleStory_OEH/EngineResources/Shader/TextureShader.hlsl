@@ -55,6 +55,7 @@ OutPut Texture_VS(Input _Value)
     OutPut OutPutValue = (OutPut) 0;
 	
     _Value.Pos.w = 1.0f;
+    
     OutPutValue.Pos = mul(_Value.Pos, WorldViewProjectionMatrix);
     OutPutValue.UV = _Value.UV;
     
@@ -66,11 +67,19 @@ cbuffer OutPixelColor : register(b0)
     float4 OutColor;
 }
 
+cbuffer MyTime : register(b1)
+{
+    float XMoveTime;
+    float YMoveTime;
+    float ZMoveTime;
+    float AMoveTime;
+}
+
 Texture2D DiffuseTex : register(t0);
 SamplerState WRAPSAMPLER : register(s0);
 
 float4 Texture_PS(OutPut _Value) : SV_Target0
 {
-    float4 Color = DiffuseTex.Sample(WRAPSAMPLER, _Value.UV.xy);   
+    float4 Color = DiffuseTex.Sample(WRAPSAMPLER, float2(_Value.UV.x + XMoveTime, _Value.UV.y + YMoveTime));
     return Color;
 }

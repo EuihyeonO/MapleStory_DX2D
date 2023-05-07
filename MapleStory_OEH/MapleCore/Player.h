@@ -40,6 +40,11 @@ private:
 	void TexturePosUpdate();
 
 	void SetAllTexturePosVector();
+	void SetBodyTexturePosVector();
+	void SetCoatTexturePosVector();
+	void SetPantsTexturePosVector();
+	void SetWeaponTexturePosVector();
+	void SetHairAndFaceTexturePosVector();
 	void CreateAllKey();
 
 	void GravityUpdate(float _DeltaTime);	
@@ -61,8 +66,7 @@ private:
 	float Gravity = 200.0f;
 	float GravityAccel = 1000.0f;
 
-	float JumpPower = 550.0f;
-	float JumpMove = 0.0f;
+	float JumpPower = 585.0f;
 
 	float MoveSpeed = 0.0f;
 

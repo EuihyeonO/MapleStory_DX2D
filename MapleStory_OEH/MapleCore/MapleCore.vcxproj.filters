@@ -60,7 +60,7 @@
     <ClCompile Include="Player.cpp">
       <Filter>Actor\Character</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerTexturePos.cpp">
+    <ClCompile Include="PlayerTexture.cpp">
       <Filter>Actor\Character</Filter>
     </ClCompile>
     <ClCompile Include="Level_BeginnersTown1.cpp">
@@ -68,6 +68,9 @@
     </ClCompile>
     <ClCompile Include="BeginnersTown1.cpp">
       <Filter>Actor\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerAct.cpp">
+      <Filter>Actor\Character</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

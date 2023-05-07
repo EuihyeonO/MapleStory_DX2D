@@ -95,7 +95,6 @@ void GameEngineCore::CoreResourcesInit()
 		SamperData.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
 		SamperData.MinLOD = -FLT_MAX;
 		SamperData.MaxLOD = FLT_MAX;
-
 		GameEngineSampler::Create("WRAPSAMPLER", SamperData);
 	}
 
@@ -107,9 +106,9 @@ void GameEngineCore::CoreResourcesInit()
 		// 3   2
 		// ¾Õ¸é
 		ArrVertex[0] = { { -0.5f, 0.5f, 0.0f }, {0.0f, 0.0f} };
-		ArrVertex[1] = { { 0.5f, 0.5f, 0.0f }, {1.0f, 0.0f} };
+		ArrVertex[1] = { { 0.5f, 0.5f, 0.0f },  {1.0f, 0.0f} };
 		ArrVertex[2] = { { 0.5f, -0.5f, 0.0f }, {1.0f, 1.0f} };
-		ArrVertex[3] = { { -0.5f, -0.5f, 0.0f }, {0.0f, 1.0f} };
+		ArrVertex[3] = { { -0.5f, -0.5f, 0.0f },{0.0f, 1.0f} };
 
 		std::vector<UINT> ArrIndex = { 0, 1, 2, 0, 2, 3 };
 
