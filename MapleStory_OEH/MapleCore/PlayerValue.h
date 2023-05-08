@@ -16,21 +16,6 @@ public: //static
 public: //local
 	
 
-	int GetHp()
-	{
-		return Hp;
-	}
-
-	void SetHp(int _Hp)
-	{
-		Hp = _Hp;
-	}
-
-	int GetMp()
-	{
-		return Mp;
-	}
-
 	void SetMp(int _Mp)
 	{
 		Mp = _Mp;
@@ -116,6 +101,102 @@ public: //local
 		Int += _Value;
 	}
 
+	int GetMaxExp()
+	{
+		return MaxExp;
+	}
+
+	int GetExp()
+	{
+		return Exp;
+	}
+
+	float GetExpRate()
+	{
+		if(Exp != 0)
+		{
+			return static_cast<float>(Exp) / static_cast<float>(MaxExp);
+		}
+		else
+		{
+			return 0.0f;
+		}
+	}
+
+	void SetMaxExp(int _MaxExp)
+	{
+		MaxExp = _MaxExp;
+	}
+
+	void AddExp(int _Exp)
+	{
+		Exp += _Exp;
+	}
+
+	int GetHp()
+	{
+		return Hp;
+	}
+
+	int GetMaxHp()
+	{
+		return MaxHp;
+	}
+
+	void SetMaxHp(int _MaxHp)
+	{
+		MaxHp = _MaxHp;
+	}
+
+	float GetHpRate()
+	{
+		if (Hp != 0)
+		{
+			return static_cast<float>(Hp) / static_cast<float>(MaxHp);
+		}
+		else
+		{
+			return 0.0f;
+		}
+	}
+
+	void SubHp(int _Hp)
+	{
+		Hp -= _Hp;
+	}
+
+	int GetMp()
+	{
+		return Mp;
+	}
+
+	int GetMaxMp()
+	{
+		return MaxMp;
+	}
+
+	void SetMaxMp(int _MaxMp)
+	{
+		MaxMp = _MaxMp;
+	}
+
+	float GetMpRate()
+	{
+		if (Mp != 0)
+		{
+			return static_cast<float>(Mp) / static_cast<float>(MaxMp);
+		}
+		else
+		{
+			return 0.0f;
+		}
+	}
+
+	void SubMp(int _Mp)
+	{
+		Mp -= _Mp;
+	}
+
 	const std::string_view& GetName()
 	{
 		return Name;
@@ -148,12 +229,15 @@ private:
 	std::string Class = "";
 	std::string GuildName = "";
 
-	int Level = 0;
+	int Level = 1;
 
 	int popularity = 0;
 
-	int Hp = 0;
-	int Mp = 0;
+	int MaxHp = 100;
+	int Hp = 100;
+
+	int MaxMp = 100;
+	int Mp = 100;
 	
 	int Str = 0;
 	int Dex = 0;
@@ -174,8 +258,8 @@ private:
 
 	int deftness = 0;
 
+	int MaxExp = 100;
 	int Exp = 0;
-	float ExpRate = 0.0f;
 
 	std::string Hair;
 	std::string Skin;

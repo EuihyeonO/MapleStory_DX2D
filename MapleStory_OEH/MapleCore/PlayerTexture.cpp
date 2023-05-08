@@ -178,7 +178,6 @@ void Player::SetBodyTexturePosVector()
 
 	ArmHandPos["Jump"].push_back({ -3, 3 });
 	
-	
 	//
 	HeadOriginPos["Front"] = float4{ -19, 17 };
 

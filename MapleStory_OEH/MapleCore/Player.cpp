@@ -7,6 +7,7 @@
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEnginePlatform/GameEngineInput.h>
+
 #include <ctime>
 
 Player::Player()
@@ -16,10 +17,12 @@ Player::Player()
 
 Player::~Player()
 {
+
 }
 
 void Player::Start()
 {
+
 	TimeCounting();
 
 	GetTransform()->SetLocalPosition({ 0, 0 });
@@ -28,16 +31,12 @@ void Player::Start()
 	Body = CreateComponent<GameEngineSpriteRenderer>();
 	Pants = CreateComponent<GameEngineSpriteRenderer>();
 	Coat = CreateComponent<GameEngineSpriteRenderer>();
-	////
 
-	//SetOrder이 안되네?
+	//SetOrder가 안되네?
 	Weapon = CreateComponent<GameEngineSpriteRenderer>();
 	Arm = CreateComponent<GameEngineSpriteRenderer>();
-
 	CoatArm = CreateComponent<GameEngineSpriteRenderer>();
-	////
 	Head = CreateComponent<GameEngineSpriteRenderer>();
-
 	Hair = CreateComponent<GameEngineSpriteRenderer>();
 	Face = CreateComponent<GameEngineSpriteRenderer>();
 
