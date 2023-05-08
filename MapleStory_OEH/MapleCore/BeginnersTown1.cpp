@@ -19,15 +19,12 @@ void BeginnersTown1::Start()
 	LandScape0->SetTexture("MapBackGround0.png");
 	LandScape0->GetTransform()->SetLocalScale({2000, 2000});
 
-	Cloud0 = CreateComponent<GameEngineSpriteRenderer>();
-	Cloud0->SetScaleToTexture("MapBackGround1.png");
-	Cloud0->GetTransform()->SetLocalPosition({ 0, 250 });
-	Cloud1 = CreateComponent<GameEngineSpriteRenderer>();
-	Cloud1->SetScaleToTexture("MapBackGround1.png");
-	Cloud1->GetTransform()->SetLocalPosition({ -1024, 250 });
-	Cloud2 = CreateComponent<GameEngineSpriteRenderer>();
-	Cloud2->SetScaleToTexture("MapBackGround1.png");
-	Cloud2->GetTransform()->SetLocalPosition({ 1024, 250 });
+	Cloud = CreateComponent<GameEngineSpriteRenderer>();
+	Cloud->SetScaleToTexture("MapBackGround1.png");
+	float4 CloudScale = Cloud->GetTransform()->GetLocalScale();
+	Cloud->GetTransform()->SetLocalPosition({ 0, 250 });
+	Cloud->GetTransform()->AddLocalScale({ CloudScale.x * 2.0f, 0 });
+
 
 	LandScape2 = CreateComponent<GameEngineSpriteRenderer>();
 	LandScape2->SetScaleToTexture("MapBackGround2.png");
@@ -47,17 +44,17 @@ void BeginnersTown1::Start()
 void BeginnersTown1::Update(float _DeltaTime)
 {
 
-	XMoveTime += 0.05f * _DeltaTime;
+	XMoveConstant += 0.03f * _DeltaTime;
 
-	if (XMoveTime > 1.0f)
+	if (XMoveConstant > 3.0f)
 	{
-		XMoveTime -= 1.0f;
+		XMoveConstant -= 3.0f;
 	}
 
-	Cloud0->SetMoveTime({ XMoveTime, 0 });
-	Cloud1->SetMoveTime({ XMoveTime, 0 });
-	Cloud2->SetMoveTime({ XMoveTime, 0 });
+	Cloud->SetMoveConstants({ XMoveConstant, 0, 3});
 
+	float4 CameraPos = GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition();
+	LandScape2->GetTransform()->SetLocalPosition({ CameraPos.x * 0.5f , 200 });
 }
 
 void BeginnersTown1::Render(float _DeltaTime) 

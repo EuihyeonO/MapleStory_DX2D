@@ -7,19 +7,15 @@
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEngineBase/GameEngineRandom.h>
 #include <ctime>
 
 void Player::Jump(float _DeltaTime)
 {
-
-	//if (MoveType != "Jump" && (GameEngineInput::IsDown("LMove") == true || GameEngineInput::IsPress("LMove") == true))
-	//{
-	//	JumpMove = -MoveSpeed * 0.5f;
-	//}
-	//else if (MoveType != "Jump" && (GameEngineInput::IsDown("RMove") == true || GameEngineInput::IsPress("RMove") == true))
-	//{
-	//	JumpMove = MoveSpeed * 0.5f;
-	//}
+	if (MoveType == "Jump" || isSwing == true)
+	{
+		return;
+	}
 
 	MoveType = "Jump";
 
@@ -28,7 +24,10 @@ void Player::Jump(float _DeltaTime)
 
 void Player::JumpUpdate(float _DeltaTime)
 {
-	MoveType = "Jump";
+	if(isSwing == false)
+	{
+		MoveType = "Jump";
+	}
 
 	GetTransform()->AddLocalPosition({ 0 , JumpPower * _DeltaTime });
 
@@ -43,12 +42,20 @@ void Player::JumpUpdate(float _DeltaTime)
 	if (Color == MapColor)
 	{
 		isKeyJump = false;
-		MoveType = "Stand";
+
+		if(isSwing == false)
+		{
+			MoveType = "Stand";
+		}
 	}
 }
 
 void Player::Move(float _DeltaTime)
 {
+	if (isSwing == true)
+	{
+		return;
+	}
 
 	if (GameEngineInput::IsPress("LMove") == true)
 	{
@@ -146,7 +153,27 @@ void Player::Move(float _DeltaTime)
 	}
 }
 
+void Player::Swing()
+{
+	if (MoveType == "Swing0" || MoveType == "Swing1" || MoveType == "Swing2")
+	{
+		return;
+	}
+
+	int SwingType = GameEngineRandom::MainRandom.RandomInt(0, 2);
+
+	MoveType = "Swing" + std::to_string(SwingType);
+	AniIndex = 0;
+	isSwing = true;
+}
+
 void Player::Idle()
 {
+	if (isSwing == true)
+	{
+		return;
+	}
+
 	MoveType = "Stand";
 }
+

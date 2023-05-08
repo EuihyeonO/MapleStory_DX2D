@@ -67,11 +67,11 @@ cbuffer OutPixelColor : register(b0)
     float4 OutColor;
 }
 
-cbuffer MyTime : register(b1)
+cbuffer MoveConstants : register(b1)
 {
-    float XMoveTime;
-    float YMoveTime;
-    float ZMoveTime;
+    float XMove;
+    float YMove;
+    float ScaleRatio;
     float AMoveTime;
 }
 
@@ -80,6 +80,16 @@ SamplerState WRAPSAMPLER : register(s0);
 
 float4 Texture_PS(OutPut _Value) : SV_Target0
 {
-    float4 Color = DiffuseTex.Sample(WRAPSAMPLER, float2(_Value.UV.x + XMoveTime, _Value.UV.y + YMoveTime));
+    float4 Color;
+    
+    if (XMove == 0)
+    {
+        Color = DiffuseTex.Sample(WRAPSAMPLER, float2(_Value.UV.x + XMove, _Value.UV.y + YMove));
+    }
+    else
+    {
+        Color = DiffuseTex.Sample(WRAPSAMPLER, float2((_Value.UV.x * ScaleRatio) + XMove, _Value.UV.y + YMove));
+    }
+    
     return Color;
 }

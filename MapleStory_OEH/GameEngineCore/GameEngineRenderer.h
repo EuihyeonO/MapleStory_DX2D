@@ -27,9 +27,9 @@ public:
 		return ShaderResHelper;
 	}
 
-	void SetMoveTime(float4 _MoveTime)
+	void SetMoveConstants(float4 _MoveConstants)
 	{
-		MyTime = _MoveTime;
+		MoveConstants = _MoveConstants;
 	}
 
 protected:
@@ -42,6 +42,6 @@ private:
 
 	GameEngineShaderResHelper ShaderResHelper;
 
-	float4 MyTime;
+	float4 MoveConstants;
 };
 

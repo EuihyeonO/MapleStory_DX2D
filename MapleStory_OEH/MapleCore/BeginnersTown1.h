@@ -26,7 +26,7 @@ private:
 
 	std::string ColMapName = "ColBeginnersTown1.png";
 
-	float XMoveTime = 0.0f;
+	float XMoveConstant = 0.0f;
 
 	std::shared_ptr<GameEngineSpriteRenderer> BackGround = nullptr;
 	std::shared_ptr<GameEngineSpriteRenderer> Rope = nullptr;
@@ -35,8 +35,7 @@ private:
 	std::shared_ptr<GameEngineSpriteRenderer> LandScape0 = nullptr;
 	std::shared_ptr<GameEngineSpriteRenderer> LandScape2 = nullptr;
 
-	std::shared_ptr<GameEngineSpriteRenderer> Cloud0 = nullptr;
-	std::shared_ptr<GameEngineSpriteRenderer> Cloud1 = nullptr;
-	std::shared_ptr<GameEngineSpriteRenderer> Cloud2 = nullptr;
+	std::shared_ptr<GameEngineSpriteRenderer> Cloud = nullptr;
+
 };
 

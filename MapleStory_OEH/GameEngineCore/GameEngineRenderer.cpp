@@ -65,10 +65,10 @@ void GameEngineRenderer::SetPipeLine(const std::string_view& _Name)
 		ShaderResHelper.SetConstantBufferLink("TransformData", Data);
 	}
 
-	if (true == ShaderResHelper.IsConstantBuffer("MyTime"))
+	if (true == ShaderResHelper.IsConstantBuffer("MoveConstants"))
 	{
 		const TransformData& Data = GetTransform()->GetTransDataRef();
-		ShaderResHelper.SetConstantBufferLink("MyTime", MyTime);
+		ShaderResHelper.SetConstantBufferLink("MoveConstants", MoveConstants);
 	}
 
 

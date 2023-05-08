@@ -52,6 +52,7 @@ void Player::Start()
 
 	SetAllTexturePosVector();
 	CreateAllKey();
+
 }
 
 void Player::Update(float _DeltaTime) 
@@ -116,6 +117,7 @@ void Player::SetMoveType(const std::string_view& _MoveType)
 
 void Player::GravityUpdate(float _DeltaTime)
 {
+
 	Gravity += GravityAccel * _DeltaTime;
 
 	float4 PlayerPos = GetTransform()->GetLocalPosition();
@@ -129,7 +131,11 @@ void Player::GravityUpdate(float _DeltaTime)
 	if (Color != MapColor)
 	{
 		GetTransform()->AddLocalPosition({ 0 , -Gravity * _DeltaTime });
-		MoveType = "Jump";
+		
+		if(isSwing == false)
+		{
+			MoveType = "Jump";
+		}
 
 		isGround = false;
 	}
@@ -147,8 +153,12 @@ void Player::GravityUpdate(float _DeltaTime)
 		GetTransform()->AddLocalPosition({ 0, Count - 1 });
 
 		Gravity = 200.0f;
-		MoveType = "Stand";
 		isGround = true;
+
+		if (isSwing == false)
+		{
+			MoveType = "Stand";
+		}
 	}
 }
 
@@ -158,6 +168,7 @@ void Player::CreateAllKey()
 	{
 		GameEngineInput::CreateKey("LMove", VK_LEFT);
 		GameEngineInput::CreateKey("RMove", VK_RIGHT);
+		GameEngineInput::CreateKey("Swing", VK_LCONTROL);
 		GameEngineInput::CreateKey("Jump", 'C');
 	}
 }
@@ -173,6 +184,9 @@ void Player::ActingUpdate(float _DeltaTime)
 		break;
 	case static_cast<int>(State::Jump):
 		Jump(_DeltaTime);
+		break;
+	case static_cast<int>(State::Swing):
+		Swing();
 		break;
 	case -1:
 		Idle();
@@ -191,6 +205,10 @@ int Player::GetStateByKeyInput() const
 	if (GameEngineInput::IsDown("Jump") == true)
 	{
 		return static_cast<int>(State::Jump);
+	}
+	else if (GameEngineInput::IsDown("Swing") == true)
+	{
+		return static_cast<int>(State::Swing);
 	}
 	else if (GameEngineInput::IsPress("LMove") == true || GameEngineInput::IsPress("RMove") == true)
 	{
@@ -214,9 +232,9 @@ void Player::CameraUpdate()
 	{
 		CameraPos.x = -HalfWidth + 450;
 	}
-	else if (CameraPos.x + 400 > HalfWidth - 40)
+	else if (CameraPos.x + 400 > HalfWidth - 50)
 	{
-		CameraPos.x = HalfWidth - 40 - 400;
+		CameraPos.x = HalfWidth - 450;
 	}
 
 	if (CameraPos.y - 300 < -(HalfHeight - 185))

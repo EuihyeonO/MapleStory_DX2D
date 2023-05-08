@@ -4,6 +4,6 @@ enum class State
 {
 	Move = 0,
 	Jump,
-	Attack,
+	Swing,
 };
 

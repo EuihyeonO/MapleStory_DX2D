@@ -34,6 +34,9 @@
     <ClInclude Include="ContentEnums.h">
       <Filter>Global</Filter>
     </ClInclude>
+    <ClInclude Include="BottomBar.h">
+      <Filter>Actor\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Level_Title.cpp">
@@ -71,6 +74,9 @@
     </ClCompile>
     <ClCompile Include="PlayerAct.cpp">
       <Filter>Actor\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="BottomBar.cpp">
+      <Filter>Actor\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

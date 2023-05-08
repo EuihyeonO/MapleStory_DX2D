@@ -52,6 +52,7 @@ private:
 
 	void Idle();
 	void Move(float _DeltaTime);
+	void Swing();
 	void Jump(float _DeltaTime);
 	void JumpUpdate(float _DeltaTime);
 
@@ -62,6 +63,7 @@ private:
 
 	bool isGround = false;
 	bool isKeyJump = false;
+	bool isSwing = false;
 
 	float Gravity = 200.0f;
 	float GravityAccel = 1000.0f;
