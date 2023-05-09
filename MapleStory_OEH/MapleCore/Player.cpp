@@ -10,9 +10,12 @@
 
 #include <ctime>
 
+Player* Player::CurPlayer = nullptr;
+
 Player::Player()
 {
 	PlayerValue::Value.AddToPlayerToPlayerList(this);
+	CurPlayer = this;
 }
 
 Player::~Player()

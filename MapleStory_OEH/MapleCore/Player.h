@@ -7,7 +7,12 @@ class Player : public GameEngineActor
 {
 
 public:
-	
+
+	static Player* GetCurPlayer()
+	{
+		return CurPlayer;
+	}
+
 	void SetColMap(const std::string_view& _MapName)
 	{		
 		ColMap = GameEngineTexture::Find(_MapName);
@@ -31,6 +36,7 @@ protected:
 	void Render(float _DeltaTime) override;
 private:
 	
+	static Player* CurPlayer;
 	std::shared_ptr<GameEngineTexture> ColMap;
 
 	void TimeCounting();
@@ -59,7 +65,6 @@ private:
 	void CameraUpdate();
 
 	int GetStateByKeyInput() const;
-
 
 	bool isGround = false;
 	bool isKeyJump = false;

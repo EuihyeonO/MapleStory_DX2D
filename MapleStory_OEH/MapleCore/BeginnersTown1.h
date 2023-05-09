@@ -4,6 +4,8 @@
 class GameEngineSpriteRenderer;
 class BeginnersTown1 : public GameEngineActor
 {
+	friend class MiniMap;
+
 public:
 	const std::string_view& GetColMapName()
 	{
@@ -25,8 +27,11 @@ protected:
 private:
 
 	std::string ColMapName = "ColBeginnersTown1.png";
+	std::string MapName = "BeginnersTown1.png";
 
 	float XMoveConstant = 0.0f;
+
+	std::shared_ptr<class MiniMap> MyMiniMap = nullptr;
 
 	std::shared_ptr<GameEngineSpriteRenderer> BackGround = nullptr;
 	std::shared_ptr<GameEngineSpriteRenderer> Rope = nullptr;

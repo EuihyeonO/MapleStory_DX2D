@@ -37,6 +37,12 @@
     <ClInclude Include="BottomBar.h">
       <Filter>Actor\UI</Filter>
     </ClInclude>
+    <ClInclude Include="StatusWindow.h">
+      <Filter>Actor\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniMap.h">
+      <Filter>Actor\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Level_Title.cpp">
@@ -76,6 +82,12 @@
       <Filter>Actor\Character</Filter>
     </ClCompile>
     <ClCompile Include="BottomBar.cpp">
+      <Filter>Actor\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="StatusWindow.cpp">
+      <Filter>Actor\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniMap.cpp">
       <Filter>Actor\UI</Filter>
     </ClCompile>
   </ItemGroup>

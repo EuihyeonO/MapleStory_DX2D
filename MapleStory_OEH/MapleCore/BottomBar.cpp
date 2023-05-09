@@ -38,18 +38,15 @@ void BottomBar::Start()
 	StatusBarLayer = CreateComponent<GameEngineSpriteRenderer>();
 	StatusBarLayer->SetScaleToTexture("StatusBarLayer.png");
 
-	PlayerValue::GetValue()->SubHp(31);
-	PlayerValue::GetValue()->AddExp(50);
-	PlayerValue::GetValue()->SubMp(50);
-
+	PlayerValue::GetValue()->SetLevel(11);
 	LevelRenderer.reserve(4);
-	LevelUpdate();
 }
 
 void BottomBar::Update(float _DeltaTime) 
 {
 	BottomBarPosUpdate();
 	GradationUpdate();
+	LevelUpdate();
 }
 
 void BottomBar::Render(float _DeltaTime) 
@@ -72,26 +69,26 @@ void BottomBar::BottomBarPosUpdate()
 
 	float4 StatusBarPos = StatusBar->GetTransform()->GetLocalPosition();
 	StatusBarLayer->GetTransform()->SetLocalPosition(StatusBarPos);
-
-	ExpBarRightPos = StatusBarPos + float4{ 167.0f, -8.0f };	
-	HpBarRightPos = ExpBarRightPos - float4{ 230.0f , 0.0f};
-	MpBarRightPos = HpBarRightPos + float4{ 108.0f , 0.0f};
 }
 
 void BottomBar::GradationUpdate()
 {
 	float4 StatusBarPos = StatusBar->GetTransform()->GetLocalPosition();
 
+	ExpBarRightPos = StatusBarPos + float4{ 167.0f, -8.0f };
+	HpBarRightPos = ExpBarRightPos - float4{ 230.0f , 0.0f };
+	MpBarRightPos = HpBarRightPos + float4{ 108.0f , 0.0f };
+
 	//Hp
-	float HpRateScale = PlayerValue::GetValue()->GetHpRate();
-	float HpGradationXScale = 114.0f * HpRateScale;
+	float HpRateScale = 1 - PlayerValue::GetValue()->GetHpRate();
+	float HpGradationXScale = 106.0f * HpRateScale;
 
 	HpGradation->GetTransform()->SetLocalScale({ HpGradationXScale , 16.0f });
 	HpGradation->GetTransform()->SetLocalPosition(HpBarRightPos - float4{ HpGradationXScale / 2.0f, 0.0f });
 
 	//Mp
-	float MpRateScale = PlayerValue::GetValue()->GetMpRate();
-	float MpGradationXScale = 114.0f * MpRateScale;
+	float MpRateScale = 1 - PlayerValue::GetValue()->GetMpRate();
+	float MpGradationXScale = 105.0f * MpRateScale;
 
 	MpGradation->GetTransform()->SetLocalScale({ MpGradationXScale , 16.0f });
 	MpGradation->GetTransform()->SetLocalPosition(MpBarRightPos - float4{MpGradationXScale / 2.0f, 0.0f });
@@ -149,8 +146,11 @@ void BottomBar::LevelUpdate()
 
 	LevelRendererSize = LevelRenderer.size();
 
+	float4 BottomBarLayerPos = BottomBarLayer->GetTransform()->GetLocalPosition();
+	float StartXpos = -245 + (LevelRendererSize - 1) * -5;
+
 	for (int i = LevelRendererSize - 1; i >= 0; i--)
 	{
-		LevelRenderer[i]->GetTransform()->SetLocalPosition({ static_cast<float>(-i * 20), 0 });
+		LevelRenderer[i]->GetTransform()->SetLocalPosition(BottomBarLayerPos + float4{ StartXpos + static_cast<float>((LevelRendererSize - i) * 12) + 0.5f, -18.5f });
 	}
 }

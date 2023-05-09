@@ -1,5 +1,6 @@
 #include "PrecompileHeader.h"
 #include "BeginnersTown1.h"
+#include "MiniMap.h"
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
@@ -15,6 +16,9 @@ BeginnersTown1::~BeginnersTown1()
 
 void BeginnersTown1::Start()
 {
+	MyMiniMap = GetLevel()->CreateActor<MiniMap>(10);
+	MyMiniMap->SetMap(MapName);
+
 	LandScape0 = CreateComponent<GameEngineSpriteRenderer>();
 	LandScape0->SetTexture("MapBackGround0.png");
 	LandScape0->GetTransform()->SetLocalScale({2000, 2000});

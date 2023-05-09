@@ -3,6 +3,7 @@
 #include "BeginnersTown1.h"
 #include "Player.h"
 #include "BottomBar.h"
+#include "StatusWindow.h"
 
 #include <GameEngineCore/GameEngineCamera.h>
 
@@ -27,6 +28,7 @@ void Level_BeginnersTown1::Start()
 	MyPlayer->SetColMap(Map->GetColMapName());
 
 	CreateActor<BottomBar>();
+	CreateActor<StatusWindow>();
 }
 
 void Level_BeginnersTown1::Update(float _DeltaTime)
