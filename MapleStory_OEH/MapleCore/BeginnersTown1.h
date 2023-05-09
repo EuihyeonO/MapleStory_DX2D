@@ -26,6 +26,8 @@ protected:
 	void Render(float _DeltaTime) override;
 private:
 
+	void CloudMove(float _DeltaTime);
+
 	std::string ColMapName = "ColBeginnersTown1.png";
 	std::string MapName = "BeginnersTown1.png";
 

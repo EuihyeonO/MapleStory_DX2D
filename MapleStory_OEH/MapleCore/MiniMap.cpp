@@ -38,7 +38,8 @@ void MiniMap::Update(float _DeltaTime)
 
 	float4 MiniMapPos = Map->GetTransform()->GetLocalPosition();
 	float4 PlayerPos = Player::GetCurPlayer()->GetTransform()->GetLocalPosition();
-	Filter->GetTransform()->SetLocalPosition(MiniMapPos + float4{0, 25});
+
+	Filter->GetTransform()->SetLocalPosition(MiniMapPos + float4{0, 15});
 	UserMark->GetTransform()->SetLocalPosition(MiniMapPos + PlayerPos * DownSizeRatio);
 }
 
@@ -50,7 +51,6 @@ void MiniMap::SetMap(const std::string_view& _MapName)
 {
 	Map->SetTexture(_MapName);
 	Map->GetTransform()->SetLocalScale({ 190.0f, 135.0f });
-
 
 	std::shared_ptr<GameEngineTexture> SettingMap = GameEngineTexture::Find(_MapName);
 	float4 MapScale = { static_cast<float>(SettingMap->GetWidth()), static_cast<float>(SettingMap->GetHeight()) };
