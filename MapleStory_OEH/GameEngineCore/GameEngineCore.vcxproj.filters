@@ -136,6 +136,9 @@
     <ClInclude Include="imgui.h">
       <Filter>UI\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="GameEngineSprite.h">
+      <Filter>Resources\Texture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngineCore.cpp" />
@@ -268,6 +271,9 @@
     </ClCompile>
     <ClCompile Include="imgui_impl_dx11.cpp">
       <Filter>UI\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineSprite.cpp">
+      <Filter>Resources\Texture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

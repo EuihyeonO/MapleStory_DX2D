@@ -82,14 +82,7 @@ float4 Texture_PS(OutPut _Value) : SV_Target0
 {
     float4 Color;
     
-    if (XMove == 0)
-    {
-        Color = DiffuseTex.Sample(WRAPSAMPLER, float2(_Value.UV.x + XMove, _Value.UV.y + YMove));
-    }
-    else
-    {
-        Color = DiffuseTex.Sample(WRAPSAMPLER, float2((_Value.UV.x * ScaleRatio) + XMove, _Value.UV.y + YMove));
-    }
+    Color = DiffuseTex.Sample(WRAPSAMPLER, float2((_Value.UV.x * ScaleRatio) + XMove, _Value.UV.y + YMove));
     
     return Color;
 }

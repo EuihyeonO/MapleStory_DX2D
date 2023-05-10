@@ -22,14 +22,14 @@ public:
 	// 어떤 샘플러 어떤 상수버퍼를 사용했는지를 알아야 한다.
 	void SetPipeLine(const std::string_view& _Name);
 
-	inline GameEngineShaderResHelper& GetShaderResHelper()
-	{
-		return ShaderResHelper;
-	}
-
 	void SetMoveConstants(float4 _MoveConstants)
 	{
 		MoveConstants = _MoveConstants;
+	}
+
+	inline GameEngineShaderResHelper& GetShaderResHelper()
+	{
+		return ShaderResHelper;
 	}
 
 protected:
@@ -39,9 +39,7 @@ private:
 	// Pipe와
 	// GameEngineShaderResHelper 가 합쳐져야 랜더링 이 되는 식이 됩니다.
 	std::shared_ptr<class GameEngineRenderingPipeLine > Pipe;
-
+	float4 MoveConstants = { 0,0,1 };
 	GameEngineShaderResHelper ShaderResHelper;
-
-	float4 MoveConstants;
 };
 

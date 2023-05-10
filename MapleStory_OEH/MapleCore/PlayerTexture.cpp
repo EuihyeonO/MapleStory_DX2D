@@ -368,6 +368,17 @@ void Player::SetWeaponTexturePosVector()
 	WeaponOriginPos["Walk"]["Ganier"].push_back({ -25, 7 });
 	WeaponOriginPos["Walk"]["Ganier"].push_back({ -25, 7 });
 	WeaponOriginPos["Walk"]["Ganier"].push_back({ -25, 7 });
+	WeaponOriginPos["Swing0"]["Ganier"].push_back({ 10, 5 }); //»ç¶óÁü
+	WeaponOriginPos["Swing0"]["Ganier"].push_back({ -11, 5 });
+	WeaponOriginPos["Swing0"]["Ganier"].push_back({ -11, 5 });
+	WeaponOriginPos["Swing1"]["Ganier"].push_back({ -12, 5 });
+	WeaponOriginPos["Swing1"]["Ganier"].push_back({ -12, 5 });
+	WeaponOriginPos["Swing1"]["Ganier"].push_back({ -12, 5 });
+	WeaponOriginPos["Swing2"]["Ganier"].push_back({ -12, 5 });
+	WeaponOriginPos["Swing2"]["Ganier"].push_back({ -12, 5 });
+	WeaponOriginPos["Swing2"]["Ganier"].push_back({ -12, 5 });//»ç¶óÁü
+	WeaponOriginPos["Jump"]["Ganier"].push_back({ -13, 5 });
+
 
 	WeaponOriginPos["Stand"]["Club"].push_back({ -25, 7 });
 	WeaponOriginPos["Stand"]["Club"].push_back({ -25, 7 });
@@ -407,7 +418,7 @@ void Player::SetWeaponTexturePosVector()
 	WeaponToHandPos["Walk"]["Club"].push_back({ -7, -2 });
 
 	//
-	WeaponToNavelPos["Swing0"]["BasicSword"].push_back({ 4, 1 });
+	WeaponToNavelPos["Swing0"]["BasicSword"].push_back({ 4, -1 });
 	WeaponToNavelPos["Swing0"]["BasicSword"].push_back({ -4, -2 });
 	WeaponToNavelPos["Swing0"]["BasicSword"].push_back({ 23, 41 });
 	WeaponToNavelPos["Swing1"]["BasicSword"].push_back({ -11, 34 });
@@ -417,7 +428,18 @@ void Player::SetWeaponTexturePosVector()
 	WeaponToNavelPos["Swing2"]["BasicSword"].push_back({ -39, 2 });
 	WeaponToNavelPos["Swing2"]["BasicSword"].push_back({ 5, 1 });
 
+	WeaponToNavelPos["Swing0"]["Ganier"].push_back({ -1, -1 });
+	WeaponToNavelPos["Swing0"]["Ganier"].push_back({ -1, -1 });
+	WeaponToNavelPos["Swing0"]["Ganier"].push_back({ 23, 20 });
+	WeaponToNavelPos["Swing1"]["Ganier"].push_back({ -10, 14 });
+	WeaponToNavelPos["Swing1"]["Ganier"].push_back({ -13, 10 });
+	WeaponToNavelPos["Swing1"]["Ganier"].push_back({ 24, -1 });
+	WeaponToNavelPos["Swing2"]["Ganier"].push_back({ 26, 12 });
+	WeaponToNavelPos["Swing2"]["Ganier"].push_back({ -14, 3 });
+	WeaponToNavelPos["Swing2"]["Ganier"].push_back({ -14, 3 });
+
 	WeaponToNavelPos["Jump"]["BasicSword"].push_back({ 11, 27 });
+	WeaponToNavelPos["Jump"]["Ganier"].push_back({ 12, 9 });
 
 }
 

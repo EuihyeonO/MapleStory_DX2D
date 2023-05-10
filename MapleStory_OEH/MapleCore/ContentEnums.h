@@ -7,3 +7,9 @@ enum class State
 	Swing,
 };
 
+enum class WeaponType
+{
+	OneHandWeapon,
+	Claw,
+};
+

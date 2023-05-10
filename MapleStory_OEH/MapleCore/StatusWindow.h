@@ -30,6 +30,8 @@ private:
 	void WindowOn();
 	void WindowOff();
 	
+	bool PosUpdate();
+
 	std::shared_ptr<GameEngineSpriteRenderer> MainWindow;
 	std::shared_ptr<GameEngineSpriteRenderer> SubWindow;
 

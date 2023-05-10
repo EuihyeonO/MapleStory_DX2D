@@ -23,6 +23,19 @@ protected:
 	void Render(float _DeltaTime) override;
 private:
 
+	void MiniMapUpdate();
+
+	void MiniMapOn();
+	void MiniMapOff();
+
+	bool MiniMapOnOff();
+
+	bool PosUpdate();
+
+	void GetKetInput();
+	void CreateInputKey();
+
+	std::list<std::function<bool(MiniMap&)>> UpdateFunction;
 
 	std::shared_ptr<GameEngineSpriteRenderer> Map;
 	std::shared_ptr<GameEngineSpriteRenderer> Filter;

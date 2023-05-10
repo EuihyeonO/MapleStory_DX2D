@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "PlayerValue.h"
 #include "ContentEnums.h"
+#include "Star.h"
 
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineLevel.h>
@@ -28,28 +29,30 @@ void Player::Start()
 
 	TimeCounting();
 
-	GetTransform()->SetLocalPosition({ 0, 0 });
-	GetTransform()->SetLocalScale({ 1, 1 });
+	GetTransform()->SetLocalPosition({ 0, 0, 0 });
+	GetTransform()->SetLocalScale({ 1, 1, 1 });
 
 	Body = CreateComponent<GameEngineSpriteRenderer>();
 	Pants = CreateComponent<GameEngineSpriteRenderer>();
 	Coat = CreateComponent<GameEngineSpriteRenderer>();
 
 	//SetOrder가 안되네?
-	Weapon = CreateComponent<GameEngineSpriteRenderer>();
 	Arm = CreateComponent<GameEngineSpriteRenderer>();
 	CoatArm = CreateComponent<GameEngineSpriteRenderer>();
 	Head = CreateComponent<GameEngineSpriteRenderer>();
 	Hair = CreateComponent<GameEngineSpriteRenderer>();
 	Face = CreateComponent<GameEngineSpriteRenderer>();
+	Weapon = CreateComponent<GameEngineSpriteRenderer>();
 
 	//초기애니메이션
 	SkinType = "Basic";
 	MoveType = "Stand";
 	CoatName = "WhiteTshirt";
 	PantsName = "BluePants";
-	WeaponName = "BasicSword";
+	WeaponName = "Ganier";
 	
+	WeaponType = static_cast<int>(WeaponType::Claw);
+
 	MoveSpeed = 100.0f;
 
 	SetAllTexturePosVector();
@@ -98,13 +101,13 @@ void Player::TimeCounting()
 void Player::SetLeft()
 {
 	LeftRightDir = "Left";
-	GetTransform()->SetLocalScale({ 1, 1 });
+	GetTransform()->SetLocalScale({ 1, 1, 1 });
 }
 
 void Player::SetRight()
 {
 	LeftRightDir = "Right";
-	GetTransform()->SetLocalScale({ -1, 1 });
+	GetTransform()->SetLocalScale({ -1, 1, 1 });
 }
 
 void Player::SetMoveType(const std::string_view& _MoveType)
@@ -124,15 +127,19 @@ void Player::GravityUpdate(float _DeltaTime)
 
 	float4 PlayerPos = GetTransform()->GetLocalPosition();
 
-	float4 MapHalfScale = { static_cast<float>(ColMap->GetWidth() / 2) ,  static_cast<float>(ColMap->GetHeight() / 2) };
-	float4 ColorPos = MapHalfScale + float4{ PlayerPos.x, -PlayerPos.y };
+	float4 MapHalfScale = { static_cast<float>(ColMap->GetWidth() / 2) ,  static_cast<float>(ColMap->GetHeight() / 2)};
+	float4 ColorPos = float4{ MapHalfScale.x, MapHalfScale.y } + float4{ PlayerPos.x, -PlayerPos.y };
 
 	GameEnginePixelColor Color = { (char)255, 0, (char)255, (char)255 };
+
+	int X = static_cast<int>(ColorPos.x);
+	int Y = static_cast<int>(ColorPos.y);
+
 	GameEnginePixelColor MapColor = ColMap->GetPixel(static_cast<int>(ColorPos.x), static_cast<int>(ColorPos.y));
 	
 	if (Color != MapColor)
 	{
-		GetTransform()->AddLocalPosition({ 0 , -Gravity * _DeltaTime });
+		GetTransform()->AddLocalPosition({ 0 , -Gravity * _DeltaTime, 0 });
 		
 		if(isSwing == false)
 		{

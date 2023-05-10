@@ -17,6 +17,7 @@ BeginnersTown1::~BeginnersTown1()
 
 void BeginnersTown1::Start()
 {
+
 	MyMiniMap = GetLevel()->CreateActor<MiniMap>(10);
 	MyMiniMap->SetMap(MapName);
 
@@ -32,7 +33,6 @@ void BeginnersTown1::Start()
 	float4 CloudScale = Cloud->GetTransform()->GetLocalScale();
 	Cloud->GetTransform()->SetLocalPosition({ 0, 250 });
 	Cloud->GetTransform()->AddLocalScale({ CloudScale.x * 2.0f, 0 });
-
 
 	LandScape2 = CreateComponent<GameEngineSpriteRenderer>();
 	LandScape2->SetScaleToTexture("MapBackGround2.png");

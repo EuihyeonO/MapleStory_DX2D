@@ -71,6 +71,5 @@ void GameEngineRenderer::SetPipeLine(const std::string_view& _Name)
 		ShaderResHelper.SetConstantBufferLink("MoveConstants", MoveConstants);
 	}
 
-
 	GetTransform()->GetWorldMatrix();
 }

@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "PlayerValue.h"
 #include "ContentEnums.h"
+#include "Star.h"
 
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineLevel.h>
@@ -165,6 +166,9 @@ void Player::Swing()
 	MoveType = "Swing" + std::to_string(SwingType);
 	AniIndex = 0;
 	isSwing = true;
+
+	//std::shared_ptr<Star> NewStar = GetLevel()->CreateActor<Star>(11);
+	//NewStar->SetStarName("Wednes");
 }
 
 void Player::Idle()

@@ -88,6 +88,8 @@ private:
 
 	std::string MoveType = "";
 	std::string PrevMoveType = "";
+	
+	int WeaponType = 0;
 
 	std::string LeftRightDir = ""; //좌우 방향
 	std::string FrontBackDir = "Front"; //앞뒤 방향 ( ex 사다리를 탔을 땐 뒤 )

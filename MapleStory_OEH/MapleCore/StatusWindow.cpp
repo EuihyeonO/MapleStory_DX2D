@@ -41,9 +41,7 @@ void StatusWindow::WindowOn()
 	MainWindow->On();
 	SubWindow->On();
 
-	float4 CameraPos = GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition();
-	MainWindow->GetTransform()->SetLocalPosition(CameraPos - float4{ 100, 0 });	
-	SubWindow->GetTransform()->SetLocalPosition(CameraPos + float4{ 75, -67 });
+	PosUpdate();
 }
 
 void StatusWindow::WindowOff()
@@ -62,6 +60,23 @@ bool StatusWindow::WindowOnOff()
 	else
 	{
 		WindowOn();
+		UpdateFunction.push_back(&StatusWindow::PosUpdate);
+		return true;
+	}
+}
+
+bool StatusWindow::PosUpdate()
+{
+	float4 CameraPos = GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition();
+	MainWindow->GetTransform()->SetLocalPosition(CameraPos - float4{ 100, 0 });
+	SubWindow->GetTransform()->SetLocalPosition(CameraPos + float4{ 75, -67 });
+
+	if (MainWindow->IsUpdate() == true)
+	{
+		return false;
+	}
+	else
+	{
 		return true;
 	}
 }
