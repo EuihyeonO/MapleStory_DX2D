@@ -23,7 +23,7 @@
       <Filter>Actor\TitleActors</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Actor\Character</Filter>
+      <Filter>Actor\Player</Filter>
     </ClInclude>
     <ClInclude Include="Level_BeginnersTown1.h">
       <Filter>Level</Filter>
@@ -42,6 +42,9 @@
     </ClInclude>
     <ClInclude Include="MiniMap.h">
       <Filter>Actor\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Hina.h">
+      <Filter>Actor\NPC</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -67,10 +70,10 @@
       <Filter>Actor\TitleActors</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Actor\Character</Filter>
+      <Filter>Actor\Player</Filter>
     </ClCompile>
     <ClCompile Include="PlayerTexture.cpp">
-      <Filter>Actor\Character</Filter>
+      <Filter>Actor\Player</Filter>
     </ClCompile>
     <ClCompile Include="Level_BeginnersTown1.cpp">
       <Filter>Level</Filter>
@@ -79,7 +82,7 @@
       <Filter>Actor\Map</Filter>
     </ClCompile>
     <ClCompile Include="PlayerAct.cpp">
-      <Filter>Actor\Character</Filter>
+      <Filter>Actor\Player</Filter>
     </ClCompile>
     <ClCompile Include="BottomBar.cpp">
       <Filter>Actor\UI</Filter>
@@ -89,6 +92,9 @@
     </ClCompile>
     <ClCompile Include="MiniMap.cpp">
       <Filter>Actor\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Hina.cpp">
+      <Filter>Actor\NPC</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -116,11 +122,17 @@
     <Filter Include="Actor\UI">
       <UniqueIdentifier>{280ec37f-b029-4b9e-af89-bd9692474b60}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\Character">
-      <UniqueIdentifier>{72807388-c3ae-43c9-9a87-0a98cb9ca31a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Actor\Map">
       <UniqueIdentifier>{b2e85509-f8ad-4a5e-84e4-a72648b8cbd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Monster">
+      <UniqueIdentifier>{4e9d07b1-cd20-411d-b357-672dc43466d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Player">
+      <UniqueIdentifier>{72807388-c3ae-43c9-9a87-0a98cb9ca31a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\NPC">
+      <UniqueIdentifier>{4d5496bd-67af-41c4-b5f3-7edf33df7af1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
