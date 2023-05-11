@@ -18,6 +18,18 @@ public:
 		ColMap = GameEngineTexture::Find(_MapName);
 	}
 
+	const std::string_view& GetMoveType() const
+	{
+		return MoveType;
+	}
+
+	const int GetAniIndex() const
+	{
+		return AniIndex;
+	}
+
+	const float4 GetWeaponPos() const;
+
 	void SetLeft();
 	void SetRight();
 	void SetMoveType(const std::string_view& _MoveType);

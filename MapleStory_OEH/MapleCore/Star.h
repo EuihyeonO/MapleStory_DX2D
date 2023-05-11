@@ -11,7 +11,7 @@ public:
 	Star();
 	~Star();
 
-	void SetUpdateFuction(std::function<bool(float)> _Fuction)
+	void SetUpdateFuction(std::function<bool(Star&, float)> _Fuction)
 	{
 		UpdateFuction = _Fuction;
 	}
@@ -36,19 +36,24 @@ private:
 	void TimeCounting();
 	void AnimationUpdate();
 	void Move(float _DeltaTime);
+	void StartTimingCheck(float _DeltaTime);
+	void SetStartPos();
 
 	float CurTime = 0.0f;
 	float PrevTime = 0.0f;
 	float TimeCount = 0.0f;
 
+	float4 StartPos = { 0,0 };
+
 	float AnimationCount = 0.0f;
 
-	float MoveDistance = 0.0f;
+	float4 MoveDistance = { 0, 0 };
 
 	int AniIndex = 0;
+	bool isSet = false;
 
 	std::shared_ptr<GameEngineSpriteRenderer> StarRender = nullptr;
 	
-	std::function<bool(float)> UpdateFuction = nullptr;
+	std::function<void(Star&, float)> UpdateFuction = nullptr;
 };
 

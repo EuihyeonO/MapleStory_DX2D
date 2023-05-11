@@ -26,6 +26,7 @@ Player::~Player()
 
 void Player::Start()
 {
+	PlayerValue::Value.SetMoveDistance({ 200, 200 });
 
 	TimeCounting();
 
@@ -256,4 +257,9 @@ void Player::CameraUpdate()
 	}
 
 	GetLevel()->GetMainCamera()->GetTransform()->SetLocalPosition(CameraPos);
+}
+
+const float4 Player::GetWeaponPos() const
+{
+	return Weapon->GetTransform()->GetWorldPosition();
 }

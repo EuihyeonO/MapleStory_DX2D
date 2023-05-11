@@ -180,6 +180,17 @@ public: //local
 		MaxMp = _MaxMp;
 	}
 
+	float4 GetMoveDistance()
+	{
+		return MoveDistance;
+	}
+
+
+	void SetMoveDistance(float4 _MoveDistance)
+	{
+		MoveDistance = _MoveDistance;
+	}
+
 	float GetMpRate()
 	{
 		if (Mp != 0)
@@ -260,6 +271,8 @@ private:
 
 	int MaxExp = 100;
 	int Exp = 0;
+
+	float4 MoveDistance = { 0,0 };
 
 	std::string Hair;
 	std::string Skin;

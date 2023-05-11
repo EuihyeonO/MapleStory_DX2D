@@ -167,8 +167,8 @@ void Player::Swing()
 	AniIndex = 0;
 	isSwing = true;
 
-	//std::shared_ptr<Star> NewStar = GetLevel()->CreateActor<Star>(11);
-	//NewStar->SetStarName("Wednes");
+	std::shared_ptr<Star> NewStar = GetLevel()->CreateActor<Star>(11);
+	NewStar->SetStarName("Wednes");
 }
 
 void Player::Idle()
