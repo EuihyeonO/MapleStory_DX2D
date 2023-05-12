@@ -92,6 +92,7 @@ bool Player::Haste()
 		HasteIndex = 0;
 		HasteTime = 30.0f;
 		MoveSpeed = BasicMoveSpeed;
+
 		isHaste = false;
 		return true;
 	}

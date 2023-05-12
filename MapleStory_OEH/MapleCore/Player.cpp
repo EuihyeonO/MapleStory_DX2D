@@ -197,6 +197,11 @@ void Player::CreateAllKey()
 
 void Player::ActingUpdate(float _DeltaTime)
 {	
+	if (isMovable == false)
+	{
+		return;
+	}
+
 	int State = GetStateByKeyInput();
 
 	switch (State)
@@ -210,13 +215,13 @@ void Player::ActingUpdate(float _DeltaTime)
 	case static_cast<int>(State::Swing):
 		Swing();
 		break;
-	case static_cast<int>(State::Qskill):
+	case static_cast<int>(State::Qskill):	
+		//퀵슬롯에서 Qskill 에 스킬을 할당해줘야함
 		//if (QSkill != nullptr)
 		//{
 		//	QSkill(*this);
 		//}
-
-		if(isHaste == false)
+		if(isHaste == false && isGround == true)
 		{
 			BuffList.push_back(&Player::Haste);
 		}
@@ -231,7 +236,6 @@ void Player::ActingUpdate(float _DeltaTime)
 		JumpUpdate(_DeltaTime);
 	}
 }
-
 
 int Player::GetStateByKeyInput() const
 {

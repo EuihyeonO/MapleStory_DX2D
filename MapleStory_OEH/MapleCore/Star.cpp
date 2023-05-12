@@ -25,7 +25,6 @@ void Star::Start()
 
 void Star::Update(float _DeltaTime)
 {
-
 	if(UpdateFuction == nullptr)
 	{
 		TimeCounting();
@@ -36,7 +35,6 @@ void Star::Update(float _DeltaTime)
 		UpdateFuction(*this, _DeltaTime);
 		AnimationUpdate();
 	}
-
 }
 
 void Star::Render(float _DeltaTime)

@@ -33,6 +33,10 @@ void Player::SetAllTexturePosVector()
 	AniFrameList["Swing2"].push_back(0.15f);
 	AniFrameList["Swing2"].push_back(0.35f);
 
+	AniFrameList["Alert"].push_back(0.5f);
+	AniFrameList["Alert"].push_back(0.5f);
+	AniFrameList["Alert"].push_back(0.5f);
+
 	AniFrameList["Jump"].push_back(0.0f);
 
 	//Origin은 X반전 Y그대로
@@ -67,6 +71,10 @@ void Player::SetBodyTexturePosVector()
 	BodyOriginPos["Swing2"].push_back({ -36, 27 });
 	BodyOriginPos["Swing2"].push_back({ -28, 30 });
 	BodyOriginPos["Swing2"].push_back({ -36, 27 });
+
+	BodyOriginPos["Alert"].push_back({ -16, 29 });
+	BodyOriginPos["Alert"].push_back({ -16, 30 });
+	BodyOriginPos["Alert"].push_back({ -16, 31 });
 	
 	BodyOriginPos["Jump"].push_back({ -22, 30 });
 
@@ -89,6 +97,9 @@ void Player::SetBodyTexturePosVector()
 	BodyNavelPos["Swing2"].push_back({ -8, 16 });
 	BodyNavelPos["Swing2"].push_back({ -24, 17 });
 	BodyNavelPos["Swing2"].push_back({ -30, 16 });
+	BodyNavelPos["Alert"].push_back({ -3, 18 });
+	BodyNavelPos["Alert"].push_back({ -3, 19 });
+	BodyNavelPos["Alert"].push_back({ -3, 20 });
 	BodyNavelPos["Jump"].push_back({ -5, 18 });
 	//
 	BodyNeckPos["Stand"].push_back({ -4, 32 });
@@ -108,6 +119,9 @@ void Player::SetBodyTexturePosVector()
 	BodyNeckPos["Swing2"].push_back({ -11, 27 });
 	BodyNeckPos["Swing2"].push_back({ -31, 28 });
 	BodyNeckPos["Swing2"].push_back({ -34, 26 });
+	BodyNeckPos["Alert"].push_back({ -4, 29 });
+	BodyNeckPos["Alert"].push_back({ -4, 30 });
+	BodyNeckPos["Alert"].push_back({ -4, 31 });
 	BodyNeckPos["Jump"].push_back({ -4, 30 });
 
 	//Arm
@@ -129,6 +143,9 @@ void Player::SetBodyTexturePosVector()
 	ArmOriginPos["Swing2"].push_back({ -11, 7 });
 	ArmOriginPos["Swing2"].push_back({ -12, 6 });
 	ArmOriginPos["Swing2"].push_back({ -10, 8 });
+	ArmOriginPos["Alert"].push_back({ -6, 8 });
+	ArmOriginPos["Alert"].push_back({ -7, 8 });
+	ArmOriginPos["Alert"].push_back({ -6, 10 });
 	ArmOriginPos["Jump"].push_back({ -7,7 });
 
 	//X 반전, Y그대로
@@ -150,6 +167,10 @@ void Player::SetBodyTexturePosVector()
 	ArmToNavelPos["Swing2"].push_back({ 14, 10 });
 	ArmToNavelPos["Swing2"].push_back({ -11, 5 });
 	ArmToNavelPos["Swing2"].push_back({ 2, 1 });
+
+	ArmToNavelPos["Alert"].push_back({ 11,  1 });
+	ArmToNavelPos["Alert"].push_back({ 11,  1 });
+	ArmToNavelPos["Alert"].push_back({ 11, -1 });
 
 	ArmToNavelPos["Jump"].push_back({ 7, 5 });
 
@@ -176,8 +197,11 @@ void Player::SetBodyTexturePosVector()
 	ArmHandPos["Swing2"].push_back({ -9, -2 });
 	ArmHandPos["Swing2"].push_back({ -9, 0 });
 
+	ArmHandPos["Alert"].push_back({ -5, -5 });
+	ArmHandPos["Alert"].push_back({ -6, -6 });
+	ArmHandPos["Alert"].push_back({ -5, -5 });
+
 	ArmHandPos["Jump"].push_back({ -3, 3 });
-	
 	//
 	HeadOriginPos["Front"] = float4{ -19, 17 };
 
@@ -210,8 +234,13 @@ void Player::SetCoatTexturePosVector()
 	CoatOriginPos["Swing2"]["WhiteTshirt"].push_back({ -10, 10 });
 	CoatOriginPos["Swing2"]["WhiteTshirt"].push_back({ -11, 9 });
 
+	CoatOriginPos["Alert"]["WhiteTshirt"].push_back({ -10, 10 });
+	CoatOriginPos["Alert"]["WhiteTshirt"].push_back({ -10, 10 });
+	CoatOriginPos["Alert"]["WhiteTshirt"].push_back({ -11, 9 });
+
 	CoatOriginPos["Jump"]["WhiteTshirt"].push_back({ -10, 10 });
 
+	//
 	CoatToNavelPos["Stand"]["WhiteTshirt"].push_back({ 8, 1 });
 	CoatToNavelPos["Stand"]["WhiteTshirt"].push_back({ 6, 2 });
 	CoatToNavelPos["Stand"]["WhiteTshirt"].push_back({ 5, 1 });
@@ -233,6 +262,10 @@ void Player::SetCoatTexturePosVector()
 	CoatToNavelPos["Swing2"]["WhiteTshirt"].push_back({ 0, 1 });
 	CoatToNavelPos["Swing2"]["WhiteTshirt"].push_back({ 6, 3 });
 	CoatToNavelPos["Swing2"]["WhiteTshirt"].push_back({ 9, 2 });
+
+	CoatToNavelPos["Alert"]["WhiteTshirt"].push_back({ 3, 1 });
+	CoatToNavelPos["Alert"]["WhiteTshirt"].push_back({ 3, 1 });
+	CoatToNavelPos["Alert"]["WhiteTshirt"].push_back({ 5, 2 });
 
 	CoatToNavelPos["Jump"]["WhiteTshirt"].push_back({ 4, 2 });
 
@@ -258,6 +291,10 @@ void Player::SetCoatTexturePosVector()
 	CoatArmOriginPos["Swing2"]["WhiteTshirt"].push_back({ -3, 5 });
 	CoatArmOriginPos["Swing2"]["WhiteTshirt"].push_back({ -3, 5 });
 
+	CoatArmOriginPos["Alert"]["WhiteTshirt"].push_back({ -4, 4 });
+	CoatArmOriginPos["Alert"]["WhiteTshirt"].push_back({ -3, 5 });
+	CoatArmOriginPos["Alert"]["WhiteTshirt"].push_back({ -3, 5 });
+
 	CoatArmOriginPos["Jump"]["WhiteTshirt"].push_back({ -4, 4 });
 
 	CoatArmToNavelPos["Stand"]["WhiteTshirt"].push_back({ 12, 4 });
@@ -281,6 +318,10 @@ void Player::SetCoatTexturePosVector()
 	CoatArmToNavelPos["Swing2"]["WhiteTshirt"].push_back({ 7, 6 });
 	CoatArmToNavelPos["Swing2"]["WhiteTshirt"].push_back({ -4, 6 });
 	CoatArmToNavelPos["Swing2"]["WhiteTshirt"].push_back({ -1, 4 });
+
+	CoatArmToNavelPos["Alert"]["WhiteTshirt"].push_back({ 9, 5 });
+	CoatArmToNavelPos["Alert"]["WhiteTshirt"].push_back({ 8, 4 });
+	CoatArmToNavelPos["Alert"]["WhiteTshirt"].push_back({ 8, 4 });
 
 	CoatArmToNavelPos["Jump"]["WhiteTshirt"].push_back({ 13, 5 });
 
@@ -310,6 +351,10 @@ void Player::SetPantsTexturePosVector()
 	PantsOriginPos["Swing2"]["BluePants"].push_back({ -10, 6 });
 	PantsOriginPos["Swing2"]["BluePants"].push_back({ -9, 6 });
 
+	PantsOriginPos["Alert"]["BluePants"].push_back({ -10, 5 });
+	PantsOriginPos["Alert"]["BluePants"].push_back({ -10, 6 });
+	PantsOriginPos["Alert"]["BluePants"].push_back({ -9, 6 });
+
 	PantsOriginPos["Jump"]["BluePants"].push_back({ -10, 5 });
 
 	//X만 반전
@@ -334,6 +379,10 @@ void Player::SetPantsTexturePosVector()
 	PantsToNavelPos["Swing2"]["BluePants"].push_back({ 3, -4 });
 	PantsToNavelPos["Swing2"]["BluePants"].push_back({ 8, -2 });
 	PantsToNavelPos["Swing2"]["BluePants"].push_back({ 6, -3 });
+
+	PantsToNavelPos["Alert"]["BluePants"].push_back({ 0, -6 });
+	PantsToNavelPos["Alert"]["BluePants"].push_back({ -1, -7 });
+	PantsToNavelPos["Alert"]["BluePants"].push_back({ -1, -7 });
 
 	PantsToNavelPos["Jump"]["BluePants"].push_back({ 2, -5 });
 
@@ -377,6 +426,9 @@ void Player::SetWeaponTexturePosVector()
 	WeaponOriginPos["Swing2"]["Ganier"].push_back({ -12, 5 });
 	WeaponOriginPos["Swing2"]["Ganier"].push_back({ -12, 5 });
 	WeaponOriginPos["Swing2"]["Ganier"].push_back({ -12, 5 });//사라짐
+	WeaponOriginPos["Alert"]["Ganier"].push_back({ -23, 10 });
+	WeaponOriginPos["Alert"]["Ganier"].push_back({ -23, 10 });
+	WeaponOriginPos["Alert"]["Ganier"].push_back({ -23, 10 });
 	WeaponOriginPos["Jump"]["Ganier"].push_back({ -13, 5 });
 
 
@@ -407,6 +459,9 @@ void Player::SetWeaponTexturePosVector()
 	WeaponToHandPos["Walk"]["Ganier"].push_back({ 20, 0 });
 	WeaponToHandPos["Walk"]["Ganier"].push_back({ 20, -2 });
 	WeaponToHandPos["Walk"]["Ganier"].push_back({ 20, -1 });
+	WeaponToHandPos["Alert"]["Ganier"].push_back({ 16, -4 });
+	WeaponToHandPos["Alert"]["Ganier"].push_back({ 17, -5 });
+	WeaponToHandPos["Alert"]["Ganier"].push_back({ 16, -6 });
 
 	WeaponToHandPos["Stand"]["Club"].push_back({ -5, -4 });
 	WeaponToHandPos["Stand"]["Club"].push_back({ -5, -4 });

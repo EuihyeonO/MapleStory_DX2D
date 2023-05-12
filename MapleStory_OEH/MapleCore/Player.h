@@ -7,7 +7,7 @@ class Player : public GameEngineActor
 {
 
 public:
-
+ 
 	static Player* GetCurPlayer()
 	{
 		return CurPlayer;
@@ -28,6 +28,13 @@ public:
 		return AniIndex;
 	}
 
+	void SetMoveType(const std::string_view& _MoveType);
+
+	void SetMovable(bool _Bool)
+	{
+		isMovable = _Bool;
+	}
+
 	const std::string_view& GetLeftRightDir() const
 	{
 		return LeftRightDir;
@@ -37,7 +44,6 @@ public:
 
 	void SetLeft();
 	void SetRight();
-	void SetMoveType(const std::string_view& _MoveType);
 
 	Player();
 	~Player();
@@ -84,6 +90,8 @@ private:
 	bool isGround = false;
 	bool isKeyJump = false;
 	bool isSwing = false;
+
+	bool isMovable = true;
 
 	float Gravity = 200.0f;
 	float GravityAccel = 1000.0f;

@@ -80,6 +80,9 @@ void SkillActor::SetUpdateFunc()
 
 void SkillActor::Haste()
 {
+
+	Player::GetCurPlayer()->SetMovable(false);
+	Player::GetCurPlayer()->SetMoveType("Alert");
 	TimeCounting();
 
 	AnimationCount += TimeCount;
@@ -102,13 +105,14 @@ void SkillActor::Haste()
 			AnimationRender->GetTransform()->SetLocalScale({ -Scale.x, Scale.y });
 		}
 
-
 		AnimationRender->GetTransform()->SetLocalPosition(Pos +  SkillOriginPosVector["Haste"][AnimationIndex]);
 		AnimationCount = 0.0f;
 		AnimationIndex++;
 	}
 	else if (AnimationIndex >= SkillOriginPosVector["Haste"].size())
 	{
+		Player::GetCurPlayer()->SetMovable(true);
+
 		AnimationRender->Death();
 		AnimationRender = nullptr;
 		UpdateFunc = nullptr;
