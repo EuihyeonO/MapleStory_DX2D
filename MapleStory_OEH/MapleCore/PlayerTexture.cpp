@@ -443,6 +443,7 @@ void Player::SetWeaponTexturePosVector()
 
 }
 
+
 void Player::SetHairAndFaceTexturePosVector()
 {
 	HairOriginPos["Toven"]["Front"] = float4{ -24, 15 };

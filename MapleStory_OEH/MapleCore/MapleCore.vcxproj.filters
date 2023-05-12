@@ -49,6 +49,9 @@
     <ClInclude Include="Star.h">
       <Filter>Actor\Player\Object</Filter>
     </ClInclude>
+    <ClInclude Include="SkillActor.h">
+      <Filter>Actor\Player\Skill\Actor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Level_Title.cpp">
@@ -99,11 +102,14 @@
     <ClCompile Include="Hina.cpp">
       <Filter>Actor\NPC</Filter>
     </ClCompile>
-    <ClCompile Include="Skill.cpp">
-      <Filter>Actor\Player</Filter>
-    </ClCompile>
     <ClCompile Include="Star.cpp">
       <Filter>Actor\Player\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill.cpp">
+      <Filter>Actor\Player\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillActor.cpp">
+      <Filter>Actor\Player\Skill\Actor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +151,12 @@
     </Filter>
     <Filter Include="Actor\Player\Object">
       <UniqueIdentifier>{4500fac2-765e-4ab2-b03a-dfec51ac279d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Player\Skill">
+      <UniqueIdentifier>{9a0bfba6-37c7-43a3-9530-0e43c663df84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Player\Skill\Actor">
+      <UniqueIdentifier>{392ffb0b-5f85-4027-a9fe-56d09980aa92}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

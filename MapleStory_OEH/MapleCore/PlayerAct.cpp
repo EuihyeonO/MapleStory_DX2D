@@ -30,7 +30,7 @@ void Player::JumpUpdate(float _DeltaTime)
 		MoveType = "Jump";
 	}
 
-	GetTransform()->AddLocalPosition({ 0 , JumpPower * _DeltaTime });
+	GetTransform()->AddLocalPosition({ JumpXMove * _DeltaTime , JumpPower * _DeltaTime });
 
 	float4 PlayerPos = GetTransform()->GetLocalPosition();
 
@@ -58,6 +58,7 @@ void Player::Move(float _DeltaTime)
 		return;
 	}
 
+
 	if (GameEngineInput::IsPress("LMove") == true)
 	{
 		SetLeft();
@@ -67,6 +68,7 @@ void Player::Move(float _DeltaTime)
 		{
 			MoveType = "Walk";
 		}
+
 
 
 		float4 NextPlayerPos = GetTransform()->GetLocalPosition() + float4{ -1 * MoveSpeed * _DeltaTime, 0 };
@@ -167,8 +169,18 @@ void Player::Swing()
 	AniIndex = 0;
 	isSwing = true;
 
-	std::shared_ptr<Star> NewStar = GetLevel()->CreateActor<Star>(11);
-	NewStar->SetStarName("Wednes");
+	std::shared_ptr<Star> NewStar1 = GetLevel()->CreateActor<Star>(11);
+	NewStar1->SetStarName("Wednes");
+	NewStar1->SetTimingIndex(2);
+
+	if (LeftRightDir == "Left")
+	{
+		NewStar1->SetDir({ -1, 0 });
+	}
+	else
+	{
+		NewStar1->SetDir({ 1, 0 });
+	}
 }
 
 void Player::Idle()

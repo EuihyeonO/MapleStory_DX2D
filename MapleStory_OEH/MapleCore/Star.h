@@ -21,6 +21,16 @@ public:
 		StarName = _Name;
 	}
 
+	void SetDir(float4 _Dir)
+	{
+		Dir = _Dir;
+	}
+
+	void SetTimingIndex(int _Index)
+	{
+		TimingIndex = _Index;
+	}
+
 	Star(const Star& _Other) = delete;
 	Star(Star&& _Other) noexcept = delete;
 	Star& operator=(const Star& _Other) = delete;
@@ -50,7 +60,12 @@ private:
 	float4 MoveDistance = { 0, 0 };
 
 	int AniIndex = 0;
+
+	int TimingIndex = 0;
+
 	bool isSet = false;
+
+	float4 Dir = { 0,0 };
 
 	std::shared_ptr<GameEngineSpriteRenderer> StarRender = nullptr;
 	

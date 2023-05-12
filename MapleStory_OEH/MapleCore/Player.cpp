@@ -9,6 +9,8 @@
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 
+#include <GameEngineCore/GameEngineCoreWindow.h>
+
 #include <ctime>
 
 Player* Player::CurPlayer = nullptr;
@@ -26,6 +28,7 @@ Player::~Player()
 
 void Player::Start()
 {
+	
 	PlayerValue::Value.SetMoveDistance({ 200, 200 });
 
 	TimeCounting();
@@ -45,6 +48,8 @@ void Player::Start()
 	Face = CreateComponent<GameEngineSpriteRenderer>();
 	Weapon = CreateComponent<GameEngineSpriteRenderer>();
 
+	//스킬애니메이션
+
 	//초기애니메이션
 	SkinType = "Basic";
 	MoveType = "Stand";
@@ -55,14 +60,16 @@ void Player::Start()
 	WeaponType = static_cast<int>(WeaponType::Claw);
 
 	MoveSpeed = 100.0f;
+	BasicMoveSpeed = 100.0f;
+
 
 	SetAllTexturePosVector();
 	CreateAllKey();
-
 }
 
 void Player::Update(float _DeltaTime) 
 {
+
 	if (GetLevel()->GetName() == "TITLE")
 	{
 		TimeCounting();
@@ -83,6 +90,7 @@ void Player::Update(float _DeltaTime)
 	TexturePosUpdate();
 
 	CameraUpdate();
+	BuffUpdate();
 }
 
 void Player::Render(float _DeltaTime) 
@@ -102,7 +110,7 @@ void Player::TimeCounting()
 void Player::SetLeft()
 {
 	LeftRightDir = "Left";
-	GetTransform()->SetLocalScale({ 1, 1, 1 });
+	GetTransform()->SetLocalScale({1, 1, 1});
 }
 
 void Player::SetRight()
@@ -167,7 +175,10 @@ void Player::GravityUpdate(float _DeltaTime)
 
 		if (isSwing == false)
 		{
-			MoveType = "Stand";
+			if(MoveType == "Jump")
+			{
+				MoveType = "Stand";
+			}
 		}
 	}
 }
@@ -180,6 +191,7 @@ void Player::CreateAllKey()
 		GameEngineInput::CreateKey("RMove", VK_RIGHT);
 		GameEngineInput::CreateKey("Swing", VK_LCONTROL);
 		GameEngineInput::CreateKey("Jump", 'C');
+		GameEngineInput::CreateKey("Qskill", 'Q');
 	}
 }
 
@@ -198,6 +210,17 @@ void Player::ActingUpdate(float _DeltaTime)
 	case static_cast<int>(State::Swing):
 		Swing();
 		break;
+	case static_cast<int>(State::Qskill):
+		//if (QSkill != nullptr)
+		//{
+		//	QSkill(*this);
+		//}
+
+		if(isHaste == false)
+		{
+			BuffList.push_back(&Player::Haste);
+		}
+		break;
 	case -1:
 		Idle();
 		break;
@@ -215,6 +238,10 @@ int Player::GetStateByKeyInput() const
 	if (GameEngineInput::IsDown("Jump") == true)
 	{
 		return static_cast<int>(State::Jump);
+	}
+	else if (GameEngineInput::IsDown("QSkill") == true)
+	{
+		return static_cast<int>(State::Qskill);
 	}
 	else if (GameEngineInput::IsDown("Swing") == true)
 	{

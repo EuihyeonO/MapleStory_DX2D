@@ -28,6 +28,11 @@ public:
 		return AniIndex;
 	}
 
+	const std::string_view& GetLeftRightDir() const
+	{
+		return LeftRightDir;
+	}
+
 	const float4 GetWeaponPos() const;
 
 	void SetLeft();
@@ -46,26 +51,28 @@ protected:
 	void Start();
 	void Update(float _DeltaTime) override;
 	void Render(float _DeltaTime) override;
+
 private:
 	
 	static Player* CurPlayer;
 	std::shared_ptr<GameEngineTexture> ColMap;
 
 	void TimeCounting();
+	void CameraUpdate();
 
-	void TextureUpdate();
-	void TextureAnimationUpdate();
-	void TexturePosUpdate();
+	float CurTime = 0.0f;
+	float PrevTime = 0.0f;
+	float TimeCount = 0.0f;
+	
+	float4 PlayerPos = {0,0};
 
-	void SetAllTexturePosVector();
-	void SetBodyTexturePosVector();
-	void SetCoatTexturePosVector();
-	void SetPantsTexturePosVector();
-	void SetWeaponTexturePosVector();
-	void SetHairAndFaceTexturePosVector();
+	//키 관련
+	int GetStateByKeyInput() const;
 	void CreateAllKey();
 
-	void GravityUpdate(float _DeltaTime);	
+	//움직임관련
+
+	void GravityUpdate(float _DeltaTime);
 	void ActingUpdate(float _DeltaTime);
 
 	void Idle();
@@ -73,10 +80,6 @@ private:
 	void Swing();
 	void Jump(float _DeltaTime);
 	void JumpUpdate(float _DeltaTime);
-
-	void CameraUpdate();
-
-	int GetStateByKeyInput() const;
 
 	bool isGround = false;
 	bool isKeyJump = false;
@@ -86,22 +89,52 @@ private:
 	float GravityAccel = 1000.0f;
 
 	float JumpPower = 585.0f;
+	float JumpXMove = 0.0f;
 
+	float BasicMoveSpeed = 0.0f;
 	float MoveSpeed = 0.0f;
+
+	//스킬관련
+	
+	void BuffUpdate();
+	void LuckySeven();
+	bool Haste();
+
+	std::function<bool(Player&)> QSkill = nullptr;
+
+	std::list<std::function<bool(Player&)>> BuffList;
+
+	//std::function<bool(Player&)> DelSkill = nullptr;
+	//std::function<bool(Player&)> InsertSkill = nullptr;
+	//std::function<bool(Player&)> PageDownSkill = nullptr;
+	//std::function<bool(Player&)> PageUpSkill = nullptr;
+	//std::function<bool(Player&)> ScrollSkill = nullptr;
+	//std::function<bool(Player&)> HomeSkill = nullptr;
+	//std::function<bool(Player&)> EndSkill = nullptr;
+	//std::function<bool(Player&)> ScreenSkill = nullptr;
+
+	int HasteIndex = 0;
+	float HasteTime = 10.0f;
+	bool isHaste = false;
+	float HasteAnimationCount = 0.0f;
+
+	//텍스쳐 관련 
+	void SetAllTexturePosVector();
+	void SetBodyTexturePosVector();
+	void SetCoatTexturePosVector();
+	void SetPantsTexturePosVector();
+	void SetWeaponTexturePosVector();
+	void SetHairAndFaceTexturePosVector();
+	void TextureUpdate();
+	void TextureAnimationUpdate();
+	void TexturePosUpdate();
+
+	int WeaponType = 0;
 
 	float AnimationCount = 0.0f;
 	int AniIndex = 0;
 
-	float CurTime = 0.0f;
-	float PrevTime = 0.0f;
-	float TimeCount = 0.0f;
-
-	float4 PlayerPos = {0,0};
-
 	std::string MoveType = "";
-	std::string PrevMoveType = "";
-	
-	int WeaponType = 0;
 
 	std::string LeftRightDir = ""; //좌우 방향
 	std::string FrontBackDir = "Front"; //앞뒤 방향 ( ex 사다리를 탔을 땐 뒤 )
@@ -120,14 +153,12 @@ private:
 	std::string WeaponName = "";
 
 	std::map <std::string, std::vector<float>> AniFrameList;
-	
+
 	std::map<std::string, std::vector<float4>> BodyOriginPos;
 	std::map<std::string, std::vector<float4>> BodyNavelPos;
 	std::map<std::string, std::vector<float4>> BodyNeckPos;
-
 	std::map<std::string, std::vector<float4>> ArmOriginPos;
 	std::map<std::string, std::vector<float4>> ArmToNavelPos;
-
 	std::map<std::string, std::vector<float4>> ArmHandPos;
 
 	std::map<std::string, float4> HeadOriginPos;
@@ -153,24 +184,15 @@ private:
 	std::map<std::string, std::map<std::string, std::vector<float4>>> WeaponToHandPos;
 	std::map<std::string, std::map<std::string, std::vector<float4>>> WeaponToNavelPos;
 
-
 	std::shared_ptr<GameEngineSpriteRenderer> Body;
 	std::shared_ptr<GameEngineSpriteRenderer> Arm;
 	std::shared_ptr<GameEngineSpriteRenderer> Head;
-
 	std::shared_ptr<GameEngineSpriteRenderer> Coat;
 	std::shared_ptr<GameEngineSpriteRenderer> CoatArm;
-
 	std::shared_ptr<GameEngineSpriteRenderer> Pants;
-
 	std::shared_ptr<GameEngineSpriteRenderer> Weapon;
-
 	std::shared_ptr<GameEngineSpriteRenderer> Hair;
 	std::shared_ptr<GameEngineSpriteRenderer> Face;
-
-
-
-
 
 };
 

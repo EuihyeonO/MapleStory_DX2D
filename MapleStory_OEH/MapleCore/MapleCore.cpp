@@ -6,7 +6,7 @@
 
 #include <GameEngineCore/GameEngineCore.h>
 #include <GameEngineCore/GameEngineLevel.h>
-
+#include <GameEngineCore/GameEngineCoreWindow.h>
 
 MapleCore::MapleCore()
 {
@@ -24,6 +24,9 @@ void MapleCore::ContentsResourcesCreate()
 }
 void MapleCore::GameStart()
 {
+
+	//GameEngineGUI::GUIWindowCreate<GameEngineCoreWindow>(" ");
+
 	GameEngineCore::CreateLevel<Level_Title>();
 	GameEngineCore::CreateLevel<Level_BeginnersTown1>();
 	GameEngineCore::ChangeLevel("Level_BeginnersTown1");

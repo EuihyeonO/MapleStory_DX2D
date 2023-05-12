@@ -84,7 +84,7 @@ void Star::StartTimingCheck(float _DeltaTime)
 		return;
 	}
 
-	if (Player::GetCurPlayer()->GetAniIndex() != 2)
+	if (Player::GetCurPlayer()->GetAniIndex() < TimingIndex)
 	{
 		return;
 	}
@@ -108,7 +108,7 @@ void Star::SetStartPos()
 
 void Star::Move(float _DeltaTime)
 {
-	float4 MoveDis = { 400.0f * _DeltaTime, 0 };
+	float4 MoveDis = { Dir.x * 400.0f * _DeltaTime, 0 };
 
 	GetTransform()->AddLocalPosition(MoveDis);
 	float4 Pos = GetTransform()->GetLocalPosition();
