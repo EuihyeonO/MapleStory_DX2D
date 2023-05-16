@@ -47,6 +47,31 @@ struct OutPut
     float4 UV : TEXCOORD;
 };
 
+cbuffer AtlasData : register(b1)
+{
+    // 0.0 0.5
+    float2 FramePos;
+    // 0.5 0.5 
+    float2 FrameScale;
+    // float4 AtlasUV;
+}
+
+
+cbuffer MoveConstants : register(b2)
+{
+    float XMove;
+    float YMove;
+    float ScaleRatio;
+    float AMoveTime;
+}
+
+cbuffer Color : register(b3)
+{
+    float Red;
+    float Green;
+    float Blue;
+    float Alpha;
+}
 
 // 월드뷰프로젝션
 
@@ -55,9 +80,10 @@ OutPut Texture_VS(Input _Value)
     OutPut OutPutValue = (OutPut) 0;
 	
     _Value.Pos.w = 1.0f;
-    
     OutPutValue.Pos = mul(_Value.Pos, WorldViewProjectionMatrix);
-    OutPutValue.UV = _Value.UV;
+
+    OutPutValue.UV.x = (_Value.UV.x * FrameScale.x) + FramePos.x;
+    OutPutValue.UV.y = (_Value.UV.y * FrameScale.y) + FramePos.y; 
     
     return OutPutValue;
 }
@@ -67,22 +93,16 @@ cbuffer OutPixelColor : register(b0)
     float4 OutColor;
 }
 
-cbuffer MoveConstants : register(b1)
-{
-    float XMove;
-    float YMove;
-    float ScaleRatio;
-    float AMoveTime;
-}
-
 Texture2D DiffuseTex : register(t0);
 SamplerState WRAPSAMPLER : register(s0);
 
 float4 Texture_PS(OutPut _Value) : SV_Target0
 {
-    float4 Color;
+    float4 MyColor;
+           
+    MyColor = DiffuseTex.Sample(WRAPSAMPLER, float2((_Value.UV.x * ScaleRatio) + XMove, _Value.UV.y + YMove));
+
+    MyColor.a *= Alpha;
     
-    Color = DiffuseTex.Sample(WRAPSAMPLER, float2((_Value.UV.x * ScaleRatio) + XMove, _Value.UV.y + YMove));
-    
-    return Color;
+    return MyColor;
 }

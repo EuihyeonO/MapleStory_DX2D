@@ -22,12 +22,6 @@ void SkillActor::Start()
 
 void SkillActor::Update(float _DeltaTime)
 {
-	if (IconRender->IsUpdate() == true)
-	{
-		float4 CameraPos = GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition();
-		IconRender->GetTransform()->SetLocalPosition(CameraPos + float4{ 400, 300 } - float4{ 16, 16 });
-	}
-
 	if (UpdateFunc != nullptr)
 	{
 		UpdateFunc(*this);
@@ -43,9 +37,6 @@ void SkillActor::SetSkillActor(const std::string_view& _SkillName)
 	SkillName = _SkillName.data();
 	
 	AnimationRender = CreateComponent<GameEngineSpriteRenderer>();	
-
-	IconRender = CreateComponent<GameEngineSpriteRenderer>();
-	IconRender->SetScaleToTexture(SkillName + "Icon.png");
 
 	SetSkillAnimation();
 	SetUpdateFunc();

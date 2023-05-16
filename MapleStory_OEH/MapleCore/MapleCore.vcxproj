@@ -184,7 +184,15 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="BuffList.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ContentEnums.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="GreenSnail.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -201,6 +209,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="MiniMap.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="MonsterBasicFunction.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -246,11 +258,21 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ActiveAttack.cpp" />
+    <ClCompile Include="ActiveBuff.cpp" />
     <ClCompile Include="BeginnersTown1.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="BottomBar.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="BuffList.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="GreenSnail.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -267,6 +289,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="MiniMap.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="MonsterBasicFunction.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -303,7 +329,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Skill.cpp" />
+    <ClCompile Include="Passive.cpp" />
     <ClCompile Include="SkillActor.cpp">
       <SubType>
       </SubType>

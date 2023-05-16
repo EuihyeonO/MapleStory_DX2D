@@ -5,6 +5,7 @@
 #include "Star.h"
 
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
+#include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEnginePlatform/GameEngineInput.h>
@@ -62,7 +63,6 @@ void Player::Move(float _DeltaTime)
 	if (GameEngineInput::IsPress("LMove") == true)
 	{
 		SetLeft();
-		LeftRightDir = "Left";
 
 		if (MoveType != "Jump")
 		{
@@ -111,7 +111,6 @@ void Player::Move(float _DeltaTime)
 	if (GameEngineInput::IsPress("RMove") == true)
 	{
 		SetRight();
-		LeftRightDir = "Right";
 
 		if (MoveType != "Jump")
 		{
@@ -133,7 +132,7 @@ void Player::Move(float _DeltaTime)
 			while (Color == MapColor)
 			{
 				ColorPos.y--;
-				MapColor = ColMap->GetPixel(ColorPos.x, ColorPos.y);
+				MapColor = ColMap->GetPixel(static_cast<int>(ColorPos.x), static_cast<int>(ColorPos.y));
 				Count++;
 			}
 
@@ -171,21 +170,42 @@ void Player::Swing()
 
 	std::shared_ptr<Star> NewStar1 = GetLevel()->CreateActor<Star>(11);
 	NewStar1->SetStarName("Wednes");
-	NewStar1->SetTimingIndex(2);
+	NewStar1->SetTimingTime(0.25);
+	
+	std::shared_ptr<GameEngineCollision> HitMonster = RangeCheck->Collision(static_cast<int>(CollisionOrder::Monster), ColType::AABBBOX2D, ColType::AABBBOX2D);
 
-	if (LeftRightDir == "Left")
-	{
-		NewStar1->SetDir({ -1, 0 });
-	}
-	else
-	{
-		NewStar1->SetDir({ 1, 0 });
-	}
+	std::function<void(Star&, float)> UpdateFunction = &Star::Move;
+	NewStar1->SetUpdateFuction(UpdateFunction);
+	NewStar1->SetTargetMonster(HitMonster);
+
+	//if (HitMonster != nullptr)
+	//{
+	//	float4 Dir = HitMonster->GetActor()->GetTransform()->GetWorldPosition() - Weapon->GetTransform()->GetWorldPosition();
+	//	Dir.Normalize();
+	//	NewStar1->SetDir(Dir);
+	//}
+
+	//else
+	//{
+	//	if (LeftRightDir == "Left")
+	//	{
+	//		NewStar1->SetDir({ -1, 0 });
+	//	}
+	//	else
+	//	{
+	//		NewStar1->SetDir({ 1, 0 });
+	//	}
+	//}
 }
 
 void Player::Idle()
 {
 	if (isSwing == true)
+	{
+		return;
+	}
+
+	if (isGround = false)
 	{
 		return;
 	}

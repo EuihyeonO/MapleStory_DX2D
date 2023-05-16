@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "BottomBar.h"
 #include "StatusWindow.h"
+#include "Mouse.h"
 
 #include <GameEngineCore/GameEngineCamera.h>
 
@@ -27,8 +28,9 @@ void Level_BeginnersTown1::Start()
 	MyPlayer->SetRight();
 	MyPlayer->SetColMap(Map->GetColMapName());
 
-	CreateActor<BottomBar>();
-	CreateActor<StatusWindow>();
+	CreateActor<BottomBar>(static_cast<int>(RenderOrder::UI));
+	CreateActor<StatusWindow>(static_cast<int>(RenderOrder::UI));
+	CreateActor<Mouse>(static_cast<int>(RenderOrder::UI));
 }
 
 void Level_BeginnersTown1::Update(float _DeltaTime)

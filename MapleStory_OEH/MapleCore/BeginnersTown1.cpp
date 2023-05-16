@@ -2,6 +2,9 @@
 #include "BeginnersTown1.h"
 #include "MiniMap.h"
 #include "Hina.h"
+#include "ContentEnums.h"
+#include "GreenSnail.h"
+
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
@@ -18,10 +21,12 @@ BeginnersTown1::~BeginnersTown1()
 void BeginnersTown1::Start()
 {
 
-	MyMiniMap = GetLevel()->CreateActor<MiniMap>(10);
+	MyMiniMap = GetLevel()->CreateActor<MiniMap>(static_cast<int>(RenderOrder::UI));
 	MyMiniMap->SetMap(MapName);
 
-	GetLevel()->CreateActor<Hina>(9);
+	GetLevel()->CreateActor<Hina>(static_cast<int>(RenderOrder::NPC));
+	std::shared_ptr<GreenSnail> Mob = GetLevel()->CreateActor<GreenSnail>(static_cast<int>(RenderOrder::Monster));
+	Mob->SetColMap(ColMapName);
 
 	LandScape0 = CreateComponent<GameEngineSpriteRenderer>();
 	LandScape0->SetTexture("MapBackGround0.png");
@@ -60,7 +65,7 @@ void BeginnersTown1::Render(float _DeltaTime)
 
 void BeginnersTown1::CloudMove(float _DeltaTime)
 {
-	XMoveConstant += 0.03f * _DeltaTime;
+	XMoveConstant += 0.06f * _DeltaTime;
 
 	if (XMoveConstant > 3.0f)
 	{

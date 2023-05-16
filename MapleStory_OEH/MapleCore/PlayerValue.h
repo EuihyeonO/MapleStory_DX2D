@@ -185,7 +185,6 @@ public: //local
 		return MoveDistance;
 	}
 
-
 	void SetMoveDistance(float4 _MoveDistance)
 	{
 		MoveDistance = _MoveDistance;
@@ -226,7 +225,6 @@ public: //local
 protected:
 
 private:
-
 
 	PlayerValue();
 	~PlayerValue();

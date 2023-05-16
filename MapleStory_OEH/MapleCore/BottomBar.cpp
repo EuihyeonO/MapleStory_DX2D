@@ -114,8 +114,8 @@ void BottomBar::LevelUpdate()
 		LevelDigitStringVector.push_back(std::to_string(LevelDigit));
 	}	
 
-	int LevelRendererSize = LevelRenderer.size();
-	int LevelDigitStringVectorSize = LevelDigitStringVector.size();
+	size_t LevelRendererSize = LevelRenderer.size();
+	size_t LevelDigitStringVectorSize = LevelDigitStringVector.size();
 
 	//레벨은 변했지만, 자리수는 그대로일 때는 컴포넌트를 생성할 필요 없이 텍스쳐만 바꾸면 됨.
 	if (LevelRendererSize == LevelDigitStringVectorSize)
@@ -147,10 +147,10 @@ void BottomBar::LevelUpdate()
 	LevelRendererSize = LevelRenderer.size();
 
 	float4 BottomBarLayerPos = BottomBarLayer->GetTransform()->GetLocalPosition();
-	float StartXpos = -245 + (LevelRendererSize - 1) * -5;
+	float StartXpos = -245.0f + ((LevelRendererSize - 1.0f) * (-5.0f));
 
-	for (int i = LevelRendererSize - 1; i >= 0; i--)
+	for(int i = static_cast<int>(LevelRendererSize - 1); i >= 0; i--)
 	{
-		LevelRenderer[i]->GetTransform()->SetLocalPosition(BottomBarLayerPos + float4{ StartXpos + static_cast<float>((LevelRendererSize - i) * 12) + 0.5f, -18.5f });
+		LevelRenderer[i]->GetTransform()->SetLocalPosition(BottomBarLayerPos + float4{ StartXpos + ((LevelRendererSize - i) * 12.0f) + 0.5f, -18.5f });
 	}
 }

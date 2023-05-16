@@ -15,11 +15,21 @@ public:
 	Mouse& operator=(const Mouse& _Other) = delete;
 	Mouse& operator=(Mouse&& _Other) noexcept = delete;
 
+	static Mouse* GetMouse()
+	{
+		return CurMouse;
+	}
+
 protected:
 	void Start();
 	void Update(float _DeltaTime) override;
 	void Render(float _DeltaTime) override;
 private:
-	std::shared_ptr<GameEngineSpriteRenderer> ToLogin;
+	static Mouse* CurMouse;
+
+	void PosUpdate();
+
+	std::shared_ptr<GameEngineSpriteRenderer> Cursor;
+	std::shared_ptr<class GameEngineCollision> CursorCollision;
 };
 

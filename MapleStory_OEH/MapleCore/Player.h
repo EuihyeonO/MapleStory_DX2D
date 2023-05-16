@@ -5,7 +5,7 @@
 class GameEngineSpriteRenderer;
 class Player : public GameEngineActor
 {
-
+	friend class BuffList;
 public:
  
 	static Player* GetCurPlayer()
@@ -99,18 +99,23 @@ private:
 	float JumpPower = 585.0f;
 	float JumpXMove = 0.0f;
 
-	float BasicMoveSpeed = 0.0f;
-	float MoveSpeed = 0.0f;
+	float BasicMoveSpeed = 100.0f;
+	float MoveSpeed = 100.0f;
 
 	//스킬관련
 	
-	void BuffUpdate();
 	void LuckySeven();
-	bool Haste();
+	void Haste();
 
-	std::function<bool(Player&)> QSkill = nullptr;
+	float Range = 100.0f;
 
-	std::list<std::function<bool(Player&)>> BuffList;
+	std::shared_ptr<class BuffList> MyBuffList;
+
+	std::function<void(Player&)> QSkill = nullptr;
+	std::function<void(Player&)> WSkill = nullptr;
+
+	std::shared_ptr<class GameEngineCollision> RangeCheck = nullptr;
+	//std::list<std::function<bool(Player&)>> BuffList;
 
 	//std::function<bool(Player&)> DelSkill = nullptr;
 	//std::function<bool(Player&)> InsertSkill = nullptr;
@@ -121,10 +126,6 @@ private:
 	//std::function<bool(Player&)> EndSkill = nullptr;
 	//std::function<bool(Player&)> ScreenSkill = nullptr;
 
-	int HasteIndex = 0;
-	float HasteTime = 10.0f;
-	bool isHaste = false;
-	float HasteAnimationCount = 0.0f;
 
 	//텍스쳐 관련 
 	void SetAllTexturePosVector();

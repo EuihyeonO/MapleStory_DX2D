@@ -38,7 +38,6 @@ private:
 	std::string SkillName;
 
 	std::shared_ptr<GameEngineSpriteRenderer> AnimationRender;
-	std::shared_ptr<GameEngineSpriteRenderer> IconRender;
 
 	std::map<std::string, std::vector<float4>> SkillOriginPosVector;
 	std::map <std::string, std::vector<float>> AniFrameList;

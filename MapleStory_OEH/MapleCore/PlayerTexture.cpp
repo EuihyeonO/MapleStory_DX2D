@@ -552,22 +552,50 @@ void Player::TextureAnimationUpdate()
 	{
 		AniIndex++;
 
+		//공격이 끝나면 자동으로 Stand로 변경
 		if (isSwing == true && AniIndex == 3)
 		{
 			isSwing = false;
 			MoveType = "Stand";
 			AniIndex = 0;
 			AnimationCount = 0.0f;
+
+			if (Weapon->IsUpdate() == false)
+			{
+				Weapon->On();
+			}
+
 			return;
 		}
 
+		//인덱스 처음으로
 		if (AniIndex >= AniFrameList[MoveType].size())
 		{
 			AniIndex = 0;
-		}		
+		}
 
+		//카운트 초기화
 		AnimationCount = 0.0f;
+
+		//무기관련 애니메이션 조건식
+		if (MoveType == "Swing2" && AniIndex == 2)
+		{
+			Weapon->Off();
+		}
+
+		if (MoveType == "Swing0" && AniIndex == 0)
+		{
+			Weapon->Off();
+		}
+		else if (MoveType == "Swing0" && AniIndex != 0)
+		{
+			Weapon->On();
+		}
+
 	}
+
+	//무기 애니메이션 추가기능
+
 }
 
 void Player::TexturePosUpdate()

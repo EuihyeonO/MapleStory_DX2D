@@ -11,8 +11,7 @@
 #include <d3d11_4.h>
 #include <d3dcompiler.h>
 #include <DirectXPackedVector.h>
-
-
+#include <DirectXCollision.h>
 
 
 
@@ -121,6 +120,7 @@ public:
 			float w;
 		};
 
+
 		float Arr1D[4];
 
 
@@ -129,6 +129,16 @@ public:
 		DirectX::XMFLOAT3 DirectFloat3;
 		DirectX::XMFLOAT4 DirectFloat4;
 		DirectX::XMVECTOR DirectVector;
+
+
+		struct
+		{
+			float PosX;
+			float PosY;
+			float SizeX;
+			float SizeY;
+		};
+
 	};
 
 	float4()
@@ -540,7 +550,7 @@ public:
 
 };
 
-class CollisionData
+class CollisionDataAPI
 {
 public:
 	float4 Position;

@@ -71,5 +71,11 @@ void GameEngineRenderer::SetPipeLine(const std::string_view& _Name)
 		ShaderResHelper.SetConstantBufferLink("MoveConstants", MoveConstants);
 	}
 
+	if (true == ShaderResHelper.IsConstantBuffer("Color"))
+	{
+		const TransformData& Data = GetTransform()->GetTransDataRef();
+		ShaderResHelper.SetConstantBufferLink("COLOR", Alpha);
+	}
+
 	GetTransform()->GetWorldMatrix();
 }

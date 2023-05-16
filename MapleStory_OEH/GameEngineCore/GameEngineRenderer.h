@@ -27,6 +27,11 @@ public:
 		MoveConstants = _MoveConstants;
 	}
 
+	void SetAlpha(float4 _Alpha)
+	{
+		Alpha = _Alpha;
+	}
+
 	inline GameEngineShaderResHelper& GetShaderResHelper()
 	{
 		return ShaderResHelper;
@@ -39,7 +44,10 @@ private:
 	// Pipe와
 	// GameEngineShaderResHelper 가 합쳐져야 랜더링 이 되는 식이 됩니다.
 	std::shared_ptr<class GameEngineRenderingPipeLine > Pipe;
+
 	float4 MoveConstants = { 0,0,1 };
+	float4 Alpha = {0,0,0,1};
+
 	GameEngineShaderResHelper ShaderResHelper;
 };
 

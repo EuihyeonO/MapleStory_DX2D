@@ -3,8 +3,10 @@
 #include "PlayerValue.h"
 #include "ContentEnums.h"
 #include "Star.h"
+#include "BuffList.h"
 
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
+#include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEnginePlatform/GameEngineInput.h>
@@ -47,8 +49,14 @@ void Player::Start()
 	Hair = CreateComponent<GameEngineSpriteRenderer>();
 	Face = CreateComponent<GameEngineSpriteRenderer>();
 	Weapon = CreateComponent<GameEngineSpriteRenderer>();
+	
+	//콜리전
+	RangeCheck = CreateComponent<GameEngineCollision>();
+	RangeCheck->GetTransform()->SetLocalScale({ 200, 30 });
+	RangeCheck->SetOrder(static_cast<int>(CollisionOrder::Range));
 
-	//스킬애니메이션
+	float4 RangeScale = RangeCheck->GetTransform()->GetLocalScale();
+	RangeCheck->GetTransform()->SetLocalPosition({ -RangeScale.hx(), RangeScale.hy()});
 
 	//초기애니메이션
 	SkinType = "Basic";
@@ -59,15 +67,15 @@ void Player::Start()
 	
 	WeaponType = static_cast<int>(WeaponType::Claw);
 
-	MoveSpeed = 100.0f;
-	BasicMoveSpeed = 100.0f;
+	MyBuffList = GetLevel()->CreateActor<BuffList>();
 
-
+	WSkill = &Player::LuckySeven;
 	SetAllTexturePosVector();
 	CreateAllKey();
+
 }
 
-void Player::Update(float _DeltaTime) 
+void Player::Update(float _DeltaTime)
 {
 
 	if (GetLevel()->GetName() == "TITLE")
@@ -90,7 +98,6 @@ void Player::Update(float _DeltaTime)
 	TexturePosUpdate();
 
 	CameraUpdate();
-	BuffUpdate();
 }
 
 void Player::Render(float _DeltaTime) 
@@ -150,7 +157,16 @@ void Player::GravityUpdate(float _DeltaTime)
 	{
 		GetTransform()->AddLocalPosition({ 0 , -Gravity * _DeltaTime, 0 });
 		
-		if(isSwing == false)
+		int count = 0;
+
+		while (Color != MapColor)
+		{
+			ColorPos.y++;
+			count++;
+			MapColor = ColMap->GetPixel(static_cast<int>(ColorPos.x), static_cast<int>(ColorPos.y));
+		}
+
+		if(isSwing == false && count > 3)
 		{
 			MoveType = "Jump";
 		}
@@ -192,6 +208,7 @@ void Player::CreateAllKey()
 		GameEngineInput::CreateKey("Swing", VK_LCONTROL);
 		GameEngineInput::CreateKey("Jump", 'C');
 		GameEngineInput::CreateKey("Qskill", 'Q');
+		GameEngineInput::CreateKey("Wskill", 'W');
 	}
 }
 
@@ -216,14 +233,12 @@ void Player::ActingUpdate(float _DeltaTime)
 		Swing();
 		break;
 	case static_cast<int>(State::Qskill):	
-		//퀵슬롯에서 Qskill 에 스킬을 할당해줘야함
-		//if (QSkill != nullptr)
-		//{
-		//	QSkill(*this);
-		//}
-		if(isHaste == false && isGround == true)
+		Haste();
+		break;
+	case static_cast<int>(State::Wskill):
+		if (WSkill != nullptr)
 		{
-			BuffList.push_back(&Player::Haste);
+			WSkill(*this);
 		}
 		break;
 	case -1:
@@ -246,6 +261,10 @@ int Player::GetStateByKeyInput() const
 	else if (GameEngineInput::IsDown("QSkill") == true)
 	{
 		return static_cast<int>(State::Qskill);
+	}
+	else if (GameEngineInput::IsDown("WSkill") == true)
+	{
+		return static_cast<int>(State::Wskill);
 	}
 	else if (GameEngineInput::IsDown("Swing") == true)
 	{

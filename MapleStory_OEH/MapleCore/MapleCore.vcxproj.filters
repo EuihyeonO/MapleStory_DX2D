@@ -52,6 +52,15 @@
     <ClInclude Include="SkillActor.h">
       <Filter>Actor\Player\Skill\Actor</Filter>
     </ClInclude>
+    <ClInclude Include="BuffList.h">
+      <Filter>Actor\Player\Skill\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="GreenSnail.h">
+      <Filter>Actor\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterBasicFunction.h">
+      <Filter>Actor\Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Level_Title.cpp">
@@ -105,11 +114,26 @@
     <ClCompile Include="Star.cpp">
       <Filter>Actor\Player\Object</Filter>
     </ClCompile>
-    <ClCompile Include="Skill.cpp">
-      <Filter>Actor\Player\Skill</Filter>
-    </ClCompile>
     <ClCompile Include="SkillActor.cpp">
       <Filter>Actor\Player\Skill\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="BuffList.cpp">
+      <Filter>Actor\Player\Skill\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Passive.cpp">
+      <Filter>Actor\Player\Skill\PlayerSkill</Filter>
+    </ClCompile>
+    <ClCompile Include="ActiveAttack.cpp">
+      <Filter>Actor\Player\Skill\PlayerSkill</Filter>
+    </ClCompile>
+    <ClCompile Include="ActiveBuff.cpp">
+      <Filter>Actor\Player\Skill\PlayerSkill</Filter>
+    </ClCompile>
+    <ClCompile Include="GreenSnail.cpp">
+      <Filter>Actor\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterBasicFunction.cpp">
+      <Filter>Actor\Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +181,12 @@
     </Filter>
     <Filter Include="Actor\Player\Skill\Actor">
       <UniqueIdentifier>{392ffb0b-5f85-4027-a9fe-56d09980aa92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Player\Skill\PlayerSkill">
+      <UniqueIdentifier>{aefc431b-06e8-4c4a-910a-fd18932b06b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Map\Zone">
+      <UniqueIdentifier>{790e00c6-b83f-4562-b2ae-8e1deab76398}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

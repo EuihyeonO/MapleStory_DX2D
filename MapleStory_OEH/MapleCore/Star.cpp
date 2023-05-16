@@ -2,8 +2,10 @@
 #include "Player.h"
 #include "PlayerValue.h"
 #include "Star.h"
+#include "MonsterBasicFunction.h"
 
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
+#include <GameEngineCore/GameEngineCollision.h>
 #include <ctime>
 
 Star::Star()
@@ -21,19 +23,41 @@ void Star::Start()
 
 	StarRender = CreateComponent<GameEngineSpriteRenderer>();	
 	StarRender->Off();
+
+	StarCollision = CreateComponent<GameEngineCollision>();
+	StarCollision->SetOrder(static_cast<int>(CollisionOrder::Star));
+	StarCollision->Off();
+
+	if (Player::GetCurPlayer()->GetLeftRightDir() == "Left")
+	{
+		Dir = {-1, 0};
+		GetTransform()->SetLocalPosition({ -25, 0 });
+	}
+	else if (Player::GetCurPlayer()->GetLeftRightDir() == "Right")
+	{
+		Dir = { 1, 0 };
+		GetTransform()->SetLocalPosition({ 25, 0 });
+	}
+
+	SetStartPos();
 }
 
 void Star::Update(float _DeltaTime)
 {
-	if(UpdateFuction == nullptr)
-	{
-		TimeCounting();
-		StartTimingCheck(_DeltaTime);
-	}
-	else
+
+	TimeCounting();
+
+	if(UpdateFuction != nullptr)
 	{
 		UpdateFuction(*this, _DeltaTime);
 		AnimationUpdate();
+	}
+
+	std::shared_ptr<GameEngineCollision> _Collision;
+	if (_Collision = StarCollision->Collision(static_cast<int>(CollisionOrder::Monster), ColType::AABBBOX2D, ColType::AABBBOX2D), _Collision != nullptr)
+	{
+		_Collision->GetActor()->DynamicThis<MonsterBasicFunction>()->Hit();
+		Death();
 	}
 }
 
@@ -53,6 +77,11 @@ void Star::TimeCounting()
 
 void Star::AnimationUpdate()
 {	
+	if (isSet == false)
+	{
+		return;
+	}
+
 	AnimationCount += TimeCount;
 
 	if (AnimationCount >= 0.03f)
@@ -67,54 +96,65 @@ void Star::AnimationUpdate()
 		std::string TextureName = StarName + "Move" + std::to_string(AniIndex) + ".png";
 
 		StarRender->SetScaleToTexture(TextureName);
-		float4 Scale = StarRender->GetTransform()->GetLocalScale();
+		TransformData RenderData = StarRender->GetTransform()->GetTransDataRef();
+
+		StarCollision->GetTransform()->SetLocalScale(RenderData.LocalScale);
+		StarCollision->GetTransform()->SetLocalPosition(RenderData.LocalPosition);
 	}
 }
 
 void Star::StartTimingCheck(float _DeltaTime)
 {
-	std::string MoveType = Player::GetCurPlayer()->GetMoveType().data();
-	
-	if (MoveType != "Swing0" &&
-		MoveType != "Swing1" &&
-		MoveType != "Swing2")
-	{
-		return;
-	}
-
-	if (Player::GetCurPlayer()->GetAniIndex() < TimingIndex)
-	{
-		return;
-	}
-
-	if(isSet == false)
-	{
-		SetStartPos();
-
-		StarRender->On();
-		UpdateFuction = &Star::Move;
-
-		isSet = true;
-	}
 }
 
 void Star::SetStartPos()
 {
 	StartPos = Player::GetCurPlayer()->GetWeaponPos();
-	GetTransform()->SetLocalPosition(StartPos);
+	GetTransform()->AddLocalPosition(StartPos); 
 }
 
 void Star::Move(float _DeltaTime)
 {
-	float4 MoveDis = { Dir.x * 400.0f * _DeltaTime, 0 };
-
-	GetTransform()->AddLocalPosition(MoveDis);
-	float4 Pos = GetTransform()->GetLocalPosition();
-
-	MoveDistance -= MoveDis;
-
-	if (MoveDistance.x <= 0.0f)
+	if(isSet == false)
 	{
-		Death();
-	}	
+		std::string MoveType = Player::GetCurPlayer()->GetMoveType().data();
+
+		if (MoveType != "Swing0" &&
+			MoveType != "Swing1" &&
+			MoveType != "Swing2")
+		{
+			return;
+		}
+
+		TimingTimeCount += TimeCount;
+
+		if (TimingTimeCount < TimingTime)
+		{
+			return;
+		}			
+
+		StarRender->On();
+		StarCollision->On();
+		isSet = true;
+	}
+	else
+	{
+		if (Target != nullptr)
+		{
+			Dir = Target->GetTransform()->GetWorldPosition() - StarRender->GetTransform()->GetWorldPosition();
+			Dir.Normalize();
+		}
+
+		float4 MoveDis = Dir * 400.0f * _DeltaTime;
+
+		GetTransform()->AddLocalPosition(MoveDis);
+		float4 Pos = GetTransform()->GetLocalPosition();
+
+		MoveDistance -= MoveDis;
+
+		if (MoveDistance.x <= 0.0f)
+		{
+			Death();
+		}
+	}
 }

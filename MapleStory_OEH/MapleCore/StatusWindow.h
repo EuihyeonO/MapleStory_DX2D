@@ -33,6 +33,7 @@ private:
 	bool PosUpdate();
 
 	std::shared_ptr<GameEngineSpriteRenderer> MainWindow;
+	std::shared_ptr<class GameEngineCollision> MainWindowClickBar;
 	std::shared_ptr<GameEngineSpriteRenderer> SubWindow;
 
 	std::list<std::function<bool(StatusWindow&)>> UpdateFunction;

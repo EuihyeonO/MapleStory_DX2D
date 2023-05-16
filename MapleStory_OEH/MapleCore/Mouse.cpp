@@ -1,10 +1,18 @@
 #include "PrecompileHeader.h"
 #include "Mouse.h"
+#include "ContentEnums.h"
+
+#include <GameEnginePlatform/GameEngineInput.h>
 #include <gameengineCore/GameEngineSpriteRenderer.h>
 #include <gameengineCore/GameEngineLevel.h>
+#include <gameengineCore/GameEngineCollision.h>
+#include <gameengineCore/GameEngineCamera.h>
+
+Mouse* Mouse::CurMouse = nullptr;
 
 Mouse::Mouse()
 {
+	CurMouse = this;
 }
 
 Mouse::~Mouse()
@@ -13,16 +21,37 @@ Mouse::~Mouse()
 
 void Mouse::Start()
 {
-	ToLogin = CreateComponent<GameEngineSpriteRenderer>();
-	ToLogin->SetTexture("Cursor.png");
+	Cursor = CreateComponent<GameEngineSpriteRenderer>();
+	Cursor->SetScaleToTexture("Cursor.png");
+	
+	CursorCollision = CreateComponent<GameEngineCollision>();
+	CursorCollision->SetOrder(static_cast<int>(CollisionOrder::Mouse));
+	CursorCollision->GetTransform()->SetLocalPosition(Cursor->GetTransform()->GetLocalPosition());
 
-	//마우스 위치를 받아오는 함수 아직 없는 듯?
+	ShowCursor(false);
+
+	if (GameEngineInput::IsKey("LClick") == false)
+	{
+		GameEngineInput::CreateKey("LClick", VK_LBUTTON);
+	}
 }
 
 void Mouse::Update(float _DeltaTime)
 {
+	PosUpdate();
 }
 
 void Mouse::Render(float _DeltaTime)
 {
+}
+
+void Mouse::PosUpdate()
+{
+	float4 WindowSize = GameEngineWindow::GetScreenSize();
+	float4 MousePos = GameEngineWindow::GetMousePosition();
+
+	MousePos = { MousePos.x - WindowSize.hx(),  WindowSize.hy() - MousePos.y };
+	float4 CameraPos = GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition();
+
+	GetTransform()->SetLocalPosition(MousePos + CameraPos);
 }

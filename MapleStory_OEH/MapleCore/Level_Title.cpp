@@ -2,6 +2,7 @@
 #include "Level_Title.h"
 #include "Logo.h"
 #include "Player.h"
+#include "Mouse.h"
 #include "TitleObjects.h"
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineTexture.h>
@@ -47,6 +48,7 @@ void Level_Title::Start()
 	NewPlayer->GetTransform()->SetLocalPosition({ -20, 1768 });
 	NewPlayer->SetRight();
 
+	CreateActor<Mouse>(static_cast<int>(RenderOrder::UI));
 	//std::shared_ptr<Test> NewTitleObjects = CreateActor<Test>();
 }
 
