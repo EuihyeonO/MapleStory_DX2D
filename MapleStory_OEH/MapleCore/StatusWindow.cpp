@@ -3,9 +3,7 @@
 #include "Mouse.h"
 
 #include <GameEnginePlatform/GameEngineInput.h>
-#include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineLevel.h>
-#include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineCore/GameEngineCamera.h>
 
 StatusWindow::StatusWindow()

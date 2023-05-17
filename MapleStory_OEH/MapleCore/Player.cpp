@@ -5,8 +5,6 @@
 #include "Star.h"
 #include "BuffList.h"
 
-#include <GameEngineCore/GameEngineSpriteRenderer.h>
-#include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEnginePlatform/GameEngineInput.h>
@@ -77,7 +75,6 @@ void Player::Start()
 
 void Player::Update(float _DeltaTime)
 {
-
 	if (GetLevel()->GetName() == "TITLE")
 	{
 		TimeCounting();
@@ -307,9 +304,4 @@ void Player::CameraUpdate()
 	}
 
 	GetLevel()->GetMainCamera()->GetTransform()->SetLocalPosition(CameraPos);
-}
-
-const float4 Player::GetWeaponPos() const
-{
-	return Weapon->GetTransform()->GetWorldPosition();
 }

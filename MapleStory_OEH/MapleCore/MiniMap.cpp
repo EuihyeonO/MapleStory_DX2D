@@ -2,7 +2,6 @@
 #include "MiniMap.h"
 #include "Player.h"
 #include <GameEnginePlatform/GameEngineInput.h>
-#include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
 

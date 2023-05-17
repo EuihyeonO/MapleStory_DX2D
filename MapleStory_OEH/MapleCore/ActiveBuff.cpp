@@ -6,7 +6,6 @@
 #include "SkillActor.h"
 #include "BuffList.h"
 
-#include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEnginePlatform/GameEngineInput.h>
@@ -16,9 +15,8 @@
 
 void Player::Haste()
 {
-	if(isSwing == false)
+	if(isSwing == false && isGround == true)
 	{
-
 		if (MyBuffList->IsBuffOn("Haste") == false)
 		{
 			std::shared_ptr<SkillActor> Haste = GetLevel()->CreateActor<SkillActor>();

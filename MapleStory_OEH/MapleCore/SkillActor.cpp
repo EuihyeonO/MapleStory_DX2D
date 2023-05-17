@@ -2,7 +2,6 @@
 #include "SkillActor.h"
 #include "Player.h"
 
-#include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <ctime>
@@ -45,19 +44,29 @@ void SkillActor::SetSkillActor(const std::string_view& _SkillName)
 
 void SkillActor::SetSkillAnimation()
 {	
-	AniFrameList[SkillName].push_back(0.09f);
-
 	if(SkillName == "Haste")
 	{
-		SkillOriginPosVector[SkillName].push_back({ 0,  25 });
-		SkillOriginPosVector[SkillName].push_back({ 0,  25 });
-		SkillOriginPosVector[SkillName].push_back({ 0,  25 });
-		SkillOriginPosVector[SkillName].push_back({ 0,  25 });
-		SkillOriginPosVector[SkillName].push_back({ 0,  25 });
-		SkillOriginPosVector[SkillName].push_back({ 0,  25 });
-		SkillOriginPosVector[SkillName].push_back({ 0,  25 });
-		SkillOriginPosVector[SkillName].push_back({ 0,  25 });
-		SkillOriginPosVector[SkillName].push_back({ 0,  25 });
+		AniFrameList[SkillName].push_back(0.09f);
+
+		SkillOriginPosVector[SkillName].push_back({ 0,  45 });
+		SkillOriginPosVector[SkillName].push_back({ 0,  45 });
+		SkillOriginPosVector[SkillName].push_back({ 0,  45 });
+		SkillOriginPosVector[SkillName].push_back({ 0,  45 });
+		SkillOriginPosVector[SkillName].push_back({ 0,  45 });
+		SkillOriginPosVector[SkillName].push_back({ 0,  45 });
+		SkillOriginPosVector[SkillName].push_back({ 0,  45 });
+		SkillOriginPosVector[SkillName].push_back({ 0,  45 });
+		SkillOriginPosVector[SkillName].push_back({ 0,  45 });
+	}
+
+	else if (SkillName == "LuckySeven")
+	{
+		AniFrameList[SkillName].push_back(0.12f);
+		AniFrameList[SkillName].push_back(0.12f);
+		AniFrameList[SkillName].push_back(0.12f);
+		AniFrameList[SkillName].push_back(0.12f);
+		AniFrameList[SkillName].push_back(0.12f);
+		AniFrameList[SkillName].push_back(0.12f);
 	}
 }
 
@@ -67,11 +76,14 @@ void SkillActor::SetUpdateFunc()
 	{
 		UpdateFunc = &SkillActor::Haste;
 	}
+	else if (SkillName == "LuckySeven")
+	{
+		UpdateFunc = &SkillActor::LuckySeven;
+	}
 }
 
 void SkillActor::Haste()
 {
-
 	Player::GetCurPlayer()->SetMovable(false);
 	Player::GetCurPlayer()->SetMoveType("Alert");
 	TimeCounting();
@@ -84,19 +96,16 @@ void SkillActor::Haste()
 
 		Player* CurPlayer = Player::GetCurPlayer();
 		float4 Pos = CurPlayer->GetTransform()->GetWorldPosition();
-
-		if (CurPlayer->GetLeftRightDir() == "Right")
-		{
-			AnimationRender->SetScaleToTexture(TextureName);
-		}
-		else if (CurPlayer->GetLeftRightDir() == "Left")
-		{
-			AnimationRender->SetScaleToTexture(TextureName);
-			float4 Scale = AnimationRender->GetTransform()->GetLocalScale();
-			AnimationRender->GetTransform()->SetLocalScale({ -Scale.x, Scale.y });
-		}
+		
+		AnimationRender->SetScaleToTexture(TextureName);
 
 		AnimationRender->GetTransform()->SetLocalPosition(Pos +  SkillOriginPosVector["Haste"][AnimationIndex]);
+		
+		if (Player::GetCurPlayer()->GetLeftRightDir() == "Right")
+		{
+			AnimationRender->GetTransform()->AddLocalPosition({ 5,0 });
+		}
+
 		AnimationCount = 0.0f;
 		AnimationIndex++;
 	}
@@ -107,6 +116,52 @@ void SkillActor::Haste()
 		AnimationRender->Death();
 		AnimationRender = nullptr;
 		UpdateFunc = nullptr;
+		Death();
+	}
+}
+
+
+void SkillActor::LuckySeven()
+{
+
+	TimeCounting();
+	AnimationCount += TimeCount;
+
+
+	if (AnimationIndex >= AniFrameList["LuckySeven"].size())
+	{
+		AnimationRender->Death();
+		AnimationRender = nullptr;
+		UpdateFunc = nullptr;
+		Death();
+
+		return;
+	}
+
+	else if (AniFrameList["LuckySeven"][AnimationIndex] <= AnimationCount)
+	{
+		std::string TextureName = "LuckySevenShoot" + std::to_string(AnimationIndex) + ".png";
+
+		Player* CurPlayer = Player::GetCurPlayer();
+		float4 Pos = CurPlayer->GetTransform()->GetWorldPosition();
+
+		AnimationRender->SetScaleToTexture(TextureName);
+
+		AnimationRender->GetTransform()->SetLocalPosition(Pos + float4{0, 25});
+
+		if (Player::GetCurPlayer()->GetLeftRightDir() == "Right")
+		{
+			AnimationRender->GetTransform()->SetLocalNegativeScaleX();
+			AnimationRender->GetTransform()->AddLocalPosition({ 60, 0 });
+		}
+		else if (Player::GetCurPlayer()->GetLeftRightDir() == "Left")
+		{
+			AnimationRender->GetTransform()->SetLocalPositiveScaleX();
+			AnimationRender->GetTransform()->AddLocalPosition({ -60, 0 });
+		}
+
+		AnimationCount = 0.0f;
+		AnimationIndex++;
 	}
 }
 

@@ -3,9 +3,7 @@
 #include "ContentEnums.h"
 
 #include <GameEnginePlatform/GameEngineInput.h>
-#include <gameengineCore/GameEngineSpriteRenderer.h>
 #include <gameengineCore/GameEngineLevel.h>
-#include <gameengineCore/GameEngineCollision.h>
 #include <gameengineCore/GameEngineCamera.h>
 
 Mouse* Mouse::CurMouse = nullptr;

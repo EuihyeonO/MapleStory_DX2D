@@ -3,9 +3,9 @@
 #include "PlayerValue.h"
 #include "Star.h"
 #include "MonsterBasicFunction.h"
+#include "StarHitEffect.h"
 
-#include <GameEngineCore/GameEngineSpriteRenderer.h>
-#include <GameEngineCore/GameEngineCollision.h>
+#include <GameEngineCore/GameEngineLevel.h>
 #include <ctime>
 
 Star::Star()
@@ -57,6 +57,11 @@ void Star::Update(float _DeltaTime)
 	if (_Collision = StarCollision->Collision(static_cast<int>(CollisionOrder::Monster), ColType::AABBBOX2D, ColType::AABBBOX2D), _Collision != nullptr)
 	{
 		_Collision->GetActor()->DynamicThis<MonsterBasicFunction>()->Hit();
+		std::shared_ptr<StarHitEffect> _Effect = GetLevel()->CreateActor< StarHitEffect>();
+		_Effect->SetSkillType(Type);
+		_Effect->SetFrame();
+		_Effect->GetTransform()->SetLocalPosition(_Collision->GetTransform()->GetWorldPosition());
+
 		Death();
 	}
 }
@@ -148,6 +153,8 @@ void Star::Move(float _DeltaTime)
 		float4 MoveDis = Dir * 400.0f * _DeltaTime;
 
 		GetTransform()->AddLocalPosition(MoveDis);
+
+		StarRender->GetTransform()->SetLocalRotation({ 0, 0, 180.0f - Dir.GetAnagleDegZ()});
 		float4 Pos = GetTransform()->GetLocalPosition();
 
 		MoveDistance -= MoveDis;

@@ -3,8 +3,6 @@
 
 #include <GameEngineBase/GameEngineRandom.h>
 
-#include <GameEngineCore/GameEngineSpriteRenderer.h>
-
 #include <ctime>
 
 MonsterBasicFunction::MonsterBasicFunction()

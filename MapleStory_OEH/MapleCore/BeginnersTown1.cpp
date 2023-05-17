@@ -4,8 +4,8 @@
 #include "Hina.h"
 #include "ContentEnums.h"
 #include "GreenSnail.h"
+#include "MonsterSpawnZone.h"
 
-#include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <ctime>
@@ -25,8 +25,11 @@ void BeginnersTown1::Start()
 	MyMiniMap->SetMap(MapName);
 
 	GetLevel()->CreateActor<Hina>(static_cast<int>(RenderOrder::NPC));
-	std::shared_ptr<GreenSnail> Mob = GetLevel()->CreateActor<GreenSnail>(static_cast<int>(RenderOrder::Monster));
-	Mob->SetColMap(ColMapName);
+
+	std::shared_ptr<MonsterSpawnZone> Zone = GetLevel()->CreateActor<MonsterSpawnZone>();
+	Zone->SetColMap(ColMapName);
+	Zone->SetMonsterToZone(MonsterName::GreenSnail, 5);
+	Zone->SetZonePosAndScale({ 0,0 }, 200.0f);
 
 	LandScape0 = CreateComponent<GameEngineSpriteRenderer>();
 	LandScape0->SetTexture("MapBackGround0.png");

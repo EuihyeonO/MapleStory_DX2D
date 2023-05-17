@@ -1,11 +1,9 @@
 #include "PrecompileHeader.h"
 #include "GreenSnail.h"
 
-#include <GameEngineCore/GameEngineSpriteRenderer.h>
-#include <GameEngineCore/GameEngineCollision.h>
-
 GreenSnail::GreenSnail()
 {
+	MyName = static_cast<int>(MonsterName::GreenSnail);
 }
 
 GreenSnail::~GreenSnail()
@@ -18,8 +16,6 @@ void GreenSnail::Start()
 	SetAnimationList();
 
 	SetMoveSpeed(20.0f);
-
-	GetTransform()->SetLocalPosition({ 150, 0 });
 
 	BasicRender = CreateComponent<GameEngineSpriteRenderer>();
 	BasicRender->SetScaleToTexture("GreenSnailStand0.png");
@@ -36,6 +32,8 @@ void GreenSnail::Start()
 
 void GreenSnail::Update(float _DeltaTime)
 {
+	TransformData Data = GetTransform()->GetTransDataRef();
+
 	TimeCounting();
 	Spawn(_DeltaTime);
 

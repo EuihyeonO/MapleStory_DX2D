@@ -61,6 +61,12 @@
     <ClInclude Include="MonsterBasicFunction.h">
       <Filter>Actor\Monster</Filter>
     </ClInclude>
+    <ClInclude Include="MonsterSpawnZone.h">
+      <Filter>Actor\Map\Zone</Filter>
+    </ClInclude>
+    <ClInclude Include="StarHitEffect.h">
+      <Filter>Actor\Player\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Level_Title.cpp">
@@ -134,6 +140,12 @@
     </ClCompile>
     <ClCompile Include="MonsterBasicFunction.cpp">
       <Filter>Actor\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterSpawnZone.cpp">
+      <Filter>Actor\Map\Zone</Filter>
+    </ClCompile>
+    <ClCompile Include="StarHitEffect.cpp">
+      <Filter>Actor\Player\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

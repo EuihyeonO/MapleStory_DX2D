@@ -34,6 +34,7 @@ private:
 	void SetUpdateFunc();
 
 	void Haste();
+	void LuckySeven();
 
 	std::string SkillName;
 

@@ -40,7 +40,10 @@ public:
 		return LeftRightDir;
 	}
 
-	const float4 GetWeaponPos() const;
+	const float4 GetWeaponPos() const
+	{
+		return Weapon->GetTransform()->GetWorldPosition();
+	}
 
 	void SetLeft();
 	void SetRight();
@@ -103,7 +106,7 @@ private:
 	float MoveSpeed = 100.0f;
 
 	//스킬관련
-	
+
 	void LuckySeven();
 	void Haste();
 
@@ -115,7 +118,6 @@ private:
 	std::function<void(Player&)> WSkill = nullptr;
 
 	std::shared_ptr<class GameEngineCollision> RangeCheck = nullptr;
-	//std::list<std::function<bool(Player&)>> BuffList;
 
 	//std::function<bool(Player&)> DelSkill = nullptr;
 	//std::function<bool(Player&)> InsertSkill = nullptr;

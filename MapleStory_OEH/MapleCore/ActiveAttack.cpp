@@ -6,8 +6,6 @@
 #include "SkillActor.h"
 #include "BuffList.h"
 
-#include <GameEngineCore/GameEngineSpriteRenderer.h>
-#include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEnginePlatform/GameEngineInput.h>
@@ -33,16 +31,21 @@ void Player::LuckySeven()
 	
 	std::function<void(Star&, float)> UpdateFunction = &Star::Move;
 
+	std::shared_ptr<SkillActor> NewSkillActor = GetLevel()->CreateActor<SkillActor>();
+	NewSkillActor->SetSkillActor("LuckySeven");
+		
 	std::shared_ptr<Star> NewStar1 = GetLevel()->CreateActor<Star>(static_cast<int>(RenderOrder::Weapon));
-	NewStar1->SetStarName("Wednes");
+	NewStar1->SetStarName("shuriken");
 	NewStar1->SetTimingTime(0.25f);
 	NewStar1->SetUpdateFuction(UpdateFunction);
 	NewStar1->SetTargetMonster(HitMonster);
+	NewStar1->SetType("LuckySeven");
 
 	std::shared_ptr<Star> NewStar2 = GetLevel()->CreateActor<Star>(static_cast<int>(RenderOrder::Weapon));
-	NewStar2->SetStarName("Wednes");
+	NewStar2->SetStarName("shuriken");
 	NewStar2->SetTimingTime(0.40f);
 	NewStar2->SetUpdateFuction(UpdateFunction);
 	NewStar2->SetTargetMonster(HitMonster);
+	NewStar2->SetType("LuckySeven");
 
 }

@@ -36,3 +36,9 @@ enum class CollisionOrder
 	Mouse,
 };
 
+enum class MonsterName
+{
+	GreenSnail,
+
+};
+

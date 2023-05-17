@@ -1,7 +1,6 @@
 #include "PrecompileHeader.h"
 #include "BottomBar.h"
 #include "PlayerValue.h"
-#include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEnginePlatform/GameEngineWindow.h>

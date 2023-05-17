@@ -35,6 +35,11 @@ public:
 	{
 		TimingTime = _Time;
 	}
+	
+	void SetType(const std::string_view& _Type)
+	{
+		Type = _Type;
+	}
 
 	void Damage();
 
@@ -48,7 +53,9 @@ protected:
 	void Update(float _DeltaTime) override;
 	void Render(float _DeltaTime) override;
 private:
+
 	std::string StarName;
+	std::string Type;
 
 	void TimeCounting();
 	void AnimationUpdate();
@@ -57,7 +64,7 @@ private:
 
 	void StartTimingCheck(float _DeltaTime);
 	void SetStartPos();
-
+	
 	float CurTime = 0.0f;
 	float PrevTime = 0.0f;
 	float TimeCount = 0.0f;
@@ -76,6 +83,7 @@ private:
 	float4 Dir = { 0,0 };
 
 	std::shared_ptr<GameEngineSpriteRenderer> StarRender = nullptr;
+	std::shared_ptr<GameEngineSpriteRenderer> HitRender = nullptr;
 	std::shared_ptr<class GameEngineCollision> StarCollision = nullptr;
 	std::shared_ptr<class GameEngineCollision> Target = nullptr;
 	

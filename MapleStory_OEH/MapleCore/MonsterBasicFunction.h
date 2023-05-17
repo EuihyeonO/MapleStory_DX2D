@@ -33,6 +33,17 @@ public:
 		return isGround;
 	}
 
+	void SetMyZone(class MonsterSpawnZone* _Zone, std::function<void(MonsterSpawnZone&, int)> _StartFunc)
+	{
+		if (_Zone == nullptr)
+		{
+			MsgAssert("Nullptr인 함수포인터를 사용했습니다. , 함수 MonsterBasicFunction::SetMyZone ");
+		}
+
+		MyZone = _Zone;
+		_StartFunc(*MyZone, MyName);
+	}
+
 	virtual void Hit() = 0;
 
 protected:
@@ -43,7 +54,9 @@ protected:
 
 	int AniIndex = 0;
 	float AnimationCount = 0.0f;
-	
+
+	int MyName = 0;
+
 	std::string MoveType = "Stand";
 
 	virtual void Spawn(float _DeltaTime) = 0;
@@ -69,5 +82,6 @@ private:
 	float Gravity = 200.0f;
 	float GravityAccel = 1000.0f;
 
+	class MonsterSpawnZone* MyZone = nullptr;
 };
 

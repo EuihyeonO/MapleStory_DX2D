@@ -1,6 +1,5 @@
 #include "PrecompileHeader.h"
 #include "TitleObjects.h"
-#include <gameengineCore/GameEngineSpriteRenderer.h>
 #include <gameengineCore/GameEngineLevel.h>
 #include <gameengineCore/GameEngineCamera.h>
 #include <GameEnginePlatform/GameEngineInput.h>

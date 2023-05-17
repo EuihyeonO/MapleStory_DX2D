@@ -4,3 +4,5 @@
 #include <GameEngineCore/PrecompileHeader.h>
 
 #include <GameEngineCore/GameEngineGUI.h>
+#include <GameEngineCore/GameEngineSpriteRenderer.h>
+#include <GameEngineCore/GameEngineCollision.h>

@@ -4,8 +4,6 @@
 #include "ContentEnums.h"
 #include "Star.h"
 
-#include <GameEngineCore/GameEngineSpriteRenderer.h>
-#include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEnginePlatform/GameEngineInput.h>
@@ -177,25 +175,7 @@ void Player::Swing()
 	std::function<void(Star&, float)> UpdateFunction = &Star::Move;
 	NewStar1->SetUpdateFuction(UpdateFunction);
 	NewStar1->SetTargetMonster(HitMonster);
-
-	//if (HitMonster != nullptr)
-	//{
-	//	float4 Dir = HitMonster->GetActor()->GetTransform()->GetWorldPosition() - Weapon->GetTransform()->GetWorldPosition();
-	//	Dir.Normalize();
-	//	NewStar1->SetDir(Dir);
-	//}
-
-	//else
-	//{
-	//	if (LeftRightDir == "Left")
-	//	{
-	//		NewStar1->SetDir({ -1, 0 });
-	//	}
-	//	else
-	//	{
-	//		NewStar1->SetDir({ 1, 0 });
-	//	}
-	//}
+	NewStar1->SetType("Swing");
 }
 
 void Player::Idle()
