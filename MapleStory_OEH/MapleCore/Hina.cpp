@@ -130,10 +130,3 @@ void Hina::SetFrameList()
 	}
 
 }
-
-void Hina::TimeCounting()
-{
-	CurTime = static_cast<float>(clock());
-	TimeCount = (CurTime - PrevTime) / 1000.0f;
-	PrevTime = CurTime;
-}

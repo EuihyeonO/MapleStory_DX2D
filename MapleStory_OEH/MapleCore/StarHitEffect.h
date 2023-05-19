@@ -1,9 +1,9 @@
 #pragma once
-#include <GameEngineCore/GameEngineActor.h>
+#include "BasicFunction.h"
 #include <functional>
 
 class GameEngineSpriteRenderer;
-class StarHitEffect : public GameEngineActor
+class StarHitEffect : public BasicFunction
 {
 
 public:
@@ -30,10 +30,6 @@ protected:
 private:
 
 	void HitAnimationUpdate();
-	void TimeCounting();
-	float CurTime = 0.0f;
-	float PrevTime = 0.0f;
-	float TimeCount = 0.0f;
 
 	int AniIndex = 0;
 	float AnimationCount = 0.0f;

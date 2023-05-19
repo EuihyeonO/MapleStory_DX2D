@@ -50,7 +50,7 @@ void Player::Start()
 	
 	//ÄÝ¸®Àü
 	RangeCheck = CreateComponent<GameEngineCollision>();
-	RangeCheck->GetTransform()->SetLocalScale({ 200, 30 });
+	RangeCheck->GetTransform()->SetLocalScale({ 300, 60 });
 	RangeCheck->SetOrder(static_cast<int>(CollisionOrder::Range));
 
 	float4 RangeScale = RangeCheck->GetTransform()->GetLocalScale();
@@ -68,6 +68,7 @@ void Player::Start()
 	MyBuffList = GetLevel()->CreateActor<BuffList>();
 
 	WSkill = &Player::LuckySeven;
+	ESkill = &Player::Avenger;
 	SetAllTexturePosVector();
 	CreateAllKey();
 
@@ -95,20 +96,12 @@ void Player::Update(float _DeltaTime)
 	TexturePosUpdate();
 
 	CameraUpdate();
+
 }
 
 void Player::Render(float _DeltaTime) 
 {
 
-}
-
-void Player::TimeCounting()
-{
-	CurTime = static_cast<float>(clock());
-
-	TimeCount = (CurTime - PrevTime) / 1000.0f;
-
-	PrevTime = CurTime;
 }
 
 void Player::SetLeft()
@@ -206,11 +199,18 @@ void Player::CreateAllKey()
 		GameEngineInput::CreateKey("Jump", 'C');
 		GameEngineInput::CreateKey("Qskill", 'Q');
 		GameEngineInput::CreateKey("Wskill", 'W');
+		GameEngineInput::CreateKey("Eskill", 'E');
 	}
 }
 
 void Player::ActingUpdate(float _DeltaTime)
 {	
+
+	if (isKeyJump == true)
+	{
+		JumpUpdate(_DeltaTime);
+	}
+
 	if (isMovable == false)
 	{
 		return;
@@ -238,14 +238,15 @@ void Player::ActingUpdate(float _DeltaTime)
 			WSkill(*this);
 		}
 		break;
+	case static_cast<int>(State::Eskill):
+		if (ESkill != nullptr)
+		{
+			ESkill(*this);
+		}
+		break;
 	case -1:
 		Idle();
 		break;
-	}
-
-	if (isKeyJump == true)
-	{
-		JumpUpdate(_DeltaTime);
 	}
 }
 
@@ -262,6 +263,10 @@ int Player::GetStateByKeyInput() const
 	else if (GameEngineInput::IsDown("WSkill") == true)
 	{
 		return static_cast<int>(State::Wskill);
+	}
+	else if (GameEngineInput::IsDown("ESkill") == true)
+	{
+		return static_cast<int>(State::Eskill);
 	}
 	else if (GameEngineInput::IsDown("Swing") == true)
 	{

@@ -15,6 +15,7 @@ public:
 	GreenSnail& operator=(const GreenSnail& _Other) = delete;
 	GreenSnail& operator=(GreenSnail&& _Other) noexcept = delete;
 
+	void Hit() override;
 
 protected:
 	void Start();
@@ -22,13 +23,11 @@ protected:
 	void Render(float _DeltaTime) override;
 
 	void Spawn(float _DeltaTime) override;
-	void Hit() override;
-	void Death(){}
+	void MonsterDeath(){}
 private:
 
 	void TextureUpdate();
-	void SetAnimationList();
-	
+	void SetAnimationList();	
 
 	float RenderAlpha = 0.0f;
 

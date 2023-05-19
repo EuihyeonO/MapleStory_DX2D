@@ -1,9 +1,9 @@
 #pragma once
-#include <GameEngineCore/GameEngineActor.h>
+#include "BasicFunction.h"
 #include <functional>
 
 class GameEngineSpriteRenderer;
-class SkillActor : public GameEngineActor
+class SkillActor : public BasicFunction
 {
 	friend class Player;
 public:
@@ -23,17 +23,12 @@ protected:
 	void Render(float _DeltaTime) override;
 private:
 
-	void TimeCounting();
-
-	float CurTime = 0.0f;
-	float PrevTime = 0.0f;
-	float TimeCount = 0.0f;
-
 	void SetSkillActor(const std::string_view& _SkillName);
 	void SetSkillAnimation();
 	void SetUpdateFunc();
 
 	void Haste();
+	void Avenger();
 	void LuckySeven();
 
 	std::string SkillName;
@@ -46,6 +41,7 @@ private:
 	std::function<void(SkillActor&)> UpdateFunc =  nullptr;
 
 	int AnimationIndex = 0;
+	int LastIndex = 0;
 	float AnimationCount = 0.0f;
 };
 

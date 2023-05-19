@@ -1,11 +1,12 @@
 #pragma once
-#include <GameEngineCore/GameEngineActor.h>
+#include "BasicFunction.h"
 #include <GameEngineCore/GameEngineTexture.h>
 
 class GameEngineSpriteRenderer;
-class Player : public GameEngineActor
+class Player : public BasicFunction
 {
 	friend class BuffList;
+	friend class SkillActor;
 public:
  
 	static Player* GetCurPlayer()
@@ -66,12 +67,7 @@ private:
 	static Player* CurPlayer;
 	std::shared_ptr<GameEngineTexture> ColMap;
 
-	void TimeCounting();
 	void CameraUpdate();
-
-	float CurTime = 0.0f;
-	float PrevTime = 0.0f;
-	float TimeCount = 0.0f;
 	
 	float4 PlayerPos = {0,0};
 
@@ -109,13 +105,16 @@ private:
 
 	void LuckySeven();
 	void Haste();
+	void Avenger();
 
+	bool isAvenger = false;
 	float Range = 100.0f;
 
 	std::shared_ptr<class BuffList> MyBuffList;
 
 	std::function<void(Player&)> QSkill = nullptr;
 	std::function<void(Player&)> WSkill = nullptr;
+	std::function<void(Player&)> ESkill = nullptr;
 
 	std::shared_ptr<class GameEngineCollision> RangeCheck = nullptr;
 

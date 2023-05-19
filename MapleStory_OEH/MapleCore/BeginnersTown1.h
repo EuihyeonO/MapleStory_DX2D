@@ -1,6 +1,6 @@
 #pragma once
+#include "BasicFunction.h"
 #include <GameEngineCore/GameEngineActor.h>
-
 class GameEngineSpriteRenderer;
 class BeginnersTown1 : public GameEngineActor
 {

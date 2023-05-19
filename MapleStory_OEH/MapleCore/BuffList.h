@@ -1,10 +1,10 @@
 #pragma once
-#include <GameEngineCore/GameEngineActor.h>
+#include "BasicFunction.h"
 #include <functional>
 #include <Map>
 
 class GameEngineSpriteRenderer;
-class BuffList : public GameEngineActor
+class BuffList : public BasicFunction
 {
 	friend class Player;
 
@@ -55,11 +55,7 @@ protected:
 	void Update(float _DeltaTime) override;
 	void Render(float _DeltaTime) override;
 private:
-	void TimeCounting();
-	float CurTime = 0.0f;
-	float PrevTime = 0.0f;
-	float TimeCount = 0.0f;
-	
+
 	void Rebuff(const std::string_view& _BuffName);
 	void BuffOn(const std::string_view& _BuffName, std::function<void(class Player&)> _EndFunction, float MaxLiveTime);
 	bool IsBuffOn(const std::string_view& _BuffName);

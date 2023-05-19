@@ -37,7 +37,6 @@ void BottomBar::Start()
 	StatusBarLayer = CreateComponent<GameEngineSpriteRenderer>();
 	StatusBarLayer->SetScaleToTexture("StatusBarLayer.png");
 
-	PlayerValue::GetValue()->SetLevel(11);
 	LevelRenderer.reserve(4);
 }
 

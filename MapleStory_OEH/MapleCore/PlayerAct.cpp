@@ -190,6 +190,11 @@ void Player::Idle()
 		return;
 	}
 
+	if (isKeyJump == true)
+	{
+		return;
+	}
+
 	MoveType = "Stand";
 }
 

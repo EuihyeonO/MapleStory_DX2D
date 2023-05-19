@@ -56,19 +56,11 @@ void StarHitEffect::SetFrame()
 	{
 		FrameList.reserve(4);
 
-		FrameList.push_back(0.1f);
-		FrameList.push_back(0.1f);
-		FrameList.push_back(0.1f);
-		FrameList.push_back(0.1f);
+		FrameList.push_back(0.075f);
+		FrameList.push_back(0.075f);
+		FrameList.push_back(0.075f);
+		FrameList.push_back(0.075f);
 
 		EffectRender->SetScaleToTexture("LuckySevenHit0.png");
 	}
-}
-
-
-void StarHitEffect::TimeCounting()
-{
-	CurTime = clock();
-	TimeCount = (CurTime - PrevTime) / 1000.0f;
-	PrevTime = CurTime;
 }

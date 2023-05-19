@@ -16,7 +16,7 @@
 
 void Player::LuckySeven()
 {
-	if (MoveType == "Swing0" || MoveType == "Swing1" || MoveType == "Swing2")
+	if (isSwing == true)
 	{
 		return;
 	}
@@ -47,5 +47,20 @@ void Player::LuckySeven()
 	NewStar2->SetUpdateFuction(UpdateFunction);
 	NewStar2->SetTargetMonster(HitMonster);
 	NewStar2->SetType("LuckySeven");
+}
+
+void Player::Avenger()
+{
+	if (isSwing == true)
+	{
+		return;
+	}
+	
+	std::shared_ptr<SkillActor> NewSkillActor = GetLevel()->CreateActor<SkillActor>();
+	NewSkillActor->SetSkillActor("Avenger");
+	isSwing = true;
+	MoveType = "Swing2";
+	AniIndex = 0;
+	isAvenger = true;
 
 }

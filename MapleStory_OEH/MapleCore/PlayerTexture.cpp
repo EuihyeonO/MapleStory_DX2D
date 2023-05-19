@@ -550,7 +550,10 @@ void Player::TextureAnimationUpdate()
 
 	if (AnimationCount >= AniFrameList[MoveType][AniIndex])
 	{
-		AniIndex++;
+		if(isAvenger == false)
+		{
+			AniIndex++;
+		}
 
 		//공격이 끝나면 자동으로 Stand로 변경
 		if (isSwing == true && AniIndex == 3)

@@ -7,6 +7,7 @@ enum class State
 	Swing,
 	Qskill,
 	Wskill,
+	Eskill,
 };
 
 enum class WeaponType

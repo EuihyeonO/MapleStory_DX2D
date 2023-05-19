@@ -1,8 +1,8 @@
 #pragma once
-#include <GameEngineCore/GameEngineActor.h>
+#include "BasicFunction.h"
 
 class GameEngineSpriteRenderer;
-class Logo : public GameEngineActor
+class Logo : public BasicFunction
 {
 
 public:
@@ -22,12 +22,6 @@ protected:
 private:
 	void NexonAnimation();
 	void WizetAnimation();
-
-	void TimeCounting();
-
-	float CurTime = 0.0f;
-	float PrevTime = 0.0f;
-	float TimeCount = 0.0f;
 
 	float NexonCount = 0.0f;
 	int NexonIndex = 0;

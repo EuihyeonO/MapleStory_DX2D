@@ -1,8 +1,8 @@
 #pragma once
-#include <GameEngineCore/GameEngineActor.h>
+#include "BasicFunction.h"
 
 class GameEngineSpriteRenderer;
-class TitleObjects : public GameEngineActor
+class TitleObjects : public BasicFunction
 {
 
 public:
@@ -21,8 +21,6 @@ protected:
 	void Render(float _DeltaTime) override;
 
 private:
-	void TimeCounting();
-
 	void Create_LoginBox();
 	void Create_ChannelButton();
 	void Create_FrameObject();
@@ -102,9 +100,5 @@ private:
 	int EmptyAniIndex = 0;
 
 	int ScrollIndex = 0;
-
-	float CurTime = 0.0f;
-	float PrevTime = 0.0f;
-	float TimeCount = 0.0f;
 };
 

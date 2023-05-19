@@ -242,15 +242,6 @@ void TitleObjects::Create_CharacterObject()
 	EmptyAnimation3->GetTransform()->SetLocalPosition({ 84, 1139 });
 }
 
-void TitleObjects::TimeCounting()
-{
-	CurTime = static_cast<float>(clock());
-
-	TimeCount = (CurTime - PrevTime) / 1000.0f;
-
-	PrevTime = CurTime;
-}
-
 void TitleObjects::EmptySlotAnimation()
 {
 	EmptyAniTimeCount += TimeCount;

@@ -1,8 +1,8 @@
 #pragma once
-#include <GameEngineCore/GameEngineActor.h>
+#include "BasicFunction.h"
 
 class GameEngineSpriteRenderer;
-class Hina : public GameEngineActor
+class Hina : public BasicFunction
 {
 public:
 
@@ -19,11 +19,6 @@ protected:
 	void Update(float _DeltaTime) override;
 	void Render(float _DeltaTime) override;
 private:
-	void TimeCounting();
-
-	float CurTime = 0.0f;
-	float PrevTime = 0.0f;
-	float TimeCount = 0.0f;
 
 	void SetFrameList();
 

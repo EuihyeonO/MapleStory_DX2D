@@ -145,10 +145,3 @@ void BuffList::Rebuff(const std::string_view& _BuffName)
 
 	OnBuffList[BuffUpperName]->LiveTime = 0.0f;
 }
-
-void BuffList::TimeCounting()
-{
-	CurTime = static_cast<float>(clock());
-	TimeCount = (CurTime - PrevTime) / 1000.0f;
-	PrevTime = CurTime;
-}

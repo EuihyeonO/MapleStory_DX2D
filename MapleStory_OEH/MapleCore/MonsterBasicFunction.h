@@ -1,7 +1,7 @@
 #pragma once
-#include <GameEngineCore/GameEngineActor.h>
+#include "BasicFunction.h"
 
-class MonsterBasicFunction : public GameEngineActor
+class MonsterBasicFunction : public BasicFunction
 {
 
 public:
@@ -44,12 +44,9 @@ public:
 		_StartFunc(*MyZone, MyName);
 	}
 
-	virtual void Hit() = 0;
+	virtual void Hit(){}
 
 protected:
-
-	float TimeCount = 0.0f;
-
 	bool isAbleJump = false;
 
 	int AniIndex = 0;
@@ -58,11 +55,14 @@ protected:
 	int MyName = 0;
 
 	std::string MoveType = "Stand";
+	
+	MonsterSpawnZone* GetMyZone()
+	{
+		return MyZone;
+	}
 
 	virtual void Spawn(float _DeltaTime) = 0;
-	virtual void Death() = 0;
-
-
+	virtual void MonsterDeath() = 0;
 private:
 
 	bool isGround = false;
@@ -75,9 +75,6 @@ private:
 	float MoveSpeed = 0.0f;
 	float MoveDistance = 0.0f;
 	float StandTime = 0.0f;
-
-	float CurTime = 0.0f;
-	float PrevTime = 0.0f;
 
 	float Gravity = 200.0f;
 	float GravityAccel = 1000.0f;

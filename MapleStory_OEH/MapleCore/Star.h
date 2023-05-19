@@ -1,11 +1,12 @@
 #pragma once
-#include <GameEngineCore/GameEngineActor.h>
+#include "BasicFunction.h"
 #include <functional>
 
 class GameEngineSpriteRenderer;
-class Star : public GameEngineActor
+class Star : public BasicFunction
 {
 	friend class Player;
+	friend class SkillActor;
 public:
 
 	Star();
@@ -57,17 +58,14 @@ private:
 	std::string StarName;
 	std::string Type;
 
-	void TimeCounting();
-	void AnimationUpdate();
+	void BasicAnimationUpdate();
 
 	void Move(float _DeltaTime);
+	void AvengerMove(float _DeltaTime);
+	void AvengerAnimationUpdate();
 
 	void StartTimingCheck(float _DeltaTime);
 	void SetStartPos();
-	
-	float CurTime = 0.0f;
-	float PrevTime = 0.0f;
-	float TimeCount = 0.0f;
 
 	float4 StartPos = { 0,0 };
 	float AnimationCount = 0.0f;

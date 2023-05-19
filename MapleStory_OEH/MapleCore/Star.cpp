@@ -6,6 +6,7 @@
 #include "StarHitEffect.h"
 
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineCollision.h>
 #include <ctime>
 
 Star::Star()
@@ -50,20 +51,8 @@ void Star::Update(float _DeltaTime)
 	if(UpdateFuction != nullptr)
 	{
 		UpdateFuction(*this, _DeltaTime);
-		AnimationUpdate();
 	}
 
-	std::shared_ptr<GameEngineCollision> _Collision;
-	if (_Collision = StarCollision->Collision(static_cast<int>(CollisionOrder::Monster), ColType::AABBBOX2D, ColType::AABBBOX2D), _Collision != nullptr)
-	{
-		_Collision->GetActor()->DynamicThis<MonsterBasicFunction>()->Hit();
-		std::shared_ptr<StarHitEffect> _Effect = GetLevel()->CreateActor< StarHitEffect>();
-		_Effect->SetSkillType(Type);
-		_Effect->SetFrame();
-		_Effect->GetTransform()->SetLocalPosition(_Collision->GetTransform()->GetWorldPosition());
-
-		Death();
-	}
 }
 
 void Star::Render(float _DeltaTime)
@@ -71,16 +60,7 @@ void Star::Render(float _DeltaTime)
 
 }
 
-void Star::TimeCounting()
-{
-	CurTime = static_cast<float>(clock());
-
-	TimeCount = (CurTime - PrevTime) / 1000.0f;
-
-	PrevTime = CurTime;
-}
-
-void Star::AnimationUpdate()
+void Star::BasicAnimationUpdate()
 {	
 	if (isSet == false)
 	{
@@ -124,13 +104,6 @@ void Star::Move(float _DeltaTime)
 	{
 		std::string MoveType = Player::GetCurPlayer()->GetMoveType().data();
 
-		if (MoveType != "Swing0" &&
-			MoveType != "Swing1" &&
-			MoveType != "Swing2")
-		{
-			return;
-		}
-
 		TimingTimeCount += TimeCount;
 
 		if (TimingTimeCount < TimingTime)
@@ -163,5 +136,55 @@ void Star::Move(float _DeltaTime)
 		{
 			Death();
 		}
+	}
+
+	BasicAnimationUpdate();
+	Damage();
+}
+
+void Star::AvengerMove(float _DeltaTime)
+{
+	if(isSet == false)
+	{
+		std::string MoveType = Player::GetCurPlayer()->GetMoveType().data();
+
+		if (MoveType != "Swing0" &&
+			MoveType != "Swing1" &&
+			MoveType != "Swing2")
+		{
+			return;
+		}
+		StarRender->SetScaleToTexture("Avenger.png");
+		StarCollision->GetTransform()->SetLocalScale(StarRender->GetTransform()->GetLocalScale());
+		StarRender->On();
+		StarCollision->On();
+		isSet = true;
+	}
+
+	float4 MoveDis = Dir * 600.0f * _DeltaTime;
+
+	GetTransform()->AddLocalPosition(MoveDis);
+	StarRender->GetTransform()->AddLocalRotation({ 0, 0, -1080.0f * _DeltaTime });
+
+	MoveDistance -= MoveDis;
+
+	if (MoveDistance.x <= 0.0f)
+	{
+		Death();
+	}
+}
+
+void Star::Damage()
+{
+	std::shared_ptr<GameEngineCollision> _Collision;
+	if (_Collision = StarCollision->Collision(static_cast<int>(CollisionOrder::Monster), ColType::AABBBOX2D, ColType::AABBBOX2D), _Collision != nullptr)
+	{
+		_Collision->GetActor()->DynamicThis<MonsterBasicFunction>()->Hit();
+		std::shared_ptr<StarHitEffect> _Effect = GetLevel()->CreateActor< StarHitEffect>();
+		_Effect->SetSkillType("LuckySeven");
+		_Effect->SetFrame();
+		_Effect->GetTransform()->SetLocalPosition(_Collision->GetTransform()->GetWorldPosition());
+		
+		Death();
 	}
 }

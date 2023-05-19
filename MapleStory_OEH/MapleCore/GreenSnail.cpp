@@ -1,5 +1,6 @@
 #include "PrecompileHeader.h"
 #include "GreenSnail.h"
+#include "MonsterSpawnZone.h"
 
 GreenSnail::GreenSnail()
 {
@@ -118,6 +119,7 @@ void GreenSnail::Hit()
 
 	BasicCollision->GetTransform()->SetLocalScale({ abs(RenderData.LocalScale.x), abs(RenderData.LocalScale.y) });
 	BasicCollision->GetTransform()->SetLocalPosition(RenderData.LocalPosition);
+
 }
 
 void GreenSnail::SetAnimationList()

@@ -7,9 +7,6 @@
     <ClInclude Include="MapleCore.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="PrecompileHeader.h">
-      <Filter>Etc</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerValue.h">
       <Filter>Global</Filter>
     </ClInclude>
@@ -66,6 +63,12 @@
     </ClInclude>
     <ClInclude Include="StarHitEffect.h">
       <Filter>Actor\Player\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicFunction.h">
+      <Filter>Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="PrecompileHeader.h">
+      <Filter>Etc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -146,6 +149,9 @@
     </ClCompile>
     <ClCompile Include="StarHitEffect.cpp">
       <Filter>Actor\Player\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicFunction.cpp">
+      <Filter>Etc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

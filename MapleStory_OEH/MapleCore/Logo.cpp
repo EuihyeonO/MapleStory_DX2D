@@ -106,11 +106,3 @@ void Logo::WizetAnimation()
 
 }
 
-void Logo::TimeCounting()
-{
-	CurTime = static_cast<float>(clock());
-
-	TimeCount = (CurTime - PrevTime) / 1000.0f;
-
-	PrevTime = CurTime;
-}
