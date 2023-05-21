@@ -21,6 +21,15 @@ void Player::LuckySeven()
 		return;
 	}
 
+	int CurMp = PlayerValue::Value.GetMp();
+
+	if (CurMp < 10)
+	{
+		return;
+	}
+
+	PlayerValue::Value.SetMp(CurMp - 10);
+
 	int SwingType = GameEngineRandom::MainRandom.RandomInt(0, 2);
 
 	MoveType = "Swing" + std::to_string(SwingType);
@@ -47,6 +56,7 @@ void Player::LuckySeven()
 	NewStar2->SetUpdateFuction(UpdateFunction);
 	NewStar2->SetTargetMonster(HitMonster);
 	NewStar2->SetType("LuckySeven");
+
 }
 
 void Player::Avenger()

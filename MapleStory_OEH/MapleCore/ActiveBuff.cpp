@@ -15,8 +15,17 @@
 
 void Player::Haste()
 {
+	int CurMp = PlayerValue::Value.GetMp();
+	
+	if (CurMp < 10)
+	{
+		return;
+	}
 	if(isSwing == false && isGround == true)
 	{
+
+		PlayerValue::Value.SetMp(CurMp - 10);
+
 		if (MyBuffList->IsBuffOn("Haste") == false)
 		{
 			std::shared_ptr<SkillActor> Haste = GetLevel()->CreateActor<SkillActor>();

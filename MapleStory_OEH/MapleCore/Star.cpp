@@ -130,7 +130,7 @@ void Star::Move(float _DeltaTime)
 		StarRender->GetTransform()->SetLocalRotation({ 0, 0, 180.0f - Dir.GetAnagleDegZ()});
 		float4 Pos = GetTransform()->GetLocalPosition();
 
-		MoveDistance -= MoveDis;
+		MoveDistance -= {abs(MoveDis.x), abs(MoveDis.y)};
 
 		if (MoveDistance.x <= 0.0f)
 		{
@@ -166,12 +166,14 @@ void Star::AvengerMove(float _DeltaTime)
 	GetTransform()->AddLocalPosition(MoveDis);
 	StarRender->GetTransform()->AddLocalRotation({ 0, 0, -1080.0f * _DeltaTime });
 
-	MoveDistance -= MoveDis;
+	MoveDistance -= {abs(MoveDis.x), abs(MoveDis.y)};
 
 	if (MoveDistance.x <= 0.0f)
 	{
 		Death();
 	}
+
+	AvengerDamage();
 }
 
 void Star::Damage()
@@ -180,11 +182,24 @@ void Star::Damage()
 	if (_Collision = StarCollision->Collision(static_cast<int>(CollisionOrder::Monster), ColType::AABBBOX2D, ColType::AABBBOX2D), _Collision != nullptr)
 	{
 		_Collision->GetActor()->DynamicThis<MonsterBasicFunction>()->Hit();
+		
 		std::shared_ptr<StarHitEffect> _Effect = GetLevel()->CreateActor< StarHitEffect>();
 		_Effect->SetSkillType("LuckySeven");
 		_Effect->SetFrame();
 		_Effect->GetTransform()->SetLocalPosition(_Collision->GetTransform()->GetWorldPosition());
 		
 		Death();
+	}
+}
+
+void Star::AvengerDamage()
+{
+	//한대만 쳐야됨
+	//맞은 애들 VECTOR에 넣어놓고 있는 애들은 안때리기
+
+	std::shared_ptr<GameEngineCollision> _Collision;
+	if (_Collision = StarCollision->Collision(static_cast<int>(CollisionOrder::Monster), ColType::AABBBOX2D, ColType::AABBBOX2D), _Collision != nullptr)
+	{
+		_Collision->GetActor()->DynamicThis<MonsterBasicFunction>()->Hit();
 	}
 }

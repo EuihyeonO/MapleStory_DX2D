@@ -43,6 +43,7 @@ public:
 	}
 
 	void Damage();
+	void AvengerDamage();
 
 	Star(const Star& _Other) = delete;
 	Star(Star&& _Other) noexcept = delete;
@@ -62,7 +63,6 @@ private:
 
 	void Move(float _DeltaTime);
 	void AvengerMove(float _DeltaTime);
-	void AvengerAnimationUpdate();
 
 	void StartTimingCheck(float _DeltaTime);
 	void SetStartPos();
