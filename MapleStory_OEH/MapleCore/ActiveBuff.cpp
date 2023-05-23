@@ -21,6 +21,7 @@ void Player::Haste()
 	{
 		return;
 	}
+
 	if(isSwing == false && isGround == true)
 	{
 		PlayerValue::Value.SetMp(CurMp - 10);
@@ -49,6 +50,85 @@ void Player::Haste()
 			Haste->SetSkillActor("Haste");
 
 			MyBuffList->Rebuff("Haste");
+		}
+	}
+}
+
+
+void Player::JavelinBooster()
+{
+	int CurMp = PlayerValue::Value.GetMp();
+
+	if (CurMp < 10)
+	{
+		return;
+	}
+
+	if (isSwing == false && isGround == true)
+	{
+		PlayerValue::Value.SetMp(CurMp - 10);
+
+		if (MyBuffList->IsBuffOn("JavelinBooster") == false)
+		{
+			std::shared_ptr<SkillActor> Haste = GetLevel()->CreateActor<SkillActor>();
+			Haste->SetSkillActor("JavelinBooster");
+
+			std::function<void(Player&)> EndFunction = [this](Player&)
+			{
+				PlayerValue::Value.SetAttackSpeedToBasic();
+			};
+
+			//지속시간은 나중에 따로 변수 만들어야함
+			MyBuffList->BuffOn("JavelinBooster", EndFunction, 5.0f);
+
+			int GetJavelinBoosterLv = PlayerValue::Value.GetJavelinBoosterLevel();
+			PlayerValue::Value.PlusAttackSpeed(GetJavelinBoosterLv * 0.05f);
+		}
+
+		else if (MyBuffList->IsBuffOn("JavelinBooster") == true)
+		{
+			std::shared_ptr<SkillActor> Haste = GetLevel()->CreateActor<SkillActor>();
+			Haste->SetSkillActor("JavelinBooster");
+
+			MyBuffList->Rebuff("JavelinBooster");
+		}
+	}
+}
+
+void Player::ShadowPartner()
+{
+	int CurMp = PlayerValue::Value.GetMp();
+
+	if (CurMp < 10)
+	{
+		return;
+	}
+
+	if (isSwing == false && isGround == true)
+	{
+		PlayerValue::Value.SetMp(CurMp - 10);
+
+		if (MyBuffList->IsBuffOn("ShadowPartner") == false)
+		{
+			std::shared_ptr<SkillActor> Haste = GetLevel()->CreateActor<SkillActor>();
+			Haste->SetSkillActor("ShadowPartner");
+
+			std::function<void(Player&)> EndFunction = [this](Player&)
+			{
+				isOnShadow = false;
+			};
+
+			//지속시간은 나중에 따로 변수 만들어야함
+			MyBuffList->BuffOn("ShadowPartner", EndFunction, 5.0f);
+			isOnShadow = true;
+		}
+
+		else if (MyBuffList->IsBuffOn("ShadowPartner") == true)
+		{
+			std::shared_ptr<SkillActor> Haste = GetLevel()->CreateActor<SkillActor>();
+			Haste->SetSkillActor("ShadowPartner");
+
+			MyBuffList->Rebuff("ShadowPartner");
 		}
 	}
 }

@@ -3,6 +3,7 @@
 #include "MiniMap.h"
 #include "Hina.h"
 #include "ContentEnums.h"
+#include "ContentRenderer.h"
 #include "GreenSnail.h"
 #include "MonsterSpawnZone.h"
 
@@ -40,7 +41,7 @@ void BeginnersTown1::Start()
 	LandScape0->SetTexture("MapBackGround0.png");
 	LandScape0->GetTransform()->SetLocalScale({2000, 2000});
 
-	Cloud = CreateComponent<GameEngineSpriteRenderer>();
+	Cloud = CreateComponent<ContentRenderer>();
 	Cloud->SetScaleToTexture("MapBackGround1.png");
 
 	float4 CloudScale = Cloud->GetTransform()->GetLocalScale();
@@ -64,7 +65,7 @@ void BeginnersTown1::Start()
 
 void BeginnersTown1::Update(float _DeltaTime)
 {
-	PosUpdate();
+	//PosUpdate();
 	CloudMove(_DeltaTime);
 }
 
@@ -81,7 +82,7 @@ void BeginnersTown1::CloudMove(float _DeltaTime)
 		XMoveConstant -= 3.0f;
 	}
 
-	//Cloud->SetUVconstant({ XMoveConstant, 0, 3 });
+	Cloud->SetUVconstant({ XMoveConstant, 0, 3, 1});
 
 	float4 CameraPos = GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition();
 	LandScape2->GetTransform()->SetLocalPosition({ CameraPos.x * 0.5f , 200 });

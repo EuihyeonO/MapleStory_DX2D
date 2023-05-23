@@ -57,6 +57,23 @@ void Player::LuckySeven()
 	NewStar2->SetTargetMonster(HitMonster);
 	NewStar2->SetType("LuckySeven");
 
+	if (isOnShadow == true)
+	{
+		std::shared_ptr<Star> NewStar1 = GetLevel()->CreateActor<Star>(static_cast<int>(RenderOrder::Weapon));
+		NewStar1->SetStarName("shuriken");
+		NewStar1->SetTimingTime(0.55f);
+		NewStar1->SetUpdateFuction(UpdateFunction);
+		NewStar1->SetTargetMonster(HitMonster);
+		NewStar1->SetType("LuckySeven");
+
+		std::shared_ptr<Star> NewStar2 = GetLevel()->CreateActor<Star>(static_cast<int>(RenderOrder::Weapon));
+		NewStar2->SetStarName("shuriken");
+		NewStar2->SetTimingTime(0.7f);
+		NewStar2->SetUpdateFuction(UpdateFunction);
+		NewStar2->SetTargetMonster(HitMonster);
+		NewStar2->SetType("LuckySeven");
+	}
+
 }
 
 void Player::Avenger()

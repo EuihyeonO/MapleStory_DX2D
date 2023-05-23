@@ -30,6 +30,8 @@ private:
 	void Haste();
 	void Avenger();
 	void LuckySeven();
+	void JavelinBooster();
+	void ShadowPartner();
 
 	std::string SkillName;
 

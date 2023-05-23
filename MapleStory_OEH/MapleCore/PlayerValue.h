@@ -217,6 +217,16 @@ public: //local
 		return AttackSpeed;
 	}
 
+	void PlusAttackSpeed(float _Speed)
+	{
+		AttackSpeed = BasicAttackSpeed + _Speed;
+	}
+
+	void SetAttackSpeedToBasic()
+	{
+		AttackSpeed = BasicAttackSpeed;
+	}
+
 	PlayerValue(const PlayerValue& _Other) = delete;
 	PlayerValue(PlayerValue&& _Other) noexcept = delete;
 	PlayerValue& operator=(const PlayerValue& _Other) = delete;
@@ -272,6 +282,7 @@ private:
 	
 	float AttackDistance = 200.0f;
 	float AttackSpeed = 1.0f;
+	float BasicAttackSpeed = 1.0f;
 
 	std::string Hair;
 	std::string Skin;

@@ -107,11 +107,13 @@ private:
 	void LuckySeven();
 	void Haste();
 	void Avenger();
-
+	void JavelinBooster();
+	void ShadowPartner();
 		//Passive
 	void KeenEyes();
 
 	bool isAvenger = false;
+	bool isOnShadow = false;
 	float Range = 300.0f;
 
 	std::shared_ptr<class BuffList> MyBuffList;

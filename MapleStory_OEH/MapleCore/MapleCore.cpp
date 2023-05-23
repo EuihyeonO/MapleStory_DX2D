@@ -6,6 +6,9 @@
 #include <GameEngineCore/GameEngineCore.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCoreWindow.h>
+#include <GameEngineCore/GameEngineVertexShader.h>
+#include <GameEngineCore/GameEnginePixelShader.h>
+#include <GameEngineCore/GameEngineRenderingPipeLine.h>
 
 MapleCore::MapleCore()
 {
@@ -17,12 +20,30 @@ MapleCore::~MapleCore()
 
 void MapleCore::ContentsResourcesCreate()
 {
-	// 텍스처 로드만 각 레벨별로 하고 정리하는 습관을 들이세요.
+	GameEngineDirectory NewDir;
+	NewDir.MoveParentToDirectory("MapleResources");
+	NewDir.Move("MapleResources");
+	NewDir.Move("ContentShader");
+
+	std::vector<GameEngineFile> Files = NewDir.GetAllFile({ ".hlsl", ".fx" });
+
+	GameEngineVertexShader::Load(Files[0].GetFullPath(), "Content_VS");
+	GameEnginePixelShader::Load(Files[0].GetFullPath(), "Content_PS");
+
+	std::shared_ptr<GameEngineRenderingPipeLine> Pipe = GameEngineRenderingPipeLine::Create("ContentShader");
+
+	Pipe->SetVertexBuffer("Rect");
+	Pipe->SetIndexBuffer("Rect");
+	Pipe->SetVertexShader("ContentShader.hlsl");
+	Pipe->SetRasterizer("Engine2DBase");
+	Pipe->SetPixelShader("ContentShader.hlsl");
+	Pipe->SetBlendState("AlphaBlend");
+	Pipe->SetDepthState("EngineDepth");
 }
 
 void MapleCore::GameStart()
 {
-
+	ContentsResourcesCreate();
 	//GameEngineGUI::GUIWindowCreate<GameEngineCoreWindow>(" ");
 
 	GameEngineCore::CreateLevel<Level_Title>();

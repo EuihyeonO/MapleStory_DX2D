@@ -1,7 +1,6 @@
 #pragma once
 #include "MonsterBasicFunction.h"
 
-class GameEngineSpriteRenderer;
 class GreenSnail : public MonsterBasicFunction
 {
 
@@ -35,7 +34,7 @@ private:
 
 	std::map<std::string, std::vector<float>> FrameList;
 
-	std::shared_ptr<class GameEngineSpriteRenderer> BasicRender;
+	std::shared_ptr<class ContentRenderer> BasicRender;
 	std::shared_ptr<class GameEngineCollision> BasicCollision;
 };
 

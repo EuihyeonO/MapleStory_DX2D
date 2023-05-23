@@ -152,34 +152,35 @@ void Star::AvengerMove(float _DeltaTime)
 {
 	if(isSet == false)
 	{
-		std::string MoveType = Player::GetCurPlayer()->GetMoveType().data();
+		TimingTimeCount += TimeCount;
 
-		if (MoveType != "Swing0" &&
-			MoveType != "Swing1" &&
-			MoveType != "Swing2")
+		if (TimingTimeCount < TimingTime)
 		{
 			return;
 		}
+
 		StarRender->SetScaleToTexture("Avenger.png");
 		StarCollision->GetTransform()->SetLocalScale(StarRender->GetTransform()->GetLocalScale());
 		StarRender->On();
 		StarCollision->On();
 		isSet = true;
 	}
-
-	float4 MoveDis = Dir * 700.0f * _DeltaTime;
-
-	GetTransform()->AddLocalPosition(MoveDis);
-	StarRender->GetTransform()->AddLocalRotation({ 0, 0, Dir.x * -1260.0f * _DeltaTime });
-
-	AttackDistance -= abs(MoveDis.x);
-
-	if (AttackDistance <= 0.0f)
+	else
 	{
-		Death();
-	}
+		float4 MoveDis = Dir * 700.0f * _DeltaTime;
 
-	AvengerDamage();
+		GetTransform()->AddLocalPosition(MoveDis);
+		StarRender->GetTransform()->AddLocalRotation({ 0, 0, Dir.x * -1260.0f * _DeltaTime });
+
+		AttackDistance -= abs(MoveDis.x);
+
+		if (AttackDistance <= 0.0f)
+		{
+			Death();
+		}
+
+		AvengerDamage();
+	}
 }
 
 void Star::Damage()

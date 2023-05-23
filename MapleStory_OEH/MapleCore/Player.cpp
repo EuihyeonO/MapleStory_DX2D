@@ -237,7 +237,7 @@ void Player::ActingUpdate(float _DeltaTime)
 		Swing();
 		break;
 	case static_cast<int>(State::Qskill):	
-		Haste();
+		ShadowPartner();
 		break;
 	case static_cast<int>(State::Wskill):
 		if (WSkill != nullptr)

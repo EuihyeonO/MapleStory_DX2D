@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "GreenSnail.h"
 #include "MonsterSpawnZone.h"
+#include "ContentRenderer.h"
 
 GreenSnail::GreenSnail()
 {
@@ -18,9 +19,9 @@ void GreenSnail::Start()
 
 	SetMoveSpeed(20.0f);
 
-	BasicRender = CreateComponent<GameEngineSpriteRenderer>();
+	BasicRender = CreateComponent<ContentRenderer>();
 	BasicRender->SetScaleToTexture("GreenSnailStand0.png");
-	//BasicRender->SetAlpha({ 1,0,0,0.0f });
+	BasicRender->SetMulColor({ 1, 1, 1, 0.0f });
 	
 	TransformData RenderData = BasicRender->GetTransform()->GetTransDataRef();
 	BasicRender->GetTransform()->SetLocalPosition({ 0, RenderData.LocalScale.hy() });
@@ -71,7 +72,7 @@ void GreenSnail::Spawn(float _DeltaTime)
 		isSpawnAnimationEnd = true;
 	}
 
-	//BasicRender->SetAlpha({ 1,0,0, RenderAlpha });
+	BasicRender->SetMulColor({ 1,1,1, RenderAlpha });
 }
 
 

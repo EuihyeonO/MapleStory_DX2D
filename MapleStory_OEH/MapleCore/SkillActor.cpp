@@ -64,6 +64,37 @@ void SkillActor::SetSkillAnimation()
 		AniFrameList[SkillName].push_back(0.045f);
 		LastIndex = 14;
 	}
+
+	else if (SkillName == "JavelinBooster")
+	{
+		AniFrameList[SkillName].push_back(0.09f);
+		SkillOriginPosVector[SkillName].push_back({ 0,20 });
+		LastIndex = 8;
+	}
+
+	else if (SkillName == "ShadowPartner")
+	{
+		AniFrameList[SkillName].push_back(0.085f);
+		AniFrameList[SkillName].push_back(0.085f);
+		AniFrameList[SkillName].push_back(0.085f);
+		AniFrameList[SkillName].push_back(0.085f);
+		AniFrameList[SkillName].push_back(0.085f);
+		AniFrameList[SkillName].push_back(0.085f);
+		AniFrameList[SkillName].push_back(0.085f);
+		AniFrameList[SkillName].push_back(0.085f);
+		AniFrameList[SkillName].push_back(0.085f);
+		AniFrameList[SkillName].push_back(0.085f);
+		AniFrameList[SkillName].push_back(0.085f);
+		AniFrameList[SkillName].push_back(0.095f);
+		AniFrameList[SkillName].push_back(0.13f);
+		AniFrameList[SkillName].push_back(0.1f);
+		AniFrameList[SkillName].push_back(0.12f);
+		AniFrameList[SkillName].push_back(0.12f);
+
+		SkillOriginPosVector[SkillName].push_back({ 0,58 });
+
+		LastIndex = 15;
+	}
 }
 
 void SkillActor::SetUpdateFunc()
@@ -80,12 +111,22 @@ void SkillActor::SetUpdateFunc()
 	{
 		UpdateFunc = &SkillActor::Avenger;
 	}
+	else if (SkillName == "JavelinBooster")
+	{
+		UpdateFunc = &SkillActor::JavelinBooster;
+	}
+	else if (SkillName == "ShadowPartner")
+	{
+		UpdateFunc = &SkillActor::ShadowPartner;
+	}
 }
 
 void SkillActor::Haste()
 {
-	Player::GetCurPlayer()->SetMovable(false);
-	Player::GetCurPlayer()->SetMoveType("Alert");
+	Player* CurPlayer = Player::GetCurPlayer();
+
+	CurPlayer->SetMovable(false);
+	CurPlayer->SetMoveType("Alert");
 
 	TimeCounting();
 
@@ -95,13 +136,12 @@ void SkillActor::Haste()
 	{
 		std::string TextureName = "Haste" + std::to_string(AnimationIndex) + ".png";
 
-		Player* CurPlayer = Player::GetCurPlayer();
 		float4 Pos = CurPlayer->GetTransform()->GetWorldPosition();
 		
 		AnimationRender->SetScaleToTexture(TextureName);
 		AnimationRender->GetTransform()->SetLocalPosition(Pos +  SkillOriginPosVector["Haste"][0]);
 		
-		if (Player::GetCurPlayer()->GetLeftRightDir() == "Right")
+		if (CurPlayer->GetLeftRightDir() == "Right")
 		{
 			AnimationRender->GetTransform()->AddLocalPosition({ 5,0 });
 		}
@@ -156,11 +196,7 @@ void SkillActor::LuckySeven()
 
 	if (AnimationIndex >= LastIndex)
 	{
-		AnimationRender->Death();
-		AnimationRender = nullptr;
-		UpdateFunc = nullptr;
 		Death();
-
 		return;
 	}
 
@@ -257,6 +293,16 @@ void SkillActor::Avenger()
 			NewStar1->SetTargetMonster(nullptr);
 			NewStar1->SetType("Avenger");
 
+			if (Player::CurPlayer->isOnShadow == true)
+			{
+				std::shared_ptr<Star> NewStar2 = GetLevel()->CreateActor<Star>(static_cast<int>(RenderOrder::Weapon));
+				NewStar2->SetStarName("Avenger");
+				NewStar2->SetTimingTime(0.09f);
+				NewStar2->SetUpdateFuction(&Star::AvengerMove);
+				NewStar2->SetTargetMonster(nullptr);
+				NewStar2->SetType("Avenger");
+			}
+
 			CurPlayer->isAvenger = false;
 		}
 
@@ -274,3 +320,81 @@ void SkillActor::Avenger()
 	}
 }
 
+void SkillActor::JavelinBooster()
+{
+	Player* CurPlayer = Player::GetCurPlayer();
+	CurPlayer->SetMovable(false);
+	CurPlayer->SetMoveType("Alert");
+
+	TimeCounting();
+
+	AnimationCount += TimeCount;
+
+	if (AnimationIndex < LastIndex && AniFrameList["JavelinBooster"][0] <= AnimationCount)
+	{
+		std::string TextureName = "JavelinBooster" + std::to_string(AnimationIndex) + ".png";
+
+		float4 Pos = CurPlayer->GetTransform()->GetWorldPosition();
+
+		AnimationRender->SetScaleToTexture(TextureName);
+
+		AnimationRender->GetTransform()->SetLocalPosition(Pos + SkillOriginPosVector["JavelinBooster"][0]);
+		
+		if (CurPlayer->GetLeftRightDir() == "Right")
+		{
+			float4 scale = AnimationRender->GetTransform()->GetLocalScale();
+			AnimationRender->GetTransform()->SetLocalScale({ -scale.x, scale.y });
+		}
+
+		AnimationCount = 0.0f;
+		AnimationIndex++;
+	}
+	else if (AnimationIndex >= LastIndex)
+	{
+		Player::GetCurPlayer()->SetMovable(true);
+		Death();
+		return;
+	}
+}
+
+void SkillActor::ShadowPartner()
+{
+	Player* CurPlayer = Player::GetCurPlayer();
+	CurPlayer->SetMovable(false);
+	CurPlayer->SetMoveType("Alert");
+
+	TimeCounting();
+
+	AnimationCount += TimeCount;
+
+	if (AnimationIndex < LastIndex && AniFrameList["ShadowPartner"][AnimationIndex] <= AnimationCount)
+	{
+		std::string TextureName = "ShadowPartner" + std::to_string(AnimationIndex) + ".png";
+
+		float4 Pos = CurPlayer->GetTransform()->GetWorldPosition();
+
+		AnimationRender->SetScaleToTexture(TextureName);
+
+		AnimationRender->GetTransform()->SetLocalPosition(Pos + SkillOriginPosVector["ShadowPartner"][0]);
+
+		if (CurPlayer->GetLeftRightDir() == "Right")
+		{
+			float4 scale = AnimationRender->GetTransform()->GetLocalScale();
+			AnimationRender->GetTransform()->SetLocalScale({ -scale.x, scale.y });
+			AnimationRender->GetTransform()->AddLocalPosition({ -35, 0 });
+		}
+		else if (CurPlayer->GetLeftRightDir() == "Left")
+		{
+			AnimationRender->GetTransform()->AddLocalPosition({ 30, 0 });
+		}
+
+		AnimationCount = 0.0f;
+		AnimationIndex++;
+	}
+	else if (AnimationIndex >= LastIndex)
+	{
+		Player::GetCurPlayer()->SetMovable(true);
+		Death();
+		return;
+	}
+}

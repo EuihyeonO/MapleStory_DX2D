@@ -70,6 +70,9 @@
     <ClInclude Include="PrecompileHeader.h">
       <Filter>Etc</Filter>
     </ClInclude>
+    <ClInclude Include="ContentRenderer.h">
+      <Filter>ContentRenderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Level_Title.cpp">
@@ -153,6 +156,9 @@
     <ClCompile Include="BasicFunction.cpp">
       <Filter>Etc</Filter>
     </ClCompile>
+    <ClCompile Include="ContentRenderer.cpp">
+      <Filter>ContentRenderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -206,19 +212,8 @@
     <Filter Include="Actor\Map\Zone">
       <UniqueIdentifier>{790e00c6-b83f-4562-b2ae-8e1deab76398}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shader">
+    <Filter Include="ContentRenderer">
       <UniqueIdentifier>{ffd2808d-cd9f-4ff9-8451-4538ac4c6bd2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ContentsRenderingPipeLine">
-      <UniqueIdentifier>{92d0042b-35ba-418e-bc7f-7bcc7d85050e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ContentsRenderingPipeLine\ContentRenderer">
-      <UniqueIdentifier>{dc17a6d7-cd17-46fd-aadc-31a675271708}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="ContentShader.hlsl">
-      <Filter>Shader</Filter>
-    </FxCompile>
   </ItemGroup>
 </Project>
