@@ -2,6 +2,7 @@
 #include "BottomBar.h"
 #include "PlayerValue.h"
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineUIRenderer.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEnginePlatform/GameEngineInput.h>
@@ -16,33 +17,34 @@ BottomBar::~BottomBar()
 
 void BottomBar::Start()
 {
-	BottomBarBackGround = CreateComponent<GameEngineSpriteRenderer>();
+	BottomBarBackGround = CreateComponent<GameEngineUIRenderer>();
 	BottomBarBackGround->SetScaleToTexture("BottomBarBackGround.png");
 
-	BottomBarLayer = CreateComponent<GameEngineSpriteRenderer>();
+	BottomBarLayer = CreateComponent<GameEngineUIRenderer>();
 	BottomBarLayer->SetScaleToTexture("BottomBarLayer.png");
 
-	StatusBar = CreateComponent<GameEngineSpriteRenderer>();
+	StatusBar = CreateComponent<GameEngineUIRenderer>();
 	StatusBar->SetScaleToTexture("StatusBar.png");
 
-	HpGradation = CreateComponent<GameEngineSpriteRenderer>();
+	HpGradation = CreateComponent<GameEngineUIRenderer>();
 	HpGradation->SetScaleToTexture("StatusGradation.png");
 
-	MpGradation = CreateComponent<GameEngineSpriteRenderer>();
+	MpGradation = CreateComponent<GameEngineUIRenderer>();
 	MpGradation->SetScaleToTexture("StatusGradation.png");
 
-	ExpGradation = CreateComponent<GameEngineSpriteRenderer>();
+	ExpGradation = CreateComponent<GameEngineUIRenderer>();
 	ExpGradation->SetTexture("StatusGradation.png");
 
-	StatusBarLayer = CreateComponent<GameEngineSpriteRenderer>();
+	StatusBarLayer = CreateComponent<GameEngineUIRenderer>();
 	StatusBarLayer->SetScaleToTexture("StatusBarLayer.png");
 
 	LevelRenderer.reserve(4);
+
+	BottomBarPosUpdate();
 }
 
 void BottomBar::Update(float _DeltaTime) 
 {
-	BottomBarPosUpdate();
 	GradationUpdate();
 	LevelUpdate();
 }
@@ -131,7 +133,7 @@ void BottomBar::LevelUpdate()
 		{
 			if(i >= LevelRendererSize)
 			{
-				std::shared_ptr<GameEngineSpriteRenderer> NumberRender = CreateComponent<GameEngineSpriteRenderer>();
+				std::shared_ptr<GameEngineUIRenderer> NumberRender = CreateComponent<GameEngineUIRenderer>();
 				NumberRender->SetScaleToTexture("LevelNum" + LevelDigitStringVector[i] + ".png");
 				LevelRenderer.push_back(NumberRender);
 			}

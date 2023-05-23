@@ -21,7 +21,6 @@ Level_BeginnersTown1::~Level_BeginnersTown1()
 void Level_BeginnersTown1::Start()
 {
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
-
 	Map = CreateActor<BeginnersTown1>();
 
 	MyPlayer = CreateActor<Player>();

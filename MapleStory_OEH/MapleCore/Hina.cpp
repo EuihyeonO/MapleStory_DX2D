@@ -16,7 +16,7 @@ void Hina::Start()
 {
 	TimeCounting();
 	SetFrameList();
-
+	
 	HinaRender = CreateComponent<GameEngineSpriteRenderer>();
 	Status = "NORMAL";
 
@@ -78,7 +78,6 @@ void Hina::StatusUpdate()
 	
 	if (StatusType > 4)
 	{
-		//NORMAL ÀÌ »ÌÈú È®·üÀ» ´õ ¿Ã¸²
 		StatusType = 0;
 	}
 

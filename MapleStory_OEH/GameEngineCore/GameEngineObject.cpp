@@ -91,3 +91,49 @@ void GameEngineObject::AllRelease()
 	}
 
 }
+bool GameEngineObject::IsDeath()
+{
+	GameEngineTransform* Trans = GetTransform()->GetParent();
+
+	if (nullptr != Trans)
+	{
+		GameEngineObject* Master = Trans->GetMaster();
+
+		return GameEngineObjectBase::IsDeath() || Master->IsDeath();
+	}
+
+	return GameEngineObjectBase::IsDeath();
+}
+
+bool GameEngineObject::IsUpdate()
+{
+	GameEngineTransform* Trans = GetTransform()->GetParent();
+
+	if (nullptr != Trans)
+	{
+		GameEngineObject* Master = Trans->GetMaster();
+
+		return GameEngineObjectBase::IsUpdate() && Master->IsUpdate();
+	}
+
+	return GameEngineObjectBase::IsUpdate();
+}
+
+void GameEngineObject::AllLevelChangeStart()
+{
+	LevelChangeStart();
+
+	for (std::shared_ptr<GameEngineObject> Object : Childs)
+	{
+		Object->AllLevelChangeStart();
+	}
+}
+void GameEngineObject::AllLevelChangeEnd()
+{
+	LevelChangeEnd();
+
+	for (std::shared_ptr<GameEngineObject> Object : Childs)
+	{
+		Object->AllLevelChangeEnd();
+	}
+}

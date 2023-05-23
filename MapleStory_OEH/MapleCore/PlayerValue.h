@@ -180,16 +180,6 @@ public: //local
 		MaxMp = _MaxMp;
 	}
 
-	float4 GetMoveDistance()
-	{
-		return MoveDistance;
-	}
-
-	void SetMoveDistance(float4 _MoveDistance)
-	{
-		MoveDistance = _MoveDistance;
-	}
-
 	float GetMpRate()
 	{
 		if (Mp != 0)
@@ -215,6 +205,16 @@ public: //local
 	void SetName(const std::string_view& _Name)
 	{
 		Name = _Name;
+	}
+
+	float GetAttackDistance()
+	{
+		return AttackDistance;
+	}
+
+	float GetAttackSpeed()
+	{
+		return AttackSpeed;
 	}
 
 	PlayerValue(const PlayerValue& _Other) = delete;
@@ -269,12 +269,41 @@ private:
 
 	int MaxExp = 100;
 	int Exp = 0;
-
-	float4 MoveDistance = { 0,0 };
+	
+	float AttackDistance = 200.0f;
+	float AttackSpeed = 1.0f;
 
 	std::string Hair;
 	std::string Skin;
 	std::string Face;
+	
+	//스킬 관련
+public:
+		
+	int GetKeenEyesLevel()
+	{
+		return KeenEyesLevel;
+	}
 
+	void KeenEyesLevelUp()
+	{
+		KeenEyesLevel++;
+		AttackDistance += 10.0f;
+	}
+
+	int GetJavelinBoosterLevel()
+	{
+		return JavelinBoosterLevel;
+	}
+
+	void JavelinBooster()
+	{
+		JavelinBoosterLevel++;
+	}
+
+private:
+
+	int JavelinBoosterLevel = 0;
+	int KeenEyesLevel = 0;
 };
 

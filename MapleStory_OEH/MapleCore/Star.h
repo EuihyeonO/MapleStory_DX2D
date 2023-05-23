@@ -69,7 +69,7 @@ private:
 
 	float4 StartPos = { 0,0 };
 	float AnimationCount = 0.0f;
-	float4 MoveDistance = { 0, 0 };
+	float AttackDistance = 0.0f;
 
 	int AniIndex = 0;
 

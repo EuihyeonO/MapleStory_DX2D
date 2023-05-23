@@ -65,7 +65,16 @@ void Player::Avenger()
 	{
 		return;
 	}
-	
+
+	int CurMp = PlayerValue::Value.GetMp();
+
+	if (CurMp < 10)
+	{
+		return;
+	}
+
+	PlayerValue::Value.SetMp(CurMp - 10);
+
 	std::shared_ptr<SkillActor> NewSkillActor = GetLevel()->CreateActor<SkillActor>();
 	NewSkillActor->SetSkillActor("Avenger");
 	isSwing = true;

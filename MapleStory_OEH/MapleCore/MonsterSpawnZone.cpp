@@ -54,7 +54,7 @@ void MonsterSpawnZone::SpawnMonster(int _MonsterName)
 		
 		TransformData ZoneData = GetTransform()->GetTransDataRef();
 		float SpawnXpos = GameEngineRandom::MainRandom.RandomFloat(-Range, Range);
-		_GreenSnail->GetTransform()->SetLocalPosition({ SpawnXpos, ZoneData.LocalPosition.y });
+		_GreenSnail->GetTransform()->SetLocalPosition({ ZoneData.WorldPosition.x + SpawnXpos, ZoneData.WorldPosition.y });
 	}
 		break;
 	default:

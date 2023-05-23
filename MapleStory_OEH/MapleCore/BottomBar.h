@@ -2,6 +2,7 @@
 #include <GameEngineCore/GameEngineActor.h>
 
 class GameEngineSpriteRenderer;
+class GameEngineUIRenderer;
 class BottomBar : public GameEngineActor
 {
 
@@ -26,16 +27,16 @@ private:
 
 	void LevelUpdate();
 
-	std::shared_ptr<GameEngineSpriteRenderer> BottomBarBackGround = nullptr;
-	std::shared_ptr<GameEngineSpriteRenderer> BottomBarLayer = nullptr;
-	std::shared_ptr<GameEngineSpriteRenderer> StatusBar = nullptr;
-	std::shared_ptr<GameEngineSpriteRenderer> StatusBarLayer = nullptr;
+	std::shared_ptr<GameEngineUIRenderer> BottomBarBackGround = nullptr;
+	std::shared_ptr<GameEngineUIRenderer> BottomBarLayer = nullptr;
+	std::shared_ptr<GameEngineUIRenderer> StatusBar = nullptr;
+	std::shared_ptr<GameEngineUIRenderer> StatusBarLayer = nullptr;
 
-	std::shared_ptr<GameEngineSpriteRenderer> HpGradation = nullptr;
-	std::shared_ptr<GameEngineSpriteRenderer> MpGradation = nullptr;
-	std::shared_ptr<GameEngineSpriteRenderer> ExpGradation = nullptr;
+	std::shared_ptr<GameEngineUIRenderer> HpGradation = nullptr;
+	std::shared_ptr<GameEngineUIRenderer> MpGradation = nullptr;
+	std::shared_ptr<GameEngineUIRenderer> ExpGradation = nullptr;
 
-	std::vector<std::shared_ptr<GameEngineSpriteRenderer>> LevelRenderer;
+	std::vector<std::shared_ptr<GameEngineUIRenderer>> LevelRenderer;
 	float4 ExpBarRightPos = { 0, 0 };
 	float4 HpBarRightPos = { 0, 0 };
 	float4 MpBarRightPos = { 0, 0 };

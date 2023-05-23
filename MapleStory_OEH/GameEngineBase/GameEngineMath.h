@@ -120,6 +120,13 @@ public:
 			float w;
 		};
 
+		struct
+		{
+			float r;
+			float g;
+			float b;
+			float a;
+		};
 
 		float Arr1D[4];
 
@@ -286,6 +293,12 @@ public:
 	{
 		return GetAnagleRadZ() * GameEngineMath::RadToDeg;
 	}
+
+	float MaxFloat() const
+	{
+		return (x < y) ? (y < z ? z : y) : (x < z ? z : x);
+	}
+
 
 	float4 RotaitonXDegReturn(float _Deg)
 	{

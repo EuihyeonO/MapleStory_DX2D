@@ -2,9 +2,23 @@
 #include "GameEngineComponent.h"
 #include "GameEngineShader.h"
 
+class GameEngineRenderUnit
+{
+public:
+	std::shared_ptr<class GameEngineRenderingPipeLine > Pipe;
+	GameEngineShaderResHelper ShaderResHelper;
+
+public:
+	void SetPipeLine(const std::string_view& _Name);
+	void Render(float _DeltaTime);
+};
+
+
 // 설명 :
 class GameEngineRenderer : public GameEngineComponent
 {
+	friend class GameEngineCamera;
+
 public:
 	// constrcuter destructer
 	GameEngineRenderer();
@@ -22,32 +36,39 @@ public:
 	// 어떤 샘플러 어떤 상수버퍼를 사용했는지를 알아야 한다.
 	void SetPipeLine(const std::string_view& _Name);
 
-	void SetMoveConstants(float4 _MoveConstants)
-	{
-		MoveConstants = _MoveConstants;
-	}
-
-	void SetAlpha(float4 _Alpha)
-	{
-		Alpha = _Alpha;
-	}
-
 	inline GameEngineShaderResHelper& GetShaderResHelper()
 	{
 		return ShaderResHelper;
 	}
 
+	void CameraCullingOn()
+	{
+		IsCameraCulling = true;
+	}
+
+	void CalSortZ(class GameEngineCamera* _Camera);
+
+
+	// 업데이트에서 할것이기 때문에 그냥 하겠습니다. 
+	// 랜더 도중에 카메라를 바꾸거나 한다면 이상한 일이 발생할수 있다.
+
 protected:
+	void Start();
+
 	void Render(float _Delta) override;
 
+	void PushCameraRender(int _CameraOrder);
+
 private:
+	bool IsCameraCulling = false;
+
+	float CalZ = 0.0f;
+
 	// Pipe와
 	// GameEngineShaderResHelper 가 합쳐져야 랜더링 이 되는 식이 됩니다.
 	std::shared_ptr<class GameEngineRenderingPipeLine > Pipe;
-
-	float4 MoveConstants = { 0,0,1 };
-	float4 Alpha = {0,0,0,1};
-
 	GameEngineShaderResHelper ShaderResHelper;
+
+	void RenderTransformUpdate(GameEngineCamera* _Camera);
 };
 

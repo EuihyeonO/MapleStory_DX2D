@@ -1,3 +1,5 @@
+// MyColor = DiffuseTex.Sample(WRAPSAMPLER, float2((_Value.UV.x * XScaleRatio) + XMove, _Value.UV.y + YMove));
+                                                           // 가로로 몇개를 반복할건지
 // 쉐이더를 짜게되면 다음의 규칙을 지켜야 한다.
 
 // 0~ 16번 슬롯 
@@ -47,6 +49,7 @@ struct OutPut
     float4 UV : TEXCOORD;
 };
 
+
 cbuffer AtlasData : register(b1)
 {
     // 0.0 0.5
@@ -54,23 +57,6 @@ cbuffer AtlasData : register(b1)
     // 0.5 0.5 
     float2 FrameScale;
     // float4 AtlasUV;
-}
-
-
-cbuffer MoveConstants : register(b2)
-{
-    float XMove;
-    float YMove;
-    float ScaleRatio;
-    float AMoveTime;
-}
-
-cbuffer Color : register(b3)
-{
-    float Red;
-    float Green;
-    float Blue;
-    float Alpha;
 }
 
 // 월드뷰프로젝션
@@ -81,28 +67,46 @@ OutPut Texture_VS(Input _Value)
 	
     _Value.Pos.w = 1.0f;
     OutPutValue.Pos = mul(_Value.Pos, WorldViewProjectionMatrix);
-
+    // OutPutValue.UV = _Value.UV;
+    
+    // [][]
+    // [][]
+    
+    // 0.5 0.0  0.5 0.5 
+    
+    // 0,0    1,0
+    //
+    //
+    // 0,1    1,1
     OutPutValue.UV.x = (_Value.UV.x * FrameScale.x) + FramePos.x;
-    OutPutValue.UV.y = (_Value.UV.y * FrameScale.y) + FramePos.y; 
+    OutPutValue.UV.y = (_Value.UV.y * FrameScale.y) + FramePos.y;
     
     return OutPutValue;
 }
 
-cbuffer OutPixelColor : register(b0)
+cbuffer ColorOption : register(b0)
 {
-    float4 OutColor;
+    float4 MulColor;
+    float4 PlusColor;
 }
 
 Texture2D DiffuseTex : register(t0);
 SamplerState WRAPSAMPLER : register(s0);
 
+struct OutColor
+{
+    float4 Color0 : SV_Target0;
+    float4 Color1 : SV_Target1;
+    float4 Color2 : SV_Target2;
+    float4 Color3 : SV_Target3;
+};
+
 float4 Texture_PS(OutPut _Value) : SV_Target0
 {
-    float4 MyColor;
-           
-    MyColor = DiffuseTex.Sample(WRAPSAMPLER, float2((_Value.UV.x * ScaleRatio) + XMove, _Value.UV.y + YMove));
-
-    MyColor.a *= Alpha;
+    float4 Color = DiffuseTex.Sample(WRAPSAMPLER, _Value.UV.xy);
     
-    return MyColor;
+    Color *= MulColor;
+    Color += PlusColor;
+    
+    return Color;
 }

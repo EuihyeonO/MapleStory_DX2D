@@ -22,6 +22,10 @@ public:
 
 	static void RenderEnd();
 
+	static void VidioRenderStart();
+
+	static void VidioRenderEnd();
+
 	static ID3D11Device* GetDevice()
 	{
 		return Device;
@@ -30,6 +34,11 @@ public:
 	static ID3D11DeviceContext* GetContext()
 	{
 		return Context;
+	}
+
+	static std::shared_ptr<class GameEngineRenderTarget> GetBackBufferTarget()
+	{
+		return BackBufferTarget;
 	}
 
 	// HWND

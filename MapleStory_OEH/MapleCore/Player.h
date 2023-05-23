@@ -103,12 +103,16 @@ private:
 
 	//스킬관련
 
+		//Active
 	void LuckySeven();
 	void Haste();
 	void Avenger();
 
+		//Passive
+	void KeenEyes();
+
 	bool isAvenger = false;
-	float Range = 100.0f;
+	float Range = 300.0f;
 
 	std::shared_ptr<class BuffList> MyBuffList;
 

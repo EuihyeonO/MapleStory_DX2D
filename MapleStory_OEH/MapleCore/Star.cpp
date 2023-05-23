@@ -19,7 +19,7 @@ Star::~Star()
 
 void Star::Start()
 {
-	MoveDistance = PlayerValue::GetValue()->GetMoveDistance();
+	AttackDistance = PlayerValue::GetValue()->GetAttackDistance();
 	TimeCounting();
 
 	StarRender = CreateComponent<GameEngineSpriteRenderer>();	
@@ -81,6 +81,12 @@ void Star::BasicAnimationUpdate()
 		std::string TextureName = StarName + "Move" + std::to_string(AniIndex) + ".png";
 
 		StarRender->SetScaleToTexture(TextureName);
+		if (Player::GetCurPlayer()->GetLeftRightDir() == "Right")
+		{
+			float4 Scale = StarRender->GetTransform()->GetLocalScale();
+			StarRender->GetTransform()->SetLocalScale({ Scale.x, -Scale.y });
+		}
+
 		TransformData RenderData = StarRender->GetTransform()->GetTransDataRef();
 
 		StarCollision->GetTransform()->SetLocalScale(RenderData.LocalScale);
@@ -123,16 +129,16 @@ void Star::Move(float _DeltaTime)
 			Dir.Normalize();
 		}
 
-		float4 MoveDis = Dir * 400.0f * _DeltaTime;
+		float4 MoveDis = Dir * /*ÅõÃ´¼Óµµ*/ 400.0f * _DeltaTime;
 
 		GetTransform()->AddLocalPosition(MoveDis);
 
-		StarRender->GetTransform()->SetLocalRotation({ 0, 0, 180.0f - Dir.GetAnagleDegZ()});
+		StarRender->GetTransform()->SetLocalRotation({ 0, 0, (180.0f - Dir.GetAnagleDegZ())});
 		float4 Pos = GetTransform()->GetLocalPosition();
 
-		MoveDistance -= {abs(MoveDis.x), abs(MoveDis.y)};
+		AttackDistance -= abs(MoveDis.x);
 
-		if (MoveDistance.x <= 0.0f)
+		if (AttackDistance <= 0.0f)
 		{
 			Death();
 		}
@@ -161,14 +167,14 @@ void Star::AvengerMove(float _DeltaTime)
 		isSet = true;
 	}
 
-	float4 MoveDis = Dir * 600.0f * _DeltaTime;
+	float4 MoveDis = Dir * 700.0f * _DeltaTime;
 
 	GetTransform()->AddLocalPosition(MoveDis);
-	StarRender->GetTransform()->AddLocalRotation({ 0, 0, -1080.0f * _DeltaTime });
+	StarRender->GetTransform()->AddLocalRotation({ 0, 0, Dir.x * -1260.0f * _DeltaTime });
 
-	MoveDistance -= {abs(MoveDis.x), abs(MoveDis.y)};
+	AttackDistance -= abs(MoveDis.x);
 
-	if (MoveDistance.x <= 0.0f)
+	if (AttackDistance <= 0.0f)
 	{
 		Death();
 	}
@@ -181,6 +187,11 @@ void Star::Damage()
 	std::shared_ptr<GameEngineCollision> _Collision;
 	if (_Collision = StarCollision->Collision(static_cast<int>(CollisionOrder::Monster), ColType::AABBBOX2D, ColType::AABBBOX2D), _Collision != nullptr)
 	{
+		if (_Collision != Target)
+		{
+			return;
+		}
+
 		_Collision->GetActor()->DynamicThis<MonsterBasicFunction>()->Hit();
 		
 		std::shared_ptr<StarHitEffect> _Effect = GetLevel()->CreateActor< StarHitEffect>();

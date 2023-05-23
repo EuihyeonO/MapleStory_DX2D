@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "SkillActor.h"
 #include "Player.h"
+#include "PlayerValue.h"
 #include "Star.h"
 
 #include <GameEngineCore/GameEngineLevel.h>
@@ -228,7 +229,9 @@ void SkillActor::Avenger()
 	}
 
 	TimeCounting();
-	AnimationCount += TimeCount;
+
+	float Speed = PlayerValue::GetValue()->GetAttackSpeed();
+	AnimationCount += TimeCount * Speed;
 
 	if (AnimationCount >= AniFrameList["Avenger"][0])
 	{

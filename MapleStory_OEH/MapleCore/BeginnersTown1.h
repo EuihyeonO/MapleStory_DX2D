@@ -27,7 +27,7 @@ protected:
 private:
 
 	void CloudMove(float _DeltaTime);
-
+	void PosUpdate();
 	std::string ColMapName = "ColBeginnersTown1.png";
 	std::string MapName = "BeginnersTown1.png";
 

@@ -28,9 +28,6 @@ Player::~Player()
 
 void Player::Start()
 {
-	
-	PlayerValue::Value.SetMoveDistance({ 200, 200 });
-
 	TimeCounting();
 
 	GetTransform()->SetLocalPosition({ 0, 0, 0 });
@@ -50,7 +47,7 @@ void Player::Start()
 	
 	//ÄÝ¸®Àü
 	RangeCheck = CreateComponent<GameEngineCollision>();
-	RangeCheck->GetTransform()->SetLocalScale({ 300, 60 });
+	RangeCheck->GetTransform()->SetLocalScale({ PlayerValue::Value.GetAttackDistance() , 100.0f});
 	RangeCheck->SetOrder(static_cast<int>(CollisionOrder::Range));
 
 	float4 RangeScale = RangeCheck->GetTransform()->GetLocalScale();
@@ -97,6 +94,16 @@ void Player::Update(float _DeltaTime)
 
 	CameraUpdate();
 
+	/*Test*/
+	if (GameEngineInput::IsKey("TestKey") == false)
+	{
+		GameEngineInput::CreateKey("TestKey", 'K');
+	}
+
+	if (GameEngineInput::IsDown("TestKey") == true)
+	{
+		PlayerValue::Value.JavelinBooster();
+	}
 }
 
 void Player::Render(float _DeltaTime) 

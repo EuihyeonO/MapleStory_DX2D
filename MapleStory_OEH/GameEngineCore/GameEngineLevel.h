@@ -3,13 +3,16 @@
 #include <GameEngineBase\GameEngineTimeEvent.h>
 #include <string_view>
 #include <map>
+#include <GameEngineCore/GameEngineRenderTarget.h>
 
 // 설명 :
 class GameEngineActor;
 class GameEngineCamera;
+class GameEngineRenderer;
 class GameEngineCollision;
 class GameEngineLevel : public GameEngineObject
 {
+	friend class GameEngineRenderer;
 	friend class GameEngineCollision;
 	friend class GameEngineTransform;
 	friend class GameEngineCore;
@@ -29,12 +32,12 @@ public:
 	GameEngineLevel& operator=(GameEngineLevel&& _Other) noexcept = delete;
 
 	template<typename ActorType>
-	std::shared_ptr<ActorType> CreateActor(const std::string_view& _Name)
+	std::shared_ptr<ActorType> CreateActorToName(const std::string_view& _Name = "")
 	{
 		return CreateActor<ActorType>(0, _Name);
 	}
 
-	template<typename ActorType, typename EnumType >
+	template<typename ActorType, typename EnumType>
 	std::shared_ptr<ActorType> CreateActor(EnumType  _Order, const std::string_view& _Name = "")
 	{
 		return CreateActor<ActorType>(static_cast<int>(_Order), _Name);
@@ -70,6 +73,8 @@ public:
 		return DynamicThis<GameEngineLevel>();
 	}
 
+	std::shared_ptr<GameEngineCamera> GetCamera(int _CameraOrder);
+
 protected:
 	// 레벨이 바뀌어서 시작할때
 	virtual void LevelChangeStart();
@@ -80,8 +85,11 @@ protected:
 	void Render(float _DeltaTime);
 
 private:
+	// 카메라
+	std::map<int, std::shared_ptr<GameEngineCamera>> Cameras;
 	std::shared_ptr<GameEngineCamera> MainCamera;
-	std::shared_ptr<GameEngineCamera> UICamera;
+
+	void PushCameraRenderer(std::shared_ptr<GameEngineRenderer> _Renderer, int _CameraOrder);
 
 	std::map<int, std::list<std::shared_ptr<GameEngineActor>>> Actors;
 
@@ -94,6 +102,8 @@ private:
 	void ActorUpdate(float _DeltaTime);
 	void ActorRender(float _DeltaTime);
 	void ActorRelease();
+	void ActorLevelChangeStart();
+	void ActorLevelChangeEnd();
 
 };
 

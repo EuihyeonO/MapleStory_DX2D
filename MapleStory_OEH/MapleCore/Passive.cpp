@@ -13,3 +13,12 @@
 #include <ctime>
 #include <functional>
 
+void Player::KeenEyes()
+{
+	int Level = PlayerValue::Value.GetKeenEyesLevel();
+	
+	if(Level < 20)
+	{ 
+		PlayerValue::Value.KeenEyesLevelUp();
+	}
+}

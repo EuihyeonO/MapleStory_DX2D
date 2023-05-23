@@ -546,7 +546,15 @@ void Player::TextureAnimationUpdate()
 		return;
 	}
 
-	AnimationCount += TimeCount;
+	if (isSwing == true)
+	{
+		float Speed = PlayerValue::Value.AttackSpeed;
+		AnimationCount += TimeCount * Speed;
+	}
+	else
+	{
+		AnimationCount += TimeCount;
+	}
 
 	if (AnimationCount >= AniFrameList[MoveType][AniIndex])
 	{

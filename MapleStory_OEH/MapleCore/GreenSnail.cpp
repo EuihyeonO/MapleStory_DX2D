@@ -20,7 +20,7 @@ void GreenSnail::Start()
 
 	BasicRender = CreateComponent<GameEngineSpriteRenderer>();
 	BasicRender->SetScaleToTexture("GreenSnailStand0.png");
-	BasicRender->SetAlpha({ 1,0,0,0.0f });
+	//BasicRender->SetAlpha({ 1,0,0,0.0f });
 	
 	TransformData RenderData = BasicRender->GetTransform()->GetTransDataRef();
 	BasicRender->GetTransform()->SetLocalPosition({ 0, RenderData.LocalScale.hy() });
@@ -71,7 +71,7 @@ void GreenSnail::Spawn(float _DeltaTime)
 		isSpawnAnimationEnd = true;
 	}
 
-	BasicRender->SetAlpha({ 1,0,0, RenderAlpha });
+	//BasicRender->SetAlpha({ 1,0,0, RenderAlpha });
 }
 
 

@@ -35,9 +35,6 @@
     <ClInclude Include="GameEngineTransform.h">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="GameEngineUpdateObject.h">
-      <Filter>Object</Filter>
-    </ClInclude>
     <ClInclude Include="GameEngineResource.h">
       <Filter>Resources</Filter>
     </ClInclude>
@@ -139,6 +136,18 @@
     <ClInclude Include="GameEngineSprite.h">
       <Filter>Resources\Texture</Filter>
     </ClInclude>
+    <ClInclude Include="GameEngineFSM.h">
+      <Filter>ContentPattern</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineTileMapRenderer.h">
+      <Filter>Object\Rendering\Component\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineUIRenderer.h">
+      <Filter>Object\Rendering\Component\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineContentRenderingStruct.h">
+      <Filter>Object\Rendering\Component\2D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngineCore.cpp" />
@@ -176,9 +185,6 @@
       <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineTransform.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineUpdateObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineResource.cpp">
@@ -275,6 +281,15 @@
     <ClCompile Include="GameEngineSprite.cpp">
       <Filter>Resources\Texture</Filter>
     </ClCompile>
+    <ClCompile Include="GameEngineFSM.cpp">
+      <Filter>ContentPattern</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineTileMapRenderer.cpp">
+      <Filter>Object\Rendering\Component\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineUIRenderer.cpp">
+      <Filter>Object\Rendering\Component\2D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Object">
@@ -313,24 +328,6 @@
     <Filter Include="Resources\Texture">
       <UniqueIdentifier>{11192418-f22e-4faa-b5f8-9d03ad16171f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ThirdParty">
-      <UniqueIdentifier>{6e3438b5-f849-4618-a049-4b4fe8a66e6d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ThirdParty\DirectXTex">
-      <UniqueIdentifier>{6958bc85-2a82-4ddf-8f26-7e31b19fa872}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ThirdParty\DirectXTex\bin">
-      <UniqueIdentifier>{40898f20-461e-40cc-9648-6eeddc59afc4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ThirdParty\DirectXTex\Header">
-      <UniqueIdentifier>{cb9900ff-5976-46b2-818f-58a1d929315d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ThirdParty\DirectXTex\bin\Debug">
-      <UniqueIdentifier>{4cf5a0a4-ca62-4958-bfc5-a1f5a88e6ad5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ThirdParty\DirectXTex\bin\Release">
-      <UniqueIdentifier>{0a7def1e-b4ef-42fd-867b-339b90377df5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Object\Rendering\Component\2D">
       <UniqueIdentifier>{e8c4491f-03a2-4594-8903-a55ed51399d4}</UniqueIdentifier>
     </Filter>
@@ -345,6 +342,27 @@
     </Filter>
     <Filter Include="UI\SubWindow">
       <UniqueIdentifier>{0ab9c22a-12d8-456a-9d43-8443d3b45347}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty">
+      <UniqueIdentifier>{6e3438b5-f849-4618-a049-4b4fe8a66e6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty\DirectXTex">
+      <UniqueIdentifier>{6958bc85-2a82-4ddf-8f26-7e31b19fa872}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty\DirectXTex\bin">
+      <UniqueIdentifier>{40898f20-461e-40cc-9648-6eeddc59afc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty\DirectXTex\bin\Debug">
+      <UniqueIdentifier>{4cf5a0a4-ca62-4958-bfc5-a1f5a88e6ad5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty\DirectXTex\bin\Release">
+      <UniqueIdentifier>{0a7def1e-b4ef-42fd-867b-339b90377df5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty\DirectXTex\Header">
+      <UniqueIdentifier>{cb9900ff-5976-46b2-818f-58a1d929315d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ContentPattern">
+      <UniqueIdentifier>{d4da55db-7844-4321-91e9-3b463ca64eb2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

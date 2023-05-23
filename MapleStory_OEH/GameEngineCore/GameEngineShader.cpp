@@ -83,6 +83,7 @@ void GameEngineShader::ShaderResCheck()
 
 			ResHelper.CreateConstantBufferSetter(Setter);
 
+
 			int a = 0;
 
 			break;

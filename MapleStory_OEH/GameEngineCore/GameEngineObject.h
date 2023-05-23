@@ -64,12 +64,18 @@ public:
 		return Level;
 	}
 
+	bool IsDeath() override;
+	bool IsUpdate() override;
+
+
 
 protected:
 	virtual void Start() {}
 	virtual void Update(float _DeltaTime) {}
 	virtual void Render(float _DeltaTime) {}
 	virtual void Release();
+	virtual void LevelChangeStart() {}
+	virtual void LevelChangeEnd() {}
 
 	void PushChild(std::shared_ptr<GameEngineObject> _Child)
 	{
@@ -88,4 +94,6 @@ private:
 	void AllUpdate(float _DeltaTime);
 	void AllRender(float _DeltaTime);
 	void AllRelease();
+	void AllLevelChangeStart();
+	void AllLevelChangeEnd();
 };
