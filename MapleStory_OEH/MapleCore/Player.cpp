@@ -30,8 +30,12 @@ void Player::Start()
 {
 	TimeCounting();
 
-	GetTransform()->SetLocalPosition({ 0, 0, 0 });
+	GetTransform()->SetLocalPosition({ 0, 0, -static_cast<float>(RenderOrder::Player) });
 	GetTransform()->SetLocalScale({ 1, 1, 1 });
+
+	BodyCollision = CreateComponent<GameEngineCollision>();
+	BodyCollision->GetTransform()->SetLocalScale({ 30, 50 });
+	BodyCollision->SetOrder(static_cast<int>(CollisionOrder::Player));
 
 	Body = CreateComponent<GameEngineSpriteRenderer>();
 	Pants = CreateComponent<GameEngineSpriteRenderer>();
@@ -95,15 +99,6 @@ void Player::Update(float _DeltaTime)
 	CameraUpdate();
 
 	/*Test*/
-	if (GameEngineInput::IsKey("TestKey") == false)
-	{
-		GameEngineInput::CreateKey("TestKey", 'K');
-	}
-
-	if (GameEngineInput::IsDown("TestKey") == true)
-	{
-		PlayerValue::Value.JavelinBooster();
-	}
 }
 
 void Player::Render(float _DeltaTime) 
@@ -135,12 +130,16 @@ void Player::SetMoveType(const std::string_view& _MoveType)
 
 void Player::GravityUpdate(float _DeltaTime)
 {
+	if (isRopeOrLadder == true)
+	{
+		return;
+	}
 
 	Gravity += GravityAccel * _DeltaTime;
 
 	float4 PlayerPos = GetTransform()->GetLocalPosition();
 
-	float4 MapHalfScale = { static_cast<float>(ColMap->GetWidth() / 2) ,  static_cast<float>(ColMap->GetHeight() / 2)};
+	float4 MapHalfScale = { static_cast<float>(ColMap->GetWidth() / 2) ,  static_cast<float>(ColMap->GetHeight() / 2) };
 	float4 ColorPos = float4{ MapHalfScale.x, MapHalfScale.y } + float4{ PlayerPos.x, -PlayerPos.y };
 
 	GameEnginePixelColor Color = { (char)255, 0, (char)255, (char)255 };
@@ -149,21 +148,29 @@ void Player::GravityUpdate(float _DeltaTime)
 	int Y = static_cast<int>(ColorPos.y);
 
 	GameEnginePixelColor MapColor = ColMap->GetPixel(static_cast<int>(ColorPos.x), static_cast<int>(ColorPos.y));
-	
+
+	//중력적용유무
 	if (Color != MapColor)
 	{
 		GetTransform()->AddLocalPosition({ 0 , -Gravity * _DeltaTime, 0 });
 		
-		int count = 0;
 
-		while (Color != MapColor)
-		{
-			ColorPos.y++;
-			count++;
-			MapColor = ColMap->GetPixel(static_cast<int>(ColorPos.x), static_cast<int>(ColorPos.y));
-		}
+		//이걸 안달아주면 공중에서 JUMP애니메이션으로 안바뀌거나, 공중이 아닌데 JUMP로 바뀌는 등 어색함이 발생
+		//했었는데, 이제 안생기는 것 같아서 완전히 확인 될 때 까지 임시로 주석걸어놓음
+		 
+		//int count = 0;
+		//while (Color != MapColor)
+		//{
+		//	ColorPos.y++;
+		//	count++;
+		//	MapColor = ColMap->GetPixel(static_cast<int>(ColorPos.x), static_cast<int>(ColorPos.y));
+		//}
 
-		if(isSwing == false && count > 3)
+		//if(isSwing == false && count > 3)
+		//{
+		// MoveType = "Jump";
+		//}
+		if(isSwing == false)
 		{
 			MoveType = "Jump";
 		}
@@ -207,6 +214,8 @@ void Player::CreateAllKey()
 		GameEngineInput::CreateKey("Qskill", 'Q');
 		GameEngineInput::CreateKey("Wskill", 'W');
 		GameEngineInput::CreateKey("Eskill", 'E');
+		GameEngineInput::CreateKey("UpKey", VK_UP);
+		GameEngineInput::CreateKey("DownKey", VK_DOWN);
 	}
 }
 
@@ -218,8 +227,9 @@ void Player::ActingUpdate(float _DeltaTime)
 		JumpUpdate(_DeltaTime);
 	}
 
-	if (isMovable == false)
+	if (isRopeOrLadder == true)
 	{
+		RopeAndLadder(_DeltaTime);
 		return;
 	}
 
@@ -236,20 +246,28 @@ void Player::ActingUpdate(float _DeltaTime)
 	case static_cast<int>(State::Swing):
 		Swing();
 		break;
+	case static_cast<int>(State::Up):
+		RopeAndLadder(_DeltaTime);
+		break;
+	case static_cast<int>(State::Down):
+		RopeAndLadder(_DeltaTime);
+		break;
 	case static_cast<int>(State::Qskill):	
 		ShadowPartner();
 		break;
 	case static_cast<int>(State::Wskill):
-		if (WSkill != nullptr)
-		{
-			WSkill(*this);
-		}
+		//if (WSkill != nullptr)
+		//{
+		//	WSkill(*this);
+		//}
+		Avenger();
 		break;
 	case static_cast<int>(State::Eskill):
-		if (ESkill != nullptr)
-		{
-			ESkill(*this);
-		}
+		//if (ESkill != nullptr)
+		//{
+		//	ESkill(*this);
+		//}
+		JavelinBooster();
 		break;
 	case -1:
 		Idle();
@@ -266,6 +284,14 @@ int Player::GetStateByKeyInput() const
 	else if (GameEngineInput::IsDown("QSkill") == true)
 	{
 		return static_cast<int>(State::Qskill);
+	}
+	else if (GameEngineInput::IsDown("UpKey") == true || GameEngineInput::IsPress("UpKey") == true)
+	{
+		return static_cast<int>(State::Up);
+	}
+	else if (GameEngineInput::IsDown("DownKey") == true || GameEngineInput::IsPress("DownKey") == true)
+	{
+		return static_cast<int>(State::Down);
 	}
 	else if (GameEngineInput::IsDown("WSkill") == true)
 	{
@@ -316,4 +342,17 @@ void Player::CameraUpdate()
 	}
 
 	GetLevel()->GetMainCamera()->GetTransform()->SetLocalPosition(CameraPos);
+}
+
+bool Player::isSameColor()
+{
+	float4 PlayerPos = GetTransform()->GetLocalPosition();
+
+	float4 MapHalfScale = { static_cast<float>(ColMap->GetWidth() / 2) ,  static_cast<float>(ColMap->GetHeight() / 2) };
+	float4 ColorPos = MapHalfScale + float4{ PlayerPos.x, -PlayerPos.y };
+
+	GameEnginePixelColor Color = { (char)255, 0, (char)255, (char)255 };
+	GameEnginePixelColor MapColor = ColMap->GetPixel(static_cast<int>(ColorPos.x), static_cast<int>(ColorPos.y));
+
+	return Color == MapColor;
 }

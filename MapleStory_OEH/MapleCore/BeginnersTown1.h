@@ -27,7 +27,6 @@ protected:
 private:
 
 	void CloudMove(float _DeltaTime);
-	void PosUpdate();
 	std::string ColMapName = "ColBeginnersTown1.png";
 	std::string MapName = "BeginnersTown1.png";
 
@@ -37,6 +36,7 @@ private:
 
 	std::shared_ptr<GameEngineSpriteRenderer> BackGround = nullptr;
 	std::shared_ptr<GameEngineSpriteRenderer> Rope = nullptr;
+	std::shared_ptr<class GameEngineCollision> RopeCol = nullptr;
 	std::shared_ptr<GameEngineSpriteRenderer> BackGroundLayer = nullptr;
 
 	std::shared_ptr<GameEngineSpriteRenderer> LandScape0 = nullptr;

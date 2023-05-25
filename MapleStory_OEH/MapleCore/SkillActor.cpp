@@ -230,6 +230,7 @@ void SkillActor::LuckySeven()
 void SkillActor::Avenger()
 {
 	Player* CurPlayer = Player::GetCurPlayer();
+	CurPlayer->SetMovable(false);
 
 	float4 Pos = CurPlayer->GetTransform()->GetWorldPosition();
 	AnimationRender->GetTransform()->SetLocalPosition(Pos);
@@ -278,6 +279,8 @@ void SkillActor::Avenger()
 
 		if (AnimationIndex > 13)
 		{
+			CurPlayer->isSwing = false;
+			CurPlayer->SetMovable(true);
 			Death();
 			return;
 		}
@@ -393,8 +396,60 @@ void SkillActor::ShadowPartner()
 	}
 	else if (AnimationIndex >= LastIndex)
 	{
-		Player::GetCurPlayer()->SetMovable(true);
-		Death();
+		AnimationCount = 0.0f;
+		AnimationIndex = 0;
+
+		CurPlayer->SetMovable(true);
+
+		UpdateFunc = [this](SkillActor&)
+		{
+			Player* CurPlayer = Player::GetCurPlayer();
+
+			float4 Dir;
+			if (CurPlayer->GetLeftRightDir() == "Right")
+			{
+				Dir = { -1, 1 };
+			}
+			else if (CurPlayer->GetLeftRightDir() == "Left")
+			{
+				Dir = { 1, 1 };
+			}
+
+			if (CurPlayer->isBuffOn("ShadowPartner") == false)
+			{
+				AnimationCount += TimeCount;
+
+				if (AnimationCount >= 0.05f)
+				{
+					if (AnimationIndex == 2)
+					{
+						Death();
+						return;
+					}
+
+					std::string TextureName = "ShadowDead"+ std::to_string(AnimationIndex) + ".png";
+					AnimationRender->SetScaleToTexture(TextureName);
+					AnimationIndex++;
+					AnimationCount = 0.0f;
+				}
+
+				AnimationRender->GetTransform()->SetLocalPosition(CurPlayer->GetTransform()->GetWorldPosition() + float4{ Dir.x * 30.0f, 35.0f });
+			}
+			else
+			{
+				std::string MoveType = CurPlayer->GetMoveType().data();
+				int AniIndex = CurPlayer->GetAniIndex();
+
+				std::string TextureName = "Shadow" + MoveType + std::to_string(AniIndex) + ".png";
+				AnimationRender->SetScaleToTexture(TextureName);
+
+				float4 Scale = AnimationRender->GetTransform()->GetLocalScale();
+
+				AnimationRender->GetTransform()->SetLocalScale({ Dir.x * Scale.x, Scale.y });
+				AnimationRender->GetTransform()->SetLocalPosition(CurPlayer->GetTransform()->GetWorldPosition() + float4{ Dir.x * 30.0f, 35.0f });
+			}
+		};
+
 		return;
 	}
 }

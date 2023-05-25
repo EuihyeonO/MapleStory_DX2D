@@ -1,11 +1,12 @@
 #pragma once
 #include "BasicFunction.h"
+#include "BuffList.h"
 #include <GameEngineCore/GameEngineTexture.h>
 
 class GameEngineSpriteRenderer;
 class Player : public BasicFunction
 {
-	friend class BuffList;
+	friend BuffList;
 	friend class SkillActor;
 public:
  
@@ -46,6 +47,11 @@ public:
 		return Weapon->GetTransform()->GetWorldPosition();
 	}
 
+	const bool isBuffOn(const std::string_view& _BuffName)
+	{
+		return MyBuffList->IsBuffOn(_BuffName);
+	}
+
 	void SetLeft();
 	void SetRight();
 
@@ -66,6 +72,7 @@ private:
 	
 	static Player* CurPlayer;
 	std::shared_ptr<GameEngineTexture> ColMap;
+	std::shared_ptr<class GameEngineCollision> BodyCollision;
 
 	void CameraUpdate();
 	
@@ -80,12 +87,19 @@ private:
 	void GravityUpdate(float _DeltaTime);
 	void ActingUpdate(float _DeltaTime);
 
+	bool isSameColor();
+
 	void Idle();
 	void Move(float _DeltaTime);
 	void Swing();
 	void Jump(float _DeltaTime);
 	void JumpUpdate(float _DeltaTime);
+	
+	void RopeAndLadder(float _DeltaTime);
+	void RopeAndLadderUp(float _DeltaTime);
+	void RopeAndLadderDown(float _DeltaTime);
 
+	bool isRopeOrLadder = false;
 	bool isGround = false;
 	bool isKeyJump = false;
 	bool isSwing = false;
@@ -116,7 +130,7 @@ private:
 	bool isOnShadow = false;
 	float Range = 300.0f;
 
-	std::shared_ptr<class BuffList> MyBuffList;
+	std::shared_ptr<BuffList> MyBuffList;
 
 	std::function<void(Player&)> QSkill = nullptr;
 	std::function<void(Player&)> WSkill = nullptr;
@@ -173,6 +187,7 @@ private:
 	std::map<std::string, std::vector<float4>> BodyOriginPos;
 	std::map<std::string, std::vector<float4>> BodyNavelPos;
 	std::map<std::string, std::vector<float4>> BodyNeckPos;
+	std::map<std::string, std::vector<float4>> BodyHandPos;
 	std::map<std::string, std::vector<float4>> ArmOriginPos;
 	std::map<std::string, std::vector<float4>> ArmToNavelPos;
 	std::map<std::string, std::vector<float4>> ArmHandPos;

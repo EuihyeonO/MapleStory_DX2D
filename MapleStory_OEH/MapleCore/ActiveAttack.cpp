@@ -95,8 +95,9 @@ void Player::Avenger()
 	std::shared_ptr<SkillActor> NewSkillActor = GetLevel()->CreateActor<SkillActor>();
 	NewSkillActor->SetSkillActor("Avenger");
 	isSwing = true;
+	isAvenger = true;
+
 	MoveType = "Swing2";
 	AniIndex = 0;
-	isAvenger = true;
 
 }

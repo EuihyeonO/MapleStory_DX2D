@@ -40,6 +40,7 @@ public:
 	{
 		return OnBuffList.size();
 	}
+
 public:
 
 	BuffList();

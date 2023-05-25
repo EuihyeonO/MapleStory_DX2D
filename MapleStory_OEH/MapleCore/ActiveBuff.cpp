@@ -110,8 +110,8 @@ void Player::ShadowPartner()
 
 		if (MyBuffList->IsBuffOn("ShadowPartner") == false)
 		{
-			std::shared_ptr<SkillActor> Haste = GetLevel()->CreateActor<SkillActor>();
-			Haste->SetSkillActor("ShadowPartner");
+			std::shared_ptr<SkillActor> ShadowPartner = GetLevel()->CreateActor<SkillActor>();
+			ShadowPartner->SetSkillActor("ShadowPartner");
 
 			std::function<void(Player&)> EndFunction = [this](Player&)
 			{
@@ -119,14 +119,14 @@ void Player::ShadowPartner()
 			};
 
 			//지속시간은 나중에 따로 변수 만들어야함
-			MyBuffList->BuffOn("ShadowPartner", EndFunction, 5.0f);
+			MyBuffList->BuffOn("ShadowPartner", EndFunction, 20.0f);
 			isOnShadow = true;
 		}
 
 		else if (MyBuffList->IsBuffOn("ShadowPartner") == true)
 		{
-			std::shared_ptr<SkillActor> Haste = GetLevel()->CreateActor<SkillActor>();
-			Haste->SetSkillActor("ShadowPartner");
+			std::shared_ptr<SkillActor> ShadowPartner = GetLevel()->CreateActor<SkillActor>();
+			ShadowPartner->SetSkillActor("ShadowPartner");
 
 			MyBuffList->Rebuff("ShadowPartner");
 		}

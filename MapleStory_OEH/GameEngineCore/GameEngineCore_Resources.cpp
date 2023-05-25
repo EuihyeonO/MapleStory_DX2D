@@ -179,7 +179,7 @@ void GameEngineCore::CoreResourcesInit()
 		//D3D11_DEPTH_STENCILOP_DESC FrontFace;
 		//D3D11_DEPTH_STENCILOP_DESC BackFace;
 
-		Desc.DepthEnable = true;
+		Desc.DepthEnable = false;
 		Desc.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_LESS_EQUAL;
 		Desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK::D3D11_DEPTH_WRITE_MASK_ALL;
 		Desc.StencilEnable = false;

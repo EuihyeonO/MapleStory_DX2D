@@ -8,6 +8,8 @@ enum class State
 	Qskill,
 	Wskill,
 	Eskill,
+	Up,
+	Down,
 };
 
 enum class WeaponType
@@ -29,12 +31,15 @@ enum class RenderOrder
 enum class CollisionOrder
 {
 	Range,
+	Player,
 	Monster,
 	Boss,
 	Star,
 	Weapon,
 	UI,
 	Mouse,
+	RopeAndLadder,
+
 };
 
 enum class MonsterName

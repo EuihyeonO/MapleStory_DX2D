@@ -37,6 +37,9 @@ void Player::SetAllTexturePosVector()
 	AniFrameList["Alert"].push_back(0.5f);
 	AniFrameList["Alert"].push_back(0.5f);
 
+	AniFrameList["Ladder"].push_back(0.25f);
+	AniFrameList["Ladder"].push_back(0.25f);
+
 	AniFrameList["Jump"].push_back(0.0f);
 
 	//Origin은 X반전 Y그대로
@@ -75,6 +78,9 @@ void Player::SetBodyTexturePosVector()
 	BodyOriginPos["Alert"].push_back({ -16, 29 });
 	BodyOriginPos["Alert"].push_back({ -16, 30 });
 	BodyOriginPos["Alert"].push_back({ -16, 31 });
+
+	BodyOriginPos["Ladder"].push_back({ -11, 43 });
+	BodyOriginPos["Ladder"].push_back({ -10, 41 });
 	
 	BodyOriginPos["Jump"].push_back({ -22, 30 });
 
@@ -100,6 +106,8 @@ void Player::SetBodyTexturePosVector()
 	BodyNavelPos["Alert"].push_back({ -3, 18 });
 	BodyNavelPos["Alert"].push_back({ -3, 19 });
 	BodyNavelPos["Alert"].push_back({ -3, 20 });
+	BodyNavelPos["Ladder"].push_back({ 0, 21 });
+	BodyNavelPos["Ladder"].push_back({ 2, 19 });
 	BodyNavelPos["Jump"].push_back({ -5, 18 });
 	//
 	BodyNeckPos["Stand"].push_back({ -4, 32 });
@@ -122,8 +130,13 @@ void Player::SetBodyTexturePosVector()
 	BodyNeckPos["Alert"].push_back({ -4, 29 });
 	BodyNeckPos["Alert"].push_back({ -4, 30 });
 	BodyNeckPos["Alert"].push_back({ -4, 31 });
+	BodyNeckPos["Ladder"].push_back({ -1, 30 });
+	BodyNeckPos["Ladder"].push_back({ 2, 28 });
 	BodyNeckPos["Jump"].push_back({ -4, 30 });
 
+	//
+	BodyHandPos["Ladder"].push_back({ -4, 39 });
+	BodyHandPos["Ladder"].push_back({ 7, 38 });
 	//Arm
 
 	ArmOriginPos["Stand"].push_back({ -5, 9 });
@@ -204,10 +217,13 @@ void Player::SetBodyTexturePosVector()
 	ArmHandPos["Jump"].push_back({ -3, 3 });
 	//
 	HeadOriginPos["Front"] = float4{ -19, 17 };
+	HeadOriginPos["Back"] = float4{ -20, 17 };
 
 	HeadToNeckPos["Front"] = float4{ 0, 15 };
+	HeadToNeckPos["Back"] = float4{ 0, 15 };
 	//x,y 둘다반전
 	HeadBrowPos["Front"] = float4{ -4, 5 };
+	HeadBrowPos["Back"] = float4{ -4, 5 };
 }
 
 void Player::SetCoatTexturePosVector()
@@ -238,6 +254,9 @@ void Player::SetCoatTexturePosVector()
 	CoatOriginPos["Alert"]["WhiteTshirt"].push_back({ -10, 10 });
 	CoatOriginPos["Alert"]["WhiteTshirt"].push_back({ -11, 9 });
 
+	CoatOriginPos["Ladder"]["WhiteTshirt"].push_back({ -10, 10 });
+	CoatOriginPos["Ladder"]["WhiteTshirt"].push_back({ -10, 10 });
+
 	CoatOriginPos["Jump"]["WhiteTshirt"].push_back({ -10, 10 });
 
 	//
@@ -266,6 +285,9 @@ void Player::SetCoatTexturePosVector()
 	CoatToNavelPos["Alert"]["WhiteTshirt"].push_back({ 3, 1 });
 	CoatToNavelPos["Alert"]["WhiteTshirt"].push_back({ 3, 1 });
 	CoatToNavelPos["Alert"]["WhiteTshirt"].push_back({ 5, 2 });
+
+	CoatToNavelPos["Ladder"]["WhiteTshirt"].push_back({ 0, -1 });
+	CoatToNavelPos["Ladder"]["WhiteTshirt"].push_back({ 2, -1 });
 
 	CoatToNavelPos["Jump"]["WhiteTshirt"].push_back({ 4, 2 });
 
@@ -355,6 +377,9 @@ void Player::SetPantsTexturePosVector()
 	PantsOriginPos["Alert"]["BluePants"].push_back({ -10, 6 });
 	PantsOriginPos["Alert"]["BluePants"].push_back({ -9, 6 });
 
+	PantsOriginPos["Ladder"]["BluePants"].push_back({ -10, 5 });
+	PantsOriginPos["Ladder"]["BluePants"].push_back({ -10, 5 });
+
 	PantsOriginPos["Jump"]["BluePants"].push_back({ -10, 5 });
 
 	//X만 반전
@@ -383,6 +408,9 @@ void Player::SetPantsTexturePosVector()
 	PantsToNavelPos["Alert"]["BluePants"].push_back({ 0, -6 });
 	PantsToNavelPos["Alert"]["BluePants"].push_back({ -1, -7 });
 	PantsToNavelPos["Alert"]["BluePants"].push_back({ -1, -7 });
+
+	PantsToNavelPos["Ladder"]["BluePants"].push_back({ 2, -6 });
+	PantsToNavelPos["Ladder"]["BluePants"].push_back({ 2, -6 });
 
 	PantsToNavelPos["Jump"]["BluePants"].push_back({ 2, -5 });
 
@@ -502,8 +530,11 @@ void Player::SetWeaponTexturePosVector()
 void Player::SetHairAndFaceTexturePosVector()
 {
 	HairOriginPos["Toven"]["Front"] = float4{ -24, 15 };
+	HairOriginPos["Toven"]["Back"] = float4{ -17, 16 };
 	//x,y 둘다반전
 	HairToBrowPos["Toven"]["Front"] = float4{ 9, -1 };
+	//x만 반전
+	HairToBrowPos["Toven"]["Back"] = float4{ 3, -3 };
 
 	//Face
 
@@ -515,26 +546,46 @@ void Player::SetHairAndFaceTexturePosVector()
 void Player::TextureUpdate()
 {
 	std::string BodyTexture = SkinType + "Body" + MoveType + std::to_string(AniIndex) + ".png";
-	std::string ArmTexture = SkinType + "Arm" + MoveType + std::to_string(AniIndex) + ".png";
-	std::string HeadTexture = SkinType + "Head" + "Front" + ".png";
+	Body->SetScaleToTexture(BodyTexture);
+
+	if (MoveType == "Ladder" || MoveType == "Rope")
+	{
+		Arm->Off();
+		Face->Off();
+		CoatArm->Off();
+		Weapon->Off();
+	}
+	else
+	{
+		Arm->On();
+		Face->On();
+		CoatArm->On();
+		Weapon->On();
+
+		std::string ArmTexture = SkinType + "Arm" + MoveType + std::to_string(AniIndex) + ".png";
+		Arm->SetScaleToTexture(ArmTexture);
+
+		std::string FaceTexture = FaceName + Expression + ".png";
+		Face->SetScaleToTexture(FaceTexture);
+
+		std::string CoatArmTexture = CoatName + "Arm" + MoveType + std::to_string(AniIndex) + ".png";
+		CoatArm->SetScaleToTexture(CoatArmTexture);
+
+		std::string WeaponTexture = WeaponName + MoveType + std::to_string(AniIndex) + ".png";
+		Weapon->SetScaleToTexture(WeaponTexture);
+	}
+
+	std::string HeadTexture = SkinType + "Head" + FrontBackDir + ".png";
+	Head->SetScaleToTexture(HeadTexture);
+
 	std::string HairTexture = HairName + FrontBackDir + HairStatus + ".png";
-	std::string FaceTexture = FaceName + Expression + ".png";
+	Hair->SetScaleToTexture(HairTexture);
 
 	std::string CoatTexture = CoatName + MoveType + std::to_string(AniIndex) + ".png";
-	std::string CoatArmTexture = CoatName + "Arm" + MoveType + std::to_string(AniIndex) + ".png";
-	std::string PantsTexture = PantsName + MoveType + std::to_string(AniIndex) + ".png";
-
-	std::string WeaponTexture = WeaponName + MoveType + std::to_string(AniIndex) + ".png";
-
-	Body->SetScaleToTexture(BodyTexture);
-	Arm->SetScaleToTexture(ArmTexture);
-	Head->SetScaleToTexture(HeadTexture);
-	Hair->SetScaleToTexture(HairTexture);
-	Face->SetScaleToTexture(FaceTexture);
 	Coat->SetScaleToTexture(CoatTexture);
-	CoatArm->SetScaleToTexture(CoatArmTexture);
+
+	std::string PantsTexture = PantsName + MoveType + std::to_string(AniIndex) + ".png";
 	Pants->SetScaleToTexture(PantsTexture);
-	Weapon->SetScaleToTexture(WeaponTexture);
 }
 
 
@@ -546,16 +597,26 @@ void Player::TextureAnimationUpdate()
 		return;
 	}
 
+	//MoveType에 따라 애니메이션 조절
 	if (isSwing == true)
 	{
 		float Speed = PlayerValue::Value.AttackSpeed;
 		AnimationCount += TimeCount * Speed;
+	}
+	else if (isRopeOrLadder == true)
+	{
+		//사다리는 이동중에만 애니메이션이 바뀜
+		if (GameEngineInput::IsPress("Upkey") == true || GameEngineInput::IsPress("Downkey") == true)
+		{
+			AnimationCount += TimeCount;
+		}
 	}
 	else
 	{
 		AnimationCount += TimeCount;
 	}
 
+	//애니메이션 조절
 	if (AnimationCount >= AniFrameList[MoveType][AniIndex])
 	{
 		if(isAvenger == false)
@@ -602,64 +663,74 @@ void Player::TextureAnimationUpdate()
 		{
 			Weapon->On();
 		}
-
 	}
-
-	//무기 애니메이션 추가기능
-
 }
 
 void Player::TexturePosUpdate()
 {
-
 	float4 BodyScale = Body->GetTransform()->GetLocalScale();
-	Body->GetTransform()->SetLocalPosition({ BodyScale.hx(), -BodyScale.hy() });
+	Body->GetTransform()->SetLocalPosition({ BodyScale.hx(), -BodyScale.hy()});
 	//Origin
 	Body->GetTransform()->AddLocalPosition(BodyOriginPos[MoveType][AniIndex]);
 
-	float4 ArmScale = Arm->GetTransform()->GetLocalScale();
-	Arm->GetTransform()->SetLocalPosition({ ArmScale.hx(), -ArmScale.hy() });
-	Arm->GetTransform()->AddLocalPosition(BodyNavelPos[MoveType][AniIndex] + ArmToNavelPos[MoveType][AniIndex] + ArmOriginPos[MoveType][AniIndex]);
-
 	float4 HeadScale = Head->GetTransform()->GetLocalScale();
-	Head->GetTransform()->SetLocalPosition({ HeadScale.hx(), -HeadScale.hy() });
+	Head->GetTransform()->SetLocalPosition({ HeadScale.hx(), -HeadScale.hy(), 0 });
 	Head->GetTransform()->AddLocalPosition(BodyNeckPos[MoveType][AniIndex] + HeadToNeckPos[FrontBackDir] + HeadOriginPos[FrontBackDir]);
 
 	float4 HeadPos = Head->GetTransform()->GetLocalPosition();
 	float4 BrowPos = HeadPos + HeadBrowPos[FrontBackDir];
 
 	float4 HairScale = Hair->GetTransform()->GetLocalScale();
-	Hair->GetTransform()->SetLocalPosition({ HairScale.hx(), -HairScale.hy() });
+	Hair->GetTransform()->SetLocalPosition({ HairScale.hx(), -HairScale.hy(), 0 });
 	Hair->GetTransform()->AddLocalPosition(BrowPos + HairToBrowPos[HairName][FrontBackDir] + HairOriginPos[HairName][FrontBackDir]);
 
-	float4 FaceScale = Face->GetTransform()->GetLocalScale();
-	Face->GetTransform()->SetLocalPosition({ FaceScale.hx(), -FaceScale.hy() });
-	Face->GetTransform()->AddLocalPosition(BrowPos + FaceToBrowPos[FaceName][Expression] + FaceOriginPos[FaceName][Expression]);
-
 	float4 CoatScale = Coat->GetTransform()->GetLocalScale();
-	Coat->GetTransform()->SetLocalPosition({ CoatScale.hx(), -CoatScale.hy() });
+	Coat->GetTransform()->SetLocalPosition({ CoatScale.hx(), -CoatScale.hy(), 0 });
 	Coat->GetTransform()->AddLocalPosition(BodyNavelPos[MoveType][AniIndex] + CoatToNavelPos[MoveType][CoatName][AniIndex] + CoatOriginPos[MoveType][CoatName][AniIndex]);
 
-	float4 CoatArmScale = CoatArm->GetTransform()->GetLocalScale();
-	CoatArm->GetTransform()->SetLocalPosition({ CoatArmScale.hx(), -CoatArmScale.hy() });
-	CoatArm->GetTransform()->AddLocalPosition(BodyNavelPos[MoveType][AniIndex] + CoatArmToNavelPos[MoveType][CoatName][AniIndex] + CoatArmOriginPos[MoveType][CoatName][AniIndex]);
-
 	float4 PantsScale = Pants->GetTransform()->GetLocalScale();
-	Pants->GetTransform()->SetLocalPosition({ PantsScale.hx(), -PantsScale.hy() });
+	Pants->GetTransform()->SetLocalPosition({ PantsScale.hx(), -PantsScale.hy(), 0 });
 	Pants->GetTransform()->AddLocalPosition(BodyNavelPos[MoveType][AniIndex] + PantsToNavelPos[MoveType][PantsName][AniIndex] + PantsOriginPos[MoveType][PantsName][AniIndex]);
+	
+	if (MoveType != "Ladder" && MoveType != "Rope")
+	{
+		float4 ArmScale = Arm->GetTransform()->GetLocalScale();
+		Arm->GetTransform()->SetLocalPosition({ ArmScale.hx(), -ArmScale.hy(), 0 });
+		Arm->GetTransform()->AddLocalPosition(BodyNavelPos[MoveType][AniIndex] + ArmToNavelPos[MoveType][AniIndex] + ArmOriginPos[MoveType][AniIndex]);
+		float4 FaceScale = Face->GetTransform()->GetLocalScale();
+		Face->GetTransform()->SetLocalPosition({ FaceScale.hx(), -FaceScale.hy(), 0 });
+		Face->GetTransform()->AddLocalPosition(BrowPos + FaceToBrowPos[FaceName][Expression] + FaceOriginPos[FaceName][Expression]);
+		float4 CoatArmScale = CoatArm->GetTransform()->GetLocalScale();
+		CoatArm->GetTransform()->SetLocalPosition({ CoatArmScale.hx(), -CoatArmScale.hy(), 0 });
+		CoatArm->GetTransform()->AddLocalPosition(BodyNavelPos[MoveType][AniIndex] + CoatArmToNavelPos[MoveType][CoatName][AniIndex] + CoatArmOriginPos[MoveType][CoatName][AniIndex]);
+	}
 
-	float4 HandPos = ArmHandPos[MoveType][AniIndex] + Arm->GetTransform()->GetLocalPosition();
 
 	if (MoveType == "Jump" || MoveType == "Swing0" || MoveType == "Swing1" || MoveType == "Swing2")
 	{		
 		float4 WeaponScale = Weapon->GetTransform()->GetLocalScale();
-		Weapon->GetTransform()->SetLocalPosition({ WeaponScale.hx(), -WeaponScale.hy() });
+		Weapon->GetTransform()->SetLocalPosition({ WeaponScale.hx(), -WeaponScale.hy(), 0 });
 		Weapon->GetTransform()->AddLocalPosition(BodyNavelPos[MoveType][AniIndex] + WeaponToNavelPos[MoveType][WeaponName][AniIndex] + WeaponOriginPos[MoveType][WeaponName][AniIndex]);
+	}
+	else if (MoveType == "Rope" || MoveType == "Ladder")
+	{
+		//아무것도 안함
 	}
 	else
 	{
+		float4 HandPos = ArmHandPos[MoveType][AniIndex] + Arm->GetTransform()->GetLocalPosition();
 		float4 WeaponScale = Weapon->GetTransform()->GetLocalScale();
-		Weapon->GetTransform()->SetLocalPosition({ WeaponScale.hx(), -WeaponScale.hy() });
+		Weapon->GetTransform()->SetLocalPosition({ WeaponScale.hx(), -WeaponScale.hy(), 0 });
 		Weapon->GetTransform()->AddLocalPosition(HandPos + WeaponToHandPos[MoveType][WeaponName][AniIndex] + WeaponOriginPos[MoveType][WeaponName][AniIndex]);
 	}
+
+	Body->GetTransform()->AddLocalPosition({ 0, 0, -static_cast<float>(RenderOrder::Player) });
+	Arm->GetTransform()->AddLocalPosition({ 0, 0, -static_cast<float>(RenderOrder::Player) });
+	Head->GetTransform()->AddLocalPosition({ 0, 0, -static_cast<float>(RenderOrder::Player) });
+	Hair->GetTransform()->AddLocalPosition({ 0, 0, -static_cast<float>(RenderOrder::Player) });
+	Face->GetTransform()->AddLocalPosition({ 0, 0, -static_cast<float>(RenderOrder::Player) });
+	Coat->GetTransform()->AddLocalPosition({ 0, 0, -static_cast<float>(RenderOrder::Player) });
+	CoatArm->GetTransform()->AddLocalPosition({ 0, 0, -static_cast<float>(RenderOrder::Player) });
+	Pants->GetTransform()->AddLocalPosition({ 0, 0, -static_cast<float>(RenderOrder::Player) });
+	Weapon->GetTransform()->AddLocalPosition({ 0, 0, -static_cast<float>(RenderOrder::Player) });
 }
