@@ -123,7 +123,7 @@ void SkillActor::SetUpdateFunc()
 
 void SkillActor::Haste()
 {
-	Player* CurPlayer = Player::GetCurPlayer();
+	std::shared_ptr<Player> CurPlayer = Player::GetCurPlayer();
 
 	CurPlayer->SetMovable(false);
 	CurPlayer->SetMoveType("Alert");
@@ -168,7 +168,7 @@ void SkillActor::LuckySeven()
 	{
 		std::string TextureName = "LuckySevenShoot" + std::to_string(AnimationIndex) + ".png";
 
-		Player* CurPlayer = Player::GetCurPlayer();
+		std::shared_ptr<Player> CurPlayer = Player::GetCurPlayer();
 		float4 Pos = CurPlayer->GetTransform()->GetWorldPosition();
 
 		AnimationRender->SetScaleToTexture(TextureName);
@@ -204,7 +204,7 @@ void SkillActor::LuckySeven()
 	{
 		std::string TextureName = "LuckySevenShoot" + std::to_string(AnimationIndex) + ".png";
 
-		Player* CurPlayer = Player::GetCurPlayer();
+		std::shared_ptr<Player> CurPlayer = Player::GetCurPlayer();
 		float4 Pos = CurPlayer->GetTransform()->GetWorldPosition();
 
 		AnimationRender->SetScaleToTexture(TextureName);
@@ -229,7 +229,7 @@ void SkillActor::LuckySeven()
 
 void SkillActor::Avenger()
 {
-	Player* CurPlayer = Player::GetCurPlayer();
+	std::shared_ptr<Player> CurPlayer = Player::GetCurPlayer();
 	CurPlayer->SetMovable(false);
 
 	float4 Pos = CurPlayer->GetTransform()->GetWorldPosition();
@@ -272,7 +272,7 @@ void SkillActor::Avenger()
 
 	if (AnimationCount >= AniFrameList["Avenger"][0])
 	{
-		Player* CurPlayer = Player::GetCurPlayer();
+		std::shared_ptr<Player> CurPlayer = Player::GetCurPlayer();
 
 		AnimationIndex++;
 		AnimationCount = 0.0f;
@@ -325,7 +325,7 @@ void SkillActor::Avenger()
 
 void SkillActor::JavelinBooster()
 {
-	Player* CurPlayer = Player::GetCurPlayer();
+	std::shared_ptr<Player> CurPlayer = Player::GetCurPlayer();
 	CurPlayer->SetMovable(false);
 	CurPlayer->SetMoveType("Alert");
 
@@ -362,7 +362,7 @@ void SkillActor::JavelinBooster()
 
 void SkillActor::ShadowPartner()
 {
-	Player* CurPlayer = Player::GetCurPlayer();
+	std::shared_ptr<Player> CurPlayer = Player::GetCurPlayer();
 	CurPlayer->SetMovable(false);
 	CurPlayer->SetMoveType("Alert");
 
@@ -403,7 +403,7 @@ void SkillActor::ShadowPartner()
 
 		UpdateFunc = [this](SkillActor&)
 		{
-			Player* CurPlayer = Player::GetCurPlayer();
+			std::shared_ptr<Player> CurPlayer = Player::GetCurPlayer();
 
 			float4 Dir;
 			if (CurPlayer->GetLeftRightDir() == "Right")

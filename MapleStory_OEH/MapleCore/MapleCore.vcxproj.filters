@@ -59,7 +59,7 @@
       <Filter>Actor\Monster</Filter>
     </ClInclude>
     <ClInclude Include="MonsterSpawnZone.h">
-      <Filter>Actor\Map\Zone</Filter>
+      <Filter>Actor\Map\Object</Filter>
     </ClInclude>
     <ClInclude Include="StarHitEffect.h">
       <Filter>Actor\Player\Object</Filter>
@@ -72,6 +72,18 @@
     </ClInclude>
     <ClInclude Include="ContentRenderer.h">
       <Filter>ContentRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="BeginnersTown2.h">
+      <Filter>Actor\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Level_BeginnersTown2.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Rozar.h">
+      <Filter>Actor\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="Portal.h">
+      <Filter>Actor\Map\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -148,7 +160,7 @@
       <Filter>Actor\Monster</Filter>
     </ClCompile>
     <ClCompile Include="MonsterSpawnZone.cpp">
-      <Filter>Actor\Map\Zone</Filter>
+      <Filter>Actor\Map\Object</Filter>
     </ClCompile>
     <ClCompile Include="StarHitEffect.cpp">
       <Filter>Actor\Player\Object</Filter>
@@ -158,6 +170,18 @@
     </ClCompile>
     <ClCompile Include="ContentRenderer.cpp">
       <Filter>ContentRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="BeginnersTown2.cpp">
+      <Filter>Actor\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Level_BeginnersTown2.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Rozar.cpp">
+      <Filter>Actor\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="Portal.cpp">
+      <Filter>Actor\Map\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -209,11 +233,11 @@
     <Filter Include="Actor\Player\Skill\PlayerSkill">
       <UniqueIdentifier>{aefc431b-06e8-4c4a-910a-fd18932b06b4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\Map\Zone">
-      <UniqueIdentifier>{790e00c6-b83f-4562-b2ae-8e1deab76398}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ContentRenderer">
       <UniqueIdentifier>{ffd2808d-cd9f-4ff9-8451-4538ac4c6bd2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Map\Object">
+      <UniqueIdentifier>{790e00c6-b83f-4562-b2ae-8e1deab76398}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

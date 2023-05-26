@@ -23,24 +23,15 @@ BeginnersTown1::~BeginnersTown1()
 
 void BeginnersTown1::Start()
 {
-	//std::shared_ptr<GameEngineCamera> Camera = GetLevel()->GetCamera(100);
-	//Camera->SetProjectionType(CameraType::Orthogonal);
-	//Camera->GetTransform()->SetLocalPosition({0, 0, -10});
-	//Camera->SetSortType(100, SortType::ZSort);
-
-	MyMiniMap = GetLevel()->CreateActor<MiniMap>(static_cast<int>(RenderOrder::UI));
-	MyMiniMap->SetMap(MapName);
-
-	std::shared_ptr<Hina> npc = GetLevel()->CreateActor<Hina>(static_cast<int>(RenderOrder::NPC));
-
-	std::shared_ptr<MonsterSpawnZone> Zone = GetLevel()->CreateActor<MonsterSpawnZone>();
-	Zone->SetColMap(ColMapName);
-	Zone->SetMonsterToZone(MonsterName::GreenSnail, 5);
-	Zone->SetZonePosAndScale({ 200,0 }, 200.0f);
+	//std::shared_ptr<MonsterSpawnZone> Zone = GetLevel()->CreateActor<MonsterSpawnZone>();
+	//Zone->SetColMap(ColMapName);
+	//Zone->SetMonsterToZone(MonsterName::GreenSnail, 5);
+	//Zone->SetZonePosAndScale({ 200,0 }, 200.0f);
 
 	LandScape0 = CreateComponent<GameEngineSpriteRenderer>();
 	LandScape0->SetTexture("MapBackGround0.png");
 	LandScape0->GetTransform()->SetLocalScale({2000, 2000});
+	LandScape0->GetTransform()->SetLocalPosition({ 0, 0, static_cast<float>(RenderOrder::BasicMap) });
 
 	Cloud = CreateComponent<ContentRenderer>();
 	Cloud->SetScaleToTexture("MapBackGround1.png");
@@ -51,40 +42,42 @@ void BeginnersTown1::Start()
 
 	LandScape2 = CreateComponent<GameEngineSpriteRenderer>();
 	LandScape2->SetScaleToTexture("MapBackGround2.png");
-	LandScape2->GetTransform()->SetLocalPosition({ 0, 200, -static_cast<float>(RenderOrder::BasicMap) });
+	LandScape2->GetTransform()->SetLocalPosition({ 0, 200, static_cast<float>(RenderOrder::BasicMap) });
 
 	BackGroundLayer = CreateComponent<GameEngineSpriteRenderer>();
 	BackGroundLayer->SetScaleToTexture("BeginnersTown1Layer.png");
-	BackGroundLayer->GetTransform()->SetLocalPosition({ 0, 0, -static_cast<float>(RenderOrder::BasicMap) });
+	BackGroundLayer->GetTransform()->SetLocalPosition({ 0, 0, static_cast<float>(RenderOrder::BasicMap) });
 
 	BackGround = CreateComponent<GameEngineSpriteRenderer>();
 	BackGround->SetScaleToTexture("BeginnersTown1.png");
-	BackGround->GetTransform()->SetLocalPosition({ 0, 0, -static_cast<float>(RenderOrder::BasicMap) });
+	BackGround->GetTransform()->SetLocalPosition({ 0, 0, static_cast<float>(RenderOrder::BasicMap) });
 
 	Rope = CreateComponent<GameEngineSpriteRenderer>();
 	Rope->SetScaleToTexture("BeginnersTown1Rope.png");
-	Rope->GetTransform()->SetLocalPosition({ 0, 0, -static_cast<float>(RenderOrder::BasicMap) });
+	Rope->GetTransform()->SetLocalPosition({ 0, 0, static_cast<float>(RenderOrder::BasicMap) });
 
 	RopeCol = CreateComponent<GameEngineCollision>();
 	RopeCol->GetTransform()->SetLocalScale({ 25, 200 });
-	RopeCol->GetTransform()->SetLocalPosition({ 482, 45 });
+	RopeCol->GetTransform()->SetLocalPosition({ 482, 35 });
 	RopeCol->SetOrder(static_cast<int>(CollisionOrder::RopeAndLadder));
-	//std::shared_ptr<GameEngineSpriteRenderer> _ROPE = CreateComponent<GameEngineSpriteRenderer>();
-	//_ROPE->SetScaleToTexture("Rope.png");
-	//_ROPE->GetTransform()->SetLocalPosition({ 482, 50, -static_cast<float>(RenderOrder::BasicMap) });
+
+	std::shared_ptr<Hina> npc = GetLevel()->CreateActor<Hina>(static_cast<int>(RenderOrder::NPC));
+
+	MyMiniMap = GetLevel()->CreateActor<MiniMap>(static_cast<int>(RenderOrder::UI));
+	MyMiniMap->SetMap(MapName);
 }
 
 void BeginnersTown1::Update(float _DeltaTime)
 {
 	//PosUpdate();
-	CloudMove(_DeltaTime);
+	BackGroundMove(_DeltaTime);
 }
 
 void BeginnersTown1::Render(float _DeltaTime) 
 {
 }
 
-void BeginnersTown1::CloudMove(float _DeltaTime)
+void BeginnersTown1::BackGroundMove(float _DeltaTime)
 {
 	XMoveConstant += 0.06f * _DeltaTime;
 

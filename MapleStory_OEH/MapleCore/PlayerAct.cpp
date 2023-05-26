@@ -125,7 +125,14 @@ void Player::JumpUpdate(float _DeltaTime)
 	{
 		if (isSwing == true)
 		{
-			GetTransform()->AddLocalPosition({ (JumpXMove / abs(JumpXMove)) * MoveSpeed * _DeltaTime , JumpPower * _DeltaTime });
+			if (JumpXMove == 0)
+			{
+				GetTransform()->AddLocalPosition({ 0 , JumpPower * _DeltaTime });
+			}
+			else
+			{
+				GetTransform()->AddLocalPosition({ (JumpXMove / abs(JumpXMove)) * MoveSpeed * _DeltaTime , JumpPower * _DeltaTime });
+			}
 		}
 		else
 		{
@@ -155,6 +162,11 @@ void Player::JumpUpdate(float _DeltaTime)
 void Player::Move(float _DeltaTime)
 {
 	if (isSwing == true)
+	{
+		return;
+	}
+
+	if (isMovable == false)
 	{
 		return;
 	}
@@ -194,7 +206,7 @@ void Player::Move(float _DeltaTime)
 
 			float Angle = (Vector1.x) * (Vector2.x) + (Vector1.y) * (Vector2.y);
 
-			if (Angle > 0.5f)
+			if (Angle > 0.2f)
 			{
 				GetTransform()->AddLocalPosition({ -1 * MoveSpeed * _DeltaTime, 0 });
 			}
@@ -240,7 +252,7 @@ void Player::Move(float _DeltaTime)
 
 			float Angle = (Vector1.x) * (Vector2.x) + (Vector1.y) * (Vector2.y);
 
-			if (Angle > 0.5f)
+			if (Angle > 0.2f)
 			{
 				GetTransform()->AddLocalPosition({ 1 * MoveSpeed * _DeltaTime, 0 });
 			}
@@ -250,6 +262,7 @@ void Player::Move(float _DeltaTime)
 			GetTransform()->AddLocalPosition({ 1 * MoveSpeed * _DeltaTime, 0 });
 		}
 	}
+
 }
 
 void Player::Swing()
@@ -274,11 +287,14 @@ void Player::Swing()
 	NewStar1->SetStarName("Wednes");
 	NewStar1->SetTimingTime(0.25);
 	
-	std::shared_ptr<GameEngineCollision> HitMonster = RangeCheck->Collision(static_cast<int>(CollisionOrder::Monster), ColType::AABBBOX2D, ColType::AABBBOX2D);
+	//std::shared_ptr<GameEngineCollision> HitMonster = RangeCheck->Collision(static_cast<int>(CollisionOrder::Monster), ColType::AABBBOX2D, ColType::AABBBOX2D);
+	std::vector<std::shared_ptr<GameEngineCollision>> HitMonsterVector;
+	RangeCheck->CollisionAll(static_cast<int>(CollisionOrder::Monster), HitMonsterVector, ColType::AABBBOX2D, ColType::AABBBOX2D);
+	float4 PlayerPos = GetTransform()->GetWorldPosition();
 
 	std::function<void(Star&, float)> UpdateFunction = &Star::Move;
 	NewStar1->SetUpdateFuction(UpdateFunction);
-	NewStar1->SetTargetMonster(HitMonster);
+	NewStar1->SetTargetMonster(HitMonsterVector, PlayerPos);
 	NewStar1->SetType("Swing");
 
 	if (isOnShadow == true)
@@ -291,7 +307,7 @@ void Player::Swing()
 
 		std::function<void(Star&, float)> UpdateFunction = &Star::Move;
 		NewStar1->SetUpdateFuction(UpdateFunction);
-		NewStar1->SetTargetMonster(HitMonster);
+		NewStar1->SetTargetMonster(HitMonsterVector, PlayerPos);
 		NewStar1->SetType("Swing");
 	}
 }
@@ -401,7 +417,7 @@ void Player::RopeAndLadderUp(float _DeltaTime)
 		}
 		else if (isRopeOrLadder == true && GameEngineInput::IsPress("UpKey") == true)
 		{
-			GetTransform()->AddLocalPosition({ 0, 40.0f * _DeltaTime });
+			GetTransform()->AddLocalPosition({ 0, 60.0f * _DeltaTime });
 		}
 	}
 }
@@ -455,7 +471,7 @@ void Player::RopeAndLadderDown(float _DeltaTime)
 		}
 		else if (isRopeOrLadder == true && GameEngineInput::IsPress("DownKey") == true)
 		{
-			GetTransform()->AddLocalPosition({ 0, -40.0f * _DeltaTime });
+			GetTransform()->AddLocalPosition({ 0, -60.0f * _DeltaTime });
 		}
 	}
 }

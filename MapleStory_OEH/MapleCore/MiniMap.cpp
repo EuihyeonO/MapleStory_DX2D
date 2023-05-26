@@ -3,6 +3,7 @@
 #include "Player.h"
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineUIRenderer.h>
 #include <GameEngineCore/GameEngineCamera.h>
 
 MiniMap::MiniMap()
@@ -17,19 +18,25 @@ void MiniMap::Start()
 {
 	CreateInputKey();
 
-	Filter = CreateComponent<GameEngineSpriteRenderer>();
+	Filter = CreateComponent<GameEngineUIRenderer>();
 	Filter->SetScaleToTexture("Filter.png");
 
-	Map = CreateComponent<GameEngineSpriteRenderer>();
+	Map = CreateComponent<GameEngineUIRenderer>();
 
-	MiniMapBox = CreateComponent<GameEngineSpriteRenderer>();
+	MiniMapBox = CreateComponent<GameEngineUIRenderer>();
 	MiniMapBox->SetScaleToTexture("MiniMapBox.png");
 
-	UserMark = CreateComponent<GameEngineSpriteRenderer>();
+	UserMark = CreateComponent<GameEngineUIRenderer>();
 	UserMark->SetScaleToTexture("user.png");
 
 	MiniMapOff();
-	PosUpdate();
+
+	float4 CameraPos = GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition();
+
+	MiniMapBox->GetTransform()->SetLocalPosition(CameraPos + float4{ -400, 300 } + float4{ 100, -100 });
+	float4 MapBoxPos = MiniMapBox->GetTransform()->GetLocalPosition();
+
+	Map->GetTransform()->SetLocalPosition(MapBoxPos + float4{ 0, -45 });
 }
 
 void MiniMap::Update(float _DeltaTime)
@@ -86,18 +93,22 @@ bool MiniMap::MiniMapOnOff()
 
 bool MiniMap::PosUpdate()
 {
-	float4 CameraPos = GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition();
+	//float4 CameraPos = GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition();
 
-	MiniMapBox->GetTransform()->SetLocalPosition(CameraPos + float4{ -400, 300 } + float4{ 100, -100 });
-	float4 MapBoxPos = MiniMapBox->GetTransform()->GetLocalPosition();
+	//MiniMapBox->GetTransform()->SetLocalPosition(CameraPos + float4{ -400, 300 } + float4{ 100, -100 });
+	///loat4 MapBoxPos = MiniMapBox->GetTransform()->GetLocalPosition();
 
-	Map->GetTransform()->SetLocalPosition(MapBoxPos + float4{ 0, -45 });
+	//Map->GetTransform()->SetLocalPosition(MapBoxPos + float4{ 0, -45 });
 
 	float4 MiniMapPos = Map->GetTransform()->GetLocalPosition();
-	float4 PlayerPos = Player::GetCurPlayer()->GetTransform()->GetLocalPosition();
 
-	Filter->GetTransform()->SetLocalPosition(MiniMapPos + float4{ 0, 15 });
-	UserMark->GetTransform()->SetLocalPosition(MiniMapPos + PlayerPos * DownSizeRatio);
+	if(Player::GetCurPlayer() != nullptr)
+	{
+		float4 PlayerPos = Player::GetCurPlayer()->GetTransform()->GetLocalPosition();
+
+		Filter->GetTransform()->SetLocalPosition(MiniMapPos + float4{ 0, 15 });
+		UserMark->GetTransform()->SetLocalPosition(MiniMapPos + PlayerPos * DownSizeRatio);
+	}
 
 	if (MiniMapBox->IsUpdate() == true) 
 	{

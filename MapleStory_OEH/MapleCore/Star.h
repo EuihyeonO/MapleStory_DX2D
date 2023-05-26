@@ -27,9 +27,38 @@ public:
 		Dir = _Dir;
 	}
 
-	void SetTargetMonster(std::shared_ptr<class GameEngineCollision> _TargetMonster)
+	void SetTargetMonster(std::vector<std::shared_ptr<class GameEngineCollision>>& _TargetMonsterVector, float4 _PlayerPos)
 	{
-		Target = _TargetMonster;
+		std::shared_ptr<GameEngineCollision> nearlestMonster = nullptr;
+		float PrevDistance = 0.0f;
+
+		for (int i = 0; i < _TargetMonsterVector.size(); i++)
+		{
+			float4 MonsterPos = _TargetMonsterVector[i]->GetTransform()->GetWorldPosition();
+			float Distance = (MonsterPos.x - _PlayerPos.x) * (MonsterPos.x - _PlayerPos.x) + (MonsterPos.y - _PlayerPos.y) * (MonsterPos.y - _PlayerPos.y);
+						
+			if (i == 0)
+			{
+				PrevDistance = Distance;
+				nearlestMonster = _TargetMonsterVector[0];
+				continue;
+			}
+			else
+			{
+				if (Distance < PrevDistance)
+				{
+					nearlestMonster = _TargetMonsterVector[i];
+				}
+
+				PrevDistance = Distance;
+			}
+		}
+		Target = nearlestMonster;
+	}
+
+	void SetTargetMonster(std::shared_ptr<class GameEngineCollision> _TargetMonsterVector)
+	{
+		Target = _TargetMonsterVector;
 	}
 
 	void SetTimingTime(float _Time)

@@ -25,6 +25,7 @@ void Level_Title::Start()
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("MapleResources");
 		NewDir.Move("MapleResources");
+		NewDir.Move("NotSprite");
 
 		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
 

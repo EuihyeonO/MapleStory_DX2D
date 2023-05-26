@@ -10,7 +10,7 @@ class Player : public BasicFunction
 	friend class SkillActor;
 public:
  
-	static Player* GetCurPlayer()
+	static std::shared_ptr<Player> GetCurPlayer()
 	{
 		return CurPlayer;
 	}
@@ -20,7 +20,7 @@ public:
 		ColMap = GameEngineTexture::Find(_MapName);
 	}
 
-	const std::string_view& GetMoveType() const
+	const std::string_view GetMoveType() const
 	{
 		return MoveType;
 	}
@@ -37,7 +37,7 @@ public:
 		isMovable = _Bool;
 	}
 
-	const std::string_view& GetLeftRightDir() const
+	const std::string_view GetLeftRightDir() const
 	{
 		return LeftRightDir;
 	}
@@ -50,6 +50,11 @@ public:
 	const bool isBuffOn(const std::string_view& _BuffName)
 	{
 		return MyBuffList->IsBuffOn(_BuffName);
+	}
+
+	void SetCurPlayer(std::shared_ptr<Player> _Player)
+	{
+		CurPlayer = _Player;
 	}
 
 	void SetLeft();
@@ -70,12 +75,16 @@ protected:
 
 private:
 	
-	static Player* CurPlayer;
+	static std::shared_ptr<Player> CurPlayer;
 	std::shared_ptr<GameEngineTexture> ColMap;
 	std::shared_ptr<class GameEngineCollision> BodyCollision;
 
 	void CameraUpdate();
 	
+	float4 LerpStart = { 0,0 };
+	float4 LerpEnd = { 0,0 };
+	float LerpRatio = 0.0f;
+
 	float4 PlayerPos = {0,0};
 
 	//Å° °ü·Ã

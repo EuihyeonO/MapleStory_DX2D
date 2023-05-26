@@ -64,7 +64,7 @@ void Player::JavelinBooster()
 		return;
 	}
 
-	if (isSwing == false && isGround == true)
+	if (isSwing == false && isMovable == true && isGround == true)
 	{
 		PlayerValue::Value.SetMp(CurMp - 10);
 
@@ -104,7 +104,7 @@ void Player::ShadowPartner()
 		return;
 	}
 
-	if (isSwing == false && isGround == true)
+	if (isSwing == false && isMovable == true && isGround == true)
 	{
 		PlayerValue::Value.SetMp(CurMp - 10);
 

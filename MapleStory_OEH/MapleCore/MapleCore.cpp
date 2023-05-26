@@ -3,6 +3,7 @@
 #include "PlayerValue.h"
 #include "Level_Title.h"
 #include "Level_BeginnersTown1.h"
+#include "Level_BeginnersTown2.h"
 #include <GameEngineCore/GameEngineCore.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCoreWindow.h>
@@ -48,7 +49,8 @@ void MapleCore::GameStart()
 
 	GameEngineCore::CreateLevel<Level_Title>();
 	GameEngineCore::CreateLevel<Level_BeginnersTown1>();
-	GameEngineCore::ChangeLevel("Level_BeginnersTown1");
+	GameEngineCore::CreateLevel<Level_BeginnersTown2>();
+	GameEngineCore::ChangeLevel("Level_BeginnersTown2");
 }
 
 void MapleCore::GameEnd()

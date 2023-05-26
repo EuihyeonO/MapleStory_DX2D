@@ -13,12 +13,11 @@
 
 #include <ctime>
 
-Player* Player::CurPlayer = nullptr;
+std::shared_ptr<Player> Player::CurPlayer = nullptr;
 
 Player::Player()
 {
 	PlayerValue::Value.AddToPlayerToPlayerList(this);
-	CurPlayer = this;
 }
 
 Player::~Player()
@@ -137,6 +136,11 @@ void Player::GravityUpdate(float _DeltaTime)
 
 	Gravity += GravityAccel * _DeltaTime;
 
+	if (Gravity >= 1000.0f)
+	{
+		Gravity = 1000.0f;
+	}
+
 	float4 PlayerPos = GetTransform()->GetLocalPosition();
 
 	float4 MapHalfScale = { static_cast<float>(ColMap->GetWidth() / 2) ,  static_cast<float>(ColMap->GetHeight() / 2) };
@@ -151,31 +155,37 @@ void Player::GravityUpdate(float _DeltaTime)
 
 	//중력적용유무
 	if (Color != MapColor)
-	{
-		GetTransform()->AddLocalPosition({ 0 , -Gravity * _DeltaTime, 0 });
-		
-
-		//이걸 안달아주면 공중에서 JUMP애니메이션으로 안바뀌거나, 공중이 아닌데 JUMP로 바뀌는 등 어색함이 발생
-		//했었는데, 이제 안생기는 것 같아서 완전히 확인 될 때 까지 임시로 주석걸어놓음
-		 
-		//int count = 0;
-		//while (Color != MapColor)
-		//{
-		//	ColorPos.y++;
-		//	count++;
-		//	MapColor = ColMap->GetPixel(static_cast<int>(ColorPos.x), static_cast<int>(ColorPos.y));
-		//}
-
-		//if(isSwing == false && count > 3)
-		//{
-		// MoveType = "Jump";
-		//}
-		if(isSwing == false)
+	{		
+		int count = 0;
+		while (Color != MapColor)
 		{
-			MoveType = "Jump";
+			ColorPos.y++;
+			count++;
+			MapColor = ColMap->GetPixel(static_cast<int>(ColorPos.x), static_cast<int>(ColorPos.y));
 		}
 
-		isGround = false;
+		if (count < 3)
+		{
+			GetTransform()->AddLocalPosition({ 0 , static_cast<float>(-count)});
+			isKeyJump = false;
+			isGround = true;
+
+			if (isSwing == false)
+			{
+				MoveType = "Stand";
+			}
+		}
+		
+		else
+		{
+			GetTransform()->AddLocalPosition({ 0 , -Gravity * _DeltaTime});
+			if (isSwing == false)
+			{
+				MoveType = "Jump";
+			}
+
+			isGround = false;
+		}
 	}
 	else
 	{
@@ -188,7 +198,10 @@ void Player::GravityUpdate(float _DeltaTime)
 			Count++;
 		}
 
-		GetTransform()->AddLocalPosition({ 0, Count - 1 });
+		if(isKeyJump == false)
+		{
+			GetTransform()->AddLocalPosition({ 0, Count - 1 });
+		}
 
 		Gravity = 200.0f;
 		isGround = true;
@@ -322,7 +335,7 @@ void Player::CameraUpdate()
 
 	float4 PlayerPos = GetTransform()->GetLocalPosition();
 	float4 CameraPos = PlayerPos;
-
+	
 	if (CameraPos.x - 450 < -HalfWidth)
 	{
 		CameraPos.x = -HalfWidth + 450;

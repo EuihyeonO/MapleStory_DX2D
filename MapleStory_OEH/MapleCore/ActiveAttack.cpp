@@ -36,8 +36,10 @@ void Player::LuckySeven()
 	AniIndex = 0;
 	isSwing = true;
 
-	std::shared_ptr<GameEngineCollision> HitMonster = RangeCheck->Collision(static_cast<int>(CollisionOrder::Monster), ColType::AABBBOX2D, ColType::AABBBOX2D);
-	
+	std::vector<std::shared_ptr<GameEngineCollision>> HitMonsterVector;
+	RangeCheck->CollisionAll(static_cast<int>(CollisionOrder::Monster), HitMonsterVector, ColType::AABBBOX2D, ColType::AABBBOX2D);
+	float4 PlayerPos = GetTransform()->GetWorldPosition();
+
 	std::function<void(Star&, float)> UpdateFunction = &Star::Move;
 
 	std::shared_ptr<SkillActor> NewSkillActor = GetLevel()->CreateActor<SkillActor>();
@@ -47,14 +49,14 @@ void Player::LuckySeven()
 	NewStar1->SetStarName("shuriken");
 	NewStar1->SetTimingTime(0.25f);
 	NewStar1->SetUpdateFuction(UpdateFunction);
-	NewStar1->SetTargetMonster(HitMonster);
+	NewStar1->SetTargetMonster(HitMonsterVector, PlayerPos);
 	NewStar1->SetType("LuckySeven");
 
 	std::shared_ptr<Star> NewStar2 = GetLevel()->CreateActor<Star>(static_cast<int>(RenderOrder::Weapon));
 	NewStar2->SetStarName("shuriken");
 	NewStar2->SetTimingTime(0.40f);
 	NewStar2->SetUpdateFuction(UpdateFunction);
-	NewStar2->SetTargetMonster(HitMonster);
+	NewStar2->SetTargetMonster(HitMonsterVector, PlayerPos);
 	NewStar2->SetType("LuckySeven");
 
 	if (isOnShadow == true)
@@ -63,14 +65,14 @@ void Player::LuckySeven()
 		NewStar1->SetStarName("shuriken");
 		NewStar1->SetTimingTime(0.55f);
 		NewStar1->SetUpdateFuction(UpdateFunction);
-		NewStar1->SetTargetMonster(HitMonster);
+		NewStar1->SetTargetMonster(HitMonsterVector, PlayerPos);
 		NewStar1->SetType("LuckySeven");
 
 		std::shared_ptr<Star> NewStar2 = GetLevel()->CreateActor<Star>(static_cast<int>(RenderOrder::Weapon));
 		NewStar2->SetStarName("shuriken");
 		NewStar2->SetTimingTime(0.7f);
 		NewStar2->SetUpdateFuction(UpdateFunction);
-		NewStar2->SetTargetMonster(HitMonster);
+		NewStar2->SetTargetMonster(HitMonsterVector, PlayerPos);
 		NewStar2->SetType("LuckySeven");
 	}
 

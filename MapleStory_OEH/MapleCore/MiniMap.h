@@ -1,7 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
 
-class GameEngineSpriteRenderer;
 class MiniMap : public GameEngineActor
 {
 
@@ -37,10 +36,10 @@ private:
 
 	std::list<std::function<bool(MiniMap&)>> UpdateFunction;
 
-	std::shared_ptr<GameEngineSpriteRenderer> Map;
-	std::shared_ptr<GameEngineSpriteRenderer> Filter;
-	std::shared_ptr<GameEngineSpriteRenderer> MiniMapBox;
-	std::shared_ptr<GameEngineSpriteRenderer> UserMark;
+	std::shared_ptr<class GameEngineUIRenderer> Map;
+	std::shared_ptr<class GameEngineUIRenderer> Filter;
+	std::shared_ptr<class GameEngineUIRenderer> MiniMapBox;
+	std::shared_ptr<class GameEngineUIRenderer> UserMark;
 
 	float4 DownSizeRatio = {0,0};
 
