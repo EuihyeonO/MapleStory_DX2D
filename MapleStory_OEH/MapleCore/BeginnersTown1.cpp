@@ -37,7 +37,7 @@ void BeginnersTown1::Start()
 	Cloud->SetScaleToTexture("MapBackGround1.png");
 
 	float4 CloudScale = Cloud->GetTransform()->GetLocalScale();
-	Cloud->GetTransform()->SetLocalPosition({ 0, 250, -static_cast<float>(RenderOrder::BasicMap) });
+	Cloud->GetTransform()->SetLocalPosition({ 0, 250, static_cast<float>(RenderOrder::BasicMap) });
 	Cloud->GetTransform()->AddLocalScale({ CloudScale.x * 2.0f, 0 });
 
 	LandScape2 = CreateComponent<GameEngineSpriteRenderer>();

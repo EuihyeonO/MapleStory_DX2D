@@ -42,7 +42,7 @@ void Player::LuckySeven()
 
 	std::function<void(Star&, float)> UpdateFunction = &Star::Move;
 
-	std::shared_ptr<SkillActor> NewSkillActor = GetLevel()->CreateActor<SkillActor>();
+	std::shared_ptr<SkillActor> NewSkillActor = GetLevel()->CreateActor<SkillActor>(RenderOrder::Skill);
 	NewSkillActor->SetSkillActor("LuckySeven");
 		
 	std::shared_ptr<Star> NewStar1 = GetLevel()->CreateActor<Star>(static_cast<int>(RenderOrder::Weapon));
@@ -94,7 +94,7 @@ void Player::Avenger()
 
 	PlayerValue::Value.SetMp(CurMp - 10);
 
-	std::shared_ptr<SkillActor> NewSkillActor = GetLevel()->CreateActor<SkillActor>();
+	std::shared_ptr<SkillActor> NewSkillActor = GetLevel()->CreateActor<SkillActor>(RenderOrder::Skill);
 	NewSkillActor->SetSkillActor("Avenger");
 	isSwing = true;
 	isAvenger = true;

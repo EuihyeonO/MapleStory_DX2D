@@ -5,6 +5,7 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <gameengineCore/GameEngineLevel.h>
 #include <gameengineCore/GameEngineCamera.h>
+#include <gameengineCore/GameEngineUIRenderer.h>
 
 Mouse* Mouse::CurMouse = nullptr;
 
@@ -19,12 +20,20 @@ Mouse::~Mouse()
 
 void Mouse::Start()
 {
-	Cursor = CreateComponent<GameEngineSpriteRenderer>();
+	Cursor = CreateComponent<GameEngineUIRenderer>();
 	Cursor->SetScaleToTexture("Cursor.png");
-	
+
 	CursorCollision = CreateComponent<GameEngineCollision>();
 	CursorCollision->SetOrder(static_cast<int>(CollisionOrder::Mouse));
-	CursorCollision->GetTransform()->SetLocalPosition(Cursor->GetTransform()->GetLocalPosition());
+	CursorCollision->GetTransform()->SetLocalScale({ 6,6 });
+	CursorCollision->GetTransform()->SetLocalPosition({ -8, 10 });
+
+	TransformData Data = CursorCollision->GetTransform()->GetTransDataRef();
+
+	Test = CreateComponent<GameEngineUIRenderer>();
+	Test->SetTexture("MouseTest.png");
+	Test->GetTransform()->SetLocalScale(Data.LocalScale);
+	Test->GetTransform()->SetLocalPosition(Data.LocalPosition);
 
 	ShowCursor(false);
 
@@ -49,7 +58,6 @@ void Mouse::PosUpdate()
 	float4 MousePos = GameEngineWindow::GetMousePosition();
 
 	MousePos = { MousePos.x - WindowSize.hx(),  WindowSize.hy() - MousePos.y };
-	float4 CameraPos = GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition();
 
-	GetTransform()->SetLocalPosition(MousePos + CameraPos);
+	GetTransform()->SetLocalPosition(MousePos + float4{0, 0, -101});
 }

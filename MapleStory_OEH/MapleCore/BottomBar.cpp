@@ -58,8 +58,7 @@ void BottomBar::BottomBarPosUpdate()
 {
 	float4 GameEngineWindowScale = GameEngineWindow::GetScreenSize();
 
-	float4 CameraPos = GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition();
-	BottomBarBackGround->GetTransform()->SetLocalPosition({ CameraPos.x, CameraPos.y - GameEngineWindowScale.hy() + 35 });
+	BottomBarBackGround->GetTransform()->SetLocalPosition({ 0, - GameEngineWindowScale.hy() + 35 });
 
 	float4 BottomBarBackGroundPos = BottomBarBackGround->GetTransform()->GetLocalPosition();
 	BottomBarLayer->GetTransform()->SetLocalPosition(BottomBarBackGroundPos + float4{ -GameEngineWindowScale.hx() + 285, 0 });

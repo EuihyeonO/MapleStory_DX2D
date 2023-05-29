@@ -28,7 +28,7 @@ void Player::Haste()
 
 		if (MyBuffList->IsBuffOn("Haste") == false)
 		{
-			std::shared_ptr<SkillActor> Haste = GetLevel()->CreateActor<SkillActor>();
+			std::shared_ptr<SkillActor> Haste = GetLevel()->CreateActor<SkillActor>(RenderOrder::Skill);
 			Haste->SetSkillActor("Haste");
 
 			std::function<void(Player&)> EndFunction = [this](Player&) 
@@ -46,7 +46,7 @@ void Player::Haste()
 
 		else if (MyBuffList->IsBuffOn("Haste") == true)
 		{
-			std::shared_ptr<SkillActor> Haste = GetLevel()->CreateActor<SkillActor>();
+			std::shared_ptr<SkillActor> Haste = GetLevel()->CreateActor<SkillActor>(RenderOrder::Skill);
 			Haste->SetSkillActor("Haste");
 
 			MyBuffList->Rebuff("Haste");
@@ -70,7 +70,7 @@ void Player::JavelinBooster()
 
 		if (MyBuffList->IsBuffOn("JavelinBooster") == false)
 		{
-			std::shared_ptr<SkillActor> Haste = GetLevel()->CreateActor<SkillActor>();
+			std::shared_ptr<SkillActor> Haste = GetLevel()->CreateActor<SkillActor>(RenderOrder::Skill);
 			Haste->SetSkillActor("JavelinBooster");
 
 			std::function<void(Player&)> EndFunction = [this](Player&)
@@ -87,7 +87,7 @@ void Player::JavelinBooster()
 
 		else if (MyBuffList->IsBuffOn("JavelinBooster") == true)
 		{
-			std::shared_ptr<SkillActor> Haste = GetLevel()->CreateActor<SkillActor>();
+			std::shared_ptr<SkillActor> Haste = GetLevel()->CreateActor<SkillActor>(RenderOrder::Skill);
 			Haste->SetSkillActor("JavelinBooster");
 
 			MyBuffList->Rebuff("JavelinBooster");
@@ -110,7 +110,7 @@ void Player::ShadowPartner()
 
 		if (MyBuffList->IsBuffOn("ShadowPartner") == false)
 		{
-			std::shared_ptr<SkillActor> ShadowPartner = GetLevel()->CreateActor<SkillActor>();
+			std::shared_ptr<SkillActor> ShadowPartner = GetLevel()->CreateActor<SkillActor>(RenderOrder::Skill);
 			ShadowPartner->SetSkillActor("ShadowPartner");
 
 			std::function<void(Player&)> EndFunction = [this](Player&)
@@ -125,7 +125,7 @@ void Player::ShadowPartner()
 
 		else if (MyBuffList->IsBuffOn("ShadowPartner") == true)
 		{
-			std::shared_ptr<SkillActor> ShadowPartner = GetLevel()->CreateActor<SkillActor>();
+			std::shared_ptr<SkillActor> ShadowPartner = GetLevel()->CreateActor<SkillActor>(RenderOrder::Skill);
 			ShadowPartner->SetSkillActor("ShadowPartner");
 
 			MyBuffList->Rebuff("ShadowPartner");

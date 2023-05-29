@@ -34,9 +34,6 @@
     <ClInclude Include="BottomBar.h">
       <Filter>Actor\UI</Filter>
     </ClInclude>
-    <ClInclude Include="StatusWindow.h">
-      <Filter>Actor\UI</Filter>
-    </ClInclude>
     <ClInclude Include="MiniMap.h">
       <Filter>Actor\UI</Filter>
     </ClInclude>
@@ -85,6 +82,18 @@
     <ClInclude Include="Portal.h">
       <Filter>Actor\Map\Object</Filter>
     </ClInclude>
+    <ClInclude Include="StatusWindow.h">
+      <Filter>Actor\UI\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillWindow.h">
+      <Filter>Actor\UI\Window\SkillWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillList.h">
+      <Filter>Actor\UI\Window\SkillWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="UIWindowManager.h">
+      <Filter>Actor\UI\Window</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Level_Title.cpp">
@@ -124,9 +133,6 @@
       <Filter>Actor\Player</Filter>
     </ClCompile>
     <ClCompile Include="BottomBar.cpp">
-      <Filter>Actor\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="StatusWindow.cpp">
       <Filter>Actor\UI</Filter>
     </ClCompile>
     <ClCompile Include="MiniMap.cpp">
@@ -183,6 +189,18 @@
     <ClCompile Include="Portal.cpp">
       <Filter>Actor\Map\Object</Filter>
     </ClCompile>
+    <ClCompile Include="StatusWindow.cpp">
+      <Filter>Actor\UI\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillWindow.cpp">
+      <Filter>Actor\UI\Window\SkillWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillList.cpp">
+      <Filter>Actor\UI\Window\SkillWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="UIWindowManager.cpp">
+      <Filter>Actor\UI\Window</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -238,6 +256,12 @@
     </Filter>
     <Filter Include="Actor\Map\Object">
       <UniqueIdentifier>{790e00c6-b83f-4562-b2ae-8e1deab76398}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\UI\Window">
+      <UniqueIdentifier>{500432ff-4952-48b0-8dd0-316d0efc0144}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\UI\Window\SkillWindow">
+      <UniqueIdentifier>{f50e2950-b5d5-431d-8055-b8b2dd2035e5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

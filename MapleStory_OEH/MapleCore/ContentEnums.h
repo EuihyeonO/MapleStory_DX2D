@@ -20,12 +20,14 @@ enum class WeaponType
 
 enum class RenderOrder
 {
-	BasicMap,
+	BasicMap = 100,
 	NPC,
 	Player,
 	Weapon,
 	Monster,
+	Skill,
 	UI,
+	Mouse,
 };
 
 enum class CollisionOrder

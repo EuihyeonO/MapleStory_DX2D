@@ -1,5 +1,6 @@
 #include "PrecompileHeader.h"
 #include "GameEngineTexture.h"
+#include "GameEngineLevel.h"
 
 #ifdef _DEBUG
 #pragma comment(lib, "..\\GameEngineCore\\ThirdParty\\DirectXTex\\lib\\x64\\Debug\\DirectXTex.lib")
@@ -17,29 +18,7 @@ GameEngineTexture::GameEngineTexture()
 
 GameEngineTexture::~GameEngineTexture()
 {
-	if (nullptr != DSV)
-	{
-		DSV->Release();
-		DSV = nullptr;
-	}
-
-	if (nullptr != SRV)
-	{
-		SRV->Release();
-		SRV = nullptr;
-	}
-
-	if (nullptr != RTV)
-	{
-		RTV->Release();
-		RTV = nullptr;
-	}
-
-	if (nullptr != Texture2D)
-	{
-		Texture2D->Release();
-		Texture2D = nullptr;
-	}
+	Release();
 }
 
 
@@ -168,6 +147,19 @@ void GameEngineTexture::PSSetting(UINT _Slot)
 	}
 
 	GameEngineDevice::GetContext()->PSSetShaderResources(_Slot, 1, &SRV);
+}
+
+void GameEngineTexture::VSReset(UINT _Slot)
+{
+	static ID3D11ShaderResourceView* Nullptr = nullptr;
+
+	GameEngineDevice::GetContext()->VSSetShaderResources(_Slot, 1, &Nullptr);
+}
+void GameEngineTexture::PSReset(UINT _Slot)
+{
+	static ID3D11ShaderResourceView* Nullptr = nullptr;
+
+	GameEngineDevice::GetContext()->PSSetShaderResources(_Slot, 1, &Nullptr);
 }
 
 void GameEngineTexture::ResCreate(const D3D11_TEXTURE2D_DESC& _Value)
@@ -403,7 +395,8 @@ GameEnginePixelColor GameEngineTexture::GetPixel(int _X, int _Y, GameEnginePixel
 	case DXGI_FORMAT_B5G5R5A1_UNORM:
 		break;
 	case DXGI_FORMAT_B8G8R8A8_UNORM:
-	{		// 컬러1개에 4바이트인 100 * 100
+	{
+		// 컬러1개에 4바이트인 100 * 100
 		// 10, 10
 		int Index = _Y * static_cast<int>(GetWidth()) + _X;
 		ColorPtr = ColorPtr + (Index * 4);
@@ -412,9 +405,8 @@ GameEnginePixelColor GameEngineTexture::GetPixel(int _X, int _Y, GameEnginePixel
 		Return.g = ColorPtr[1];
 		Return.b = ColorPtr[0];
 		Return.a = ColorPtr[3];
-		return Return; 
+		return Return;
 	}
-		break;
 	case DXGI_FORMAT_B8G8R8X8_UNORM:
 	{
 		// 컬러1개에 4바이트인 100 * 100
@@ -510,4 +502,42 @@ GameEnginePixelColor GameEngineTexture::GetPixel(int _X, int _Y, GameEnginePixel
 	}
 
 	return DefaultColor;
+}
+
+void GameEngineTexture::PathCheck(const std::string_view& _Path, const std::string_view& _Name)
+{
+	if (nullptr == GameEngineCore::CurLoadLevel)
+	{
+		return;
+	}
+	GameEngineCore::CurLoadLevel->TexturePath[_Name.data()] = _Path.data();
+}
+
+void GameEngineTexture::Release()
+{
+	Image.Release();
+
+	if (nullptr != DSV)
+	{
+		DSV->Release();
+		DSV = nullptr;
+	}
+
+	if (nullptr != SRV)
+	{
+		SRV->Release();
+		SRV = nullptr;
+	}
+
+	if (nullptr != RTV)
+	{
+		RTV->Release();
+		RTV = nullptr;
+	}
+
+	if (nullptr != Texture2D)
+	{
+		Texture2D->Release();
+		Texture2D = nullptr;
+	}
 }

@@ -272,6 +272,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="SkillList.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="SkillWindow.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Star.h">
       <SubType>
       </SubType>
@@ -285,6 +293,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="TitleObjects.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="UIWindowManager.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -394,6 +406,14 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="SkillList.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="SkillWindow.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Star.cpp">
       <SubType>
       </SubType>
@@ -407,6 +427,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="TitleObjects.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="UIWindowManager.cpp">
       <SubType>
       </SubType>
     </ClCompile>

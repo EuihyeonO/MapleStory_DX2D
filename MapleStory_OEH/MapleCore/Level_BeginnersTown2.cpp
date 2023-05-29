@@ -38,7 +38,7 @@ void Level_BeginnersTown2::Start()
 
 	CreateActor<BottomBar>(static_cast<int>(RenderOrder::UI));
 	CreateActor<StatusWindow>(static_cast<int>(RenderOrder::UI));
-	CreateActor<Mouse>(static_cast<int>(RenderOrder::UI));
+	CreateActor<Mouse>(static_cast<int>(RenderOrder::Mouse));
 }
 
 void Level_BeginnersTown2::Update(float _DeltaTime)

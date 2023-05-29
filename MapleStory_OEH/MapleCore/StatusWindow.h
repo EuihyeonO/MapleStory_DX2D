@@ -21,20 +21,12 @@ protected:
 	void Update(float _DeltaTime) override;
 	void Render(float _DeltaTime) override;
 private:
-	void CreateInputKey();
-	void GetKetInput();
 
-	void AllWindowUpdate();
+	void AllWindowUpdate();	
 
-	bool WindowOnOff();
-	void WindowOn();
-	void WindowOff();
-	
-	bool PosUpdate();
-
-	std::shared_ptr<GameEngineSpriteRenderer> MainWindow;
+	std::shared_ptr<class GameEngineUIRenderer> MainWindow;
 	std::shared_ptr<class GameEngineCollision> MainWindowClickBar;
-	std::shared_ptr<GameEngineSpriteRenderer> SubWindow;
+	std::shared_ptr<class GameEngineUIRenderer> SubWindow;
 
 	std::list<std::function<bool(StatusWindow&)>> UpdateFunction;
 };

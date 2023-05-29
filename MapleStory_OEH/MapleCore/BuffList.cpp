@@ -5,6 +5,7 @@
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
+#include <GameEngineCore/GameEngineUIRenderer.h>
 #include <ctime>
 
 BuffList::BuffList()
@@ -42,7 +43,7 @@ void BuffList::BuffOn(const std::string_view& _BuffName, std::function<void(Play
 	}
 
 	std::shared_ptr<Buff> NewBuff = std::make_shared<Buff>();
-	NewBuff->BuffIcon = CreateComponent<GameEngineSpriteRenderer>();
+	NewBuff->BuffIcon = CreateComponent<GameEngineUIRenderer>();
 
 
 	std::string BuffName = GameEngineString::ToUpper(_BuffName.data());
@@ -99,7 +100,6 @@ void BuffList::BuffUpdate()
 		return;
 	}
 
-	float4 CameraPos = GetLevel()->GetMainCamera()->GetTransform()->GetWorldPosition();
 	float4 HalfScreenSize = GameEngineWindow::GetScreenSize().half();
 	int Count = 0;
 
@@ -126,7 +126,7 @@ void BuffList::BuffUpdate()
 		//위치 정렬
 		GameEngineTransform* BuffIconTransForm = Start->second->BuffIcon->GetTransform();
 
-		BuffIconTransForm->SetLocalPosition({ CameraPos.x + HalfScreenSize.x - 16, CameraPos.y + HalfScreenSize.y - 16 });
+		BuffIconTransForm->SetLocalPosition({ HalfScreenSize.x - 16, HalfScreenSize.y - 16 });
 		BuffIconTransForm->AddLocalPosition({ static_cast<float>(Count * (-32)), 0 });
 
 		Start++;

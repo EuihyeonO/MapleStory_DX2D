@@ -38,7 +38,7 @@ void Logo::Update(float _DeltaTime)
 		{
 			GetLevel()->CreateActor<TitleObjects>();			
 			isCreateObject = true;
-			//이 때 Death 해야함
+			Death();
 		}
 	}
 }
@@ -51,6 +51,7 @@ void Logo::NexonAnimation()
 {
 	NexonCount += TimeCount;
 	Nexon->GetTransform()->SetLocalScale({ 800, 600 });
+
 	if (NexonCount >= 0.03)
 	{
 		if (NexonIndex == 180)
@@ -83,6 +84,7 @@ void Logo::WizetAnimation()
 			Wizet->SetTexture("Wizet.0.png");
 			Wizet->GetTransform()->SetLocalScale({ 550, 420 });
 			Wizet->GetTransform()->SetLocalPosition({ -125, 90 });
+			
 			isWizetSet = true;
 		}
 

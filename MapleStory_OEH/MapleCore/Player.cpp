@@ -17,6 +17,7 @@ std::shared_ptr<Player> Player::CurPlayer = nullptr;
 
 Player::Player()
 {
+	//쉐어드포인터로 하려면 어떻게 해야하는가..
 	PlayerValue::Value.AddToPlayerToPlayerList(this);
 }
 
@@ -29,7 +30,7 @@ void Player::Start()
 {
 	TimeCounting();
 
-	GetTransform()->SetLocalPosition({ 0, 0, -static_cast<float>(RenderOrder::Player) });
+	GetTransform()->SetLocalPosition({ 0, 0});
 	GetTransform()->SetLocalScale({ 1, 1, 1 });
 
 	BodyCollision = CreateComponent<GameEngineCollision>();

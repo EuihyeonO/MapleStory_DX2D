@@ -11,7 +11,7 @@ class BuffList : public BasicFunction
 public:
 	struct Buff
 	{
-		std::shared_ptr<GameEngineSpriteRenderer> BuffIcon;
+		std::shared_ptr<class GameEngineUIRenderer> BuffIcon;
 		float LiveTime;
 		float MaxLiveTime;
 

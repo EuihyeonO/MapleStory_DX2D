@@ -29,7 +29,9 @@ private:
 
 	void PosUpdate();
 
-	std::shared_ptr<GameEngineSpriteRenderer> Cursor;
+	std::shared_ptr<class GameEngineUIRenderer> Cursor;
 	std::shared_ptr<class GameEngineCollision> CursorCollision;
+
+	std::shared_ptr<class GameEngineUIRenderer> Test;
 };
 

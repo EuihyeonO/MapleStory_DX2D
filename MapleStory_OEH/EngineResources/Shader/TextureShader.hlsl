@@ -1,5 +1,3 @@
-// MyColor = DiffuseTex.Sample(WRAPSAMPLER, float2((_Value.UV.x * XScaleRatio) + XMove, _Value.UV.y + YMove));
-                                                           // 가로로 몇개를 반복할건지
 // 쉐이더를 짜게되면 다음의 규칙을 지켜야 한다.
 
 // 0~ 16번 슬롯 
