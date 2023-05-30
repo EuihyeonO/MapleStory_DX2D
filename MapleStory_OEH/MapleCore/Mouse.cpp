@@ -19,7 +19,6 @@ Mouse::~Mouse()
 
 void Mouse::Start()
 {
-
 	Cursor = CreateComponent<GameEngineUIRenderer>();
 	Cursor->SetScaleToTexture("Cursor.png");
 
@@ -57,7 +56,6 @@ void Mouse::PosUpdate()
 	float4 WindowSize = GameEngineWindow::GetScreenSize();
 	float4 MousePos = GameEngineWindow::GetMousePosition();
 
-	MousePos = { MousePos.x - WindowSize.hx(),  WindowSize.hy() - MousePos.y };
-	GetTransform()->SetLocalPosition(MousePos + float4{0, 0, 0});
-
+	MousePos = { MousePos.x - WindowSize.hx(),  WindowSize.hy() - MousePos.y,  -10};
+	GetTransform()->SetLocalPosition(MousePos);
 }

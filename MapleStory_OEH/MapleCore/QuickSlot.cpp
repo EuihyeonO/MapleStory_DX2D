@@ -107,22 +107,31 @@ void QuickSlot::Start()
 	PgDnSkill->GetTransform()->SetLocalPosition(QuickSlotRender->GetTransform()->GetLocalPosition() + float4{ 53, -17 });
 	PgDnSkill->Off();
 
-	ColSlotSkill[DelSlot].first = &Player::SetDelSkill;
-	ColSlotSkill[DelSlot].second = DelSkill;
-	ColSlotSkill[ShiftSlot].first = &Player::SetShiftSkill;
-	ColSlotSkill[ShiftSlot].second = ShiftSkill;
-	ColSlotSkill[PgUpSlot].first = &Player::SetPgUpSkill;
-	ColSlotSkill[PgUpSlot].second = PgUpSkill;
-	ColSlotSkill[InsSlot].first = &Player::SetInsSkill;
-	ColSlotSkill[InsSlot].second = InsSkill;
-	ColSlotSkill[HomeSlot].first = &Player::SetHomeSkill;
-	ColSlotSkill[HomeSlot].second = HomeSkill;
-	ColSlotSkill[CtrlSlot].first = &Player::SetCtrlSkill;
-	ColSlotSkill[CtrlSlot].second = CtrlSkill;
-	ColSlotSkill[EndSlot].first = &Player::SetEndSkill;
-	ColSlotSkill[EndSlot].second = EndSkill;
-	ColSlotSkill[PgDnSlot].first = &Player::SetPgDnSkill;
-	ColSlotSkill[PgDnSlot].second = PgDnSkill;
+	//ColSlotSkill[DelSlot].first = &Player::SetDelSkill;
+	//ColSlotSkill[DelSlot].second = DelSkill;
+	//ColSlotSkill[ShiftSlot].first = &Player::SetShiftSkill;
+	//ColSlotSkill[ShiftSlot].second = ShiftSkill;
+	//ColSlotSkill[PgUpSlot].first = &Player::SetPgUpSkill;
+	//ColSlotSkill[PgUpSlot].second = PgUpSkill;
+	//ColSlotSkill[InsSlot].first = &Player::SetInsSkill;
+	//ColSlotSkill[InsSlot].second = InsSkill;
+	//ColSlotSkill[HomeSlot].first = &Player::SetHomeSkill;
+	//ColSlotSkill[HomeSlot].second = HomeSkill;
+	//ColSlotSkill[CtrlSlot].first = &Player::SetCtrlSkill;
+	//ColSlotSkill[CtrlSlot].second = CtrlSkill;
+	//ColSlotSkill[EndSlot].first = &Player::SetEndSkill;
+	//ColSlotSkill[EndSlot].second = EndSkill;
+	//ColSlotSkill[PgDnSlot].first = &Player::SetPgDnSkill;
+	//ColSlotSkill[PgDnSlot].second = PgDnSkill;
+
+	ColSlotSkill[DelSlot] = &UIController::SetDelSkill;
+	ColSlotSkill[ShiftSlot] = &UIController::SetShiftSkill;
+	ColSlotSkill[PgUpSlot] = &UIController::SetPgUpSkill;
+	ColSlotSkill[InsSlot] = &UIController::SetInsSkill;
+	ColSlotSkill[HomeSlot] = &UIController::SetHomeSkill;
+	ColSlotSkill[CtrlSlot] = &UIController::SetCtrlSkill;
+	ColSlotSkill[EndSlot] = &UIController::SetEndSkill;
+	ColSlotSkill[PgDnSlot] = &UIController::SetPgDNSkill;
 
 	CtrlSkill->On();
 	CtrlSkill->SetScaleToTexture("BasicSwingIcon.png");

@@ -43,7 +43,7 @@ void UIWindowManager::UIOnOff()
 	{
 		if (MyStatusWindow == nullptr)
 		{
-			MyStatusWindow = GetLevel()->CreateActor<StatusWindow>(static_cast<int>(RenderOrder::UI));
+			MyStatusWindow = GetLevel()->CreateActor<StatusWindow>();
 		}
 		else
 		{
@@ -56,7 +56,7 @@ void UIWindowManager::UIOnOff()
 	{
 		if (MySKillWindow == nullptr)
 		{
-			MySKillWindow = GetLevel()->CreateActor<SkillWindow>(static_cast<int>(RenderOrder::UI));
+			MySKillWindow = GetLevel()->CreateActor<SkillWindow>();
 		}
 		else
 		{

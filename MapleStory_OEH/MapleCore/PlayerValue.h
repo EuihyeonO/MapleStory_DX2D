@@ -1,11 +1,13 @@
 #pragma once
+#include "Player.h"
+
 #include <string>
 #include <string_view>
 #include <memory>
 
 class PlayerValue
 {
-	friend class Player;
+	friend Player;
 
 public: //static
 
@@ -15,7 +17,71 @@ public: //static
 	}
 
 public: //local
-	
+	void SetShiftSkillAllPlayer(std::function<void(std::shared_ptr<class Player>)> _Skill)
+	{
+		for (int i = 0; i < PlayerList.size(); i++)
+		{
+			PlayerList[i]->SetShiftSkill(_Skill);
+		}
+	}
+
+	void SetInsSkillAllPlayer(std::function<void(std::shared_ptr<class Player>)> _Skill)
+	{
+		for (int i = 0; i < PlayerList.size(); i++)
+		{
+			PlayerList[i]->SetInsSkill(_Skill);
+		}
+	}
+
+	void SetHomeSkillAllPlayer(std::function<void(std::shared_ptr<class Player>)> _Skill)
+	{
+		for (int i = 0; i < PlayerList.size(); i++)
+		{
+			PlayerList[i]->SetHomeSkill(_Skill);
+		}
+	}
+
+	void SetPgUpSkillAllPlayer(std::function<void(std::shared_ptr<class Player>)> _Skill)
+	{
+		for (int i = 0; i < PlayerList.size(); i++)
+		{
+			PlayerList[i]->SetPgUpSkill(_Skill);
+		}
+	}
+
+	void SetCtrlSkillAllPlayer(std::function<void(std::shared_ptr<class Player>)> _Skill)
+	{
+		for (int i = 0; i < PlayerList.size(); i++)
+		{
+			PlayerList[i]->SetCtrlSkill(_Skill);
+		}
+	}
+
+
+	void SetDelSkillAllPlayer(std::function<void(std::shared_ptr<class Player>)> _Skill)
+	{
+		for (int i = 0; i < PlayerList.size(); i++)
+		{
+			PlayerList[i]->SetDelSkill(_Skill);
+		}
+	}
+
+	void SetEndSkillAllPlayer(std::function<void(std::shared_ptr<class Player>)> _Skill)
+	{
+		for (int i = 0; i < PlayerList.size(); i++)
+		{
+			PlayerList[i]->SetEndSkill(_Skill);
+		}
+	}
+
+
+	void SetPgDnSkillAllPlayer(std::function<void(std::shared_ptr<class Player>)> _Skill)
+	{
+		for (int i = 0; i < PlayerList.size(); i++)
+		{
+			PlayerList[i]->SetPgDnSkill(_Skill);
+		}
+	}
 
 	void SetMp(int _Mp)
 	{

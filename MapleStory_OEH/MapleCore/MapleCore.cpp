@@ -45,7 +45,6 @@ void MapleCore::ContentsResourcesCreate()
 void MapleCore::GameStart()
 {
 	ContentsResourcesCreate();
-	//GameEngineGUI::GUIWindowCreate<GameEngineCoreWindow>(" ");
 
 	GameEngineCore::CreateLevel<Level_Title>();
 	GameEngineCore::CreateLevel<Level_BeginnersTown1>();

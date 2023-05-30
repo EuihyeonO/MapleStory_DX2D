@@ -17,8 +17,8 @@ SkillWindow::~SkillWindow()
 
 void SkillWindow::Start()
 {
-	GetTransform()->SetLocalPosition({ 0, 0, 0 });
-
+	GetTransform()->SetLocalPosition({0, 0, 0});
+	
 	SkillWindowRender = CreateComponent<GameEngineUIRenderer>();
 	SkillWindowRender->SetScaleToTexture("SkillWindow0.png");
 
@@ -42,7 +42,7 @@ void SkillWindow::Start()
 	Index4->GetTransform()->SetLocalScale({ 27, 16 });
 	Index4->GetTransform()->SetLocalPosition({ 60, 110 });
 
-	MySkillList = GetLevel()->CreateActor<SkillList>(RenderOrder::UI);
+	MySkillList = GetLevel()->CreateActor<SkillList>();
 }
 
 void SkillWindow::Update(float _DeltaTime) 

@@ -55,6 +55,8 @@ void Level_BeginnersTown1::Start()
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetCamera(100)->SetProjectionType(CameraType::Orthogonal);
 
+	GetCamera(100)->SetSortType(0 , SortType::ZSort);
+
 	Map = CreateActor<BeginnersTown1>(static_cast<int>(RenderOrder::BasicMap));
 
 	MyPlayer = CreateActor<Player>(static_cast<int>(RenderOrder::Player));
@@ -62,10 +64,10 @@ void Level_BeginnersTown1::Start()
 	MyPlayer->SetColMap(Map->GetColMapName());
 	MyPlayer->SetCurPlayer(MyPlayer);
 
-	CreateActor<QuickSlot>(static_cast<int>(RenderOrder::UI));
-	CreateActor<BottomBar>(static_cast<int>(RenderOrder::UI));
-	CreateActor<UIWindowManager>(static_cast<int>(RenderOrder::UI));
-	MyMouse = CreateActor<Mouse>(static_cast<int>(RenderOrder::Mouse));
+	CreateActor<QuickSlot>();
+	CreateActor<BottomBar>();
+	CreateActor<UIWindowManager>();
+	MyMouse = CreateActor<Mouse>();
 	MyMouse->SetCurMouse(MyMouse);
 }
 

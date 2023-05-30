@@ -203,10 +203,8 @@ void SkillList::SkillCopy()
 
 		else
 		{
-			std::shared_ptr<Player> CurPlayer = Player::GetCurPlayer();
 
-			Col->GetActor()->DynamicThis<QuickSlot>()->GetSlotFunc(Col)(CurPlayer, SkillIcon::FunctionCopy);
-			Col->GetActor()->DynamicThis<QuickSlot>()->SetColSlotTexture(Col, SkillIcon::IconCopy->GetTexName());
+			Col->GetActor()->DynamicThis<QuickSlot>()->GetSlotFunc(Col)(*UIController::GetUIController(), SkillIcon::IconCopy->GetTexName(), SkillIcon::FunctionCopy);
 			
 			SkillIcon::IconCopy->Death();
 			SkillIcon::FunctionCopy = nullptr;
@@ -229,7 +227,7 @@ void SkillList::SkillCopy(std::shared_ptr<SkillList::SkillIcon> _SkillIcon)
 	SkillIcon::IconCopy = CreateComponent<GameEngineUIRenderer>();
 	SkillIcon::IconCopy->SetScaleToTexture(_SkillIcon->SkillName + "Icon.png");
 	SkillIcon::IconCopy->GetTransform()->SetParent(Mouse::GetMouse()->GetTransform());
-	SkillIcon::IconCopy->GetTransform()->SetLocalPosition({ 0, 0 });
+	SkillIcon::IconCopy->GetTransform()->SetLocalPosition({ -12, 12, 1});
 	SkillIcon::IconCopy->ColorOptionValue.MulColor = { 1, 1, 1, 0.8f };
 
 	SkillIcon::FunctionCopy = _SkillIcon->SkillFunc;

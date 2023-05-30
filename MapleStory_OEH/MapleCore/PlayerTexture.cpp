@@ -562,6 +562,16 @@ void Player::TextureUpdate()
 		CoatArm->On();
 		Weapon->On();
 
+		if (MoveType == "Swing2" && AniIndex == 2)
+		{
+			Weapon->Off();
+		}
+
+		if (MoveType == "Swing0" && AniIndex == 0)
+		{
+			Weapon->Off();
+		}
+
 		std::string ArmTexture = SkinType + "Arm" + MoveType + std::to_string(AniIndex) + ".png";
 		Arm->SetScaleToTexture(ArmTexture);
 

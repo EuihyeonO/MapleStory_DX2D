@@ -8,15 +8,57 @@ class QuickSlot : public GameEngineActor
 
 public:
 
-	std::function<void(std::shared_ptr<class Player>, std::function<void(std::shared_ptr<class Player>)>)> GetSlotFunc(std::shared_ptr<class GameEngineCollision> _Col)
+	std::function<void(class UIController&, const std::string_view&, std::function<void(std::shared_ptr<Player>)>)> GetSlotFunc(std::shared_ptr<class GameEngineCollision> _Col)
 	{
-		return ColSlotSkill[_Col].first;
+		return ColSlotSkill[_Col];
 	}
 
-	void SetColSlotTexture(std::shared_ptr<class GameEngineCollision> _Col, const std::string_view& _TextureName)
+	void SetShiftSlotTexture(const std::string_view& _TextureName)
 	{
-		ColSlotSkill[_Col].second->SetScaleToTexture(_TextureName);
-		ColSlotSkill[_Col].second->On();
+		ShiftSkill->SetScaleToTexture(_TextureName);
+		ShiftSkill->On();
+	}
+
+	void SetInsSlotTexture(const std::string_view& _TextureName)
+	{
+		InsSkill->SetScaleToTexture(_TextureName);
+		InsSkill->On();
+	}
+
+	void SetHomeSlotTexture(const std::string_view& _TextureName)
+	{
+		HomeSkill->SetScaleToTexture(_TextureName);
+		HomeSkill->On();
+	}
+
+	void SetPgUpSlotTexture(const std::string_view& _TextureName)
+	{
+		PgUpSkill->SetScaleToTexture(_TextureName);
+		PgUpSkill->On();
+	}
+
+	void SetCtrlSlotTexture(const std::string_view& _TextureName)
+	{
+		CtrlSkill->SetScaleToTexture(_TextureName);
+		CtrlSkill->On();
+	}
+
+	void SetDelSlotTexture(const std::string_view& _TextureName)
+	{
+		DelSkill->SetScaleToTexture(_TextureName);
+		DelSkill->On();
+	}
+
+	void SetEndSlotTexture(const std::string_view& _TextureName)
+	{
+		EndSkill->SetScaleToTexture(_TextureName);
+		EndSkill->On();
+	}
+
+	void SetPgDnSlotTexture(const std::string_view& _TextureName)
+	{
+		PgDnSkill->SetScaleToTexture(_TextureName);
+		PgDnSkill->On();
 	}
 
 	QuickSlot();
@@ -37,7 +79,7 @@ private:
 	std::shared_ptr<GameEngineUIRenderer> QuickSlotLayer = nullptr;
 
 	
-	std::map<std::shared_ptr<class GameEngineCollision>, std::pair<std::function<void(std::shared_ptr<class Player>, std::function<void(std::shared_ptr<class Player>)>)>, std::shared_ptr<GameEngineUIRenderer>>> ColSlotSkill;
+	std::map<std::shared_ptr<class GameEngineCollision>, std::function<void(UIController&, const std::string_view&, std::function<void(std::shared_ptr<Player>)>)>> ColSlotSkill;
 
 	std::shared_ptr<class GameEngineCollision> ShiftSlot;
 	std::shared_ptr<class GameEngineCollision> InsSlot;
