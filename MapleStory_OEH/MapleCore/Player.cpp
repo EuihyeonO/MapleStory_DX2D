@@ -17,8 +17,6 @@ std::shared_ptr<Player> Player::CurPlayer = nullptr;
 
 Player::Player()
 {
-	//쉐어드포인터로 하려면 어떻게 해야하는가..
-	PlayerValue::Value.AddToPlayerToPlayerList(this);
 }
 
 Player::~Player()
@@ -28,6 +26,8 @@ Player::~Player()
 
 void Player::Start()
 {
+	PlayerValue::Value.AddToPlayerToPlayerList(DynamicThis<Player>());
+
 	TimeCounting();
 
 	GetTransform()->SetLocalPosition({ 0, 0});
@@ -37,11 +37,6 @@ void Player::Start()
 	BodyCollision->GetTransform()->SetLocalScale({ 30, 50 });
 	BodyCollision->SetOrder(static_cast<int>(CollisionOrder::Player));
 	BodyCollision->GetTransform()->SetLocalPosition({ 0, 25 });
-
-	std::shared_ptr<GameEngineSpriteRenderer> Test = CreateComponent<GameEngineSpriteRenderer>();
-	Test->SetTexture("MouseTest.png");
-	Test->GetTransform()->SetLocalScale({30, 50});
-	Test->GetTransform()->SetLocalPosition({ 0, 25 });
 
 	Body = CreateComponent<GameEngineSpriteRenderer>();
 	Pants = CreateComponent<GameEngineSpriteRenderer>();
@@ -78,7 +73,8 @@ void Player::Start()
 	ESkill = &Player::Avenger;
 	SetAllTexturePosVector();
 	CreateAllKey();
-
+	
+	CtrlSkill = &Player::Swing;
 }
 
 void Player::Update(float _DeltaTime)
@@ -229,13 +225,20 @@ void Player::CreateAllKey()
 	{
 		GameEngineInput::CreateKey("LMove", VK_LEFT);
 		GameEngineInput::CreateKey("RMove", VK_RIGHT);
-		GameEngineInput::CreateKey("Swing", VK_LCONTROL);
+		//GameEngineInput::CreateKey("Swing", VK_LCONTROL);
 		GameEngineInput::CreateKey("Jump", 'C');
-		GameEngineInput::CreateKey("Qskill", 'Q');
-		GameEngineInput::CreateKey("Wskill", 'W');
-		GameEngineInput::CreateKey("Eskill", 'E');
 		GameEngineInput::CreateKey("UpKey", VK_UP);
 		GameEngineInput::CreateKey("DownKey", VK_DOWN);
+		GameEngineInput::CreateKey("ShiftSkill", VK_LSHIFT);
+		GameEngineInput::CreateKey("InsSkill", VK_INSERT);
+		GameEngineInput::CreateKey("HomeSkill", VK_HOME);
+		GameEngineInput::CreateKey("PgUpSkill", VK_PRIOR);
+		GameEngineInput::CreateKey("CtrlSkill", VK_LCONTROL);
+		GameEngineInput::CreateKey("DelSkill", VK_DELETE);
+		GameEngineInput::CreateKey("EndSkill", VK_END);
+		GameEngineInput::CreateKey("PgDnSkill", VK_NEXT);
+
+
 	}
 }
 
@@ -263,34 +266,58 @@ void Player::ActingUpdate(float _DeltaTime)
 	case static_cast<int>(State::Jump):
 		Jump(_DeltaTime);
 		break;
-	case static_cast<int>(State::Swing):
-		Swing();
-		break;
 	case static_cast<int>(State::Up):
 		RopeAndLadder(_DeltaTime);
 		break;
 	case static_cast<int>(State::Down):
 		RopeAndLadder(_DeltaTime);
 		break;
-	case static_cast<int>(State::Qskill):	
-		ShadowPartner();
-		break;
-	case static_cast<int>(State::Wskill):
-		//if (WSkill != nullptr)
-		//{
-		//	WSkill(*this);
-		//}
-		Avenger();
-		break;
-	case static_cast<int>(State::Eskill):
-		//if (ESkill != nullptr)
-		//{
-		//	ESkill(*this);
-		//}
-		//JavelinBooster();
+	case static_cast<int>(State::ShiftSkill):	
 		if (ShiftSkill != nullptr)
 		{
 			ShiftSkill(DynamicThis<Player>());
+		}
+		break;
+	case static_cast<int>(State::InsSkill):
+		if (InsertSkill != nullptr)
+		{
+			InsertSkill(DynamicThis<Player>());
+		}
+		break;
+	case static_cast<int>(State::HomeSkill):
+		if (HomeSkill != nullptr)
+		{
+			HomeSkill(DynamicThis<Player>());
+		}
+		break;
+	case static_cast<int>(State::PgUpSkill):
+		if (PageUpSkill != nullptr)
+		{
+			PageUpSkill(DynamicThis<Player>());
+		}
+		break;
+	case static_cast<int>(State::CtrlSkill):
+		if (CtrlSkill != nullptr)
+		{
+			CtrlSkill(DynamicThis<Player>());
+		}
+		break;
+	case static_cast<int>(State::DelSkill):
+		if (DelSkill != nullptr)
+		{
+			DelSkill(DynamicThis<Player>());
+		}
+		break;
+	case static_cast<int>(State::EndSkill):
+		if (EndSkill != nullptr)
+		{
+			EndSkill(DynamicThis<Player>());
+		}
+		break;
+	case static_cast<int>(State::PgDnSkill):
+		if (PageDownSkill != nullptr)
+		{
+			PageDownSkill(DynamicThis<Player>());
 		}
 		break;
 	case -1:
@@ -305,9 +332,37 @@ int Player::GetStateByKeyInput() const
 	{
 		return static_cast<int>(State::Jump);
 	}
-	else if (GameEngineInput::IsDown("QSkill") == true)
+	else if (GameEngineInput::IsDown("ShiftSkill") == true)
 	{
-		return static_cast<int>(State::Qskill);
+		return static_cast<int>(State::ShiftSkill);
+	}
+	else if (GameEngineInput::IsDown("InsSkill") == true)
+	{
+		return static_cast<int>(State::InsSkill);
+	}
+	else if (GameEngineInput::IsDown("HomeSkill") == true)
+	{
+		return static_cast<int>(State::HomeSkill);
+	}
+	else if (GameEngineInput::IsDown("PgUpSkill") == true)
+	{
+		return static_cast<int>(State::PgUpSkill);
+	}
+	else if (GameEngineInput::IsDown("CtrlSkill") == true)
+	{
+		return static_cast<int>(State::CtrlSkill);
+	}
+	else if (GameEngineInput::IsDown("DelSkill") == true)
+	{
+		return static_cast<int>(State::DelSkill);
+	}
+	else if (GameEngineInput::IsDown("EndSkill") == true)
+	{
+		return static_cast<int>(State::EndSkill);
+	}
+	else if (GameEngineInput::IsDown("PgDnSkill") == true)
+	{
+		return static_cast<int>(State::PgDnSkill);
 	}
 	else if (GameEngineInput::IsDown("UpKey") == true || GameEngineInput::IsPress("UpKey") == true)
 	{
@@ -316,18 +371,6 @@ int Player::GetStateByKeyInput() const
 	else if (GameEngineInput::IsDown("DownKey") == true || GameEngineInput::IsPress("DownKey") == true)
 	{
 		return static_cast<int>(State::Down);
-	}
-	else if (GameEngineInput::IsDown("WSkill") == true)
-	{
-		return static_cast<int>(State::Wskill);
-	}
-	else if (GameEngineInput::IsDown("ESkill") == true)
-	{
-		return static_cast<int>(State::Eskill);
-	}
-	else if (GameEngineInput::IsDown("Swing") == true)
-	{
-		return static_cast<int>(State::Swing);
 	}
 	else if (GameEngineInput::IsPress("LMove") == true || GameEngineInput::IsPress("RMove") == true)
 	{

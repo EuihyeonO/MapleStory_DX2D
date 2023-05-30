@@ -98,7 +98,6 @@ public:
 		CtrlSkill = _Skill;
 	}
 
-
 	void SetLeft();
 	void SetRight();
 

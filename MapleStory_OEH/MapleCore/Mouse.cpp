@@ -34,7 +34,7 @@ void Mouse::Start()
 	Test->SetTexture("MouseTest.png");
 	Test->GetTransform()->SetLocalScale(Data.LocalScale);
 	Test->GetTransform()->SetLocalPosition(Data.LocalPosition);
-
+	
 	ShowCursor(false);
 
 	if (GameEngineInput::IsKey("LClick") == false)
@@ -58,6 +58,6 @@ void Mouse::PosUpdate()
 	float4 MousePos = GameEngineWindow::GetMousePosition();
 
 	MousePos = { MousePos.x - WindowSize.hx(),  WindowSize.hy() - MousePos.y };
-	GetTransform()->SetLocalPosition(MousePos + float4{0, 0, 1});
+	GetTransform()->SetLocalPosition(MousePos + float4{0, 0, 0});
 
 }

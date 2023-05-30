@@ -97,6 +97,9 @@
     <ClInclude Include="QuickSlot.h">
       <Filter>Actor\UI</Filter>
     </ClInclude>
+    <ClInclude Include="UIController.h">
+      <Filter>Global</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Level_Title.cpp">
@@ -206,6 +209,9 @@
     </ClCompile>
     <ClCompile Include="QuickSlot.cpp">
       <Filter>Actor\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIController.cpp">
+      <Filter>Global</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

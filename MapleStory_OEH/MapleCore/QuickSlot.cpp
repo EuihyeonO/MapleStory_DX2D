@@ -1,5 +1,6 @@
 #include "PrecompileHeader.h"
 #include "QuickSlot.h"
+#include "UIController.h"
 
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineUIRenderer.h>
@@ -14,6 +15,8 @@ QuickSlot::~QuickSlot()
 
 void QuickSlot::Start()
 {
+	UIController::GetUIController()->AddQuickSlotToList(DynamicThis<QuickSlot>());
+
 	QuickSlotRender = CreateComponent<GameEngineUIRenderer>();
 	QuickSlotRender->SetScaleToTexture("QuickSlot.png");
 
@@ -120,6 +123,9 @@ void QuickSlot::Start()
 	ColSlotSkill[EndSlot].second = EndSkill;
 	ColSlotSkill[PgDnSlot].first = &Player::SetPgDnSkill;
 	ColSlotSkill[PgDnSlot].second = PgDnSkill;
+
+	CtrlSkill->On();
+	CtrlSkill->SetScaleToTexture("BasicSwingIcon.png");
 }
 
 void QuickSlot::Update(float _DeltaTime) 

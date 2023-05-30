@@ -20,6 +20,11 @@ public:
 		LinkedMap = _MapName;
 	}
 
+	void SetPortalPos(float4 _Pos)
+	{
+		GetTransform()->SetLocalPosition(_Pos);
+	}
+
 protected:
 	void Start();
 	void Update(float _DeltaTime) override;

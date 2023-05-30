@@ -6,6 +6,7 @@
 #include "ContentRenderer.h"
 #include "GreenSnail.h"
 #include "MonsterSpawnZone.h"
+#include "Portal.h"
 
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
@@ -65,6 +66,10 @@ void BeginnersTown1::Start()
 
 	MyMiniMap = GetLevel()->CreateActor<MiniMap>(static_cast<int>(RenderOrder::UI));
 	MyMiniMap->SetMap(MapName);
+
+	std::shared_ptr<Portal> Port = GetLevel()->CreateActor<Portal>(static_cast<int>(RenderOrder::UI));
+	Port->SetLinkedMap("Level_BeginnersTown2");
+	Port->SetPortalPos({ 625, 45 });
 }
 
 void BeginnersTown1::Update(float _DeltaTime)

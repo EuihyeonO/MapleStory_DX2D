@@ -50,7 +50,7 @@ void MapleCore::GameStart()
 	GameEngineCore::CreateLevel<Level_Title>();
 	GameEngineCore::CreateLevel<Level_BeginnersTown1>();
 	GameEngineCore::CreateLevel<Level_BeginnersTown2>();
-	GameEngineCore::ChangeLevel("Level_BeginnersTown2");
+	GameEngineCore::ChangeLevel("Level_BeginnersTown1");
 }
 
 void MapleCore::GameEnd()

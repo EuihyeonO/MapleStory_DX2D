@@ -40,6 +40,8 @@ void BeginnersTown2::Start()
 
 	std::shared_ptr<Rozar> npc = GetLevel()->CreateActor<Rozar>(static_cast<int>(RenderOrder::NPC));
 	std::shared_ptr<Portal> Port = GetLevel()->CreateActor<Portal>(static_cast<int>(RenderOrder::UI));
+	Port->SetLinkedMap("Level_BeginnersTown1");
+	Port->SetPortalPos({ -460, 100 });
 
 	MyMiniMap = GetLevel()->CreateActor<MiniMap>(static_cast<int>(RenderOrder::UI));
 	MyMiniMap->SetMap(MapName);

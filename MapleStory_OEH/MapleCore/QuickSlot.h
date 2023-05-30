@@ -27,6 +27,7 @@ public:
 	QuickSlot& operator=(const QuickSlot& _Other) = delete;
 	QuickSlot& operator=(QuickSlot&& _Other) noexcept = delete;
 
+
 protected:
 	void Start();
 	void Update(float _DeltaTime) override;

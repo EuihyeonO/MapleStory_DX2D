@@ -5,6 +5,7 @@
 #include "BottomBar.h"
 #include "StatusWindow.h"
 #include "Mouse.h"
+#include "PlayerValue.h"
 #include "UIWindowManager.h"
 #include "QuickSlot.h"
 
@@ -29,6 +30,13 @@ void Level_BeginnersTown2::LevelChangeStart()
 	{
 		MyMouse->SetCurMouse(MyMouse);
 	}
+
+	if (PlayerValue::GetValue()->GetPrevLevelName() == "Level_BeginnersTown1")
+	{
+		MyPlayer->SetRight();
+		MyPlayer->SetMoveType("Jump");
+		MyPlayer->GetTransform()->SetLocalPosition({ -460, 45 });
+	}
 }
 
 void Level_BeginnersTown2::Start()
@@ -50,6 +58,13 @@ void Level_BeginnersTown2::Start()
 	MyMouse->SetCurMouse(MyMouse);
 }
 
+void Level_BeginnersTown2::LevelChangeEnd()
+{
+	if (MyMouse != nullptr)
+	{
+		PlayerValue::GetValue()->SetPrevLevelName("Level_BeginnersTown2");
+	}
+}
 void Level_BeginnersTown2::Update(float _DeltaTime)
 {
 

@@ -8,6 +8,7 @@
 #include "SkillWindow.h"
 #include "UIWindowManager.h"
 #include "QuickSlot.h"
+#include "PlayerValue.h"
 
 #include <GameEngineCore/GameEngineCamera.h>
 
@@ -32,12 +33,27 @@ void Level_BeginnersTown1::LevelChangeStart()
 	{
 		MyMouse->SetCurMouse(MyMouse);
 	}
+
+	if (PlayerValue::GetValue()->GetPrevLevelName() == "Level_BeginnersTown2")
+	{
+		MyPlayer->SetLeft();
+		MyPlayer->SetMoveType("Jump");
+		MyPlayer->GetTransform()->SetLocalPosition({ 625, -10 });
+	}
+}
+
+void Level_BeginnersTown1::LevelChangeEnd()
+{
+	if (MyMouse != nullptr)
+	{
+		PlayerValue::GetValue()->SetPrevLevelName("Level_BeginnersTown1");
+	}
 }
 
 void Level_BeginnersTown1::Start()
 {
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
-	GetCamera(100)->SetSortType(100, SortType::ZSort);
+	GetCamera(100)->SetProjectionType(CameraType::Orthogonal);
 
 	Map = CreateActor<BeginnersTown1>(static_cast<int>(RenderOrder::BasicMap));
 

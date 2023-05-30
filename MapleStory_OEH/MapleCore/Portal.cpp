@@ -37,7 +37,8 @@ void Portal::Start()
 	PortalCollision->GetTransform()->SetLocalPosition({ 0, -80 });
 	PortalCollision->GetTransform()->SetLocalScale({ 70, 80 });
 
-	GetTransform()->SetLocalPosition({ -460, 100 });
+	GetTransform()->SetLocalPosition({ 0, 0, -100 });
+
 }
 
 void Portal::Update(float _DeltaTime)
@@ -48,7 +49,6 @@ void Portal::Update(float _DeltaTime)
 	{
 		if (GameEngineInput::IsDown("UpKey") == true)
 		{
-			LinkedMap = "Level_BeginnersTown1";
 			GameEngineCore::ChangeLevel(LinkedMap);
 		}
 	}

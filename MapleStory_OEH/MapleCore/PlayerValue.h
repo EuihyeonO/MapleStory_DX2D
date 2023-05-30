@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <string_view>
+#include <memory>
 
 class PlayerValue
 {
@@ -227,6 +228,16 @@ public: //local
 		AttackSpeed = BasicAttackSpeed;
 	}
 
+	void SetPrevLevelName(const std::string_view& _LevelName)
+	{
+		PrevLevelName = _LevelName;
+	}
+
+	const std::string_view& GetPrevLevelName()
+	{
+		return PrevLevelName;
+	}
+
 	PlayerValue(const PlayerValue& _Other) = delete;
 	PlayerValue(PlayerValue&& _Other) noexcept = delete;
 	PlayerValue& operator=(const PlayerValue& _Other) = delete;
@@ -240,9 +251,13 @@ private:
 	~PlayerValue();
 
 	static PlayerValue Value;
-	void AddToPlayerToPlayerList(class Player* _Player);
+	void AddToPlayerToPlayerList( std::shared_ptr<class Player> _Player);
 
-	std::vector<class Player*> PlayerList;
+	std::vector<std::shared_ptr<class Player>> PlayerList;
+	std::string PrevLevelName;
+
+//인게임 정보
+private:
 
 	std::string Name = "";
 	std::string Class = "";

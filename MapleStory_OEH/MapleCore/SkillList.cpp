@@ -3,6 +3,7 @@
 #include "Mouse.h"
 #include "QuickSlot.h"
 #include "Player.h"
+#include "UIController.h"
 
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineUIRenderer.h>
@@ -206,7 +207,7 @@ void SkillList::SkillCopy()
 
 			Col->GetActor()->DynamicThis<QuickSlot>()->GetSlotFunc(Col)(CurPlayer, SkillIcon::FunctionCopy);
 			Col->GetActor()->DynamicThis<QuickSlot>()->SetColSlotTexture(Col, SkillIcon::IconCopy->GetTexName());
-			//아이콘 퀵슬롯으로 옮기기도 해야함
+			
 			SkillIcon::IconCopy->Death();
 			SkillIcon::FunctionCopy = nullptr;
 			SkillIcon::IconCopy = nullptr;
