@@ -126,7 +126,7 @@ void Player::ShadowPartner()
 		else if (MyBuffList->IsBuffOn("ShadowPartner") == true)
 		{
 			std::shared_ptr<SkillActor> ShadowPartner = GetLevel()->CreateActor<SkillActor>(RenderOrder::Skill);
-			ShadowPartner->SetSkillActor("ShadowPartner");
+			ShadowPartner->SetSkillActor("ShadowPartner", false);
 
 			MyBuffList->Rebuff("ShadowPartner");
 		}

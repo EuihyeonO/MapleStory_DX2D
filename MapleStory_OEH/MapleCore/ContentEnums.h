@@ -20,7 +20,7 @@ enum class WeaponType
 
 enum class RenderOrder
 {
-	BasicMap = 100,
+	BasicMap,
 	NPC,
 	Player,
 	Weapon,
@@ -41,7 +41,8 @@ enum class CollisionOrder
 	UI,
 	Mouse,
 	RopeAndLadder,
-
+	SkillMoveIcon,
+	QuickSlotSkill,
 };
 
 enum class MonsterName

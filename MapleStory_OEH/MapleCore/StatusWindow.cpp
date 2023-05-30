@@ -30,7 +30,7 @@ void StatusWindow::Start()
 	MainWindowClickBar->GetTransform()->SetLocalPosition({ Data.LocalPosition.x , Data.LocalScale.hy() - 22.0f });
 	MainWindowClickBar->SetOrder(static_cast<int>(CollisionOrder::UI));
 
-	MainWindow->GetTransform()->SetLocalPosition(float4{ -100, 0 });
+	MainWindow->GetTransform()->SetLocalPosition(float4{ -100, 0});
 	SubWindow->GetTransform()->SetLocalPosition(float4{ 75, -67 });
 
 	MainWindowClickBar->GetTransform()->SetLocalPosition({ Data.LocalPosition.x, Data.LocalPosition.y + Data.LocalScale.hy() - 22.0f });
@@ -39,7 +39,6 @@ void StatusWindow::Start()
 void StatusWindow::Update(float _DeltaTime)
 {
 	AllWindowUpdate();
-
 }
 
 void StatusWindow::Render(float _DeltaTime)

@@ -58,7 +58,7 @@ void BeginnersTown1::Start()
 
 	RopeCol = CreateComponent<GameEngineCollision>();
 	RopeCol->GetTransform()->SetLocalScale({ 25, 200 });
-	RopeCol->GetTransform()->SetLocalPosition({ 482, 35 });
+	RopeCol->GetTransform()->SetLocalPosition({ 482, 60 });
 	RopeCol->SetOrder(static_cast<int>(CollisionOrder::RopeAndLadder));
 
 	std::shared_ptr<Hina> npc = GetLevel()->CreateActor<Hina>(static_cast<int>(RenderOrder::NPC));

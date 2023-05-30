@@ -17,7 +17,7 @@ SkillWindow::~SkillWindow()
 
 void SkillWindow::Start()
 {
-	GetTransform()->SetLocalPosition({ 0, 0, -500 });
+	GetTransform()->SetLocalPosition({ 0, 0, 0 });
 
 	SkillWindowRender = CreateComponent<GameEngineUIRenderer>();
 	SkillWindowRender->SetScaleToTexture("SkillWindow0.png");
@@ -62,9 +62,16 @@ void SkillWindow::ChangeWindowIndex()
 
 		if (Collision != nullptr)
 		{
+			if (Index == 0)
+			{
+				return;
+			}
+
+			SkillWindowRender->SetTexture("SkillWindow0.png");
 			MySkillList->IndexSkillOff(Index);
 			Index = 0;
 			MySkillList->IndexSkillOn(Index);
+			MySkillList->SortSkillList(Index, SkillWindowRender->GetTransform()->GetWorldPosition() + float4{0, 29});
 			return;
 		}
 
@@ -72,9 +79,16 @@ void SkillWindow::ChangeWindowIndex()
 
 		if (Collision != nullptr)
 		{
+			if (Index == 1)
+			{
+				return;
+			}
+
+			SkillWindowRender->SetTexture("SkillWindow1.png");
 			MySkillList->IndexSkillOff(Index);
 			Index = 1;
 			MySkillList->IndexSkillOn(Index);
+			MySkillList->SortSkillList(Index, SkillWindowRender->GetTransform()->GetWorldPosition() + float4{ 0, 29 });
 			return;
 		}
 
@@ -82,9 +96,16 @@ void SkillWindow::ChangeWindowIndex()
 
 		if (Collision != nullptr)
 		{
+			if (Index == 2)
+			{
+				return;
+			}
+
+			SkillWindowRender->SetTexture("SkillWindow2.png");
 			MySkillList->IndexSkillOff(Index);
 			Index = 2;
 			MySkillList->IndexSkillOn(Index);
+			MySkillList->SortSkillList(Index, SkillWindowRender->GetTransform()->GetWorldPosition() + float4{ 0, 29 });
 			return;
 		}
 
@@ -92,9 +113,16 @@ void SkillWindow::ChangeWindowIndex()
 
 		if (Collision != nullptr)
 		{
+			if (Index == 3)
+			{
+				return;
+			}
+
+			SkillWindowRender->SetTexture("SkillWindow3.png");
 			MySkillList->IndexSkillOff(Index);
 			Index = 3;
 			MySkillList->IndexSkillOn(Index);
+			MySkillList->SortSkillList(Index, SkillWindowRender->GetTransform()->GetWorldPosition() + float4{ 0, 29 });
 			return;
 		}
 
@@ -102,10 +130,16 @@ void SkillWindow::ChangeWindowIndex()
 
 		if (Collision != nullptr)
 		{
+			if (Index == 4)
+			{
+				return;
+			}
+
 			SkillWindowRender->SetTexture("SkillWindow4.png");
 			MySkillList->IndexSkillOff(Index);
 			Index = 4;
 			MySkillList->IndexSkillOn(Index);
+			MySkillList->SortSkillList(Index, SkillWindowRender->GetTransform()->GetWorldPosition() + float4{ 0, 29 });
 
 			return;
 		}

@@ -94,6 +94,9 @@
     <ClInclude Include="UIWindowManager.h">
       <Filter>Actor\UI\Window</Filter>
     </ClInclude>
+    <ClInclude Include="QuickSlot.h">
+      <Filter>Actor\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Level_Title.cpp">
@@ -200,6 +203,9 @@
     </ClCompile>
     <ClCompile Include="UIWindowManager.cpp">
       <Filter>Actor\UI\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="QuickSlot.cpp">
+      <Filter>Actor\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

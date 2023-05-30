@@ -7,6 +7,7 @@
 #include "Mouse.h"
 #include "SkillWindow.h"
 #include "UIWindowManager.h"
+#include "QuickSlot.h"
 
 #include <GameEngineCore/GameEngineCamera.h>
 
@@ -26,6 +27,11 @@ void Level_BeginnersTown1::LevelChangeStart()
 	{
 		MyPlayer->SetCurPlayer(MyPlayer);
 	}
+
+	if (MyMouse != nullptr)
+	{
+		MyMouse->SetCurMouse(MyMouse);
+	}
 }
 
 void Level_BeginnersTown1::Start()
@@ -40,9 +46,11 @@ void Level_BeginnersTown1::Start()
 	MyPlayer->SetColMap(Map->GetColMapName());
 	MyPlayer->SetCurPlayer(MyPlayer);
 
+	CreateActor<QuickSlot>(static_cast<int>(RenderOrder::UI));
 	CreateActor<BottomBar>(static_cast<int>(RenderOrder::UI));
 	CreateActor<UIWindowManager>(static_cast<int>(RenderOrder::UI));
-	CreateActor<Mouse>(static_cast<int>(RenderOrder::Mouse));
+	MyMouse = CreateActor<Mouse>(static_cast<int>(RenderOrder::Mouse));
+	MyMouse->SetCurMouse(MyMouse);
 }
 
 void Level_BeginnersTown1::Update(float _DeltaTime)

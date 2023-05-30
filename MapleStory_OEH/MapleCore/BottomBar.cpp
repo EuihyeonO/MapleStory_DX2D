@@ -17,6 +17,7 @@ BottomBar::~BottomBar()
 
 void BottomBar::Start()
 {
+
 	BottomBarBackGround = CreateComponent<GameEngineUIRenderer>();
 	BottomBarBackGround->SetScaleToTexture("BottomBarBackGround.png");
 

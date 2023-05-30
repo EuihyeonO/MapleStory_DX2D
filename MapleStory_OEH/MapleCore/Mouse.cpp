@@ -7,11 +7,10 @@
 #include <gameengineCore/GameEngineCamera.h>
 #include <gameengineCore/GameEngineUIRenderer.h>
 
-Mouse* Mouse::CurMouse = nullptr;
+std::shared_ptr<Mouse> Mouse::CurMouse = nullptr;
 
 Mouse::Mouse()
 {
-	CurMouse = this;
 }
 
 Mouse::~Mouse()
@@ -20,6 +19,7 @@ Mouse::~Mouse()
 
 void Mouse::Start()
 {
+
 	Cursor = CreateComponent<GameEngineUIRenderer>();
 	Cursor->SetScaleToTexture("Cursor.png");
 
@@ -58,6 +58,6 @@ void Mouse::PosUpdate()
 	float4 MousePos = GameEngineWindow::GetMousePosition();
 
 	MousePos = { MousePos.x - WindowSize.hx(),  WindowSize.hy() - MousePos.y };
+	GetTransform()->SetLocalPosition(MousePos + float4{0, 0, 1});
 
-	GetTransform()->SetLocalPosition(MousePos + float4{0, 0, -101});
 }

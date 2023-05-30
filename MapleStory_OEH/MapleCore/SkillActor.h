@@ -23,7 +23,7 @@ protected:
 	void Render(float _DeltaTime) override;
 private:
 
-	void SetSkillActor(const std::string_view& _SkillName);
+	void SetSkillActor(const std::string_view& _SkillName, bool isRePlay = true);
 	void SetSkillAnimation();
 	void SetUpdateFunc();
 
@@ -41,6 +41,8 @@ private:
 	std::map <std::string, std::vector<float>> AniFrameList;
 
 	std::function<void(SkillActor&)> UpdateFunc =  nullptr;
+
+	bool isRePlay = false;
 
 	int AnimationIndex = 0;
 	int LastIndex = 0;

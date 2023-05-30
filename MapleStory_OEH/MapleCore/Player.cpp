@@ -36,6 +36,12 @@ void Player::Start()
 	BodyCollision = CreateComponent<GameEngineCollision>();
 	BodyCollision->GetTransform()->SetLocalScale({ 30, 50 });
 	BodyCollision->SetOrder(static_cast<int>(CollisionOrder::Player));
+	BodyCollision->GetTransform()->SetLocalPosition({ 0, 25 });
+
+	std::shared_ptr<GameEngineSpriteRenderer> Test = CreateComponent<GameEngineSpriteRenderer>();
+	Test->SetTexture("MouseTest.png");
+	Test->GetTransform()->SetLocalScale({30, 50});
+	Test->GetTransform()->SetLocalPosition({ 0, 25 });
 
 	Body = CreateComponent<GameEngineSpriteRenderer>();
 	Pants = CreateComponent<GameEngineSpriteRenderer>();
@@ -97,7 +103,7 @@ void Player::Update(float _DeltaTime)
 	TexturePosUpdate();
 
 	CameraUpdate();
-
+	
 	/*Test*/
 }
 
@@ -281,7 +287,11 @@ void Player::ActingUpdate(float _DeltaTime)
 		//{
 		//	ESkill(*this);
 		//}
-		JavelinBooster();
+		//JavelinBooster();
+		if (ShiftSkill != nullptr)
+		{
+			ShiftSkill(DynamicThis<Player>());
+		}
 		break;
 	case -1:
 		Idle();

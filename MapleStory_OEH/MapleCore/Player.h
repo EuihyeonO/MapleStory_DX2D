@@ -8,6 +8,7 @@ class Player : public BasicFunction
 {
 	friend BuffList;
 	friend class SkillActor;
+	friend class SkillList;
 public:
  
 	static std::shared_ptr<Player> GetCurPlayer()
@@ -56,6 +57,47 @@ public:
 	{
 		CurPlayer = _Player;
 	}
+	
+	void SetDelSkill(std::function<void(std::shared_ptr<Player>)> _Skill)
+	{
+		DelSkill = _Skill;
+	}
+
+	void SetInsSkill(std::function<void(std::shared_ptr<Player>)> _Skill)
+	{
+		InsertSkill = _Skill;
+	}
+
+	void SetPgDnSkill(std::function<void(std::shared_ptr<Player>)> _Skill)
+	{
+		PageDownSkill = _Skill;
+	}
+
+	void SetPgUpSkill(std::function<void(std::shared_ptr<Player>)> _Skill)
+	{
+		PageUpSkill = _Skill;
+	}
+
+	void SetShiftSkill(std::function<void(std::shared_ptr<Player>)> _Skill)
+	{
+		ShiftSkill = _Skill;
+	}
+
+	void SetHomeSkill(std::function<void(std::shared_ptr<Player>)> _Skill)
+	{
+		HomeSkill = _Skill;
+	}
+
+	void SetEndSkill(std::function<void(std::shared_ptr<Player>)> _Skill)
+	{
+		EndSkill = _Skill;
+	}
+
+	void SetCtrlSkill(std::function<void(std::shared_ptr<Player>)> _Skill)
+	{
+		CtrlSkill = _Skill;
+	}
+
 
 	void SetLeft();
 	void SetRight();
@@ -147,14 +189,14 @@ private:
 
 	std::shared_ptr<class GameEngineCollision> RangeCheck = nullptr;
 
-	//std::function<bool(Player&)> DelSkill = nullptr;
-	//std::function<bool(Player&)> InsertSkill = nullptr;
-	//std::function<bool(Player&)> PageDownSkill = nullptr;
-	//std::function<bool(Player&)> PageUpSkill = nullptr;
-	//std::function<bool(Player&)> ScrollSkill = nullptr;
-	//std::function<bool(Player&)> HomeSkill = nullptr;
-	//std::function<bool(Player&)> EndSkill = nullptr;
-	//std::function<bool(Player&)> ScreenSkill = nullptr;
+	std::function<void(std::shared_ptr<Player>)> DelSkill = nullptr;
+	std::function<void(std::shared_ptr<Player>)> InsertSkill = nullptr;
+	std::function<void(std::shared_ptr<Player>)> PageDownSkill = nullptr;
+	std::function<void(std::shared_ptr<Player>)> PageUpSkill = nullptr;
+	std::function<void(std::shared_ptr<Player>)> ShiftSkill = nullptr;
+	std::function<void(std::shared_ptr<Player>)> HomeSkill = nullptr;
+	std::function<void(std::shared_ptr<Player>)> EndSkill = nullptr;
+	std::function<void(std::shared_ptr<Player>)> CtrlSkill = nullptr;
 
 
 	//텍스쳐 관련 

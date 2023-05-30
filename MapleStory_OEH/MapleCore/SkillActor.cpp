@@ -33,9 +33,10 @@ void SkillActor::Render(float _DeltaTime)
 {
 }
 
-void SkillActor::SetSkillActor(const std::string_view& _SkillName)
+void SkillActor::SetSkillActor(const std::string_view& _SkillName, bool _isRePlay)
 {
 	SkillName = _SkillName.data();
+	isRePlay = _isRePlay;
 	
 	AnimationRender = CreateComponent<GameEngineSpriteRenderer>();	
 
@@ -400,6 +401,12 @@ void SkillActor::ShadowPartner()
 		AnimationIndex = 0;
 
 		CurPlayer->SetMovable(true);
+
+		if (isRePlay == false)
+		{
+			Death();
+			return;
+		}
 
 		UpdateFunc = [this](SkillActor&)
 		{
