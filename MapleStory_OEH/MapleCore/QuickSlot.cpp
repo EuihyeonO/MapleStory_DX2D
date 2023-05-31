@@ -26,6 +26,10 @@ void QuickSlot::Start()
 	QuickSlotRender->GetTransform()->SetLocalPosition(float4{ ScreenSize.hx(), -ScreenSize.hy() } - float4{ QuickSlotScale.hx(), -QuickSlotScale.hy() });
 	QuickSlotRender->GetTransform()->AddLocalPosition({ 0, 66 });
 
+	QuickSlotLayer = CreateComponent<GameEngineUIRenderer>();
+	QuickSlotLayer->SetScaleToTexture("QuickSlotLayer.png");
+
+	QuickSlotLayer->GetTransform()->SetLocalPosition(QuickSlotRender->GetTransform()->GetLocalPosition() + float4{0, 0, -1});
 
 	ShiftSlot = CreateComponent<GameEngineCollision>();
 	ShiftSlot->SetOrder(static_cast<int>(CollisionOrder::QuickSlotSkill));
