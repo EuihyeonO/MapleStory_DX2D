@@ -17,7 +17,7 @@ SkillWindow::~SkillWindow()
 
 void SkillWindow::Start()
 {
-	GetTransform()->SetLocalPosition({0, 0, 0});
+	GetTransform()->SetLocalPosition({200, 100, 0});
 	
 	SkillWindowRender = CreateComponent<GameEngineUIRenderer>();
 	SkillWindowRender->SetScaleToTexture("SkillWindow0.png");

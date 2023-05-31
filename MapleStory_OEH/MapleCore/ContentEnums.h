@@ -56,3 +56,12 @@ enum class MonsterName
 
 };
 
+
+enum class ItemType
+{
+	Equip,
+	Use,
+	Etc,
+	Setup,
+	Cash,
+};

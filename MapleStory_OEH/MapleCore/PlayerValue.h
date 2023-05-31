@@ -299,7 +299,7 @@ public: //local
 		PrevLevelName = _LevelName;
 	}
 
-	const std::string_view& GetPrevLevelName()
+	const std::string_view GetPrevLevelName()
 	{
 		return PrevLevelName;
 	}

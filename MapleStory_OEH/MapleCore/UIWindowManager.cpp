@@ -2,6 +2,7 @@
 #include "UIWindowManager.h"
 #include "StatusWindow.h"
 #include "SkillWindow.h"
+#include "InventoryWindow.h"
 
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineLevel.h>
@@ -34,6 +35,7 @@ void UIWindowManager::CreateUIKey()
 	{
 		GameEngineInput::CreateKey("StatWindowOpen", 'S');
 		GameEngineInput::CreateKey("SkillWindowOpen", 'K');
+		GameEngineInput::CreateKey("InventoryWindowOpen", 'I');
 	}
 }
 
@@ -66,4 +68,16 @@ void UIWindowManager::UIOnOff()
 		}
 	}
 
+	else if (GameEngineInput::IsDown("InventoryWindowOpen") == true)
+	{
+		if (MyInventoryWindow == nullptr)
+		{
+			MyInventoryWindow = GetLevel()->CreateActor<InventoryWindow>();
+		}
+		else
+		{
+			MyInventoryWindow->Death();
+			MyInventoryWindow = nullptr;
+		}
+	}
 }

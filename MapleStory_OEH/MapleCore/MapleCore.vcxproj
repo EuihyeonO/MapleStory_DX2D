@@ -212,6 +212,18 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="InventoryWindow.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ItemList.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Level_BeginnersTown1.h">
       <SubType>
       </SubType>
@@ -341,6 +353,18 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Hina.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="InventoryWindow.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ItemList.cpp">
       <SubType>
       </SubType>
     </ClCompile>
