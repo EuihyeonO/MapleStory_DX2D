@@ -25,5 +25,6 @@ private:
 	std::shared_ptr<class Player> MyPlayer = nullptr;
 	std::shared_ptr<class BeginnersTown1> Map = nullptr;
 	std::shared_ptr<class Mouse> MyMouse = nullptr;
+	std::shared_ptr<class UIWindowManager> MyUIWindowManager = nullptr;
 };
 

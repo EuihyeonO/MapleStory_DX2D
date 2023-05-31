@@ -17,6 +17,7 @@ void Item::Start()
 
 void Item::Update(float _DeltaTime) 
 {
+
 }
 
 void Item::Render(float _DeltaTime) 
@@ -29,4 +30,5 @@ void Item::SetItemInfo(const std::string_view& _ItemName, int _ItemType)
 	ItemType = static_cast<int>(_ItemType);
 
 	ItemRender->SetScaleToTexture(ItemName + "Icon.png");
+	ItemRender->Off();
 }

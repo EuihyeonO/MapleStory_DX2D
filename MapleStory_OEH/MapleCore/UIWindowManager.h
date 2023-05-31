@@ -15,6 +15,8 @@ public:
 	UIWindowManager& operator=(const UIWindowManager& _Other) = delete;
 	UIWindowManager& operator=(UIWindowManager&& _Other) noexcept = delete;
 
+	void AllWindowDeath();
+
 protected:
 	void Start();
 	void Update(float _DeltaTime) override;

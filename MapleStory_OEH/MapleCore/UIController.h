@@ -28,6 +28,21 @@ public:
 		QuickSlotList.push_back(_QuickSlot);
 	}
 
+	void SetItemList(const std::string_view& _ItemName, int _ItemType)
+	{
+		ItemList[_ItemType].push_back(_ItemName.data());
+	}
+
+	std::map<int, std::vector<std::string>>& GetItemList()
+	{
+		return ItemList;
+	}
+
+	void AddToItemList(const std::string_view& _ItemName, int _ItemType)
+	{
+		ItemList[_ItemType].push_back(_ItemName.data());
+	}
+
 	void SetShiftSkill(const std::string_view& _TexName, std::function<void(std::shared_ptr<class Player>)> _SkillFunc)
 	{
 		ShiftSkillTexName = _TexName.data();
@@ -126,6 +141,7 @@ public:
 	}
 
 	void SetSkillAllQuickSlot();
+
 protected:
 
 private:
@@ -134,9 +150,9 @@ private:
 
 	static UIController Value;
 
+	//QuickSlot
 	std::vector<std::shared_ptr<class QuickSlot>> QuickSlotList;
 
-	//QuickSlot
 	std::string ShiftSkillTexName = "";
 	std::string InsSkillTexName = "";
 	std::string HomeSkillTexName = "";
@@ -154,5 +170,9 @@ private:
 	std::function<void(std::shared_ptr<class Player>)> DelSkill = nullptr;
 	std::function<void(std::shared_ptr<class Player>)> EndSkill = nullptr;
 	std::function<void(std::shared_ptr<class Player>)> PgDNSkill = nullptr;
+
+	//ItemWindow
+	std::map<int, std::vector<std::string>> ItemList;
+
 };
 

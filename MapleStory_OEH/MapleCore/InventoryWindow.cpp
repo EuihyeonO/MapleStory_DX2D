@@ -18,8 +18,6 @@ InventoryWindow::~InventoryWindow()
 
 void InventoryWindow::Start()
 {
-	GetTransform()->SetLocalPosition({ 200, 50 , 0 });
-
 	InventoryRender = CreateComponent<GameEngineUIRenderer>();
 	InventoryRender->SetScaleToTexture("EquipInventory.png");
 
@@ -44,17 +42,22 @@ void InventoryWindow::Start()
 	Cash->GetTransform()->SetLocalScale({ 31, 18 });
 
 	Inventory = GetLevel()->CreateActor<ItemList>();
-	Inventory->CreateItem("WhiteTshirt", static_cast<int>(ItemType::Equip));
-
 	Inventory->GetTransform()->SetParent(GetTransform());
 	
+	GetTransform()->SetLocalPosition({ 200, 50 , 0 });
+	
+	Inventory->LoadItem();
+
 	Inventory->SortItemListToType(static_cast<int>(ItemType::Equip));
-	SetInventoryType("EQUIP");
+
+	SetInventoryType(static_cast<int>(ItemType::Equip));
+	Inventory->ChangeRenderItem(static_cast<int>(ItemType::Equip), static_cast<int>(ItemType::Equip));
 }
 
 void InventoryWindow::Update(float _DeltaTime)
 {
 	ChangeInventory();
+	ItemUpdate();
 }
 
 void InventoryWindow::Render(float _DeltaTime)
@@ -69,65 +72,81 @@ void InventoryWindow::ChangeInventory()
 
 		if (Collision != nullptr)
 		{
-			if (InventoryType == "EQUIP")
+			if (InventoryType == static_cast<int>(ItemType::Equip))
 			{
 				return;
 			}
 
+			Inventory->ChangeRenderItem(InventoryType, static_cast<int>(ItemType::Equip));
 			InventoryRender->SetScaleToTexture("EquipInventory.png");
-			InventoryType = "EQUIP";
+			InventoryType = static_cast<int>(ItemType::Equip);
 		}
 
 		Collision = Use->Collision(static_cast<int>(CollisionOrder::Mouse), ColType::AABBBOX2D, ColType::AABBBOX2D);
 
 		if (Collision != nullptr)
 		{
-			if (InventoryType == "USE")
+			if (InventoryType == static_cast<int>(ItemType::Use))
 			{
 				return;
 			}
 
+			Inventory->ChangeRenderItem(InventoryType, static_cast<int>(ItemType::Use));
 			InventoryRender->SetScaleToTexture("UseInventory.png");
-			InventoryType = "USE";
+			InventoryType = static_cast<int>(ItemType::Use);
 		}
 
 		Collision = Etc->Collision(static_cast<int>(CollisionOrder::Mouse), ColType::AABBBOX2D, ColType::AABBBOX2D);
 
 		if (Collision != nullptr)
 		{
-			if (InventoryType == "ETC")
+			if (InventoryType == static_cast<int>(ItemType::Etc))
 			{
 				return;
 			}
 
+			Inventory->ChangeRenderItem(InventoryType, static_cast<int>(ItemType::Etc));
 			InventoryRender->SetScaleToTexture("EtcInventory.png");
-			InventoryType = "ETC";
+			InventoryType = static_cast<int>(ItemType::Etc);
 		}
 
 		Collision = Setup->Collision(static_cast<int>(CollisionOrder::Mouse), ColType::AABBBOX2D, ColType::AABBBOX2D);
 
 		if (Collision != nullptr)
 		{
-			if (InventoryType == "SETUP")
+			if (InventoryType == static_cast<int>(ItemType::Setup))
 			{
 				return;
 			}
 
+			Inventory->ChangeRenderItem(InventoryType, static_cast<int>(ItemType::Setup));
 			InventoryRender->SetScaleToTexture("SetupInventory.png");
-			InventoryType = "SETUP";
+			InventoryType = static_cast<int>(ItemType::Setup);
 		}
 
 		Collision = Cash->Collision(static_cast<int>(CollisionOrder::Mouse), ColType::AABBBOX2D, ColType::AABBBOX2D);
 
 		if (Collision != nullptr)
 		{
-			if (InventoryType == "CASH")
+			if (InventoryType == static_cast<int>(ItemType::Cash))
 			{
 				return;
 			}
 
+			Inventory->ChangeRenderItem(InventoryType, static_cast<int>(ItemType::Cash));
 			InventoryRender->SetScaleToTexture("CashInventory.png");
-			InventoryType = "CASH";
+			InventoryType = static_cast<int>(ItemType::Cash);
 		}
 	}
+}
+
+void InventoryWindow::ItemUpdate()
+{
+	Inventory->InventoryItemOn(InventoryType);
+	Inventory->SortItemListToType(InventoryType);
+}
+
+void InventoryWindow::ClearInventory()
+{
+	Inventory->ClearItem();
 }

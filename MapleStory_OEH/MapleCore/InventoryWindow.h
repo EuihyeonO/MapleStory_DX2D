@@ -14,12 +14,15 @@ public:
 	InventoryWindow& operator=(const InventoryWindow& _Other) = delete;
 	InventoryWindow& operator=(InventoryWindow&& _Other) noexcept = delete;
 
-	void SetInventoryType(const std::string_view& _InvenType)
+	void SetInventoryType(int _InvenType)
 	{
 		InventoryType = _InvenType;
 	}
 
+	void ItemUpdate();
+
 	void ChangeInventory();
+	void ClearInventory();
 
 protected:
 	void Start();
@@ -36,6 +39,6 @@ private:
 	std::shared_ptr<GameEngineCollision> Etc = nullptr;
 	std::shared_ptr<GameEngineCollision> Cash = nullptr;
 
-	std::string InventoryType = "";
+	int InventoryType = 0;
 };
 

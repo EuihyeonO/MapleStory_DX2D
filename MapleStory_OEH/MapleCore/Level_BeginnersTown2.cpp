@@ -53,7 +53,7 @@ void Level_BeginnersTown2::Start()
 
 	CreateActor<QuickSlot>(static_cast<int>(RenderOrder::UI));
 	CreateActor<BottomBar>(static_cast<int>(RenderOrder::UI));
-	CreateActor<UIWindowManager>(static_cast<int>(RenderOrder::UI));
+	MyUIWindowManager = CreateActor<UIWindowManager>(static_cast<int>(RenderOrder::UI));
 	MyMouse = CreateActor<Mouse>(static_cast<int>(RenderOrder::Mouse));
 	MyMouse->SetCurMouse(MyMouse);
 }
@@ -63,6 +63,11 @@ void Level_BeginnersTown2::LevelChangeEnd()
 	if (MyMouse != nullptr)
 	{
 		PlayerValue::GetValue()->SetPrevLevelName("Level_BeginnersTown2");
+	}
+
+	if (MyUIWindowManager != nullptr)
+	{
+		MyUIWindowManager->AllWindowDeath();
 	}
 }
 void Level_BeginnersTown2::Update(float _DeltaTime)

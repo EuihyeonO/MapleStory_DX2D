@@ -16,6 +16,10 @@ public:
 	Item& operator=(const Item& _Other) = delete;
 	Item& operator=(Item&& _Other) noexcept = delete;
 
+	std::shared_ptr<GameEngineUIRenderer> GetItemRender()
+	{
+		return ItemRender;
+	}
 	void SetItemInfo(const std::string_view& _ItemName, int _ItemType);
 
 protected:

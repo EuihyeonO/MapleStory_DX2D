@@ -48,6 +48,11 @@ void Level_BeginnersTown1::LevelChangeEnd()
 	{
 		PlayerValue::GetValue()->SetPrevLevelName("Level_BeginnersTown1");
 	}
+
+	if (MyUIWindowManager != nullptr)
+	{
+		MyUIWindowManager->AllWindowDeath();
+	}
 }
 
 void Level_BeginnersTown1::Start()
@@ -66,7 +71,7 @@ void Level_BeginnersTown1::Start()
 
 	CreateActor<QuickSlot>();
 	CreateActor<BottomBar>();
-	CreateActor<UIWindowManager>();
+	MyUIWindowManager = CreateActor<UIWindowManager>();
 	MyMouse = CreateActor<Mouse>();
 	MyMouse->SetCurMouse(MyMouse);
 }

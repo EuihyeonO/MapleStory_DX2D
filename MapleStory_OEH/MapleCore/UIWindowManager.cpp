@@ -76,8 +76,32 @@ void UIWindowManager::UIOnOff()
 		}
 		else
 		{
+			MyInventoryWindow->ClearInventory();
 			MyInventoryWindow->Death();
 			MyInventoryWindow = nullptr;
 		}
+	}
+}
+
+void UIWindowManager::AllWindowDeath()
+{
+	if(MyStatusWindow != nullptr)
+	{
+		MyStatusWindow->Death();
+		MyStatusWindow = nullptr;
+	}
+
+	if (MySKillWindow != nullptr)
+	{
+		MySKillWindow->SkillListDeath();
+		MySKillWindow->Death();
+		MySKillWindow = nullptr;
+	}
+
+	if(MyInventoryWindow != nullptr)
+	{
+		MyInventoryWindow->ClearInventory();
+		MyInventoryWindow->Death();
+		MyInventoryWindow = nullptr;
 	}
 }
