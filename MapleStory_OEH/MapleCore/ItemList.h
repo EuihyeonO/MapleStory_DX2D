@@ -7,6 +7,7 @@ class GameEngineUIRenderer;
 class ItemList : public GameEngineActor
 {
 	friend class InventoryWindow;
+
 public:
 
 	ItemList();
@@ -22,13 +23,19 @@ public:
 	void SortItemListToType(int _ItemType);
 	void SortItemList();
 
-	void LoadItem();
+	void LoadAllItem();
+	void LoadItem(const std::string_view& _ItemName, int _ItemType);
 
 	void ClearItem();
 	
+	void EquipItem(std::shared_ptr<class Item> _Item);
+	void DeleteItem(std::shared_ptr<class Item> _Item);
+
 	void ChangeRenderItem(int _CurItemType, int _NextItemType);
 	void InventoryItemOn(int _CurItemType);
 	void InventoryItemOff(int _CurItemType);
+
+	int GetRealSizeOfItemList(int _ItemType);
 protected:
 	void Start();
 	void Update(float _DeltaTime) override;
@@ -39,6 +46,7 @@ private:
 	float Xinterval = 36.0f;
 	float Yinterval = -34.0f;
 
+	std::shared_ptr<Item> _item;
 	std::map<int, std::list<std::shared_ptr<class Item>>> MyItemList;
 };
 

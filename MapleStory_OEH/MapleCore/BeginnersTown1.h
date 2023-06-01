@@ -44,6 +44,5 @@ private:
 	std::shared_ptr<GameEngineSpriteRenderer> LandScape2 = nullptr;
 
 	std::shared_ptr<class ContentRenderer> Cloud = nullptr;
-
 };
 

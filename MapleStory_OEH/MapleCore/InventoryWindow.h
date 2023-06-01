@@ -18,8 +18,13 @@ public:
 	{
 		InventoryType = _InvenType;
 	}
+	
+	std::shared_ptr<class ItemList> GetInventory()
+	{
+		return Inventory;
+	}
 
-	void ItemUpdate();
+	void InventoryUpdate();
 
 	void ChangeInventory();
 	void ClearInventory();

@@ -1,6 +1,7 @@
 #pragma once
 #include "QuickSlot.h"
 #include "PlayerValue.h"
+#include "ItemList.h"
 
 #include <vector>
 #include <memory>
@@ -28,19 +29,80 @@ public:
 		QuickSlotList.push_back(_QuickSlot);
 	}
 
-	void SetItemList(const std::string_view& _ItemName, int _ItemType)
+	std::map<int, std::list<std::string>>& GetItemList()
 	{
-		ItemList[_ItemType].push_back(_ItemName.data());
+		return MyItemList;
 	}
 
-	std::map<int, std::vector<std::string>>& GetItemList()
+	void SetCurItemList(std::shared_ptr<ItemList> _ItemList)
 	{
-		return ItemList;
+		CurItemList = _ItemList;
 	}
 
 	void AddToItemList(const std::string_view& _ItemName, int _ItemType)
 	{
-		ItemList[_ItemType].push_back(_ItemName.data());
+
+		std::list<std::string>::iterator Start = MyItemList[_ItemType].begin();
+		std::list<std::string>::iterator End = MyItemList[_ItemType].end();
+
+		for (; Start != End; Start++)
+		{
+			if (*Start == "EMPTY")
+			{
+				*Start = _ItemName.data();
+
+				if (CurItemList != nullptr)
+				{
+					CurItemList->CreateItem(_ItemName, _ItemType);
+				}
+
+				return;
+			}
+		}
+
+		MyItemList[_ItemType].push_back(_ItemName.data());
+
+		if (CurItemList != nullptr)
+		{
+			CurItemList->CreateItem(_ItemName, _ItemType);
+		}
+	}
+
+	void DeleteToItemList(int ItemIndex, int _ItemType)
+	{
+		int IndexCount = 0;
+
+		std::list<std::string>::iterator Start = MyItemList[_ItemType].begin();
+		std::list<std::string>::iterator End = MyItemList[_ItemType].end();
+
+		for (; Start != End; )
+		{
+
+			if (IndexCount == ItemIndex && IndexCount != MyItemList[_ItemType].size() - 1)
+			{
+				*Start = "EMPTY";
+				return;
+			}
+			else if (IndexCount == ItemIndex && IndexCount == MyItemList[_ItemType].size() - 1)
+			{
+				Start = MyItemList[_ItemType].erase(Start);
+				return;
+			}
+
+			IndexCount++;
+			Start++;
+		}
+	}
+
+	void AddToEquipItemList(const std::string_view& _EquipItemName, int _EquipType)
+	{
+		EquipItemList[_EquipType] = _EquipItemName;
+	}
+
+
+	const std::string_view& GetEquipItem(int _EquipType)
+	{
+		return EquipItemList[_EquipType];
 	}
 
 	void SetShiftSkill(const std::string_view& _TexName, std::function<void(std::shared_ptr<class Player>)> _SkillFunc)
@@ -141,7 +203,6 @@ public:
 	}
 
 	void SetSkillAllQuickSlot();
-
 protected:
 
 private:
@@ -172,7 +233,10 @@ private:
 	std::function<void(std::shared_ptr<class Player>)> PgDNSkill = nullptr;
 
 	//ItemWindow
-	std::map<int, std::vector<std::string>> ItemList;
+	std::map<int, std::list<std::string>> MyItemList;
 
+	std::shared_ptr<class ItemList> CurItemList = nullptr;
+	//EquipWindow
+	std::map <int, std::string> EquipItemList;
 };
 

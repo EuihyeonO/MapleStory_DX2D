@@ -203,7 +203,6 @@ void SkillList::SkillCopy()
 
 		else
 		{
-
 			Col->GetActor()->DynamicThis<QuickSlot>()->GetSlotFunc(Col)(*UIController::GetUIController(), SkillIcon::IconCopy->GetTexName(), SkillIcon::FunctionCopy);
 			
 			SkillIcon::IconCopy->Death();

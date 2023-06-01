@@ -204,6 +204,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="EquipItemList.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="EquipWindow.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="GreenSnail.h">
       <SubType>
       </SubType>
@@ -345,6 +353,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="ContentRenderer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="EquipItemList.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="EquipWindow.cpp">
       <SubType>
       </SubType>
     </ClCompile>

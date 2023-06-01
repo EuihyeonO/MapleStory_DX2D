@@ -37,11 +37,13 @@ void Level_BeginnersTown2::LevelChangeStart()
 		MyPlayer->SetMoveType("Jump");
 		MyPlayer->GetTransform()->SetLocalPosition({ -460, 45 });
 	}
+
 }
 
 void Level_BeginnersTown2::Start()
 {
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
+	GetCamera(100)->SetSortType(0, SortType::ZSort);
 
 	Map = CreateActor<BeginnersTown2>(static_cast<int>(RenderOrder::BasicMap));
 	
@@ -51,10 +53,10 @@ void Level_BeginnersTown2::Start()
 	MyPlayer->SetColMap(Map->GetColMapName());
 	MyPlayer->SetCurPlayer(MyPlayer);
 
-	CreateActor<QuickSlot>(static_cast<int>(RenderOrder::UI));
-	CreateActor<BottomBar>(static_cast<int>(RenderOrder::UI));
-	MyUIWindowManager = CreateActor<UIWindowManager>(static_cast<int>(RenderOrder::UI));
-	MyMouse = CreateActor<Mouse>(static_cast<int>(RenderOrder::Mouse));
+	CreateActor<QuickSlot>();
+	CreateActor<BottomBar>();
+	MyUIWindowManager = CreateActor<UIWindowManager>();
+	MyMouse = CreateActor<Mouse>();
 	MyMouse->SetCurMouse(MyMouse);
 }
 

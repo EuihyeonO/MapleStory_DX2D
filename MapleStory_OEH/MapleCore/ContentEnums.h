@@ -56,7 +56,6 @@ enum class MonsterName
 
 };
 
-
 enum class ItemType
 {
 	Equip,
@@ -64,4 +63,13 @@ enum class ItemType
 	Etc,
 	Setup,
 	Cash,
+};
+
+enum class EquipType
+{
+	Coat,
+	Pants,
+	Shoes,
+	Weapon,
+	Cap,
 };

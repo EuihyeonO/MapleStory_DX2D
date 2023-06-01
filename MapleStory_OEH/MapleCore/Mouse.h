@@ -1,8 +1,8 @@
 #pragma once
-#include <GameEngineCore/GameEngineActor.h>
+#include "BasicFunction.h"
 
 class GameEngineSpriteRenderer;
-class Mouse : public GameEngineActor
+class Mouse : public BasicFunction
 {
 
 public:
@@ -30,6 +30,17 @@ public:
 		CurMouse = _Mouse;
 	}
 
+	bool IsClick()
+	{
+		return isClick;
+	}
+
+	bool IsDoubleClick()
+	{
+		return isDoubleClick;
+	}
+
+	void ClickUpdate();
 
 protected:
 	void Start();
@@ -44,5 +55,11 @@ private:
 	std::shared_ptr<class GameEngineCollision> CursorCollision;
 
 	std::shared_ptr<class GameEngineUIRenderer> Test;
+
+	bool isClick = false;
+	bool isDoubleClick = false;
+	
+	float ClickCount = 0.0f;
+	float DoubleClickCount = 0.0f;
 };
 

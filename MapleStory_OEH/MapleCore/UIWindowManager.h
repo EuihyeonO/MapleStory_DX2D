@@ -29,6 +29,7 @@ private:
 	std::shared_ptr<class StatusWindow> MyStatusWindow = nullptr;
 	std::shared_ptr<class SkillWindow> MySKillWindow = nullptr;
 	std::shared_ptr<class InventoryWindow> MyInventoryWindow = nullptr;
+	std::shared_ptr<class EquipWindow> MyEquipWindow = nullptr;
 
 };
 

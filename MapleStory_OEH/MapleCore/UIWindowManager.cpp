@@ -2,10 +2,14 @@
 #include "UIWindowManager.h"
 #include "StatusWindow.h"
 #include "SkillWindow.h"
+#include "EquipWindow.h"
 #include "InventoryWindow.h"
+#include "UIController.h"
 
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineLevel.h>
+
+extern int a;
 
 UIWindowManager::UIWindowManager()
 {
@@ -36,6 +40,7 @@ void UIWindowManager::CreateUIKey()
 		GameEngineInput::CreateKey("StatWindowOpen", 'S');
 		GameEngineInput::CreateKey("SkillWindowOpen", 'K');
 		GameEngineInput::CreateKey("InventoryWindowOpen", 'I');
+		GameEngineInput::CreateKey("EquipWindowOpen", 'E');
 	}
 }
 
@@ -73,12 +78,29 @@ void UIWindowManager::UIOnOff()
 		if (MyInventoryWindow == nullptr)
 		{
 			MyInventoryWindow = GetLevel()->CreateActor<InventoryWindow>();
+			UIController::GetUIController()->SetCurItemList(MyInventoryWindow->GetInventory());
 		}
 		else
 		{
 			MyInventoryWindow->ClearInventory();
+			MyInventoryWindow->GetInventory()->Death();
+
+			UIController::GetUIController()->SetCurItemList(nullptr);
 			MyInventoryWindow->Death();
 			MyInventoryWindow = nullptr;
+		}
+	}
+
+	else if (GameEngineInput::IsDown("EquipWindowOpen") == true)
+	{
+		if (MyEquipWindow == nullptr)
+		{
+			MyEquipWindow = GetLevel()->CreateActor<EquipWindow>();
+		}
+		else
+		{
+			MyEquipWindow->Death();
+			MyEquipWindow = nullptr;
 		}
 	}
 }
@@ -103,5 +125,11 @@ void UIWindowManager::AllWindowDeath()
 		MyInventoryWindow->ClearInventory();
 		MyInventoryWindow->Death();
 		MyInventoryWindow = nullptr;
+	}
+
+	if (MyEquipWindow != nullptr)
+	{
+		MyEquipWindow->Death();
+		MyEquipWindow = nullptr;
 	}
 }

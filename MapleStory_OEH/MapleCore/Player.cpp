@@ -4,6 +4,7 @@
 #include "ContentEnums.h"
 #include "Star.h"
 #include "BuffList.h"
+#include "UIController.h"
 
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
@@ -101,6 +102,16 @@ void Player::Update(float _DeltaTime)
 	CameraUpdate();
 	
 	/*Test*/
+
+	if (GameEngineInput::IsKey("TestKey") == false)
+	{
+		GameEngineInput::CreateKey("TestKey", 'B');
+	}
+
+	if(GameEngineInput::IsDown("TestKey") == true)
+	{
+		UIController::GetUIController()->AddToItemList("WhiteTshirt", static_cast<int>(ItemType::Equip));
+	}
 }
 
 void Player::Render(float _DeltaTime) 
@@ -399,13 +410,13 @@ void Player::CameraUpdate()
 		CameraPos.x = HalfWidth - 450;
 	}
 
-	if (CameraPos.y - 300 < -(HalfHeight - 185))
+	if (CameraPos.y - 300 < -(HalfHeight - 190))
 	{
-		CameraPos.y = -(HalfHeight - 185) + 300;
+		CameraPos.y = -(HalfHeight - 190) + 300;
 	}
-	else if (CameraPos.y + 300 > HalfHeight)
+	else if (CameraPos.y + 325 > HalfHeight)
 	{
-		CameraPos.y = HalfHeight - 300;
+		CameraPos.y = HalfHeight - 325;
 	}
 
 	GetLevel()->GetMainCamera()->GetTransform()->SetLocalPosition(CameraPos);

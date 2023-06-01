@@ -8,11 +8,12 @@ UIController::UIController()
 {
 	QuickSlotList.reserve(10);
 
-	ItemList[static_cast<int>(ItemType::Equip)].reserve(24);
-	ItemList[static_cast<int>(ItemType::Use)].reserve(24);
-	ItemList[static_cast<int>(ItemType::Etc)].reserve(24);
-	ItemList[static_cast<int>(ItemType::Setup)].reserve(24);
-	ItemList[static_cast<int>(ItemType::Cash)].reserve(24);
+	EquipItemList[(static_cast<int>(EquipType::Cap))] = "";
+	EquipItemList[(static_cast<int>(EquipType::Shoes))] = "";
+	EquipItemList[(static_cast<int>(EquipType::Weapon))] = "";
+	EquipItemList[(static_cast<int>(EquipType::Pants))] = "";
+	EquipItemList[(static_cast<int>(EquipType::Coat))] = "";
+
 }
 
 UIController::~UIController()

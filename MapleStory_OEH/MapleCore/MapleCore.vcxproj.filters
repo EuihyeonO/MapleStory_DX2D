@@ -109,6 +109,12 @@
     <ClInclude Include="ItemList.h">
       <Filter>Actor\UI\Window\InventoryWindow</Filter>
     </ClInclude>
+    <ClInclude Include="EquipWindow.h">
+      <Filter>Actor\UI\Window\EquipWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="EquipItemList.h">
+      <Filter>Actor\UI\Window\EquipWindow</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Level_Title.cpp">
@@ -231,6 +237,12 @@
     <ClCompile Include="ItemList.cpp">
       <Filter>Actor\UI\Window\InventoryWindow</Filter>
     </ClCompile>
+    <ClCompile Include="EquipWindow.cpp">
+      <Filter>Actor\UI\Window\EquipWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="EquipItemList.cpp">
+      <Filter>Actor\UI\Window\EquipWindow</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -298,6 +310,9 @@
     </Filter>
     <Filter Include="Actor\UI\Window\InventoryWindow">
       <UniqueIdentifier>{6065042f-7b49-428e-9191-478ca36a7759}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\UI\Window\EquipWindow">
+      <UniqueIdentifier>{25a68dd2-35e5-4e11-95ce-9ca842555db7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -24,7 +24,7 @@ void Mouse::Start()
 
 	CursorCollision = CreateComponent<GameEngineCollision>();
 	CursorCollision->SetOrder(static_cast<int>(CollisionOrder::Mouse));
-	CursorCollision->GetTransform()->SetLocalScale({ 6,6 });
+	CursorCollision->GetTransform()->SetLocalScale({ 4 , 4 });
 	CursorCollision->GetTransform()->SetLocalPosition({ -8, 10 });
 
 	TransformData Data = CursorCollision->GetTransform()->GetTransDataRef();
@@ -45,6 +45,7 @@ void Mouse::Start()
 void Mouse::Update(float _DeltaTime)
 {
 	PosUpdate();
+	ClickUpdate();
 }
 
 void Mouse::Render(float _DeltaTime)
@@ -58,4 +59,46 @@ void Mouse::PosUpdate()
 
 	MousePos = { MousePos.x - WindowSize.hx(),  WindowSize.hy() - MousePos.y,  -10};
 	GetTransform()->SetLocalPosition(MousePos);
+}
+
+void Mouse::ClickUpdate()
+{
+	TimeCounting();
+
+	if (isDoubleClick == true)
+	{
+		//더블클릭은 한 프레임에 대해서만 유효
+		isDoubleClick = false;
+	}
+
+	if (GameEngineInput::IsDown("LClick") == true)
+	{
+		if (isClick == true)
+		{
+			isDoubleClick = true;
+			isClick = false;
+
+			ClickCount = 0.0f;
+		}
+		else
+		{
+			isClick = true;
+			ClickCount = 0.0f;
+		}
+	}
+
+	if (isClick == true)
+	{
+		ClickCount += TimeCount;
+
+		if (ClickCount > 0.3f)
+		{
+			isClick = false;
+		}
+	}
+
+	if (isDoubleClick == true)
+	{
+		int a = 0;
+	}
 }

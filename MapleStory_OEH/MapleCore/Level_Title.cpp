@@ -124,3 +124,9 @@ void Level_Title::CameraMove(float _DeltaTime)
 		}
 	}
 }
+
+void Level_Title::LevelChangeEnd()
+{
+	//캐릭터 데스해버리기
+	//PlayerList에서도 erase해야함
+}

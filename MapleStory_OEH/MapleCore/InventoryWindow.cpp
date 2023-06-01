@@ -46,7 +46,7 @@ void InventoryWindow::Start()
 	
 	GetTransform()->SetLocalPosition({ 200, 50 , 0 });
 	
-	Inventory->LoadItem();
+	Inventory->LoadAllItem();
 
 	Inventory->SortItemListToType(static_cast<int>(ItemType::Equip));
 
@@ -57,7 +57,7 @@ void InventoryWindow::Start()
 void InventoryWindow::Update(float _DeltaTime)
 {
 	ChangeInventory();
-	ItemUpdate();
+	InventoryUpdate();
 }
 
 void InventoryWindow::Render(float _DeltaTime)
@@ -140,7 +140,7 @@ void InventoryWindow::ChangeInventory()
 	}
 }
 
-void InventoryWindow::ItemUpdate()
+void InventoryWindow::InventoryUpdate()
 {
 	Inventory->InventoryItemOn(InventoryType);
 	Inventory->SortItemListToType(InventoryType);
