@@ -17,8 +17,14 @@ public:
 	EquipItemList& operator=(EquipItemList&& _Other) noexcept = delete;
 
 	void EquipItem(std::shared_ptr<class Item> _Item);
-	void LoadEquipItem();
+	
+	void LoadAllEquipItem();
+	void LoadEquipItem(int _ItemType);
 
+	void ClearEquipItem();
+
+	
+	void SortItem();
 protected:
 	void Start();
 	void Update(float _DeltaTime) override;

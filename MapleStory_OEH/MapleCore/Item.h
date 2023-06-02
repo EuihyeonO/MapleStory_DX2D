@@ -37,6 +37,9 @@ public:
 		ParentItemList = _ParentItemList;
 	}
 
+	void Clicked();
+	void EquipThis();
+
 protected:
 	void Start();
 	void Update(float _DeltaTime) override;
@@ -47,6 +50,7 @@ private:
 
 	bool isEmptyItem = false;
 	bool isClicked = false;
+	bool isEquip = false;
 
 	int ItemType = 0;
 	int EquipLevel = 0;

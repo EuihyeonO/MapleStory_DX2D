@@ -5,6 +5,7 @@
 #include "EquipWindow.h"
 #include "InventoryWindow.h"
 #include "UIController.h"
+#include "EquipItemList.h"
 
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineLevel.h>
@@ -96,9 +97,14 @@ void UIWindowManager::UIOnOff()
 		if (MyEquipWindow == nullptr)
 		{
 			MyEquipWindow = GetLevel()->CreateActor<EquipWindow>();
+			UIController::GetUIController()->SetCurEquipItemList(MyEquipWindow->GetEquipItemList());
 		}
 		else
 		{
+			MyEquipWindow->GetEquipItemList()->ClearEquipItem();
+			MyEquipWindow->GetEquipItemList()->Death();
+
+			UIController::GetUIController()->SetCurEquipItemList(nullptr);
 			MyEquipWindow->Death();
 			MyEquipWindow = nullptr;
 		}
@@ -123,12 +129,19 @@ void UIWindowManager::AllWindowDeath()
 	if(MyInventoryWindow != nullptr)
 	{
 		MyInventoryWindow->ClearInventory();
+		MyInventoryWindow->GetInventory()->Death();
+
+		UIController::GetUIController()->SetCurItemList(nullptr);
 		MyInventoryWindow->Death();
 		MyInventoryWindow = nullptr;
 	}
 
 	if (MyEquipWindow != nullptr)
 	{
+		MyEquipWindow->GetEquipItemList()->ClearEquipItem();
+		MyEquipWindow->GetEquipItemList()->Death();
+
+		UIController::GetUIController()->SetCurEquipItemList(nullptr);
 		MyEquipWindow->Death();
 		MyEquipWindow = nullptr;
 	}

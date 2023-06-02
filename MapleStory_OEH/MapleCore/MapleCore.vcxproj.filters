@@ -115,6 +115,12 @@
     <ClInclude Include="EquipItemList.h">
       <Filter>Actor\UI\Window\EquipWindow</Filter>
     </ClInclude>
+    <ClInclude Include="DropItem.h">
+      <Filter>Actor\UI\Window\InventoryWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalFunction.h">
+      <Filter>Global</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Level_Title.cpp">
@@ -242,6 +248,12 @@
     </ClCompile>
     <ClCompile Include="EquipItemList.cpp">
       <Filter>Actor\UI\Window\EquipWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="DropItem.cpp">
+      <Filter>Actor\UI\Window\InventoryWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="GlobalFunction.cpp">
+      <Filter>Global</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

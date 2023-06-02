@@ -40,7 +40,7 @@ void GreenSnail::Update(float _DeltaTime)
 	Spawn(_DeltaTime);
 
 	GravityUpdate(_DeltaTime);
-
+	SetDropItemList();
 	if(isSpawnAnimationEnd == true)
 	{
 		if(MoveType != "Hit" && MoveType != "Death")
@@ -145,6 +145,11 @@ void GreenSnail::SetAnimationList()
 	{
 		FrameList["Hit"].push_back(0.6f);
 	}
+}
 
+void GreenSnail::SetDropItemList()
+{
+	DropItemList.reserve(4);
 
+	DropItemList.push_back({ "GreenShell", 75 });
 }

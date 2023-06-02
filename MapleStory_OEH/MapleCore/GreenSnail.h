@@ -22,17 +22,19 @@ protected:
 	void Render(float _DeltaTime) override;
 
 	void Spawn(float _DeltaTime) override;
-	void MonsterDeath(){}
+	void MonsterDeath() override {}
 private:
 
 	void TextureUpdate();
 	void SetAnimationList();	
+	void SetDropItemList();
 
 	float RenderAlpha = 0.0f;
 
 	bool isSpawnAnimationEnd = false;
 
 	std::map<std::string, std::vector<float>> FrameList;
+	std::vector<std::pair<std::string, /*0이상 100이하의 정수*/int>> DropItemList;
 
 	std::shared_ptr<class ContentRenderer> BasicRender;
 	std::shared_ptr<class GameEngineCollision> BasicCollision;

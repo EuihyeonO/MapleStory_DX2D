@@ -289,8 +289,16 @@ void ItemList::EquipItem(std::shared_ptr<class Item> _Item)
 	std::string ItemName = GameEngineString::ToUpper(_Item->ItemName);
 	int ItemType = _Item->ItemType;
 
+	std::string CurEquipItemName = UIController::GetUIController()->GetEquipItem(ItemType).data();
+	
 	DeleteItem(_Item);
 
+	if (CurEquipItemName != "")
+	{
+		UIController::GetUIController()->AddToItemList(CurEquipItemName, ItemType);
+	}
+
+	UIController::GetUIController()->GetEquipItem(ItemType);
 	UIController::GetUIController()->AddToEquipItemList(ItemName, ItemType);
 }
 

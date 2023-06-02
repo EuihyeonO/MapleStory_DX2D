@@ -5,6 +5,7 @@
 #include "Star.h"
 #include "BuffList.h"
 #include "UIController.h"
+#include "DropItem.h"
 
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
@@ -103,15 +104,17 @@ void Player::Update(float _DeltaTime)
 	
 	/*Test*/
 
-	if (GameEngineInput::IsKey("TestKey") == false)
-	{
-		GameEngineInput::CreateKey("TestKey", 'B');
-	}
+	//if (GameEngineInput::IsKey("TestKey") == false)
+	//{
+	//	GameEngineInput::CreateKey("TestKey", 'B');
+	//}
 
-	if(GameEngineInput::IsDown("TestKey") == true)
-	{
-		UIController::GetUIController()->AddToItemList("WhiteTshirt", static_cast<int>(ItemType::Equip));
-	}
+	//if(GameEngineInput::IsDown("TestKey") == true)
+	//{
+	//	std::shared_ptr<DropItem> _Item1= GetLevel()->CreateActor<DropItem>();
+	//	_Item1->SetDropItemInfo("GreenShell");
+	//	_Item1->SetQuadraticFunction(-30.0f, { 88, 200 });
+	//}
 }
 
 void Player::Render(float _DeltaTime) 

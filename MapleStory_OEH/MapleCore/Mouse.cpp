@@ -57,7 +57,7 @@ void Mouse::PosUpdate()
 	float4 WindowSize = GameEngineWindow::GetScreenSize();
 	float4 MousePos = GameEngineWindow::GetMousePosition();
 
-	MousePos = { MousePos.x - WindowSize.hx(),  WindowSize.hy() - MousePos.y,  -10};
+	MousePos = { MousePos.x - WindowSize.hx(),  WindowSize.hy() - MousePos.y,  -1000.0f};
 	GetTransform()->SetLocalPosition(MousePos);
 }
 

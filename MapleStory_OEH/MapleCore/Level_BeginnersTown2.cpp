@@ -8,6 +8,7 @@
 #include "PlayerValue.h"
 #include "UIWindowManager.h"
 #include "QuickSlot.h"
+#include "GlobalFunction.h"
 
 #include <GameEngineCore/GameEngineCamera.h>
 
@@ -38,6 +39,13 @@ void Level_BeginnersTown2::LevelChangeStart()
 		MyPlayer->GetTransform()->SetLocalPosition({ -460, 45 });
 	}
 
+	if (Map != nullptr)
+	{
+		std::string ColMapName = Map->GetColMapName().data();
+		std::shared_ptr<GameEngineTexture> ColMap = GameEngineTexture::Find(ColMapName);
+
+		GlobalFunction::GetValue()->SetColMap(ColMap);
+	}
 }
 
 void Level_BeginnersTown2::Start()

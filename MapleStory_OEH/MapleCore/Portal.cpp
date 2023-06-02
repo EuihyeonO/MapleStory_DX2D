@@ -36,9 +36,6 @@ void Portal::Start()
 	
 	PortalCollision->GetTransform()->SetLocalPosition({ 0, -80 });
 	PortalCollision->GetTransform()->SetLocalScale({ 70, 80 });
-
-	GetTransform()->SetLocalPosition({ 0, 0, -100 });
-
 }
 
 void Portal::Update(float _DeltaTime)

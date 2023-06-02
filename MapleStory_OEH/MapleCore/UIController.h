@@ -2,6 +2,7 @@
 #include "QuickSlot.h"
 #include "PlayerValue.h"
 #include "ItemList.h"
+#include "EquipItemList.h"
 
 #include <vector>
 #include <memory>
@@ -37,6 +38,11 @@ public:
 	void SetCurItemList(std::shared_ptr<ItemList> _ItemList)
 	{
 		CurItemList = _ItemList;
+	}
+
+	void SetCurEquipItemList(std::shared_ptr<class EquipItemList> _EquipItemList)
+	{
+		CurEquipItemList = _EquipItemList;
 	}
 
 	void AddToItemList(const std::string_view& _ItemName, int _ItemType)
@@ -97,6 +103,11 @@ public:
 	void AddToEquipItemList(const std::string_view& _EquipItemName, int _EquipType)
 	{
 		EquipItemList[_EquipType] = _EquipItemName;
+
+		if (CurEquipItemList != nullptr)
+		{
+			CurEquipItemList->LoadEquipItem(_EquipType);
+		}
 	}
 
 
@@ -238,5 +249,7 @@ private:
 	std::shared_ptr<class ItemList> CurItemList = nullptr;
 	//EquipWindow
 	std::map <int, std::string> EquipItemList;
+
+	std::shared_ptr<class EquipItemList> CurEquipItemList = nullptr;
 };
 

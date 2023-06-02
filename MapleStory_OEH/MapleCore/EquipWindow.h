@@ -15,6 +15,11 @@ public:
 	EquipWindow& operator=(const EquipWindow& _Other) = delete;
 	EquipWindow& operator=(EquipWindow&& _Other) noexcept = delete;
 
+	std::shared_ptr<class EquipItemList> GetEquipItemList()
+	{
+		return MyEquipItemList;
+	}
+
 protected:
 	void Start();
 	void Update(float _DeltaTime) override;
