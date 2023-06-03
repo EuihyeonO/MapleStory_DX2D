@@ -71,6 +71,11 @@ public:
 		Type = _Type;
 	}
 
+	void Set_IsRealAttack(bool _IsRealAttack)
+	{
+		isRealAttack = _IsRealAttack;
+	}
+
 	void Damage();
 	void AvengerDamage();
 
@@ -106,6 +111,7 @@ private:
 	float TimingTimeCount = 0.0f;
 
 	bool isSet = false;
+	bool isRealAttack = true;
 
 	float4 Dir = { 0,0 };
 

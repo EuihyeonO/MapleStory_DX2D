@@ -3,8 +3,6 @@
 #include "Mouse.h"
 #include "ItemList.h"
 
-#include <GameEngineCore/GameEngineUIRenderer.h>
-#include <GameEngineCore/GameEngineCollision.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 
 

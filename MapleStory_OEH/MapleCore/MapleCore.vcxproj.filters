@@ -121,6 +121,9 @@
     <ClInclude Include="GlobalFunction.h">
       <Filter>Global</Filter>
     </ClInclude>
+    <ClInclude Include="DamageRender.h">
+      <Filter>Actor\Monster\DamageRender</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Level_Title.cpp">
@@ -255,6 +258,9 @@
     <ClCompile Include="GlobalFunction.cpp">
       <Filter>Global</Filter>
     </ClCompile>
+    <ClCompile Include="DamageRender.cpp">
+      <Filter>Actor\Monster\DamageRender</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -325,6 +331,9 @@
     </Filter>
     <Filter Include="Actor\UI\Window\EquipWindow">
       <UniqueIdentifier>{25a68dd2-35e5-4e11-95ce-9ca842555db7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Monster\DamageRender">
+      <UniqueIdentifier>{212a4ef0-94ce-4bdc-ba34-d22cc9fa42fd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

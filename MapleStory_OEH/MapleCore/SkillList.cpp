@@ -6,7 +6,6 @@
 #include "UIController.h"
 
 #include <GameEnginePlatform/GameEngineInput.h>
-#include <GameEngineCore/GameEngineUIRenderer.h>
 #include <GameEngineCore/GameEngineLevel.h>
 
 std::shared_ptr<GameEngineUIRenderer> SkillList::SkillIcon::IconCopy = nullptr;

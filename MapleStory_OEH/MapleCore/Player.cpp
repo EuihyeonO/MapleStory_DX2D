@@ -5,15 +5,17 @@
 #include "Star.h"
 #include "BuffList.h"
 #include "UIController.h"
-#include "DropItem.h"
 
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEnginePlatform/GameEngineInput.h>
-
 #include <GameEngineCore/GameEngineCoreWindow.h>
+#include <GameEngineBase/GameEngineRandom.h>
 
 #include <ctime>
+
+//test
+#include "DamageRender.h"
 
 std::shared_ptr<Player> Player::CurPlayer = nullptr;
 
@@ -77,6 +79,7 @@ void Player::Start()
 	CreateAllKey();
 	
 	CtrlSkill = &Player::Swing;
+
 }
 
 void Player::Update(float _DeltaTime)
@@ -104,17 +107,14 @@ void Player::Update(float _DeltaTime)
 	
 	/*Test*/
 
-	//if (GameEngineInput::IsKey("TestKey") == false)
-	//{
-	//	GameEngineInput::CreateKey("TestKey", 'B');
-	//}
+	if (GameEngineInput::IsKey("TestKey") == false)
+	{
+		GameEngineInput::CreateKey("TestKey", 'B');
+	}
 
-	//if(GameEngineInput::IsDown("TestKey") == true)
-	//{
-	//	std::shared_ptr<DropItem> _Item1= GetLevel()->CreateActor<DropItem>();
-	//	_Item1->SetDropItemInfo("GreenShell");
-	//	_Item1->SetQuadraticFunction(-30.0f, { 88, 200 });
-	//}
+	if(GameEngineInput::IsDown("TestKey") == true)
+	{
+	}
 }
 
 void Player::Render(float _DeltaTime) 
@@ -181,7 +181,7 @@ void Player::GravityUpdate(float _DeltaTime)
 			MapColor = ColMap->GetPixel(static_cast<int>(ColorPos.x), static_cast<int>(ColorPos.y));
 		}
 
-		if (count < 3)
+		if (count < 3 && MoveType != "Jump")
 		{
 			GetTransform()->AddLocalPosition({ 0 , static_cast<float>(-count)});
 			isKeyJump = false;
@@ -258,6 +258,7 @@ void Player::CreateAllKey()
 
 void Player::ActingUpdate(float _DeltaTime)
 {	
+	bool a = isKeyJump;
 
 	if (isKeyJump == true)
 	{

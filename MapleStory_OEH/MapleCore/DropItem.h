@@ -57,7 +57,7 @@ private:
 
 	std::string ItemName = "";
 
-	float MaxY = 40.0f;
+	float MaxY = 60.0f;
 
 	float Xintercept = 0.0f;
 	float XDistance = 0.0f;

@@ -2,9 +2,6 @@
 #include "DropItem.h"
 #include "GlobalFunction.h"
 
-#include <GameEngineCore/GameEngineSpriteRenderer.h>
-#include <GameEngineCore/GameEngineCollision.h>
-
 DropItem::DropItem()
 {
 }

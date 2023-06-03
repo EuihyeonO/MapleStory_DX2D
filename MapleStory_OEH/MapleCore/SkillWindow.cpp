@@ -3,8 +3,6 @@
 #include "SkillList.h"
 
 #include <GameEnginePlatform/GameEngineInput.h>
-#include <GameEngineCore/GameEngineUIRenderer.h>
-#include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineCore/GameEngineLevel.h>
 
 SkillWindow::SkillWindow()

@@ -101,6 +101,7 @@ void Player::JumpUpdate(float _DeltaTime)
 		}
 		else
 		{
+			float4 Pos = GetTransform()->GetLocalPosition();
 			GetTransform()->AddLocalPosition({ JumpXMove * _DeltaTime , JumpPower * _DeltaTime });
 		}
 

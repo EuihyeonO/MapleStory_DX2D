@@ -3,9 +3,7 @@
 #include "ItemList.h"
 #include "Item.h"
 
-#include <GameEngineCore/GameEngineUIRenderer.h>
 #include <GameEngineCore/GameEngineLevel.h>
-#include <GameEngineCore/GameEngineCollision.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 
 InventoryWindow::InventoryWindow()

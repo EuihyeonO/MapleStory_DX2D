@@ -14,7 +14,7 @@ public:
 	GreenSnail& operator=(const GreenSnail& _Other) = delete;
 	GreenSnail& operator=(GreenSnail&& _Other) noexcept = delete;
 
-	void Hit() override;
+	void Hit(int _Damage) override;
 
 protected:
 	void Start();
@@ -31,11 +31,14 @@ private:
 
 	float RenderAlpha = 0.0f;
 
+	int Hp = 50;
+
 	bool isSpawnAnimationEnd = false;
 
 	std::map<std::string, std::vector<float>> FrameList;
 	std::vector<std::pair<std::string, /*0이상 100이하의 정수*/int>> DropItemList;
 
+	//std::shared_ptr<class DamageRender> Re;
 	std::shared_ptr<class ContentRenderer> BasicRender;
 	std::shared_ptr<class GameEngineCollision> BasicCollision;
 };

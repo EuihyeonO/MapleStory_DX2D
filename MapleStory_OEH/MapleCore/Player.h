@@ -10,7 +10,7 @@ class Player : public BasicFunction
 	friend class SkillActor;
 	friend class SkillList;
 public:
- 
+
 	static std::shared_ptr<Player> GetCurPlayer()
 	{
 		return CurPlayer;

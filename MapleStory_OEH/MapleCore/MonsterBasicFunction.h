@@ -44,7 +44,7 @@ public:
 		_StartFunc(*MyZone, MyName);
 	}
 
-	virtual void Hit(){}
+	virtual void Hit(int _Damage){}
 
 protected:
 	bool isAbleJump = false;

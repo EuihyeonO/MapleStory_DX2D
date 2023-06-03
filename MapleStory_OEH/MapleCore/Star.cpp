@@ -108,8 +108,6 @@ void Star::Move(float _DeltaTime)
 {
 	if(isSet == false)
 	{
-		std::string MoveType = Player::GetCurPlayer()->GetMoveType().data();
-
 		TimingTimeCount += TimeCount;
 
 		if (TimingTimeCount < TimingTime)
@@ -192,8 +190,15 @@ void Star::Damage()
 		{
 			return;
 		}
+		
+		int Damage = 50;
+	
+		if (isRealAttack == false)
+		{
+			Damage = 0;
+		}
 
-		_Collision->GetActor()->DynamicThis<MonsterBasicFunction>()->Hit();
+		_Collision->GetActor()->DynamicThis<MonsterBasicFunction>()->Hit(Damage);
 		
 		std::shared_ptr<StarHitEffect> _Effect = GetLevel()->CreateActor< StarHitEffect>();
 		_Effect->SetSkillType("LuckySeven");
@@ -212,6 +217,6 @@ void Star::AvengerDamage()
 	std::shared_ptr<GameEngineCollision> _Collision;
 	if (_Collision = StarCollision->Collision(static_cast<int>(CollisionOrder::Monster), ColType::AABBBOX2D, ColType::AABBBOX2D), _Collision != nullptr)
 	{
-		_Collision->GetActor()->DynamicThis<MonsterBasicFunction>()->Hit();
+		_Collision->GetActor()->DynamicThis<MonsterBasicFunction>()->Hit(50);
 	}
 }

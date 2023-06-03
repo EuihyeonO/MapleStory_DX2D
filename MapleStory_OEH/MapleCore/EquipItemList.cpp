@@ -5,7 +5,6 @@
 
 #include <GameEngineBase/GameEngineString.h>
 #include <GameEngineCore/GameEngineLevel.h>
-#include <GameEngineCore/GameEngineUIRenderer.h>
 
 EquipItemList::EquipItemList()
 {

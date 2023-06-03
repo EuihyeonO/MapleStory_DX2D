@@ -51,6 +51,7 @@ void Player::LuckySeven()
 	NewStar1->SetUpdateFuction(UpdateFunction);
 	NewStar1->SetTargetMonster(HitMonsterVector, PlayerPos);
 	NewStar1->SetType("LuckySeven");
+	NewStar1->Set_IsRealAttack(false);
 
 	std::shared_ptr<Star> NewStar2 = GetLevel()->CreateActor<Star>(static_cast<int>(RenderOrder::Weapon));
 	NewStar2->SetStarName("shuriken");
@@ -67,6 +68,7 @@ void Player::LuckySeven()
 		NewStar1->SetUpdateFuction(UpdateFunction);
 		NewStar1->SetTargetMonster(HitMonsterVector, PlayerPos);
 		NewStar1->SetType("LuckySeven");
+		NewStar1->Set_IsRealAttack(false);
 
 		std::shared_ptr<Star> NewStar2 = GetLevel()->CreateActor<Star>(static_cast<int>(RenderOrder::Weapon));
 		NewStar2->SetStarName("shuriken");
@@ -75,7 +77,6 @@ void Player::LuckySeven()
 		NewStar2->SetTargetMonster(HitMonsterVector, PlayerPos);
 		NewStar2->SetType("LuckySeven");
 	}
-
 }
 
 void Player::Avenger()

@@ -2,6 +2,9 @@
 #include "GreenSnail.h"
 #include "MonsterSpawnZone.h"
 #include "ContentRenderer.h"
+#include "DropItem.h"
+
+#include <GameEngineCore/GameEngineLevel.h>
 
 GreenSnail::GreenSnail()
 {
@@ -107,7 +110,7 @@ void GreenSnail::TextureUpdate()
 	}
 }
 
-void GreenSnail::Hit()
+void GreenSnail::Hit(int _Damage)
 {
 	MoveType = "Hit";
 	AniIndex = 0;
@@ -120,7 +123,23 @@ void GreenSnail::Hit()
 
 	BasicCollision->GetTransform()->SetLocalScale({ abs(RenderData.LocalScale.x), abs(RenderData.LocalScale.y) });
 	BasicCollision->GetTransform()->SetLocalPosition(RenderData.LocalPosition);
+	
+	Hp -= _Damage;
 
+	if (Hp <= 0)
+	{
+		std::shared_ptr<DropItem> NewItem1 = GetLevel()->CreateActor<DropItem>();
+		std::shared_ptr<DropItem> NewItem2 = GetLevel()->CreateActor<DropItem>();
+		
+		NewItem1->SetQuadraticFunction(15, GetTransform()->GetWorldPosition() + float4{0, 5.0f});
+		NewItem1->SetDropItemInfo("GreenShell");
+		
+		NewItem2->SetQuadraticFunction(-15, GetTransform()->GetWorldPosition() + float4{ 0, 5.0f });
+		NewItem2->SetDropItemInfo("GreenShell");
+
+		GetMyZone()->NumOfMonsterDown(static_cast<int>(MonsterName::GreenSnail));
+		Death();
+	}
 }
 
 void GreenSnail::SetAnimationList()
