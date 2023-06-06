@@ -2,6 +2,8 @@
 #include "GameEngineCollision.h"
 #include "GameEngineLevel.h"
 
+GameEngineRenderUnit GameEngineCollision::DebugUnit;
+
 GameEngineCollision::GameEngineCollision()
 {
 }
@@ -13,6 +15,7 @@ GameEngineCollision::~GameEngineCollision()
 
 void GameEngineCollision::Start()
 {
+	SetDebugCamera(GetLevel()->GetCamera(0).get());
 }
 
 std::shared_ptr<GameEngineCollision> GameEngineCollision::Collision(int _TargetGroup, ColType _ThisColType, ColType _OtherColtype)
@@ -64,6 +67,40 @@ void GameEngineCollision::SetOrder(int _Order)
 	GetLevel()->PushCollision(ConThis);
 }
 
+void GameEngineCollision::Update(float _Delta)
+{
+	if (false == IsDebug())
+	{
+		return;
+	}
+
+	switch (Type)
+	{
+	case ColType::SPHERE2D:
+		GameEngineDebug::DrawSphere(DebugCamera, GetTransform());
+		break;
+	case ColType::AABBBOX2D:
+		GameEngineDebug::DrawBox(DebugCamera, GetTransform());
+		break;
+	case ColType::OBBBOX2D:
+		GameEngineDebug::DrawBox(DebugCamera, GetTransform());
+		break;
+	case ColType::SPHERE3D:
+		GameEngineDebug::DrawSphere(DebugCamera, GetTransform());
+		break;
+	case ColType::AABBBOX3D:
+		GameEngineDebug::DrawBox(DebugCamera, GetTransform());
+		break;
+	case ColType::OBBBOX3D:
+		GameEngineDebug::DrawBox(DebugCamera, GetTransform());
+		break;
+	case ColType::MAX:
+		break;
+	default:
+		break;
+	}
+}
+
 bool GameEngineCollision::CollisionAll(int _TargetGroup, std::vector<std::shared_ptr<GameEngineCollision>>& _Col, ColType _ThisColType, ColType _OtherColtype)
 {
 	if (false == this->IsUpdate())
@@ -104,5 +141,5 @@ bool GameEngineCollision::CollisionAll(int _TargetGroup, std::vector<std::shared
 	}
 
 	return _Col.size() != 0;
-
 }
+

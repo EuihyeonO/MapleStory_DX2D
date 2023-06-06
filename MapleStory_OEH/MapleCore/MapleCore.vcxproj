@@ -71,13 +71,13 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\;</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\;c:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(SolutionDir)Bin\$(Platform)\$(Configuration)\;</LibraryPath>
     <IntDir>$(SolutionDir)Bin\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)Bin\$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\;</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\;c:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(SolutionDir)Bin\$(Platform)\$(Configuration)\;</LibraryPath>
     <IntDir>$(SolutionDir)Bin\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
     <OutDir>$(SolutionDir)Bin\$(Platform)\$(Configuration)\</OutDir>
@@ -85,12 +85,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)Bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Bin\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\;</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\;c:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)Bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)Bin\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\;</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\;c:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -176,6 +176,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AlterOfZakum.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="BasicFunction.h">
       <SubType>
       </SubType>
@@ -200,7 +204,15 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ContentIME.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ContentRenderer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="CrossRoad.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -244,11 +256,19 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Level_AlterOfZakum.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Level_BeginnersTown1.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="Level_BeginnersTown2.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Level_CrossRoad.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -344,6 +364,10 @@
   <ItemGroup>
     <ClCompile Include="ActiveAttack.cpp" />
     <ClCompile Include="ActiveBuff.cpp" />
+    <ClCompile Include="AlterOfZakum.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="BasicFunction.cpp">
       <SubType>
       </SubType>
@@ -364,7 +388,15 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="ContentIME.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="ContentRenderer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="CrossRoad.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -408,11 +440,19 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Level_AlterOfZakum.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Level_BeginnersTown1.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="Level_BeginnersTown2.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Level_CrossRoad.cpp">
       <SubType>
       </SubType>
     </ClCompile>

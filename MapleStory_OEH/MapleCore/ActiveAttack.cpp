@@ -62,20 +62,22 @@ void Player::LuckySeven()
 
 	if (isOnShadow == true)
 	{
-		std::shared_ptr<Star> NewStar1 = GetLevel()->CreateActor<Star>(static_cast<int>(RenderOrder::Weapon));
-		NewStar1->SetStarName("shuriken");
-		NewStar1->SetTimingTime(0.55f);
-		NewStar1->SetUpdateFuction(UpdateFunction);
-		NewStar1->SetTargetMonster(HitMonsterVector, PlayerPos);
-		NewStar1->SetType("LuckySeven");
-		NewStar1->Set_IsRealAttack(false);
+		NewStar2->Set_IsRealAttack(false);
 
-		std::shared_ptr<Star> NewStar2 = GetLevel()->CreateActor<Star>(static_cast<int>(RenderOrder::Weapon));
-		NewStar2->SetStarName("shuriken");
-		NewStar2->SetTimingTime(0.7f);
-		NewStar2->SetUpdateFuction(UpdateFunction);
-		NewStar2->SetTargetMonster(HitMonsterVector, PlayerPos);
-		NewStar2->SetType("LuckySeven");
+		std::shared_ptr<Star> NewStar3 = GetLevel()->CreateActor<Star>(static_cast<int>(RenderOrder::Weapon));
+		NewStar3->SetStarName("shuriken");
+		NewStar3->SetTimingTime(0.55f);
+		NewStar3->SetUpdateFuction(UpdateFunction);
+		NewStar3->SetTargetMonster(HitMonsterVector, PlayerPos);
+		NewStar3->SetType("LuckySeven");
+		NewStar3->Set_IsRealAttack(false);
+
+		std::shared_ptr<Star> NewStar4 = GetLevel()->CreateActor<Star>(static_cast<int>(RenderOrder::Weapon));
+		NewStar4->SetStarName("shuriken");
+		NewStar4->SetTimingTime(0.7f);
+		NewStar4->SetUpdateFuction(UpdateFunction);
+		NewStar4->SetTargetMonster(HitMonsterVector, PlayerPos);
+		NewStar4->SetType("LuckySeven");
 	}
 }
 

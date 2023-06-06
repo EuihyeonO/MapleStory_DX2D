@@ -30,6 +30,15 @@ public:
 			Xintercept = 1.0f;
 		}
 
+		if (XDistance >= 0)
+		{
+			Dir = 1.0f;
+		}
+		else
+		{
+			Dir = -1.0f;
+		}
+
 		float Num = (StartPos.x * Xintercept) - (((StartPos.x + Xintercept) / 2.0f) * ((StartPos.x + Xintercept) / 2.0f));
 		Coefficient = MaxY / Num;
 
@@ -39,6 +48,7 @@ public:
 	}
 
 	void SetDropItemInfo(const std::string_view& _ItemName);
+	void GetItem();
 
 protected:
 	void Start();
@@ -54,6 +64,8 @@ private:
 
 	bool isFuncSet = false;
 	bool isInfoSet = false;
+	bool isGround = false;
+	bool isGet = false;
 
 	std::string ItemName = "";
 
@@ -62,6 +74,10 @@ private:
 	float Xintercept = 0.0f;
 	float XDistance = 0.0f;
 	float Coefficient = 0.0f;
+
+	float VerticalMoveCount = 0.0f;
+	bool UpMove = true;
+	bool DownMove = false;
 
 	float Dir = 0.0f;
 };

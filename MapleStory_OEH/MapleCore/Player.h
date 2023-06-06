@@ -119,14 +119,17 @@ private:
 	static std::shared_ptr<Player> CurPlayer;
 	std::shared_ptr<GameEngineTexture> ColMap;
 	std::shared_ptr<class GameEngineCollision> BodyCollision;
+	std::shared_ptr<class GameEngineCollision> PointCollision;
 
-	void CameraUpdate();
+	void CameraUpdate(float _DeltaTime);
 	
 	float4 LerpStart = { 0,0 };
 	float4 LerpEnd = { 0,0 };
 	float LerpRatio = 0.0f;
 
 	float4 PlayerPos = {0,0};
+
+	void GetItem();
 
 	//Å° °ü·Ã
 	int GetStateByKeyInput() const;
@@ -173,6 +176,7 @@ private:
 	void Avenger();
 	void JavelinBooster();
 	void ShadowPartner();
+
 		//Passive
 	void KeenEyes();
 

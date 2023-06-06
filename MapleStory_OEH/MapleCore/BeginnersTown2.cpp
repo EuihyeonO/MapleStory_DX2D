@@ -39,9 +39,14 @@ void BeginnersTown2::Start()
 	BackGround->SetScaleToTexture("BeginnersTown2.png");
 
 	std::shared_ptr<Rozar> npc = GetLevel()->CreateActor<Rozar>(static_cast<int>(RenderOrder::NPC));
-	std::shared_ptr<Portal> Port = GetLevel()->CreateActor<Portal>(static_cast<int>(RenderOrder::UI));
-	Port->SetLinkedMap("Level_BeginnersTown1");
-	Port->SetPortalPos({ -460, 100 });
+	
+	std::shared_ptr<Portal> Port1 = GetLevel()->CreateActor<Portal>(static_cast<int>(RenderOrder::UI));
+	Port1->SetLinkedMap("Level_BeginnersTown1");
+	Port1->SetPortalPos({ -460, 95, -10 });
+
+	std::shared_ptr<Portal> Port2 = GetLevel()->CreateActor<Portal>(static_cast<int>(RenderOrder::UI));
+	Port2->SetLinkedMap("Level_CrossRoad");
+	Port2->SetPortalPos({ 465, 155, -10 });
 
 	MyMiniMap = GetLevel()->CreateActor<MiniMap>(static_cast<int>(RenderOrder::UI));
 	MyMiniMap->SetMap(MapName);

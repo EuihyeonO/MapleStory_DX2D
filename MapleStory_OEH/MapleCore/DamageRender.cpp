@@ -33,6 +33,11 @@ void DamageRender::Start()
 void DamageRender::Update(float _DeltaTime) 
 {
 	RenderUpdate(_DeltaTime);
+
+	if (DamageRenderList.size() <= 0 && isSet == true)
+	{
+		Death();
+	}
 }
 
 void DamageRender::Render(float _DeltaTime)

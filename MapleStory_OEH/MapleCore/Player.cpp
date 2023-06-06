@@ -4,6 +4,7 @@
 #include "ContentEnums.h"
 #include "Star.h"
 #include "BuffList.h"
+#include "DropItem.h"
 #include "UIController.h"
 
 #include <GameEngineCore/GameEngineLevel.h>
@@ -41,6 +42,11 @@ void Player::Start()
 	BodyCollision->GetTransform()->SetLocalScale({ 30, 50 });
 	BodyCollision->SetOrder(static_cast<int>(CollisionOrder::Player));
 	BodyCollision->GetTransform()->SetLocalPosition({ 0, 25 });
+
+	PointCollision = CreateComponent<GameEngineCollision>();
+	PointCollision->GetTransform()->SetLocalScale({ 1.0f, 1.0f });
+	PointCollision->GetTransform()->SetLocalPosition({ 0, 15.0f });
+	PointCollision->SetOrder(static_cast<int>(CollisionOrder::PlayerPoint));
 
 	Body = CreateComponent<GameEngineSpriteRenderer>();
 	Pants = CreateComponent<GameEngineSpriteRenderer>();
@@ -103,8 +109,9 @@ void Player::Update(float _DeltaTime)
 	TextureUpdate();
 	TexturePosUpdate();
 
-	CameraUpdate();
-	
+	GetItem();
+	CameraUpdate(_DeltaTime);
+
 	/*Test*/
 
 	if (GameEngineInput::IsKey("TestKey") == false)
@@ -239,8 +246,8 @@ void Player::CreateAllKey()
 	{
 		GameEngineInput::CreateKey("LMove", VK_LEFT);
 		GameEngineInput::CreateKey("RMove", VK_RIGHT);
-		//GameEngineInput::CreateKey("Swing", VK_LCONTROL);
 		GameEngineInput::CreateKey("Jump", 'C');
+		GameEngineInput::CreateKey("GetItem", 'Z');
 		GameEngineInput::CreateKey("UpKey", VK_UP);
 		GameEngineInput::CreateKey("DownKey", VK_DOWN);
 		GameEngineInput::CreateKey("ShiftSkill", VK_LSHIFT);
@@ -251,8 +258,6 @@ void Player::CreateAllKey()
 		GameEngineInput::CreateKey("DelSkill", VK_DELETE);
 		GameEngineInput::CreateKey("EndSkill", VK_END);
 		GameEngineInput::CreateKey("PgDnSkill", VK_NEXT);
-
-
 	}
 }
 
@@ -379,6 +384,10 @@ int Player::GetStateByKeyInput() const
 	{
 		return static_cast<int>(State::PgDnSkill);
 	}
+	else if (GameEngineInput::IsPress("LMove") == true || GameEngineInput::IsPress("RMove") == true)
+	{
+		return static_cast<int>(State::Move);
+	}
 	else if (GameEngineInput::IsDown("UpKey") == true || GameEngineInput::IsPress("UpKey") == true)
 	{
 		return static_cast<int>(State::Up);
@@ -387,43 +396,42 @@ int Player::GetStateByKeyInput() const
 	{
 		return static_cast<int>(State::Down);
 	}
-	else if (GameEngineInput::IsPress("LMove") == true || GameEngineInput::IsPress("RMove") == true)
-	{
-		return static_cast<int>(State::Move);
-	}
 	else
 	{
 		return -1;
 	}
 }
 
-void Player::CameraUpdate()
+void Player::CameraUpdate(float _DeltaTime)
 {
 	float HalfWidth = ColMap->GetWidth() * 0.5f;
 	float HalfHeight = ColMap->GetHeight() * 0.5f;
 
 	float4 PlayerPos = GetTransform()->GetLocalPosition();
-	float4 CameraPos = PlayerPos;
+	float4 CameraPos = GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition();
+
+	// 플레이어와 카메라의 위치를 보간하여 새로운 위치 계산
+	float4 newPosition = newPosition.Lerp(CameraPos, PlayerPos, 1.5f * _DeltaTime);
 	
-	if (CameraPos.x - 450 < -HalfWidth)
+	if (newPosition.x - 450 < -HalfWidth)
 	{
-		CameraPos.x = -HalfWidth + 450;
+		newPosition.x = -HalfWidth + 450;
 	}
-	else if (CameraPos.x + 400 > HalfWidth - 50)
+	else if (newPosition.x + 400 > HalfWidth - 50)
 	{
-		CameraPos.x = HalfWidth - 450;
-	}
-
-	if (CameraPos.y - 300 < -(HalfHeight - 190))
-	{
-		CameraPos.y = -(HalfHeight - 190) + 300;
-	}
-	else if (CameraPos.y + 325 > HalfHeight)
-	{
-		CameraPos.y = HalfHeight - 325;
+		newPosition.x = HalfWidth - 450;
 	}
 
-	GetLevel()->GetMainCamera()->GetTransform()->SetLocalPosition(CameraPos);
+	if (newPosition.y - 300 < -(HalfHeight - 190))
+	{
+		newPosition.y = -(HalfHeight - 190) + 300;
+	}
+	else if (newPosition.y + 325 > HalfHeight)
+	{
+		newPosition.y = HalfHeight - 325;
+	}
+
+	GetLevel()->GetMainCamera()->GetTransform()->SetLocalPosition(newPosition);
 }
 
 bool Player::isSameColor()
@@ -437,4 +445,22 @@ bool Player::isSameColor()
 	GameEnginePixelColor MapColor = ColMap->GetPixel(static_cast<int>(ColorPos.x), static_cast<int>(ColorPos.y));
 
 	return Color == MapColor;
+}
+
+
+void Player::GetItem()
+{
+	if (GameEngineInput::IsDown("GetItem") == false)
+	{
+		return;
+	}
+
+	std::shared_ptr<GameEngineCollision> collision = BodyCollision->Collision(static_cast<int>(CollisionOrder::DropItem), ColType::AABBBOX2D, ColType::AABBBOX2D);
+	
+	if (collision != nullptr && GameEngineInput::IsDown("GetItem") == true)
+	{
+		std::shared_ptr<DropItem> _Item = collision->GetActor()->DynamicThis<DropItem>();
+		_Item->GetItem();
+	}
+
 }

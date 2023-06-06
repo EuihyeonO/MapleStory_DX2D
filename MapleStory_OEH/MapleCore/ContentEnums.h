@@ -39,6 +39,7 @@ enum class CollisionOrder
 {
 	Range,
 	Player,
+	PlayerPoint,
 	Monster,
 	Boss,
 	Star,
@@ -48,6 +49,8 @@ enum class CollisionOrder
 	RopeAndLadder,
 	SkillMoveIcon,
 	QuickSlotSkill,
+	DropItem,
+
 };
 
 enum class MonsterName

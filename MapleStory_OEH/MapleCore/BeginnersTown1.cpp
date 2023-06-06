@@ -69,7 +69,7 @@ void BeginnersTown1::Start()
 
 	std::shared_ptr<Portal> Port = GetLevel()->CreateActor<Portal>();
 	Port->SetLinkedMap("Level_BeginnersTown2");
-	Port->SetPortalPos({ 625, 45, -100 });
+	Port->SetPortalPos({ 625, 45, -10 });
 }
 
 void BeginnersTown1::Update(float _DeltaTime)

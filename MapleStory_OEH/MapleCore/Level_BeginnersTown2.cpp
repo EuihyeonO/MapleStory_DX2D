@@ -51,6 +51,9 @@ void Level_BeginnersTown2::LevelChangeStart()
 void Level_BeginnersTown2::Start()
 {
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
+	GetCamera(100)->SetProjectionType(CameraType::Orthogonal);
+
+	GetMainCamera()->SetSortType(0, SortType::ZSort);
 	GetCamera(100)->SetSortType(0, SortType::ZSort);
 
 	Map = CreateActor<BeginnersTown2>(static_cast<int>(RenderOrder::BasicMap));

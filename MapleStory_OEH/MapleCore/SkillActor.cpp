@@ -18,7 +18,10 @@ SkillActor::~SkillActor()
 
 void SkillActor::Start()
 {
+
 	TimeCounting();
+
+	GetTransform()->AddLocalPosition({ 0, 0,  -10.0f });
 }
 
 void SkillActor::Update(float _DeltaTime)
@@ -296,6 +299,7 @@ void SkillActor::Avenger()
 			NewStar1->SetUpdateFuction(&Star::AvengerMove);
 			NewStar1->SetTargetMonster(nullptr);
 			NewStar1->SetType("Avenger");
+			NewStar1->Set_IsRealAttack(false);
 
 			if (Player::CurPlayer->isOnShadow == true)
 			{

@@ -5,6 +5,7 @@
 #include "DropItem.h"
 
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineBase/GameEngineRandom.h>
 
 GreenSnail::GreenSnail()
 {
@@ -33,6 +34,10 @@ void GreenSnail::Start()
 	BasicCollision->GetTransform()->SetLocalScale({ abs(RenderData.LocalScale.x), abs(RenderData.LocalScale.y) });
 	BasicCollision->GetTransform()->SetLocalPosition(RenderData.LocalPosition);
 	BasicCollision->SetOrder(static_cast<int>(CollisionOrder::Monster));
+	BasicCollision->Off();
+
+	SetDropItemList();
+
 }
 
 void GreenSnail::Update(float _DeltaTime)
@@ -43,8 +48,8 @@ void GreenSnail::Update(float _DeltaTime)
 	Spawn(_DeltaTime);
 
 	GravityUpdate(_DeltaTime);
-	SetDropItemList();
-	if(isSpawnAnimationEnd == true)
+
+	if(isSpawnAnimationEnd == true && isDeathStart == false)
 	{
 		if(MoveType != "Hit" && MoveType != "Death")
 		{
@@ -54,6 +59,8 @@ void GreenSnail::Update(float _DeltaTime)
 
 		TextureUpdate();
 	}
+
+	MonsterDeath(_DeltaTime);
 }
 
 void GreenSnail::Render(float _DeltaTime)
@@ -73,6 +80,7 @@ void GreenSnail::Spawn(float _DeltaTime)
 	{
 		RenderAlpha = 1.0f;
 		isSpawnAnimationEnd = true;
+		BasicCollision->On();
 	}
 
 	BasicRender->SetMulColor({ 1,1,1, RenderAlpha });
@@ -128,18 +136,61 @@ void GreenSnail::Hit(int _Damage)
 
 	if (Hp <= 0)
 	{
-		std::shared_ptr<DropItem> NewItem1 = GetLevel()->CreateActor<DropItem>();
-		std::shared_ptr<DropItem> NewItem2 = GetLevel()->CreateActor<DropItem>();
-		
-		NewItem1->SetQuadraticFunction(15, GetTransform()->GetWorldPosition() + float4{0, 5.0f});
-		NewItem1->SetDropItemInfo("GreenShell");
-		
-		NewItem2->SetQuadraticFunction(-15, GetTransform()->GetWorldPosition() + float4{ 0, 5.0f });
-		NewItem2->SetDropItemInfo("GreenShell");
+		MoveType = "Death";
+		AniIndex = 0;
+		BasicCollision->Off();
 
+		size_t Size = DropItemList.size();
+		std::vector<int> ItemVector;
+		ItemVector.reserve(Size);
+
+		for (size_t i = 0; i < Size; i++)
+		{
+			int Num = GameEngineRandom::MainRandom.RandomInt(0, 99);
+
+			if (Num < DropItemList[i].second)
+			{
+				ItemVector.push_back(static_cast<int>(i));
+			}
+		}
+
+		size_t DropItemSize = ItemVector.size();
+
+		for (size_t i = 0; i < DropItemSize; i++)
+		{
+			std::shared_ptr<DropItem> NewItem = GetLevel()->CreateActor<DropItem>();
+			NewItem->SetQuadraticFunction((DropItemSize / -2) * 30.0f + (30.0f * i) + 15.0f, GetTransform()->GetWorldPosition() + float4{ 0, 5.0f });
+			NewItem->SetDropItemInfo(DropItemList[ItemVector[i]].first);
+		}
+
+		isDeathStart = true;
+	}
+}
+
+void GreenSnail::MonsterDeath(float _DeltaTime)
+{
+	if (isDeathStart == false)
+	{
+		return;
+	}
+
+
+	if (AniIndex < 8)
+	{
+		TextureUpdate();
+		return;
+	}
+
+
+	float Alpha = BasicRender->ColorOptionValue.MulColor.a;
+
+	if (Alpha <= 0)
+	{	
 		GetMyZone()->NumOfMonsterDown(static_cast<int>(MonsterName::GreenSnail));
 		Death();
 	}
+
+	BasicRender->SetMulColor({ 1.0f, 1.0f, 1.0f, Alpha - (5.0f * _DeltaTime) });
 }
 
 void GreenSnail::SetAnimationList()
@@ -163,6 +214,18 @@ void GreenSnail::SetAnimationList()
 
 	{
 		FrameList["Hit"].push_back(0.6f);
+	}
+
+	{
+		FrameList["Death"].push_back(0.09f);
+		FrameList["Death"].push_back(0.09f);
+		FrameList["Death"].push_back(0.09f);
+		FrameList["Death"].push_back(0.09f);
+		FrameList["Death"].push_back(0.09f);
+		FrameList["Death"].push_back(0.09f);
+		FrameList["Death"].push_back(0.09f);
+		FrameList["Death"].push_back(0.09f);
+		FrameList["Death"].push_back(0.09f);
 	}
 }
 

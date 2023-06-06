@@ -22,7 +22,7 @@ protected:
 	void Render(float _DeltaTime) override;
 
 	void Spawn(float _DeltaTime) override;
-	void MonsterDeath() override {}
+	void MonsterDeath(float _DeltaTime) override;
 private:
 
 	void TextureUpdate();
@@ -34,6 +34,7 @@ private:
 	int Hp = 50;
 
 	bool isSpawnAnimationEnd = false;
+	bool isDeathStart = false;
 
 	std::map<std::string, std::vector<float>> FrameList;
 	std::vector<std::pair<std::string, /*0이상 100이하의 정수*/int>> DropItemList;

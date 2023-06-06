@@ -4,6 +4,7 @@
 #include "Star.h"
 #include "MonsterBasicFunction.h"
 #include "StarHitEffect.h"
+#include "DamageRender.h"
 
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCollision.h>
@@ -19,6 +20,7 @@ Star::~Star()
 
 void Star::Start()
 {
+
 	AttackDistance = PlayerValue::GetValue()->GetAttackDistance();
 	TimeCounting();
 
@@ -191,8 +193,12 @@ void Star::Damage()
 			return;
 		}
 		
-		int Damage = 50;
+		int Damage = 150;
 	
+		std::shared_ptr<DamageRender> NewDR = GetLevel()->CreateActor<DamageRender>();
+		NewDR->PushDamageToQueue(Damage);
+		NewDR->GetTransform()->SetWorldPosition(_Collision->GetTransform()->GetWorldPosition() + float4{-16.0f, 5.0f});
+
 		if (isRealAttack == false)
 		{
 			Damage = 0;

@@ -61,9 +61,6 @@
     <ClInclude Include="StarHitEffect.h">
       <Filter>Actor\Player\Object</Filter>
     </ClInclude>
-    <ClInclude Include="BasicFunction.h">
-      <Filter>Etc</Filter>
-    </ClInclude>
     <ClInclude Include="PrecompileHeader.h">
       <Filter>Etc</Filter>
     </ClInclude>
@@ -123,6 +120,24 @@
     </ClInclude>
     <ClInclude Include="DamageRender.h">
       <Filter>Actor\Monster\DamageRender</Filter>
+    </ClInclude>
+    <ClInclude Include="Level_CrossRoad.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="CrossRoad.h">
+      <Filter>Actor\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicFunction.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentIME.h">
+      <Filter>Etc\ContentIME</Filter>
+    </ClInclude>
+    <ClInclude Include="Level_AlterOfZakum.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="AlterOfZakum.h">
+      <Filter>Actor\Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -201,9 +216,6 @@
     <ClCompile Include="StarHitEffect.cpp">
       <Filter>Actor\Player\Object</Filter>
     </ClCompile>
-    <ClCompile Include="BasicFunction.cpp">
-      <Filter>Etc</Filter>
-    </ClCompile>
     <ClCompile Include="ContentRenderer.cpp">
       <Filter>ContentRenderer</Filter>
     </ClCompile>
@@ -260,6 +272,24 @@
     </ClCompile>
     <ClCompile Include="DamageRender.cpp">
       <Filter>Actor\Monster\DamageRender</Filter>
+    </ClCompile>
+    <ClCompile Include="Level_CrossRoad.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="CrossRoad.cpp">
+      <Filter>Actor\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicFunction.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentIME.cpp">
+      <Filter>Etc\ContentIME</Filter>
+    </ClCompile>
+    <ClCompile Include="Level_AlterOfZakum.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="AlterOfZakum.cpp">
+      <Filter>Actor\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -334,6 +364,9 @@
     </Filter>
     <Filter Include="Actor\Monster\DamageRender">
       <UniqueIdentifier>{212a4ef0-94ce-4bdc-ba34-d22cc9fa42fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Etc\ContentIME">
+      <UniqueIdentifier>{80d8fca1-3e43-4aeb-ac78-516f7a88bcf8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

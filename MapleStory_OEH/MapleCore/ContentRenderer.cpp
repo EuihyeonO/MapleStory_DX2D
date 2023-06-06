@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "ContentRenderer.h"
 
+
 ContentRenderer::ContentRenderer()
 {
 }
@@ -13,6 +14,7 @@ void ContentRenderer::Start()
 {
 	GameEngineRenderer::Start();
 
+	SetMesh("Rect");
 	SetPipeLine("ContentShader");
 
 	AtlasData.x = 0.0f;
@@ -26,5 +28,4 @@ void ContentRenderer::Start()
 	GetShaderResHelper().SetConstantBufferLink("AtlasData", AtlasData);
 	GetShaderResHelper().SetConstantBufferLink("ColorOption", ColorOptionValue);
 	GetShaderResHelper().SetConstantBufferLink("UVconstant", UVconstant);
-
 }

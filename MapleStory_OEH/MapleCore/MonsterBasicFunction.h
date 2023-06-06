@@ -62,7 +62,7 @@ protected:
 	}
 
 	virtual void Spawn(float _DeltaTime) = 0;
-	virtual void MonsterDeath() = 0;
+	virtual void MonsterDeath(float _DeltaTime) = 0;
 private:
 
 	bool isGround = false;

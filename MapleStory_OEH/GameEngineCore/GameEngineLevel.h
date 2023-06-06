@@ -20,6 +20,11 @@ class GameEngineLevel : public GameEngineObject
 	friend class GameEngineTexture;
 
 public:
+	static void IsDebugSwitch()
+	{
+		IsDebugRender = !IsDebugRender;
+	}
+
 	GameEngineTimeEvent TimeEvent;
 
 	// constrcuter destructer
@@ -91,6 +96,8 @@ protected:
 	void Render(float _DeltaTime);
 
 private:
+	static bool IsDebugRender;
+
 	// 모든 카메라의 내용이 다 종합된.
 	std::shared_ptr<GameEngineRenderTarget> LastTarget;
 

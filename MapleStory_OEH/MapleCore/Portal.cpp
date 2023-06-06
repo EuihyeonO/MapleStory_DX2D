@@ -33,7 +33,7 @@ void Portal::Start()
 	PortalRender->ChangeAnimation("Portal");
 
 	PortalCollision = CreateComponent<GameEngineCollision>();
-	
+
 	PortalCollision->GetTransform()->SetLocalPosition({ 0, -80 });
 	PortalCollision->GetTransform()->SetLocalScale({ 70, 80 });
 }

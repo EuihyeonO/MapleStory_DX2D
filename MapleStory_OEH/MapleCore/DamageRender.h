@@ -28,5 +28,7 @@ private:
 	void RenderUpdate(float _DeltaTime);
 
 	std::list<std::vector<std::shared_ptr<GameEngineSpriteRenderer>>*> DamageRenderList;
+
+	bool isSet = false;
 };
 
