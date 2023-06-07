@@ -29,10 +29,10 @@ void Level_AlterOfZakum::Start()
 
 	Map = CreateActor<AlterOfZakum>();
 
-	//MyPlayer = CreateActor<Player>();
-	//MyPlayer->SetRight();
-	//MyPlayer->SetColMap(Map->GetColMapName());
-	//MyPlayer->SetCurPlayer(MyPlayer);
+	MyPlayer = CreateActor<Player>();
+	MyPlayer->SetRight();
+	MyPlayer->SetColMap(Map->GetColMapName());
+	MyPlayer->SetCurPlayer(MyPlayer);
 
 	CreateActor<QuickSlot>();
 	CreateActor<BottomBar>();

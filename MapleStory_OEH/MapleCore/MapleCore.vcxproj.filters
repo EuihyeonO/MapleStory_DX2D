@@ -139,6 +139,33 @@
     <ClInclude Include="AlterOfZakum.h">
       <Filter>Actor\Map</Filter>
     </ClInclude>
+    <ClInclude Include="Zakum.h">
+      <Filter>Actor\Monster\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="ZakumRArm_0.h">
+      <Filter>Actor\Monster\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="ZakumRArm_1.h">
+      <Filter>Actor\Monster\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="ZakumRArm_2.h">
+      <Filter>Actor\Monster\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="ZakumRArm_3.h">
+      <Filter>Actor\Monster\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="ZakumLArm_0.h">
+      <Filter>Actor\Monster\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="ZakumLArm_1.h">
+      <Filter>Actor\Monster\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="ZakumLArm_2.h">
+      <Filter>Actor\Monster\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="ZakumLArm_3.h">
+      <Filter>Actor\Monster\Boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Level_Title.cpp">
@@ -291,6 +318,33 @@
     <ClCompile Include="AlterOfZakum.cpp">
       <Filter>Actor\Map</Filter>
     </ClCompile>
+    <ClCompile Include="Zakum.cpp">
+      <Filter>Actor\Monster\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="ZakumRArm_0.cpp">
+      <Filter>Actor\Monster\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="ZakumRArm_1.cpp">
+      <Filter>Actor\Monster\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="ZakumRArm_2.cpp">
+      <Filter>Actor\Monster\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="ZakumRArm_3.cpp">
+      <Filter>Actor\Monster\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="ZakumLArm_0.cpp">
+      <Filter>Actor\Monster\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="ZakumLArm_1.cpp">
+      <Filter>Actor\Monster\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="ZakumLArm_2.cpp">
+      <Filter>Actor\Monster\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="ZakumLArm_3.cpp">
+      <Filter>Actor\Monster\Boss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -367,6 +421,9 @@
     </Filter>
     <Filter Include="Etc\ContentIME">
       <UniqueIdentifier>{80d8fca1-3e43-4aeb-ac78-516f7a88bcf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Monster\Boss">
+      <UniqueIdentifier>{ece51027-570d-4f12-b344-095882b292bd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

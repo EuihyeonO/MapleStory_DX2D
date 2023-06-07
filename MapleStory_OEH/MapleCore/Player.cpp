@@ -35,7 +35,7 @@ void Player::Start()
 
 	TimeCounting();
 
-	GetTransform()->SetLocalPosition({ 0, 0});
+	GetTransform()->SetLocalPosition({ 0, 0, -5.0f});
 	GetTransform()->SetLocalScale({ 1, 1, 1 });
 
 	BodyCollision = CreateComponent<GameEngineCollision>();
@@ -112,6 +112,7 @@ void Player::Update(float _DeltaTime)
 	GetItem();
 	CameraUpdate(_DeltaTime);
 
+	PrevPos = GetTransform()->GetLocalPosition();
 	/*Test*/
 
 	if (GameEngineInput::IsKey("TestKey") == false)
@@ -165,6 +166,7 @@ void Player::GravityUpdate(float _DeltaTime)
 		Gravity = 1000.0f;
 	}
 
+
 	float4 PlayerPos = GetTransform()->GetLocalPosition();
 
 	float4 MapHalfScale = { static_cast<float>(ColMap->GetWidth() / 2) ,  static_cast<float>(ColMap->GetHeight() / 2) };
@@ -177,10 +179,11 @@ void Player::GravityUpdate(float _DeltaTime)
 
 	GameEnginePixelColor MapColor = ColMap->GetPixel(static_cast<int>(ColorPos.x), static_cast<int>(ColorPos.y));
 
-	//중력적용유무
+	////중력적용유무
 	if (Color != MapColor)
-	{		
+	{
 		int count = 0;
+
 		while (Color != MapColor)
 		{
 			ColorPos.y++;
@@ -188,21 +191,20 @@ void Player::GravityUpdate(float _DeltaTime)
 			MapColor = ColMap->GetPixel(static_cast<int>(ColorPos.x), static_cast<int>(ColorPos.y));
 		}
 
-		if (count < 3 && MoveType != "Jump")
+		if (count < 3 && isKeyJump == false)
 		{
-			GetTransform()->AddLocalPosition({ 0 , static_cast<float>(-count)});
-			isKeyJump = false;
-			isGround = true;
+				GetTransform()->AddLocalPosition({ 0 , static_cast<float>(-count)});
+				isGround = true;
 
-			if (isSwing == false)
-			{
-				MoveType = "Stand";
-			}
+				if (isSwing == false)
+				{
+					MoveType = "Stand";
+				}
 		}
-		
 		else
 		{
-			GetTransform()->AddLocalPosition({ 0 , -Gravity * _DeltaTime});
+			GetTransform()->AddLocalPosition({ 0 , -Gravity * _DeltaTime });
+
 			if (isSwing == false)
 			{
 				MoveType = "Jump";
@@ -212,7 +214,7 @@ void Player::GravityUpdate(float _DeltaTime)
 		}
 	}
 	else
-	{
+	{	
 		float Count = 0.0f;
 
 		while (Color == MapColor)
@@ -222,22 +224,79 @@ void Player::GravityUpdate(float _DeltaTime)
 			Count++;
 		}
 
-		if(isKeyJump == false)
+		if (isKeyJump == true)
 		{
-			GetTransform()->AddLocalPosition({ 0, Count - 1 });
+			return;
 		}
-
+		
+		GetTransform()->AddLocalPosition({ 0, Count - 1.0f });
+		
 		Gravity = 200.0f;
 		isGround = true;
-
+		
 		if (isSwing == false)
 		{
-			if(MoveType == "Jump")
+			if (MoveType == "Jump" && isKeyJump == false)
 			{
 				MoveType = "Stand";
 			}
 		}
+		
 	}
+
+	//	if (count < 3 && MoveType != "Jump" && isJumpUp == false)
+	//	{
+	//		GetTransform()->AddLocalPosition({ 0 , static_cast<float>(-count)});
+	//		isKeyJump = false;
+	//		isGround = true;
+
+	//		if (isSwing == false)
+	//		{
+	//			MoveType = "Stand";
+	//		}
+	//	}
+	//	
+	//	else
+	//	{
+	//		GetTransform()->AddLocalPosition({ 0 , -Gravity * _DeltaTime});
+	//		if (isSwing == false)
+	//		{
+	//			MoveType = "Jump";
+	//		}
+
+	//		isGround = false;
+	//	}
+	//}
+	//else
+	//{
+
+	//	if (isJumpUp == true)
+	//	{
+	//		return;
+	//	}
+
+	//	float Count = 0.0f;
+
+	//	while (Color == MapColor)
+	//	{
+	//		ColorPos.y--;
+	//		MapColor = ColMap->GetPixel(static_cast<int>(ColorPos.x), static_cast<int>(ColorPos.y));
+	//		Count++;
+	//	}
+
+	//	GetTransform()->AddLocalPosition({ 0, Count - 1 });
+
+	//	Gravity = 200.0f;
+	//	isGround = true;
+
+	//	if (isSwing == false)
+	//	{
+	//		if (MoveType == "Jump")
+	//		{
+	//			MoveType = "Stand";
+	//		}
+	//	}
+	//}
 }
 
 void Player::CreateAllKey()
@@ -263,7 +322,6 @@ void Player::CreateAllKey()
 
 void Player::ActingUpdate(float _DeltaTime)
 {	
-	bool a = isKeyJump;
 
 	if (isKeyJump == true)
 	{
@@ -352,6 +410,14 @@ int Player::GetStateByKeyInput() const
 	{
 		return static_cast<int>(State::Jump);
 	}
+	else if (GameEngineInput::IsDown("UpKey") == true || GameEngineInput::IsPress("UpKey") == true)
+	{
+		return static_cast<int>(State::Up);
+	}
+	else if (GameEngineInput::IsDown("DownKey") == true || GameEngineInput::IsPress("DownKey") == true)
+	{
+		return static_cast<int>(State::Down);
+	}
 	else if (GameEngineInput::IsDown("ShiftSkill") == true)
 	{
 		return static_cast<int>(State::ShiftSkill);
@@ -388,14 +454,6 @@ int Player::GetStateByKeyInput() const
 	{
 		return static_cast<int>(State::Move);
 	}
-	else if (GameEngineInput::IsDown("UpKey") == true || GameEngineInput::IsPress("UpKey") == true)
-	{
-		return static_cast<int>(State::Up);
-	}
-	else if (GameEngineInput::IsDown("DownKey") == true || GameEngineInput::IsPress("DownKey") == true)
-	{
-		return static_cast<int>(State::Down);
-	}
 	else
 	{
 		return -1;
@@ -413,22 +471,22 @@ void Player::CameraUpdate(float _DeltaTime)
 	// 플레이어와 카메라의 위치를 보간하여 새로운 위치 계산
 	float4 newPosition = newPosition.Lerp(CameraPos, PlayerPos, 1.5f * _DeltaTime);
 	
-	if (newPosition.x - 450 < -HalfWidth)
+	if (newPosition.x - 425 < -HalfWidth)
 	{
-		newPosition.x = -HalfWidth + 450;
+		newPosition.x = -HalfWidth + 425;
 	}
-	else if (newPosition.x + 400 > HalfWidth - 50)
+	else if (newPosition.x + 425 > HalfWidth )
 	{
-		newPosition.x = HalfWidth - 450;
+		newPosition.x = HalfWidth - 425;
 	}
 
-	if (newPosition.y - 300 < -(HalfHeight - 190))
+	if (newPosition.y - 490 < -HalfHeight)
 	{
-		newPosition.y = -(HalfHeight - 190) + 300;
+		newPosition.y = -HalfHeight +490;
 	}
-	else if (newPosition.y + 325 > HalfHeight)
+	else if (newPosition.y + 425 > HalfHeight)
 	{
-		newPosition.y = HalfHeight - 325;
+		newPosition.y = HalfHeight - 425;
 	}
 
 	GetLevel()->GetMainCamera()->GetTransform()->SetLocalPosition(newPosition);

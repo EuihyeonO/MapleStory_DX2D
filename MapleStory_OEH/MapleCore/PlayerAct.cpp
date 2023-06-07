@@ -37,8 +37,8 @@ void Player::Jump(float _DeltaTime)
 	{
 		JumpXMove = 0;
 	}
-	MoveType = "Jump";
 
+	MoveType = "Jump";
 	isKeyJump = true;
 }
 
@@ -49,38 +49,10 @@ void Player::JumpUpdate(float _DeltaTime)
 		MoveType = "Jump";
 	}
 
-	//if(GameEngineInput::IsPress("LMove") == false && GameEngineInput::IsPress("RMove") == false)
-	//{
-	//	GetTransform()->AddLocalPosition({ JumpXMove * _DeltaTime , JumpPower * _DeltaTime });
-	//}
-	//else
-	//{
-	//	GetTransform()->AddLocalPosition({ 0, JumpPower * _DeltaTime });
-	//}
-
-	//float4 PlayerPos = GetTransform()->GetLocalPosition();
-
-	//float4 MapHalfScale = { static_cast<float>(ColMap->GetWidth() / 2) ,  static_cast<float>(ColMap->GetHeight() / 2) };
-	//float4 ColorPos = MapHalfScale + float4{ PlayerPos.x, -PlayerPos.y };
-
-	//GameEnginePixelColor Color = { (char)255, 0, (char)255, (char)255 };
-	//GameEnginePixelColor MapColor = ColMap->GetPixel(static_cast<int>(ColorPos.x), static_cast<int>(ColorPos.y));
-
-	//if (Color == MapColor)
-	//{
-	//	isKeyJump = false;
-
-	//	if(isSwing == false)
-	//	{
-	//		MoveType = "Stand";
-	//	}
-	//}
-
+	float PrevYPos = GetTransform()->GetLocalPosition().y;
 
 	if(GameEngineInput::IsPress("LMove") == false && GameEngineInput::IsPress("RMove") == false)
 	{
-		//
-
 		float4 NextPos = GetTransform()->GetLocalPosition() + float4{ JumpXMove * _DeltaTime , JumpPower * _DeltaTime };
 
 		float4 MapHalfScale = { static_cast<float>(ColMap->GetWidth() / 2) ,  static_cast<float>(ColMap->GetHeight() / 2) };
@@ -92,12 +64,6 @@ void Player::JumpUpdate(float _DeltaTime)
 		if (Color == MapColor)
 		{
 			GetTransform()->AddLocalPosition({ 0 , JumpPower * _DeltaTime });
-			//isKeyJump = false;
-
-			/*if (isSwing == false)
-			{
-				MoveType = "Stand";
-			}*/
 		}
 		else
 		{
@@ -114,11 +80,14 @@ void Player::JumpUpdate(float _DeltaTime)
 		
 		if (Color == MapColor)
 		{
-			isKeyJump = false;
-
-			if (isSwing == false)
+			if(isJumpUp == false)
 			{
-				MoveType = "Stand";
+				isKeyJump = false;
+
+				if (isSwing == false)
+				{
+					MoveType = "Stand";
+				}
 			}
 		}
 	}
@@ -148,7 +117,7 @@ void Player::JumpUpdate(float _DeltaTime)
 		GameEnginePixelColor Color = { (char)255, 0, (char)255, (char)255 };
 		GameEnginePixelColor MapColor = ColMap->GetPixel(static_cast<int>(ColorPos.x), static_cast<int>(ColorPos.y));
 
-		if (Color == MapColor)
+		if (Color == MapColor && isJumpUp == false)
 		{
 			isKeyJump = false;
 
@@ -157,6 +126,17 @@ void Player::JumpUpdate(float _DeltaTime)
 				MoveType = "Stand";
 			}
 		}
+	}
+
+	float4 Pos = GetTransform()->GetLocalPosition() - PrevPos;
+
+	if (Pos.y > 0)
+	{
+		isJumpUp = true;
+	}
+	else
+	{
+		isJumpUp = false;
 	}
 }
 
@@ -416,11 +396,11 @@ void Player::RopeAndLadderUp(float _DeltaTime)
 			MoveType = "Ladder";
 			FrontBackDir = "Back";
 
-			GetTransform()->SetLocalPosition({ Col->GetTransform()->GetWorldPosition().x, GetTransform()->GetLocalPosition().y });
+			GetTransform()->SetLocalPosition({ Col->GetTransform()->GetWorldPosition().x, GetTransform()->GetLocalPosition().y, -5.0f });
 		}
 		else if (isRopeOrLadder == true && GameEngineInput::IsPress("UpKey") == true)
 		{
-			GetTransform()->AddLocalPosition({ 0, 60.0f * _DeltaTime });
+			GetTransform()->AddLocalPosition({ 0, MoveSpeed * 0.7f * _DeltaTime });
 		}
 	}
 }
@@ -470,11 +450,11 @@ void Player::RopeAndLadderDown(float _DeltaTime)
 			MoveType = "Ladder";
 			FrontBackDir = "Back";
 
-			GetTransform()->SetLocalPosition({ Col->GetTransform()->GetWorldPosition().x, GetTransform()->GetLocalPosition().y });
+			GetTransform()->SetLocalPosition({ Col->GetTransform()->GetWorldPosition().x, GetTransform()->GetLocalPosition().y, - 5.0f });
 		}
 		else if (isRopeOrLadder == true && GameEngineInput::IsPress("DownKey") == true)
 		{
-			GetTransform()->AddLocalPosition({ 0, -60.0f * _DeltaTime });
+			GetTransform()->AddLocalPosition({ 0, -MoveSpeed * 0.7f * _DeltaTime });
 		}
 	}
 }

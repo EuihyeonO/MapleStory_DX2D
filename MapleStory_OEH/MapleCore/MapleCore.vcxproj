@@ -360,6 +360,42 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Zakum.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ZakumLArm_0.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ZakumLArm_1.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ZakumLArm_2.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ZakumLArm_3.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ZakumRArm_0.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ZakumRArm_1.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ZakumRArm_2.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ZakumRArm_3.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ActiveAttack.cpp" />
@@ -551,6 +587,42 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="UIWindowManager.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Zakum.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ZakumLArm_0.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ZakumLArm_1.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ZakumLArm_2.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ZakumLArm_3.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ZakumRArm_0.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ZakumRArm_1.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ZakumRArm_2.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ZakumRArm_3.cpp">
       <SubType>
       </SubType>
     </ClCompile>

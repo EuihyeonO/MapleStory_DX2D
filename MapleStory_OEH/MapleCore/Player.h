@@ -122,7 +122,7 @@ private:
 	std::shared_ptr<class GameEngineCollision> PointCollision;
 
 	void CameraUpdate(float _DeltaTime);
-	
+
 	float4 LerpStart = { 0,0 };
 	float4 LerpEnd = { 0,0 };
 	float LerpRatio = 0.0f;
@@ -158,6 +158,8 @@ private:
 	bool isSwing = false;
 
 	bool isMovable = true;
+
+	bool isJumpUp = false;
 
 	float Gravity = 200.0f;
 	float GravityAccel = 1000.0f;
@@ -217,6 +219,8 @@ private:
 
 	float AnimationCount = 0.0f;
 	int AniIndex = 0;
+
+	float4 PrevPos = { 0, 0 };
 
 	std::string MoveType = "";
 
