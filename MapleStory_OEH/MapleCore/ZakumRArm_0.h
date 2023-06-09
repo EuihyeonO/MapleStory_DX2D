@@ -1,9 +1,10 @@
 #pragma once
-#include "BasicFunction.h"
+#include "ZakumBasicFunction.h"
 
-class ZakumRArm_0 : public BasicFunction
+class ZakumRArm_0 : public ZakumBasicFunction
 {
-
+	friend class Zakum;
+	friend class ZakumBasicFunction;
 public:
 
 	ZakumRArm_0();
@@ -19,7 +20,6 @@ protected:
 	void Update(float _DeltaTime) override;
 	void Render(float _DeltaTime) override;
 private:
-
-	std::shared_ptr<class GameEngineSpriteRenderer> ArmRender = nullptr;
+ 
 };
 

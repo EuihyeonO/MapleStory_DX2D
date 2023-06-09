@@ -188,24 +188,14 @@ void Star::Damage()
 	std::shared_ptr<GameEngineCollision> _Collision;
 	if (_Collision = StarCollision->Collision(static_cast<int>(CollisionOrder::Monster), ColType::AABBBOX2D, ColType::AABBBOX2D), _Collision != nullptr)
 	{
-		if (_Collision != Target)
-		{
-			return;
-		}
-		
 		int Damage = 150;
 	
 		std::shared_ptr<DamageRender> NewDR = GetLevel()->CreateActor<DamageRender>();
 		NewDR->PushDamageToQueue(Damage);
 		NewDR->GetTransform()->SetWorldPosition(_Collision->GetTransform()->GetWorldPosition() + float4{-16.0f, 5.0f});
 
-		if (isRealAttack == false)
-		{
-			Damage = 0;
-		}
+		_Collision->GetActor()->DynamicThis<MonsterBasicFunction>()->Hit(Damage, isRealAttack);
 
-		_Collision->GetActor()->DynamicThis<MonsterBasicFunction>()->Hit(Damage);
-		
 		std::shared_ptr<StarHitEffect> _Effect = GetLevel()->CreateActor< StarHitEffect>();
 		_Effect->SetSkillType("LuckySeven");
 		_Effect->SetFrame();
@@ -223,6 +213,6 @@ void Star::AvengerDamage()
 	std::shared_ptr<GameEngineCollision> _Collision;
 	if (_Collision = StarCollision->Collision(static_cast<int>(CollisionOrder::Monster), ColType::AABBBOX2D, ColType::AABBBOX2D), _Collision != nullptr)
 	{
-		_Collision->GetActor()->DynamicThis<MonsterBasicFunction>()->Hit(50);
+		_Collision->GetActor()->DynamicThis<MonsterBasicFunction>()->Hit(50, true);
 	}
 }

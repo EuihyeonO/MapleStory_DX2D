@@ -14,7 +14,7 @@ public:
 	GreenSnail& operator=(const GreenSnail& _Other) = delete;
 	GreenSnail& operator=(GreenSnail&& _Other) noexcept = delete;
 
-	void Hit(int _Damage) override;
+	void Hit(int _Damage, bool _isRealAttack) override;
 
 protected:
 	void Start();

@@ -3,7 +3,6 @@
 
 class MonsterBasicFunction : public BasicFunction
 {
-
 public:
 	MonsterBasicFunction();
 	~MonsterBasicFunction();
@@ -44,7 +43,7 @@ public:
 		_StartFunc(*MyZone, MyName);
 	}
 
-	virtual void Hit(int _Damage){}
+	virtual void Hit(int _Damage, bool _isRealAttack) = 0;
 
 protected:
 	bool isAbleJump = false;

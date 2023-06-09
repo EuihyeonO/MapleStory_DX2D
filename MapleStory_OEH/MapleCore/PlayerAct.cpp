@@ -83,6 +83,7 @@ void Player::JumpUpdate(float _DeltaTime)
 			if(isJumpUp == false)
 			{
 				isKeyJump = false;
+				JumpPower = 585.0f;
 
 				if (isSwing == false)
 				{
@@ -120,6 +121,7 @@ void Player::JumpUpdate(float _DeltaTime)
 		if (Color == MapColor && isJumpUp == false)
 		{
 			isKeyJump = false;
+			JumpPower = 585.0f;
 
 			if (isSwing == false)
 			{
@@ -344,6 +346,8 @@ void Player::RopeAndLadder(float _DeltaTime)
 		{
 			JumpXMove = 0;
 		}
+
+		JumpPower = 200.0f;
 
 		TextureUpdate();
 		return;

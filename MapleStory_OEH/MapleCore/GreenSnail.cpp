@@ -118,7 +118,7 @@ void GreenSnail::TextureUpdate()
 	}
 }
 
-void GreenSnail::Hit(int _Damage)
+void GreenSnail::Hit(int _Damage, bool _isRealAttack)
 {
 	MoveType = "Hit";
 	AniIndex = 0;

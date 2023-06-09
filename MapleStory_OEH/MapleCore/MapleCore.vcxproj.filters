@@ -166,6 +166,9 @@
     <ClInclude Include="ZakumLArm_3.h">
       <Filter>Actor\Monster\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="ZakumBasicFunction.h">
+      <Filter>Actor\Monster\Boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Level_Title.cpp">
@@ -343,6 +346,9 @@
       <Filter>Actor\Monster\Boss</Filter>
     </ClCompile>
     <ClCompile Include="ZakumLArm_3.cpp">
+      <Filter>Actor\Monster\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="ZakumBasicFunction.cpp">
       <Filter>Actor\Monster\Boss</Filter>
     </ClCompile>
   </ItemGroup>

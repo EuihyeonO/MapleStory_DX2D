@@ -43,10 +43,6 @@ void AlterOfZakum::Start()
 	AlterBack->SetScaleToTexture("Alter1.png");
 	AlterBack->GetTransform()->SetLocalPosition({ 50.0f, 70.0f , -1.0f });
 
-	Alter = CreateComponent<GameEngineSpriteRenderer>();
-	Alter->SetScaleToTexture("Alter0.png");
-	Alter->GetTransform()->SetLocalPosition({ 0, -180.0f , -5.0f });
-
 	Layer = CreateComponent<GameEngineSpriteRenderer>();
 	Layer->SetScaleToTexture("AlterOfZakumLayer.png");
 	Layer->GetTransform()->SetLocalPosition({ 0, 0, -10.0f });
@@ -58,34 +54,43 @@ void AlterOfZakum::Start()
 	Magma->SetUVconstant({ 0, 0, 5, 1 });
 
 	std::shared_ptr<GameEngineSpriteRenderer> FootHold0 = CreateComponent<GameEngineSpriteRenderer>();
-	FootHold0->SetScaleToTexture("FootHold0.png");
-	FootHold0->GetTransform()->SetLocalPosition({ 450.0f, -150.0f, -4.0f });
+	FootHold0->SetScaleToTexture("FootHold1.png");
+	FootHold0->GetTransform()->SetLocalPosition({ -450.0f, 130.0f, -4.0f });
 
 	std::shared_ptr<GameEngineSpriteRenderer> FootHold1 = CreateComponent<GameEngineSpriteRenderer>();
-	FootHold1->SetScaleToTexture("FootHold1.png");
-	FootHold1->GetTransform()->SetLocalPosition({ 380.0f, -80.0f, -4.0f });
+	FootHold1->SetScaleToTexture("FootHold0.png");
+	FootHold1->GetTransform()->SetLocalPosition({ -375.0f, 60.0f, -4.0f });
 
 	std::shared_ptr<GameEngineSpriteRenderer> FootHold2 = CreateComponent<GameEngineSpriteRenderer>();
-	FootHold2->SetScaleToTexture("FootHold0.png");
-	FootHold2->GetTransform()->SetLocalPosition({ 460.0f, -10.0f, -4.0f });
-
-	std::shared_ptr<GameEngineSpriteRenderer> FootHold3 = CreateComponent<GameEngineSpriteRenderer>();
-	FootHold3->SetScaleToTexture("FootHold1.png");
-	FootHold3->GetTransform()->SetLocalPosition({ 410.0f, 140.0f, -4.0f });
+	FootHold2->SetScaleToTexture("FootHold1.png");
+	FootHold2->GetTransform()->SetLocalPosition({ -430.0f, -10.0f, -4.0f });
 
 	std::shared_ptr<GameEngineSpriteRenderer> Rope1 = CreateComponent<GameEngineSpriteRenderer>();
 	Rope1->SetScaleToTexture("ZakumRope1.png");
 	Rope1->GetTransform()->SetLocalPosition({ 370.0f, 95.0f, -4.0f });
+	
+	std::shared_ptr<GameEngineSpriteRenderer> Rope2 = CreateComponent<GameEngineSpriteRenderer>();
+	Rope2->SetScaleToTexture("ZakumRope1.png");
+	Rope2->GetTransform()->SetLocalPosition({ -450.0f, -55.0f, -4.0f });
 
 	TransformData Rope1Data = Rope1->GetTransform()->GetTransDataRef();
+	TransformData Rope2Data = Rope2->GetTransform()->GetTransDataRef();
 
-	std::shared_ptr<GameEngineCollision> RopeCol = CreateComponent<GameEngineCollision>();
-	RopeCol->GetTransform()->SetLocalScale(Rope1Data.LocalScale);
-	RopeCol->GetTransform()->SetLocalPosition(Rope1Data.LocalPosition);
-	RopeCol->SetOrder(static_cast<int>(CollisionOrder::RopeAndLadder));
+	std::shared_ptr<GameEngineCollision> RopeCol1 = CreateComponent<GameEngineCollision>();
+	RopeCol1->GetTransform()->SetLocalScale(Rope1Data.LocalScale);
+	RopeCol1->GetTransform()->SetLocalPosition(Rope1Data.LocalPosition);
+	RopeCol1->SetOrder(static_cast<int>(CollisionOrder::RopeAndLadder));
+
+	std::shared_ptr<GameEngineCollision> RopeCol2 = CreateComponent<GameEngineCollision>();
+	RopeCol2->GetTransform()->SetLocalScale(Rope2Data.LocalScale);
+	RopeCol2->GetTransform()->SetLocalPosition(Rope2Data.LocalPosition);
+	RopeCol2->SetOrder(static_cast<int>(CollisionOrder::RopeAndLadder));
 
 	std::shared_ptr<Zakum> NewZakum = GetLevel()->CreateActor<Zakum>();
-	NewZakum->GetTransform()->AddLocalPosition({ 0, 0.0f, -5.0f });
+
+	Alter = CreateComponent<GameEngineSpriteRenderer>();
+	Alter->SetScaleToTexture("Alter0.png");
+	Alter->GetTransform()->SetLocalPosition({ 0, -180.0f , -5.0f });
 }
 
 void AlterOfZakum::Update(float _DeltaTime) 
