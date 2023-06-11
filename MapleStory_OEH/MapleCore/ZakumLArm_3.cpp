@@ -15,23 +15,31 @@ ZakumLArm_3::~ZakumLArm_3()
 void ZakumLArm_3::Start()
 {
 	ArmRender = CreateComponent<GameEngineSpriteRenderer>();
+	
+	SetAnimation();
 
-	if (nullptr == GameEngineSprite::Find("LArm3_Stand"))
-	{
-		GameEngineDirectory NewDir;
-		NewDir.MoveParentToDirectory("MapleResources");
-		NewDir.Move("MapleResources");
-		NewDir.Move("Sprite");
-		NewDir.Move("Monster");
-		NewDir.Move("Zakum");
-		NewDir.Move("Arm");
-		NewDir.Move("Left_3");
+	ArmCollision = CreateComponent<GameEngineCollision>();
+	ArmCollision->GetTransform()->SetLocalScale({ 150, 40 });
+	ArmCollision->SetColType(ColType::AABBBOX2D);
+	ArmCollision->SetOrder(static_cast<int>(CollisionOrder::Monster));
+	ArmCollision->GetTransform()->SetLocalPosition({ -30, -50 });
+	ArmCollision->On();
 
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm3_Stand").GetFullPath());
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm3_Death").GetFullPath());
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm3_Hit").GetFullPath());
-	}
+	ArmRender->ChangeAnimation("Stand");
+}
 
+void ZakumLArm_3::Update(float _DeltaTime)
+{
+
+}
+
+void ZakumLArm_3::Render(float _DeltaTime)
+{
+
+}
+
+void ZakumLArm_3::SetAnimation()
+{
 
 	ArmRender->CreateAnimation({ .AnimationName = "Stand",.SpriteName = "LArm3_Stand",.Loop = true,.ScaleToTexture = true,.FrameTime = {0.13f, 0.1f,0.1f, 0.1f, 0.13f, 0.1f, 0.1f, 0.1f } });
 	ArmRender->SetAnimationUpdateEvent("Stand", 0, [this]
@@ -56,22 +64,4 @@ void ZakumLArm_3::Start()
 			GetTransform()->SetLocalPosition({ -170, -95, -4.0f });
 			ArmCollision->Off();
 		});
-
-	ArmRender->ChangeAnimation("Stand");
-
-	ArmCollision = CreateComponent<GameEngineCollision>();
-	ArmCollision->GetTransform()->SetLocalScale({ 150, 40 });
-	ArmCollision->SetColType(ColType::AABBBOX2D);
-	ArmCollision->SetOrder(static_cast<int>(CollisionOrder::Monster));
-	ArmCollision->GetTransform()->SetLocalPosition({ -30, -50 });
-}
-
-void ZakumLArm_3::Update(float _DeltaTime)
-{
-
-}
-
-void ZakumLArm_3::Render(float _DeltaTime)
-{
-
 }

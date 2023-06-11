@@ -16,21 +16,30 @@ void ZakumRArm_2::Start()
 {
 	ArmRender = CreateComponent<GameEngineSpriteRenderer>();
 
-	if (nullptr == GameEngineSprite::Find("RArm2_Stand"))
-	{
-		GameEngineDirectory NewDir;
-		NewDir.MoveParentToDirectory("MapleResources");
-		NewDir.Move("MapleResources");
-		NewDir.Move("Sprite");
-		NewDir.Move("Monster");
-		NewDir.Move("Zakum");
-		NewDir.Move("Arm");
-		NewDir.Move("Right_2");
+	SetAnimation();
 
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm2_Stand").GetFullPath());
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm2_Death").GetFullPath());
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm2_Hit").GetFullPath());
-	}
+	ArmCollision = CreateComponent<GameEngineCollision>();
+	ArmCollision->GetTransform()->SetLocalScale({ 150, 70 });
+	ArmCollision->SetColType(ColType::AABBBOX2D);
+	ArmCollision->SetOrder(static_cast<int>(CollisionOrder::Monster));
+	ArmCollision->GetTransform()->SetLocalPosition({ 10, -35 });
+	ArmCollision->On();
+
+	ArmRender->ChangeAnimation("Stand");
+}
+
+void ZakumRArm_2::Update(float _DeltaTime)
+{
+
+}
+
+void ZakumRArm_2::Render(float _DeltaTime)
+{
+
+}
+
+void ZakumRArm_2::SetAnimation()
+{
 
 	std::vector<float> FrameTimeVec;
 	FrameTimeVec.reserve(49);
@@ -58,24 +67,4 @@ void ZakumRArm_2::Start()
 		{
 			GetTransform()->SetLocalPosition({ 170, -10, -4.0f });
 		});
-
-
-	ArmRender->ChangeAnimation("Stand");
-
-
-	ArmCollision = CreateComponent<GameEngineCollision>();
-	ArmCollision->GetTransform()->SetLocalScale({ 150, 70 });
-	ArmCollision->SetColType(ColType::AABBBOX2D);
-	ArmCollision->SetOrder(static_cast<int>(CollisionOrder::Monster));
-	ArmCollision->GetTransform()->SetLocalPosition({ 10, -35 });
-}
-
-void ZakumRArm_2::Update(float _DeltaTime)
-{
-
-}
-
-void ZakumRArm_2::Render(float _DeltaTime)
-{
-
 }

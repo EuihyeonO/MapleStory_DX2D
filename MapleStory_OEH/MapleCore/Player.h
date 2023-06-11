@@ -11,9 +11,16 @@ class Player : public BasicFunction
 	friend class SkillList;
 public:
 
+	void Hit();
+
 	static std::shared_ptr<Player> GetCurPlayer()
 	{
 		return CurPlayer;
+	}
+
+	void SetisHit(bool _isHit)
+	{
+		isHit = _isHit;
 	}
 
 	void SetColMap(const std::string_view& _MapName)
@@ -98,6 +105,9 @@ public:
 		CtrlSkill = _Skill;
 	}
 
+	void SetMulColorAllTexture(float _MulColor);
+
+
 	void SetLeft();
 	void SetRight();
 
@@ -147,7 +157,6 @@ private:
 	void Swing();
 	void Jump(float _DeltaTime);
 	void JumpUpdate(float _DeltaTime);
-	
 	void RopeAndLadder(float _DeltaTime);
 	void RopeAndLadderUp(float _DeltaTime);
 	void RopeAndLadderDown(float _DeltaTime);
@@ -158,6 +167,8 @@ private:
 	bool isSwing = false;
 
 	bool isMovable = true;
+	bool isHit = false;
+	float HitTimeCount = 0.0f;
 
 	bool isJumpUp = false;
 

@@ -596,6 +596,25 @@ void Player::TextureUpdate()
 
 	std::string PantsTexture = PantsName + MoveType + std::to_string(AniIndex) + ".png";
 	Pants->SetScaleToTexture(PantsTexture);
+
+	if (isHit == true)
+	{
+		HitTimeCount += TimeCount;
+
+		if (HitTimeCount >= 0.15f)
+		{
+			HitTimeCount = 0.0f;
+
+			if (Arm->ColorOptionValue.MulColor.x < 1.0f)
+			{
+				SetMulColorAllTexture(1.0f);
+			}
+			else
+			{
+				SetMulColorAllTexture(0.4f);
+			}
+		}
+	}
 }
 
 
@@ -743,4 +762,17 @@ void Player::TexturePosUpdate()
 	CoatArm->GetTransform()->AddLocalPosition({ 0, 0, -static_cast<float>(RenderOrder::Player) });
 	Pants->GetTransform()->AddLocalPosition({ 0, 0, -static_cast<float>(RenderOrder::Player) });
 	Weapon->GetTransform()->AddLocalPosition({ 0, 0, -static_cast<float>(RenderOrder::Player) });
+}
+
+void Player::SetMulColorAllTexture(float _MulColor)
+{
+	Body->ColorOptionValue.MulColor = { _MulColor, _MulColor, _MulColor, 1 };
+	Arm->ColorOptionValue.MulColor = { _MulColor, _MulColor, _MulColor, 1 };
+	Face->ColorOptionValue.MulColor = { _MulColor, _MulColor, _MulColor, 1 };
+	CoatArm->ColorOptionValue.MulColor = { _MulColor, _MulColor, _MulColor, 1 };
+	Pants->ColorOptionValue.MulColor = { _MulColor, _MulColor, _MulColor, 1 };
+	Weapon->ColorOptionValue.MulColor = { _MulColor, _MulColor, _MulColor, 1 };
+	Head->ColorOptionValue.MulColor = { _MulColor, _MulColor, _MulColor, 1 };
+	Hair->ColorOptionValue.MulColor = { _MulColor, _MulColor, _MulColor, 1 };
+	Coat->ColorOptionValue.MulColor = { _MulColor, _MulColor, _MulColor, 1 };
 }

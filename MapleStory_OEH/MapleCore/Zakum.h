@@ -31,7 +31,9 @@ protected:
 private:
 	void Spawn(float _DeltaTime) {}
 	void MonsterDeath(float _DeltaTime) {}
-	void CreateAllArm();
+	void CreateArm(bool _isLeft, int _ArmIndex);
+
+	void SetAnimation();
 
 	static std::shared_ptr<Zakum> GlobalZakum;
 

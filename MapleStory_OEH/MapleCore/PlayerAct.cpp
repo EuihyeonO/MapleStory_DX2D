@@ -8,6 +8,8 @@
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineBase/GameEngineRandom.h>
+#include <GameEngineBase/GameEngineTimeEvent.h>
+
 #include <ctime>
 
 void Player::Jump(float _DeltaTime)
@@ -314,6 +316,11 @@ void Player::Idle()
 		return;
 	}
 
+	if (isHit == true)
+	{
+		return;
+	}
+
 	MoveType = "Stand";
 	FrontBackDir = "Front";
 }
@@ -461,4 +468,23 @@ void Player::RopeAndLadderDown(float _DeltaTime)
 			GetTransform()->AddLocalPosition({ 0, -MoveSpeed * 0.7f * _DeltaTime });
 		}
 	}
+}
+
+
+void Player::Hit()
+{
+	isMovable = false;
+	isHit = true;
+	MoveType = "Alert";
+	AniIndex = 0;
+	AnimationCount = 0.0f;
+
+	std::function<void(GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*)> HitEndFunc = [=](GameEngineTimeEvent::TimeEvent& _Event, GameEngineTimeEvent* _Manager)
+	{
+		Player::GetCurPlayer()->SetMovable(true);
+		Player::GetCurPlayer()->SetisHit(false);
+		Player::GetCurPlayer()->SetMulColorAllTexture(1.0f);
+	};
+
+	GetLevel()->TimeEvent.AddEvent(1.0f, HitEndFunc, false);
 }

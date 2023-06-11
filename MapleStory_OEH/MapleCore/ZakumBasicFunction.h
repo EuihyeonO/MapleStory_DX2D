@@ -24,6 +24,8 @@ protected:
 	std::shared_ptr<class GameEngineSpriteRenderer> ArmRender = nullptr;
 	std::shared_ptr<class GameEngineCollision> ArmCollision = nullptr;
 
+	virtual void Attack(){}
+
 private:
 	
 	int Hp = 200;

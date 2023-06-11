@@ -12,26 +12,41 @@ ZakumRArm_1::~ZakumRArm_1()
 {
 }
 
+
+void ZakumRArm_1::SetStart()
+{
+	ArmCollision->On();
+
+	ArmRender->ChangeAnimation("Stand");
+}
+
 void ZakumRArm_1::Start()
 {
 	ArmRender = CreateComponent<GameEngineSpriteRenderer>();
 
-	if (nullptr == GameEngineSprite::Find("RArm1_Stand"))
-	{
-		GameEngineDirectory NewDir;
-		NewDir.MoveParentToDirectory("MapleResources");
-		NewDir.Move("MapleResources");
-		NewDir.Move("Sprite");
-		NewDir.Move("Monster");
-		NewDir.Move("Zakum");
-		NewDir.Move("Arm");
-		NewDir.Move("Right_1");
+	SetAnimation();
 
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm1_Stand").GetFullPath());
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm1_Death").GetFullPath());
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm1_Hit").GetFullPath());
-	}
+	ArmCollision = CreateComponent<GameEngineCollision>();
+	ArmCollision->GetTransform()->SetLocalScale({ 150, 70 });
+	ArmCollision->SetColType(ColType::AABBBOX2D);
+	ArmCollision->SetOrder(static_cast<int>(CollisionOrder::Monster));
+	ArmCollision->GetTransform()->SetLocalPosition({ 10, -30 });
+	ArmCollision->On();
 
+	ArmRender->ChangeAnimation("Stand");
+}
+
+void ZakumRArm_1::Update(float _DeltaTime)
+{
+}
+
+void ZakumRArm_1::Render(float _DeltaTime)
+{
+
+}
+
+void ZakumRArm_1::SetAnimation()
+{
 
 	ArmRender->CreateAnimation({ .AnimationName = "Stand",.SpriteName = "RArm1_Stand",.Loop = true,.ScaleToTexture = true,.FrameTime = {0.13f, 0.1f,0.1f, 0.1f, 0.13f, 0.1f, 0.1f, 0.1f } });
 	ArmRender->SetAnimationUpdateEvent("Stand", 0, [this]
@@ -56,24 +71,4 @@ void ZakumRArm_1::Start()
 			GetTransform()->SetLocalPosition({ 200, 70, -4.0f });
 			ArmCollision->Off();
 		});
-
-	ArmRender->ChangeAnimation("Stand");
-
-	ArmCollision = CreateComponent<GameEngineCollision>();
-	ArmCollision->GetTransform()->SetLocalScale({ 150, 70 });
-	ArmCollision->SetColType(ColType::AABBBOX2D);
-	ArmCollision->SetOrder(static_cast<int>(CollisionOrder::Monster));
-	ArmCollision->GetTransform()->SetLocalPosition({ 10, -30 });
-}
-
-void ZakumRArm_1::Update(float _DeltaTime)
-{
-	float4 Pos = GetTransform()->GetLocalPosition();
-	int a = 0;
-
-}
-
-void ZakumRArm_1::Render(float _DeltaTime)
-{
-
 }

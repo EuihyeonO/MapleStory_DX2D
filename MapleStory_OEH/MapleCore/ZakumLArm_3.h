@@ -4,7 +4,6 @@
 class ZakumLArm_3 : public ZakumBasicFunction
 {
 	friend class Zakum;
-	friend class ZakumBasicFunction;
 public:
 
 	ZakumLArm_3();
@@ -14,11 +13,12 @@ public:
 	ZakumLArm_3(ZakumLArm_3&& _Other) noexcept = delete;
 	ZakumLArm_3& operator=(const ZakumLArm_3& _Other) = delete;
 	ZakumLArm_3& operator=(ZakumLArm_3&& _Other) noexcept = delete;
-
+	
 protected:
 	void Start();
 	void Update(float _DeltaTime) override;
 	void Render(float _DeltaTime) override;
 private:
+	void SetAnimation();
 };
 

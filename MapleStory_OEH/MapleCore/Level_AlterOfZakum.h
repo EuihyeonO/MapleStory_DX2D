@@ -22,6 +22,7 @@ protected:
 	void LevelChangeStart() override;
 	void LevelChangeEnd() override;
 private:
+	void CreateSprite();
 	std::shared_ptr<class Player> MyPlayer = nullptr;
 	std::shared_ptr<class AlterOfZakum> Map = nullptr;
 	std::shared_ptr<class Mouse> MyMouse = nullptr;

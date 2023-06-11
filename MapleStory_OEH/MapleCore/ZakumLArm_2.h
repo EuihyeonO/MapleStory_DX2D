@@ -4,7 +4,6 @@
 class ZakumLArm_2 : public ZakumBasicFunction
 {
 	friend class Zakum;
-	friend class ZakumBasicFunction;
 public:
 
 	ZakumLArm_2();
@@ -20,6 +19,7 @@ protected:
 	void Update(float _DeltaTime) override;
 	void Render(float _DeltaTime) override;
 private:
+	void SetAnimation();
 
 };
 

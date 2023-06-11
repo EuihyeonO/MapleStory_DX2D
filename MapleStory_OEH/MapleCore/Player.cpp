@@ -114,15 +114,6 @@ void Player::Update(float _DeltaTime)
 
 	PrevPos = GetTransform()->GetLocalPosition();
 	/*Test*/
-
-	if (GameEngineInput::IsKey("TestKey") == false)
-	{
-		GameEngineInput::CreateKey("TestKey", 'B');
-	}
-
-	if(GameEngineInput::IsDown("TestKey") == true)
-	{
-	}
 }
 
 void Player::Render(float _DeltaTime) 
@@ -322,7 +313,6 @@ void Player::CreateAllKey()
 
 void Player::ActingUpdate(float _DeltaTime)
 {	
-
 	if (isKeyJump == true)
 	{
 		JumpUpdate(_DeltaTime);
