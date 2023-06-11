@@ -24,7 +24,7 @@ void Player::Jump(float _DeltaTime)
 		return;
 	}
 
-	if (MoveType == "Walk")
+	if (MoveType == "Walk" && isFlashJump == false)
 	{
 		if (LeftRightDir == "Right")
 		{
@@ -86,6 +86,7 @@ void Player::JumpUpdate(float _DeltaTime)
 			{
 				isKeyJump = false;
 				JumpPower = 585.0f;
+				isFlashJump = false;
 
 				if (isSwing == false)
 				{
@@ -107,6 +108,10 @@ void Player::JumpUpdate(float _DeltaTime)
 				GetTransform()->AddLocalPosition({ (JumpXMove / abs(JumpXMove)) * MoveSpeed * _DeltaTime , JumpPower * _DeltaTime });
 			}
 		}
+		else if (isFlashJump == true)
+		{
+			GetTransform()->AddLocalPosition({JumpXMove * _DeltaTime , JumpPower * _DeltaTime });
+		}
 		else
 		{
 			GetTransform()->AddLocalPosition({ 0 , JumpPower * _DeltaTime });
@@ -124,6 +129,7 @@ void Player::JumpUpdate(float _DeltaTime)
 		{
 			isKeyJump = false;
 			JumpPower = 585.0f;
+			isFlashJump = false;
 
 			if (isSwing == false)
 			{
@@ -354,7 +360,7 @@ void Player::RopeAndLadder(float _DeltaTime)
 			JumpXMove = 0;
 		}
 
-		JumpPower = 200.0f;
+		JumpPower = 350.0f;
 
 		TextureUpdate();
 		return;

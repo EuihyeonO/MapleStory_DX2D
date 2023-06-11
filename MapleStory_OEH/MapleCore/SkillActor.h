@@ -32,6 +32,8 @@ private:
 	void LuckySeven();
 	void JavelinBooster();
 	void ShadowPartner();
+	void FlashJump();
+
 
 	std::string SkillName;
 

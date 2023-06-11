@@ -33,6 +33,7 @@ void SkillList::Start()
 	InsertSkillToList(2, "JavelinBooster");
 	InsertSkillToList(3, "ShadowPartner");
 	InsertSkillToList(3, "Avenger");
+	InsertSkillToList(3, "FlashJump");
 }
 
 void SkillList::Update(float _DeltaTime) 
@@ -101,6 +102,10 @@ void SkillList::SetSkillFunc(std::shared_ptr<SkillList::SkillIcon> _SkillIcon)
 	else if (_SkillIcon->SkillName == "Avenger")
 	{
 		_SkillIcon->SkillFunc = &Player::Avenger;
+	}
+	else if (_SkillIcon->SkillName == "FlashJump")
+	{
+		_SkillIcon->SkillFunc = &Player::FlashJump;
 	}
 }
 

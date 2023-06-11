@@ -104,5 +104,34 @@ void Player::Avenger()
 
 	MoveType = "Swing2";
 	AniIndex = 0;
+}
 
+void Player::FlashJump()
+{
+	if (isKeyJump == false || isSwing == true || isFlashJump == true)
+	{
+		return;
+	}
+
+	int CurMp = PlayerValue::Value.GetMp();
+
+	if (CurMp < 10)
+	{
+		return;
+	}
+
+	//PlayerValue::Value.SetMp(CurMp - 10);
+	std::shared_ptr<SkillActor> FlashJumpActor = GetLevel()->CreateActor<SkillActor>();
+	FlashJumpActor->SetSkillActor("FlashJump");
+
+	if (LeftRightDir == "Left")
+	{
+		JumpXMove = -400.0f;
+	}
+	else if (LeftRightDir == "Right")
+	{
+		JumpXMove = 400.0f;
+	}
+
+	isFlashJump = true;
 }

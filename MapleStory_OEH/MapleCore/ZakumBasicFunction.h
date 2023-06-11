@@ -20,6 +20,7 @@ public:
 protected:
 	int ArmIndex = 0;
 	bool isLeft = true;
+	bool isAttack = false;
 
 	std::shared_ptr<class GameEngineSpriteRenderer> ArmRender = nullptr;
 	std::shared_ptr<class GameEngineCollision> ArmCollision = nullptr;

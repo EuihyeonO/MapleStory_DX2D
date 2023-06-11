@@ -107,6 +107,8 @@ void Level_AlterOfZakum::CreateSprite()
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm0_Hit").GetFullPath());
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm0_1Attack").GetFullPath());
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm0_1AtEffect").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm0_2Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm0_2AtEffect").GetFullPath());
 	}
 
 	if (nullptr == GameEngineSprite::Find("LArm1_Stand"))
@@ -123,6 +125,9 @@ void Level_AlterOfZakum::CreateSprite()
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm1_Stand").GetFullPath());
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm1_Death").GetFullPath());
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm1_Hit").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm1_1Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm1_1AtEffect").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm1_Skill").GetFullPath());
 	}
 
 	if (nullptr == GameEngineSprite::Find("LArm2_Stand"))
@@ -139,6 +144,10 @@ void Level_AlterOfZakum::CreateSprite()
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm2_Stand").GetFullPath());
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm2_Death").GetFullPath());
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm2_Hit").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm2_1Skill").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm2_2Skill").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm2_3Skill").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm2_4Skill").GetFullPath());
 	}
 
 	if (nullptr == GameEngineSprite::Find("LArm3_Stand"))
@@ -155,6 +164,10 @@ void Level_AlterOfZakum::CreateSprite()
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm3_Stand").GetFullPath());
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm3_Death").GetFullPath());
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm3_Hit").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm3_1Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm3_1AtEffect").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm3_2Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm3_2AtEffect").GetFullPath());
 	}
 
 	if (nullptr == GameEngineSprite::Find("RArm0_Stand"))
@@ -170,7 +183,9 @@ void Level_AlterOfZakum::CreateSprite()
 
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm0_Stand").GetFullPath());
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm0_Death").GetFullPath());
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm0_Hit").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm0_Hit").GetFullPath());		
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm0_1Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm0_1AtEffect").GetFullPath());
 	}
 
 	if (nullptr == GameEngineSprite::Find("RArm1_Stand"))

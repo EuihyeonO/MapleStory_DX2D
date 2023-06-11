@@ -45,7 +45,6 @@ void SkillActor::SetSkillActor(const std::string_view& _SkillName, bool _isRePla
 
 	SetSkillAnimation();
 	SetUpdateFunc();
-
 }
 
 void SkillActor::SetSkillAnimation()
@@ -99,6 +98,16 @@ void SkillActor::SetSkillAnimation()
 
 		LastIndex = 15;
 	}
+	else if (SkillName == "FlashJump")
+	{
+		AniFrameList[SkillName].push_back(0.08f);
+		AniFrameList[SkillName].push_back(0.08f);
+		AniFrameList[SkillName].push_back(0.08f);
+		AniFrameList[SkillName].push_back(0.08f);
+		AniFrameList[SkillName].push_back(0.08f);
+
+		LastIndex = 4;
+	}
 }
 
 void SkillActor::SetUpdateFunc()
@@ -122,6 +131,10 @@ void SkillActor::SetUpdateFunc()
 	else if (SkillName == "ShadowPartner")
 	{
 		UpdateFunc = &SkillActor::ShadowPartner;
+	}
+	else if (SkillName == "FlashJump")
+	{
+		UpdateFunc = &SkillActor::FlashJump;
 	}
 }
 
@@ -462,5 +475,35 @@ void SkillActor::ShadowPartner()
 		};
 
 		return;
+	}
+}
+
+void SkillActor::FlashJump()
+{
+	std::shared_ptr<Player> CurPlayer = Player::GetCurPlayer();
+	TimeCounting();
+
+	if (AnimationIndex == 0 && AnimationCount == 0.0f)
+	{
+		float4 Pos = Player::GetCurPlayer()->GetTransform()->GetWorldPosition();
+		GetTransform()->SetLocalPosition(Pos + float4{0, 20.0f});
+		AnimationRender->SetScaleToTexture("FlashJump0.png");
+	}
+
+	AnimationCount += TimeCount;
+
+	if (AnimationCount >= AniFrameList["FlashJump"][0])
+	{
+		AnimationCount = 0.0f;
+		AnimationIndex++;
+
+		if (AnimationIndex > LastIndex)
+		{
+			Death();
+			return;
+		}
+
+		std::string TexName = "FlashJump" + std::to_string(AnimationIndex) + ".png";
+		AnimationRender->SetScaleToTexture(TexName);
 	}
 }

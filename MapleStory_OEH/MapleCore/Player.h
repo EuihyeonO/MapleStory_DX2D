@@ -189,10 +189,12 @@ private:
 	void Avenger();
 	void JavelinBooster();
 	void ShadowPartner();
+	void FlashJump();
 
 		//Passive
 	void KeenEyes();
 
+	bool isFlashJump = false;
 	bool isAvenger = false;
 	bool isOnShadow = false;
 	float Range = 300.0f;

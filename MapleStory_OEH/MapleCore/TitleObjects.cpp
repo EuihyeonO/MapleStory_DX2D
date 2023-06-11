@@ -2,6 +2,7 @@
 #include "TitleObjects.h"
 #include <gameengineCore/GameEngineLevel.h>
 #include <gameengineCore/GameEngineCamera.h>
+#include <GameEngineCore/GameEngineTexture.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 
 #include <ctime>

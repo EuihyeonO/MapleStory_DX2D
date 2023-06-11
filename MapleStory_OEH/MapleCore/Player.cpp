@@ -157,7 +157,6 @@ void Player::GravityUpdate(float _DeltaTime)
 		Gravity = 1000.0f;
 	}
 
-
 	float4 PlayerPos = GetTransform()->GetLocalPosition();
 
 	float4 MapHalfScale = { static_cast<float>(ColMap->GetWidth() / 2) ,  static_cast<float>(ColMap->GetHeight() / 2) };
@@ -234,60 +233,6 @@ void Player::GravityUpdate(float _DeltaTime)
 		}
 		
 	}
-
-	//	if (count < 3 && MoveType != "Jump" && isJumpUp == false)
-	//	{
-	//		GetTransform()->AddLocalPosition({ 0 , static_cast<float>(-count)});
-	//		isKeyJump = false;
-	//		isGround = true;
-
-	//		if (isSwing == false)
-	//		{
-	//			MoveType = "Stand";
-	//		}
-	//	}
-	//	
-	//	else
-	//	{
-	//		GetTransform()->AddLocalPosition({ 0 , -Gravity * _DeltaTime});
-	//		if (isSwing == false)
-	//		{
-	//			MoveType = "Jump";
-	//		}
-
-	//		isGround = false;
-	//	}
-	//}
-	//else
-	//{
-
-	//	if (isJumpUp == true)
-	//	{
-	//		return;
-	//	}
-
-	//	float Count = 0.0f;
-
-	//	while (Color == MapColor)
-	//	{
-	//		ColorPos.y--;
-	//		MapColor = ColMap->GetPixel(static_cast<int>(ColorPos.x), static_cast<int>(ColorPos.y));
-	//		Count++;
-	//	}
-
-	//	GetTransform()->AddLocalPosition({ 0, Count - 1 });
-
-	//	Gravity = 200.0f;
-	//	isGround = true;
-
-	//	if (isSwing == false)
-	//	{
-	//		if (MoveType == "Jump")
-	//		{
-	//			MoveType = "Stand";
-	//		}
-	//	}
-	//}
 }
 
 void Player::CreateAllKey()
@@ -396,11 +341,7 @@ void Player::ActingUpdate(float _DeltaTime)
 
 int Player::GetStateByKeyInput() const
 {
-	if (GameEngineInput::IsDown("Jump") == true)
-	{
-		return static_cast<int>(State::Jump);
-	}
-	else if (GameEngineInput::IsDown("UpKey") == true || GameEngineInput::IsPress("UpKey") == true)
+	if (GameEngineInput::IsDown("UpKey") == true || GameEngineInput::IsPress("UpKey") == true)
 	{
 		return static_cast<int>(State::Up);
 	}
@@ -439,6 +380,10 @@ int Player::GetStateByKeyInput() const
 	else if (GameEngineInput::IsDown("PgDnSkill") == true)
 	{
 		return static_cast<int>(State::PgDnSkill);
+	}
+	if (GameEngineInput::IsDown("Jump") == true)
+	{
+		return static_cast<int>(State::Jump);
 	}
 	else if (GameEngineInput::IsPress("LMove") == true || GameEngineInput::IsPress("RMove") == true)
 	{
@@ -510,5 +455,4 @@ void Player::GetItem()
 		std::shared_ptr<DropItem> _Item = collision->GetActor()->DynamicThis<DropItem>();
 		_Item->GetItem();
 	}
-
 }
