@@ -21,6 +21,6 @@ protected:
 private:
 
 	void SetAnimation();
-	void Attack() override {}
+	void Attack() override;
 };
 

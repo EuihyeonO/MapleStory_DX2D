@@ -3,6 +3,9 @@
 #include "Zakum.h"
 #include "Player.h"
 
+#include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineBase/GameEngineRandom.h>
+
 ZakumLArm_3::ZakumLArm_3()
 {
 	ArmIndex = 3;
@@ -20,17 +23,20 @@ void ZakumLArm_3::Start()
 	SetAnimation();
 
 	ArmCollision = CreateComponent<GameEngineCollision>();
-	ArmCollision->GetTransform()->SetLocalScale({ 150, 40 });
+	ArmCollision->GetTransform()->SetLocalScale({ 150, 60 });
 	ArmCollision->SetColType(ColType::AABBBOX2D);
 	ArmCollision->SetOrder(static_cast<int>(CollisionOrder::Monster));
 	ArmCollision->GetTransform()->SetLocalPosition({ -30, -50 });
 	ArmCollision->On();
+	ArmCollision->DebugOn();
 
 	ArmRender->ChangeAnimation("Stand");
 }
 
 void ZakumLArm_3::Update(float _DeltaTime)
 {
+
+
 	DeltaTime = _DeltaTime;
 }
 
@@ -39,11 +45,32 @@ void ZakumLArm_3::Render(float _DeltaTime)
 
 }
 
+void ZakumLArm_3::Attack()
+{
+	if (isAtCoolTime == true)
+	{
+		return;
+	}
+
+	int Num = GameEngineRandom::MainRandom.RandomInt(0, 1);
+
+	switch (Num)
+	{
+	case 0:
+		ArmRender->ChangeAnimation("1Attack");
+		break;
+	case 1:
+		ArmRender->ChangeAnimation("2Attack");
+		break;
+
+	}
+}
+
 void ZakumLArm_3::SetAnimation()
 {
 	//1Attack
 	ArmRender->CreateAnimation({ .AnimationName = "1Attack",.SpriteName = "LArm3_1Attack",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true});
-	ArmRender->SetAnimationUpdateEvent("1Attack", 0, [this] {GetTransform()->SetLocalPosition({ -190, -25, -4.0f }); isAttack = true;  });
+	ArmRender->SetAnimationUpdateEvent("1Attack", 0, [this] {GetTransform()->SetLocalPosition({ -190, -25, -4.0f }); ArmCollision->GetTransform()->SetLocalPosition({ 40, -105 }); isAttack = true; isAtCoolTime = true; });
 	ArmRender->SetAnimationStartEvent("1Attack", 9, [this]
 		{
 			std::shared_ptr<GameEngineSpriteRenderer> Eff = CreateComponent<GameEngineSpriteRenderer>();
@@ -66,13 +93,16 @@ void ZakumLArm_3::SetAnimation()
 			if (ArmRender->IsAnimationEnd() == true)
 			{
 				isAttack = false;
+				GetLevel()->TimeEvent.AddEvent(3.0f, [this](GameEngineTimeEvent::TimeEvent& _Event, GameEngineTimeEvent* _Manager) {isAtCoolTime = false; }, false);
+				GetTransform()->SetLocalPosition({ -120, -80, -4.0f });
+				ArmCollision->GetTransform()->SetLocalPosition({ -30, -50 });
 				ArmRender->ChangeAnimation("Stand");
 			}
 		});
 
 	// 2Skill
 	ArmRender->CreateAnimation({ .AnimationName = "2Attack",.SpriteName = "LArm3_2Attack",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
-	ArmRender->SetAnimationUpdateEvent("2Attack", 0, [this] {GetTransform()->SetLocalPosition({ -135, -65, -4.0f }); isAttack = true;  });
+	ArmRender->SetAnimationUpdateEvent("2Attack", 0, [this] {GetTransform()->SetLocalPosition({ -135, -65, -4.0f }); ArmCollision->GetTransform()->SetLocalPosition({ -15, -65 });  isAttack = true; isAtCoolTime = true; });
 	ArmRender->SetAnimationStartEvent("2Attack", 9, [this]
 		{
 			std::shared_ptr<GameEngineSpriteRenderer> Eff = CreateComponent<GameEngineSpriteRenderer>();
@@ -82,7 +112,7 @@ void ZakumLArm_3::SetAnimation()
 			Eff->ChangeAnimation("2AtEffect");
 			Eff->SetAnimationUpdateEvent("2AtEffect", 5, [Eff, this]
 				{
-					Eff->ColorOptionValue.MulColor.a -= 1.5f * DeltaTime;
+					Eff->ColorOptionValue.MulColor.a -= 3.0f * DeltaTime;
 
 					if (Eff->ColorOptionValue.MulColor.a <= 0)
 					{
@@ -95,6 +125,9 @@ void ZakumLArm_3::SetAnimation()
 			if (ArmRender->IsAnimationEnd() == true)
 			{
 				isAttack = false;
+				GetLevel()->TimeEvent.AddEvent(3.0f, [this](GameEngineTimeEvent::TimeEvent& _Event, GameEngineTimeEvent* _Manager) {isAtCoolTime = false; }, false);
+				GetTransform()->SetLocalPosition({ -120, -80, -4.0f });
+				ArmCollision->GetTransform()->SetLocalPosition({ -30, -50 });
 				ArmRender->ChangeAnimation("Stand");
 			}
 		});
@@ -112,6 +145,7 @@ void ZakumLArm_3::SetAnimation()
 			GetTransform()->SetLocalPosition({ -135, -70, -4.0f });
 			if (ArmRender->IsAnimationEnd() == true)
 			{
+				GetTransform()->SetLocalPosition({ -120, -80, -4.0f });
 				ArmRender->ChangeAnimation("Stand");
 			}
 		});

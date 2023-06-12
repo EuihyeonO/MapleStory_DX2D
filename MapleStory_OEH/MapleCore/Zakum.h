@@ -34,6 +34,7 @@ private:
 	void CreateArm(bool _isLeft, int _ArmIndex);
 
 	void SetAnimation();
+	void ArmAttack();
 
 	static std::shared_ptr<Zakum> GlobalZakum;
 
@@ -50,6 +51,7 @@ private:
 	std::shared_ptr<class ZakumLArm_2> LArm_2 = nullptr;
 	std::shared_ptr<class ZakumLArm_3> LArm_3 = nullptr;
 
+	bool isArmAtCoolTime = false;
 	int AniIndex = 0;
 	float AniCount = 0;
 };

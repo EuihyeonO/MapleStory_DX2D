@@ -240,5 +240,9 @@ void Level_AlterOfZakum::CreateSprite()
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm3_Stand").GetFullPath());
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm3_Death").GetFullPath());
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm3_Hit").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm3_1Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm3_1AtEffect").GetFullPath());		
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm3_2Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm3_2AtEffect").GetFullPath());
 	}
 }

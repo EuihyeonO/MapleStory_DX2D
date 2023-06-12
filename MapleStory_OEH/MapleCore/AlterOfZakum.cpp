@@ -67,7 +67,7 @@ void AlterOfZakum::Start()
 
 	std::shared_ptr<GameEngineSpriteRenderer> Rope1 = CreateComponent<GameEngineSpriteRenderer>();
 	Rope1->SetScaleToTexture("ZakumRope1.png");
-	Rope1->GetTransform()->SetLocalPosition({ 370.0f, 95.0f, -4.0f });
+	Rope1->GetTransform()->SetLocalPosition({ 370.0f, 100.0f, -4.0f });
 	
 	std::shared_ptr<GameEngineSpriteRenderer> Rope2 = CreateComponent<GameEngineSpriteRenderer>();
 	Rope2->SetScaleToTexture("ZakumRope1.png");

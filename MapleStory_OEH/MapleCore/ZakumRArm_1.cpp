@@ -2,6 +2,8 @@
 #include "ZakumRArm_1.h"
 #include "Zakum.h"
 
+#include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineBase/GameEngineRandom.h>
 
 ZakumRArm_1::ZakumRArm_1()
 {
@@ -25,12 +27,15 @@ void ZakumRArm_1::Start()
 	ArmCollision->SetOrder(static_cast<int>(CollisionOrder::Monster));
 	ArmCollision->GetTransform()->SetLocalPosition({ 10, -30 });
 	ArmCollision->On();
+	ArmCollision->DebugOn();
 
 	ArmRender->ChangeAnimation("Stand");
 }
 
 void ZakumRArm_1::Update(float _DeltaTime)
 {
+
+
 	DeltaTime = _DeltaTime;
 }
 
@@ -39,12 +44,33 @@ void ZakumRArm_1::Render(float _DeltaTime)
 
 }
 
+void ZakumRArm_1::Attack()
+{
+	if (isAtCoolTime == true)
+	{
+		return;
+	}
+
+	int Num = GameEngineRandom::MainRandom.RandomInt(0, 1);
+
+	switch (Num)
+	{
+	case 0:
+		ArmRender->ChangeAnimation("1Attack");
+		break;
+	case 1:
+		ArmRender->ChangeAnimation("2Attack");
+		break;
+
+	}
+}
+
 void ZakumRArm_1::SetAnimation()
 {
 	//1Attack
 
 	ArmRender->CreateAnimation({ .AnimationName = "1Attack",.SpriteName = "RArm1_1Attack",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
-	ArmRender->SetAnimationUpdateEvent("1Attack", 0, [this] {GetTransform()->SetLocalPosition({ 210, 50, -4.0f }); isAttack = true;  });
+	ArmRender->SetAnimationUpdateEvent("1Attack", 0, [this] {GetTransform()->SetLocalPosition({ 210, 50, -4.0f }); ArmCollision->GetTransform()->SetLocalPosition({ -40, -20 });  isAttack = true; isAtCoolTime = true;  });
 
 	ArmRender->SetAnimationStartEvent("1Attack", 9, [this]
 		{
@@ -56,6 +82,9 @@ void ZakumRArm_1::SetAnimation()
 			if (ArmRender->IsAnimationEnd() == true)
 			{
 				isAttack = false;
+				GetLevel()->TimeEvent.AddEvent(3.0f, [this](GameEngineTimeEvent::TimeEvent& _Event, GameEngineTimeEvent* _Manager) {isAtCoolTime = false; }, false);
+				GetTransform()->SetLocalPosition({ 160, 60, -4.0f });
+				ArmCollision->GetTransform()->SetLocalPosition({ 10, -30 });
 				ArmRender->ChangeAnimation("Stand");
 			}
 		});
@@ -63,7 +92,7 @@ void ZakumRArm_1::SetAnimation()
 	//2Attack
 
 	ArmRender->CreateAnimation({ .AnimationName = "2Attack",.SpriteName = "RArm1_2Attack",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
-	ArmRender->SetAnimationUpdateEvent("2Attack", 0, [this] {GetTransform()->SetLocalPosition({ 200, 50, -4.0f }); isAttack = true;  });
+	ArmRender->SetAnimationUpdateEvent("2Attack", 0, [this] {GetTransform()->SetLocalPosition({ 200, 50, -4.0f }); ArmCollision->GetTransform()->SetLocalPosition({ -30, -20 }); isAttack = true; isAtCoolTime = true; });
 
 	ArmRender->SetAnimationStartEvent("2Attack", 9, [this]
 		{
@@ -75,6 +104,9 @@ void ZakumRArm_1::SetAnimation()
 			if (ArmRender->IsAnimationEnd() == true)
 			{
 				isAttack = false;
+				GetLevel()->TimeEvent.AddEvent(3.0f, [this](GameEngineTimeEvent::TimeEvent& _Event, GameEngineTimeEvent* _Manager) {isAtCoolTime = false; }, false);
+				GetTransform()->SetLocalPosition({ 160, 60, -4.0f });
+				ArmCollision->GetTransform()->SetLocalPosition({ 10, -30 });
 				ArmRender->ChangeAnimation("Stand");
 			}
 		});
@@ -92,6 +124,7 @@ void ZakumRArm_1::SetAnimation()
 			GetTransform()->SetLocalPosition({ 180, 50, -4.0f });
 			if (ArmRender->IsAnimationEnd() == true)
 			{
+				GetTransform()->SetLocalPosition({ 160, 60, -4.0f });
 				ArmRender->ChangeAnimation("Stand");
 			}
 		});

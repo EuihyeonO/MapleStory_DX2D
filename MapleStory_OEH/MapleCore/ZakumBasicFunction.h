@@ -20,8 +20,10 @@ public:
 protected:
 	int ArmIndex = 0;
 	bool isLeft = true;
-	bool isAttack = false;
 	
+	bool isAttack = false;
+	bool isAtCoolTime = false;
+
 	float DeltaTime = 0.0f;
 
 	std::shared_ptr<class GameEngineSpriteRenderer> ArmRender = nullptr;

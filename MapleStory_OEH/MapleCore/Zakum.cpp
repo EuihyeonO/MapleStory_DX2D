@@ -11,6 +11,7 @@
 #include "ZakumLArm_3.h"
 
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineBase/GameEngineRandom.h>
 
 std::shared_ptr<Zakum> Zakum::GlobalZakum = nullptr;
 
@@ -37,6 +38,7 @@ void Zakum::Start()
 
 void Zakum::Update(float _DeltaTime)
 {
+	ArmAttack();
 }
 
 void Zakum::Render(float _DeltaTime)
@@ -223,4 +225,71 @@ void Zakum::ArmDeath(bool _isLeft, int _ArmIndex)
 			break;
 		}
 	}
+}
+
+
+void Zakum::ArmAttack()
+{
+	if (isArmAtCoolTime == true)
+	{
+		return;
+	}
+
+	int Num = GameEngineRandom::MainRandom.RandomInt(0, 7);
+
+	switch (Num)
+	{
+	case 0:
+		if(LArm_0 != nullptr)
+		{
+			LArm_0->Attack();
+		}
+		break;
+	case 1:
+		if (LArm_1 != nullptr)
+		{
+			LArm_1->Attack();
+		}
+		break;
+	case 2:
+		if (LArm_2 != nullptr)
+		{
+			LArm_2->Attack();
+		}
+		break;
+	case 3:
+		if (LArm_3 != nullptr)
+		{
+			LArm_3->Attack();
+		}
+		break;
+	case 4:
+		if (RArm_0 != nullptr)
+		{
+			RArm_0->Attack();
+		}
+		break;
+	case 5:
+		if (RArm_1 != nullptr)
+		{
+			RArm_1->Attack();
+		}
+		break;
+	case 6:
+		if (RArm_2 != nullptr)
+		{
+			RArm_2->Attack();
+		}
+		break;
+	case 7:
+		if (RArm_3 != nullptr)
+		{
+			RArm_3->Attack();
+		}
+		break;
+	}
+
+	isArmAtCoolTime = true;
+	GetLevel()->TimeEvent.AddEvent(2.0f, [this](GameEngineTimeEvent::TimeEvent& _Event, GameEngineTimeEvent* _Manager){isArmAtCoolTime = false; }, false);
+
 }

@@ -479,11 +479,15 @@ void Player::RopeAndLadderDown(float _DeltaTime)
 
 void Player::Hit()
 {
-	isMovable = false;
 	isHit = true;
-	MoveType = "Alert";
-	AniIndex = 0;
-	AnimationCount = 0.0f;
+
+	if(isRopeOrLadder == false && isSwing == false)
+	{
+		isMovable = false;
+		MoveType = "Alert";
+		AniIndex = 0;
+		AnimationCount = 0.0f;
+	}
 
 	std::function<void(GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*)> HitEndFunc = [=](GameEngineTimeEvent::TimeEvent& _Event, GameEngineTimeEvent* _Manager)
 	{

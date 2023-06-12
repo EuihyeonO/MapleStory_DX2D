@@ -2,6 +2,8 @@
 #include "ZakumLArm_2.h"
 #include "Zakum.h"
 
+#include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineBase/GameEngineRandom.h>
 
 ZakumLArm_2::ZakumLArm_2()
 {
@@ -21,17 +23,20 @@ void ZakumLArm_2::Start()
 	SetAnimation();
 
 	ArmCollision = CreateComponent<GameEngineCollision>();
-	ArmCollision->GetTransform()->SetLocalScale({ 150, 40 });
+	ArmCollision->GetTransform()->SetLocalScale({ 150, 60 });
 	ArmCollision->SetColType(ColType::AABBBOX2D);
 	ArmCollision->SetOrder(static_cast<int>(CollisionOrder::Monster));
 	ArmCollision->GetTransform()->SetLocalPosition({ -30, -50 });
 	ArmCollision->On();
+
+	ArmCollision->DebugOn();
 
 	ArmRender->ChangeAnimation("Stand");
 }
 
 void ZakumLArm_2::Update(float _DeltaTime)
 {
+
 	DeltaTime = _DeltaTime;
 }
 
@@ -40,13 +45,38 @@ void ZakumLArm_2::Render(float _DeltaTime)
 
 }
 
+void ZakumLArm_2::Attack()
+{
+	if (isAtCoolTime == true)
+	{
+		return;
+	}
+
+	int Num = GameEngineRandom::MainRandom.RandomInt(0, 3);
+
+	switch (Num)
+	{
+	case 0:
+		ArmRender->ChangeAnimation("1Skill");
+		break;
+	case 1:
+		ArmRender->ChangeAnimation("2Skill");
+		break;
+	case 2:
+		ArmRender->ChangeAnimation("3Skill");
+		break;
+	case 3:
+		ArmRender->ChangeAnimation("4Skill");
+		break;
+	}
+}
 
 void ZakumLArm_2::SetAnimation()
 {
 	//Skill1
 
 	ArmRender->CreateAnimation({ .AnimationName = "1Skill",.SpriteName = "LArm2_1Skill",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
-	ArmRender->SetAnimationUpdateEvent("1Skill", 0, [this] {GetTransform()->SetLocalPosition({ -160, -30, -4.0f }); isAttack = true;  });
+	ArmRender->SetAnimationUpdateEvent("1Skill", 0, [this] {GetTransform()->SetLocalPosition({ -160, -30, -4.0f }); ArmCollision->GetTransform()->SetLocalPosition({ 10, -30 });  isAttack = true; isAtCoolTime = true; });
 
 	ArmRender->SetAnimationStartEvent("1Skill", 9, [this]
 		{
@@ -57,13 +87,16 @@ void ZakumLArm_2::SetAnimation()
 			if (ArmRender->IsAnimationEnd() == true)
 			{
 				isAttack = false;
+				GetLevel()->TimeEvent.AddEvent(3.0f, [this](GameEngineTimeEvent::TimeEvent& _Event, GameEngineTimeEvent* _Manager) {isAtCoolTime = false; }, false);
+				GetTransform()->SetLocalPosition({ -120, -10, -4.0f });
+				ArmCollision->GetTransform()->SetLocalPosition({ -30, -50 });
 				ArmRender->ChangeAnimation("Stand");
 			}
 		});
 
 	//Skill2
 	ArmRender->CreateAnimation({ .AnimationName = "2Skill",.SpriteName = "LArm2_2Skill",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
-	ArmRender->SetAnimationUpdateEvent("2Skill", 0, [this] {GetTransform()->SetLocalPosition({ -160, -30, -4.0f }); isAttack = true;  });
+	ArmRender->SetAnimationUpdateEvent("2Skill", 0, [this] {GetTransform()->SetLocalPosition({ -160, -30, -4.0f }); ArmCollision->GetTransform()->SetLocalPosition({ 10, -30 });  isAttack = true; isAtCoolTime = true; });
 
 	ArmRender->SetAnimationStartEvent("2Skill", 9, [this]
 		{
@@ -74,40 +107,49 @@ void ZakumLArm_2::SetAnimation()
 			if (ArmRender->IsAnimationEnd() == true)
 			{
 				isAttack = false;
+				GetLevel()->TimeEvent.AddEvent(3.0f, [this](GameEngineTimeEvent::TimeEvent& _Event, GameEngineTimeEvent* _Manager) {isAtCoolTime = false; }, false);
+				GetTransform()->SetLocalPosition({ -120, -10, -4.0f });
+				ArmCollision->GetTransform()->SetLocalPosition({ -30, -50 });
 				ArmRender->ChangeAnimation("Stand");
 			}
 		});
 
 	//Skill3
-	ArmRender->CreateAnimation({ .AnimationName = "Skill3",.SpriteName = "LArm2_3Skill",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
-	ArmRender->SetAnimationUpdateEvent("Skill3", 0, [this] {GetTransform()->SetLocalPosition({ -160, -30, -4.0f }); isAttack = true;  });
+	ArmRender->CreateAnimation({ .AnimationName = "3Skill",.SpriteName = "LArm2_3Skill",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
+	ArmRender->SetAnimationUpdateEvent("3Skill", 0, [this] {GetTransform()->SetLocalPosition({ -160, -30, -4.0f }); ArmCollision->GetTransform()->SetLocalPosition({ 10, -30 }); isAttack = true; isAtCoolTime = true; });
 
-	ArmRender->SetAnimationStartEvent("Skill3", 9, [this]
+	ArmRender->SetAnimationStartEvent("3Skill", 9, [this]
 		{
 		});
 
-	ArmRender->SetAnimationUpdateEvent("Skill3", 14, [this]
+	ArmRender->SetAnimationUpdateEvent("3Skill", 14, [this]
 		{
 			if (ArmRender->IsAnimationEnd() == true)
 			{
 				isAttack = false;
+				GetLevel()->TimeEvent.AddEvent(3.0f, [this](GameEngineTimeEvent::TimeEvent& _Event, GameEngineTimeEvent* _Manager) {isAtCoolTime = false; }, false);
+				GetTransform()->SetLocalPosition({ -120, -10, -4.0f });
+				ArmCollision->GetTransform()->SetLocalPosition({ -30, -50 });
 				ArmRender->ChangeAnimation("Stand");
 			}
 		});
 
 	//Skill4
-	ArmRender->CreateAnimation({ .AnimationName = "Skill4",.SpriteName = "LArm2_4Skill",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
-	ArmRender->SetAnimationUpdateEvent("Skill4", 0, [this] {GetTransform()->SetLocalPosition({ -160, -30, -4.0f }); isAttack = true;  });
+	ArmRender->CreateAnimation({ .AnimationName = "4Skill",.SpriteName = "LArm2_4Skill",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
+	ArmRender->SetAnimationUpdateEvent("4Skill", 0, [this] {GetTransform()->SetLocalPosition({ -160, -30, -4.0f });  ArmCollision->GetTransform()->SetLocalPosition({ 10, -30 }); isAttack = true; isAtCoolTime = true; });
 
-	ArmRender->SetAnimationStartEvent("Skill4", 9, [this]
+	ArmRender->SetAnimationStartEvent("4Skill", 9, [this]
 		{
 		});
 
-	ArmRender->SetAnimationUpdateEvent("Skill4", 14, [this]
+	ArmRender->SetAnimationUpdateEvent("4Skill", 14, [this]
 		{
 			if (ArmRender->IsAnimationEnd() == true)
 			{
 				isAttack = false;
+				GetLevel()->TimeEvent.AddEvent(3.0f, [this](GameEngineTimeEvent::TimeEvent& _Event, GameEngineTimeEvent* _Manager) {isAtCoolTime = false; }, false);
+				GetTransform()->SetLocalPosition({ -120, -10, -4.0f });
+				ArmCollision->GetTransform()->SetLocalPosition({ -30, -50 });
 				ArmRender->ChangeAnimation("Stand");
 			}
 		});
@@ -125,6 +167,7 @@ void ZakumLArm_2::SetAnimation()
 			GetTransform()->SetLocalPosition({ -145, -40, -4.0f });
 			if (ArmRender->IsAnimationEnd() == true)
 			{
+				GetTransform()->SetLocalPosition({ -120, -10, -4.0f });
 				ArmRender->ChangeAnimation("Stand");
 			}
 		});
