@@ -3,7 +3,6 @@
 #include "Zakum.h"
 #include "Player.h"
 
-#include <GameEnginePlatform/GameEngineInput.h>
 
 ZakumRArm_0::ZakumRArm_0()
 {
@@ -34,15 +33,7 @@ void ZakumRArm_0::Start()
 
 void ZakumRArm_0::Update(float _DeltaTime) 
 {
-	if (GameEngineInput::IsKey("MyTest") == false)
-	{
-		GameEngineInput::CreateKey("MyTest", 'B');
-	}
-
-	if (GameEngineInput::IsDown("MyTest") == true)
-	{
-		ArmRender->ChangeAnimation("1Attack");
-	}
+	DeltaTime = _DeltaTime;
 }
 
 void ZakumRArm_0::Render(float _DeltaTime) 
@@ -78,6 +69,34 @@ void ZakumRArm_0::SetAnimation()
 				ArmRender->ChangeAnimation("Stand");
 			}
 		});
+	
+	//2Attack
+	ArmRender->CreateAnimation({ .AnimationName = "2Attack",.SpriteName = "RArm0_2Attack",.Loop = false,.ScaleToTexture = true,.FrameTime = {0.115f, 0.125f, 0.115f, 0.125f, 0.115f, 0.12f, 0.12f, 0.12f, 0.12f, 0.125f, 0.11f, 0.12f, 0.125f} });
+	ArmRender->SetAnimationUpdateEvent("2Attack", 0, [this] {GetTransform()->SetLocalPosition({ 145, 135, -4.0f  }); isAttack = true;  });
+	ArmRender->SetAnimationStartEvent("2Attack", 9, [this]
+		{
+			std::shared_ptr<GameEngineSpriteRenderer> Eff = CreateComponent<GameEngineSpriteRenderer>();
+			Player::GetCurPlayer()->Hit();
+			Eff->GetTransform()->SetWorldPosition(Player::GetCurPlayer()->GetTransform()->GetWorldPosition() + float4{ 3.0f, 40.0f, -10.0f });
+			Eff->CreateAnimation({ .AnimationName = "2AtEffect",.SpriteName = "RArm0_2AtEffect",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
+			Eff->ChangeAnimation("2AtEffect");
+			Eff->SetAnimationUpdateEvent("2AtEffect", 6, [Eff]
+				{
+					if (Eff->IsAnimationEnd() == true)
+					{
+						Eff->Death();
+					}
+				});
+		});
+	ArmRender->SetAnimationUpdateEvent("2Attack", 12, [this]
+		{
+			if (ArmRender->IsAnimationEnd() == true)
+			{
+				isAttack = false;
+				ArmRender->ChangeAnimation("Stand");
+			}
+		});
+
 	//
 	ArmRender->CreateAnimation({ .AnimationName = "Stand",.SpriteName = "RArm0_Stand",.Loop = true,.ScaleToTexture = true,.FrameTime = {0.13f, 0.1f,0.1f, 0.1f, 0.13f, 0.1f, 0.1f, 0.1f } });
 	ArmRender->SetAnimationUpdateEvent("Stand", 0, [this]
@@ -95,8 +114,28 @@ void ZakumRArm_0::SetAnimation()
 			}
 		});
 
-	ArmRender->CreateAnimation({ .AnimationName = "Death",.SpriteName = "RArm0_Death",.FrameInter = 0.11f,.Loop = false,.ScaleToTexture = true });
-	ArmRender->SetAnimationUpdateEvent("Death", 18, [this] {Zakum::GetZakum()->ArmDeath(isLeft, ArmIndex); });
+	//Death
+	std::vector<float> FrameVec;
+	FrameVec.reserve(19);
+
+	for (int i = 0; i < 19; i++)
+	{
+		FrameVec.push_back(0.11f);
+	}
+
+	FrameVec[18] = 1.0f;
+
+	ArmRender->CreateAnimation({ .AnimationName = "Death",.SpriteName = "RArm0_Death",.Loop = false,.ScaleToTexture = true,.FrameTime = FrameVec });
+	ArmRender->SetAnimationUpdateEvent("Death", 18, [this]
+		{
+			ArmRender->ColorOptionValue.MulColor.a -= 4.0f * DeltaTime;
+
+			if (ArmRender->ColorOptionValue.MulColor.a <= 0.0f)
+			{
+				Zakum::GetZakum()->ArmDeath(isLeft, ArmIndex);
+			}
+		});
+
 	ArmRender->SetAnimationUpdateEvent("Death", 0, [this]
 		{
 			GetTransform()->SetLocalPosition({ 160, 145, -4.0f });

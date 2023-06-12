@@ -33,7 +33,7 @@ void ZakumLArm_0::Start()
 
 void ZakumLArm_0::Update(float _DeltaTime)
 {
-
+	DeltaTime = _DeltaTime;
 }
 
 void ZakumLArm_0::Render(float _DeltaTime)
@@ -116,8 +116,28 @@ void ZakumLArm_0::SetAnimation()
 			}
 		});
 
-	ArmRender->CreateAnimation({ .AnimationName = "Death",.SpriteName = "LArm0_Death",.FrameInter = 0.11f,.Loop = false,.ScaleToTexture = true });
-	ArmRender->SetAnimationUpdateEvent("Death", 18, [this] {Zakum::GetZakum()->ArmDeath(isLeft, ArmIndex); });
+	//Death
+	std::vector<float> FrameVec;
+	FrameVec.reserve(19);
+	
+	for (int i = 0; i < 19; i++)
+	{
+		FrameVec.push_back(0.11f);
+	}
+
+	FrameVec[18] = 1.0f;
+
+	ArmRender->CreateAnimation({ .AnimationName = "Death",.SpriteName = "LArm0_Death",.Loop = false,.ScaleToTexture = true,.FrameTime = FrameVec });
+	ArmRender->SetAnimationUpdateEvent("Death", 18, [this] 
+		{
+			ArmRender->ColorOptionValue.MulColor.a -= 4.0f * DeltaTime;
+			
+			if (ArmRender->ColorOptionValue.MulColor.a <= 0.0f)
+			{
+				Zakum::GetZakum()->ArmDeath(isLeft, ArmIndex);
+			}
+		});
+
 	ArmRender->SetAnimationUpdateEvent("Death", 0, [this]
 		{
 			GetTransform()->SetLocalPosition({ -115, 140, -4.0f });

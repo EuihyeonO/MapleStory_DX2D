@@ -20,7 +20,5 @@ protected:
 	void Render(float _DeltaTime) override;
 private:
 	void SetAnimation();
-
-	float DeltaTime = 0.0f;
 };
 

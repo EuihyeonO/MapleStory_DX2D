@@ -32,6 +32,7 @@ void ZakumLArm_2::Start()
 
 void ZakumLArm_2::Update(float _DeltaTime)
 {
+	DeltaTime = _DeltaTime;
 }
 
 void ZakumLArm_2::Render(float _DeltaTime)
@@ -44,14 +45,14 @@ void ZakumLArm_2::SetAnimation()
 {
 	//Skill1
 
-	ArmRender->CreateAnimation({ .AnimationName = "Skill1",.SpriteName = "LArm2_1Skill",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
-	ArmRender->SetAnimationUpdateEvent("Skill1", 0, [this] {GetTransform()->SetLocalPosition({ -160, -30, -4.0f }); isAttack = true;  });
+	ArmRender->CreateAnimation({ .AnimationName = "1Skill",.SpriteName = "LArm2_1Skill",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
+	ArmRender->SetAnimationUpdateEvent("1Skill", 0, [this] {GetTransform()->SetLocalPosition({ -160, -30, -4.0f }); isAttack = true;  });
 
-	ArmRender->SetAnimationStartEvent("Skill1", 9, [this]
+	ArmRender->SetAnimationStartEvent("1Skill", 9, [this]
 		{
 		});
 
-	ArmRender->SetAnimationUpdateEvent("Skill1", 14, [this]
+	ArmRender->SetAnimationUpdateEvent("1Skill", 14, [this]
 		{
 			if (ArmRender->IsAnimationEnd() == true)
 			{
@@ -61,14 +62,14 @@ void ZakumLArm_2::SetAnimation()
 		});
 
 	//Skill2
-	ArmRender->CreateAnimation({ .AnimationName = "Skill2",.SpriteName = "LArm2_2Skill",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
-	ArmRender->SetAnimationUpdateEvent("Skill2", 0, [this] {GetTransform()->SetLocalPosition({ -160, -30, -4.0f }); isAttack = true;  });
+	ArmRender->CreateAnimation({ .AnimationName = "2Skill",.SpriteName = "LArm2_2Skill",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
+	ArmRender->SetAnimationUpdateEvent("2Skill", 0, [this] {GetTransform()->SetLocalPosition({ -160, -30, -4.0f }); isAttack = true;  });
 
-	ArmRender->SetAnimationStartEvent("Skill2", 9, [this]
+	ArmRender->SetAnimationStartEvent("2Skill", 9, [this]
 		{
 		});
 
-	ArmRender->SetAnimationUpdateEvent("Skill2", 14, [this]
+	ArmRender->SetAnimationUpdateEvent("2Skill", 14, [this]
 		{
 			if (ArmRender->IsAnimationEnd() == true)
 			{
@@ -128,8 +129,28 @@ void ZakumLArm_2::SetAnimation()
 			}
 		});
 
-	ArmRender->CreateAnimation({ .AnimationName = "Death",.SpriteName = "LArm2_Death",.FrameInter = 0.11f,.Loop = false,.ScaleToTexture = true });
-	ArmRender->SetAnimationUpdateEvent("Death", 18, [this] {Zakum::GetZakum()->ArmDeath(isLeft, ArmIndex); });
+	//Death
+	std::vector<float> FrameVec;
+	FrameVec.reserve(19);
+
+	for (int i = 0; i < 19; i++)
+	{
+		FrameVec.push_back(0.11f);
+	}
+
+	FrameVec[18] = 1.0f;
+
+	ArmRender->CreateAnimation({ .AnimationName = "Death",.SpriteName = "LArm2_Death",.Loop = false,.ScaleToTexture = true,.FrameTime = FrameVec });
+	ArmRender->SetAnimationUpdateEvent("Death", 18, [this]
+		{
+			ArmRender->ColorOptionValue.MulColor.a -= 4.0f * DeltaTime;
+
+			if (ArmRender->ColorOptionValue.MulColor.a <= 0.0f)
+			{
+				Zakum::GetZakum()->ArmDeath(isLeft, ArmIndex);
+			}
+		});
+
 	ArmRender->SetAnimationUpdateEvent("Death", 0, [this]
 		{
 			GetTransform()->SetLocalPosition({ -145, -60, -4.0f });
