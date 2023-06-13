@@ -111,7 +111,7 @@ public:
 	}
 
 
-	const std::string_view& GetEquipItem(int _EquipType)
+	const std::string_view GetEquipItem(int _EquipType)
 	{
 		return EquipItemList[_EquipType];
 	}
@@ -214,6 +214,7 @@ public:
 	}
 
 	void SetSkillAllQuickSlot();
+
 protected:
 
 private:
