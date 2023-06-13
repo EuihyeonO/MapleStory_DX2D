@@ -159,7 +159,7 @@ void GreenSnail::Hit(int _Damage, bool _isRealAttack)
 		for (size_t i = 0; i < DropItemSize; i++)
 		{
 			std::shared_ptr<DropItem> NewItem = GetLevel()->CreateActor<DropItem>();
-			NewItem->SetQuadraticFunction((DropItemSize / -2) * 30.0f + (30.0f * i) + 15.0f, GetTransform()->GetWorldPosition() + float4{ 0, 5.0f });
+			NewItem->SetQuadraticFunction((DropItemSize / -2.0f) * 15.0f + (15.0f * i) + 7.5f, GetTransform()->GetWorldPosition() + float4{ 0, 5.0f });
 			NewItem->SetDropItemInfo(DropItemList[ItemVector[i]].first);
 		}
 
@@ -174,13 +174,11 @@ void GreenSnail::MonsterDeath(float _DeltaTime)
 		return;
 	}
 
-
 	if (AniIndex < 8)
 	{
 		TextureUpdate();
 		return;
 	}
-
 
 	float Alpha = BasicRender->ColorOptionValue.MulColor.a;
 
@@ -233,5 +231,8 @@ void GreenSnail::SetDropItemList()
 {
 	DropItemList.reserve(4);
 
+	DropItemList.push_back({ "GreenShell", 75 });
+	DropItemList.push_back({ "GreenShell", 75 });
+	DropItemList.push_back({ "GreenShell", 75 });
 	DropItemList.push_back({ "GreenShell", 75 });
 }

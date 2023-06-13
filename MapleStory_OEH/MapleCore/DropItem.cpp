@@ -51,7 +51,7 @@ void DropItem::MoveDropItem(float _DeltaTime)
 		{
 			GetTransform()->AddLocalPosition({ 0, 140.0f * _DeltaTime });
 
-			if (abs(CurPos.y - StartPos.y) >= 25.0f)
+			if (abs(CurPos.y - StartPos.y) >= 10.0f)
 			{
 				DropItemCollision->On();
 			}
