@@ -99,7 +99,7 @@ void Level_AlterOfZakum::CreateSprite()
 		NewDir.Move("Sprite");
 		NewDir.Move("Monster");
 		NewDir.Move("Zakum");
-		NewDir.Move("Arm");
+		NewDir.Move("ZakumArm");
 		NewDir.Move("Left_0");
 
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm0_Stand").GetFullPath());
@@ -119,7 +119,7 @@ void Level_AlterOfZakum::CreateSprite()
 		NewDir.Move("Sprite");
 		NewDir.Move("Monster");
 		NewDir.Move("Zakum");
-		NewDir.Move("Arm");
+		NewDir.Move("ZakumArm");
 		NewDir.Move("Left_1");
 
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm1_Stand").GetFullPath());
@@ -138,7 +138,7 @@ void Level_AlterOfZakum::CreateSprite()
 		NewDir.Move("Sprite");
 		NewDir.Move("Monster");
 		NewDir.Move("Zakum");
-		NewDir.Move("Arm");
+		NewDir.Move("ZakumArm");
 		NewDir.Move("Left_2");
 
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm2_Stand").GetFullPath());
@@ -158,7 +158,7 @@ void Level_AlterOfZakum::CreateSprite()
 		NewDir.Move("Sprite");
 		NewDir.Move("Monster");
 		NewDir.Move("Zakum");
-		NewDir.Move("Arm");
+		NewDir.Move("ZakumArm");
 		NewDir.Move("Left_3");
 
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm3_Stand").GetFullPath());
@@ -178,7 +178,7 @@ void Level_AlterOfZakum::CreateSprite()
 		NewDir.Move("Sprite");
 		NewDir.Move("Monster");
 		NewDir.Move("Zakum");
-		NewDir.Move("Arm");
+		NewDir.Move("ZakumArm");
 		NewDir.Move("Right_0");
 
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm0_Stand").GetFullPath());
@@ -198,7 +198,7 @@ void Level_AlterOfZakum::CreateSprite()
 		NewDir.Move("Sprite");
 		NewDir.Move("Monster");
 		NewDir.Move("Zakum");
-		NewDir.Move("Arm");
+		NewDir.Move("ZakumArm");
 		NewDir.Move("Right_1");
 
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm1_Stand").GetFullPath());
@@ -216,7 +216,7 @@ void Level_AlterOfZakum::CreateSprite()
 		NewDir.Move("Sprite");
 		NewDir.Move("Monster");
 		NewDir.Move("Zakum");
-		NewDir.Move("Arm");
+		NewDir.Move("ZakumArm");
 		NewDir.Move("Right_2");
 
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm2_Stand").GetFullPath());
@@ -234,7 +234,7 @@ void Level_AlterOfZakum::CreateSprite()
 		NewDir.Move("Sprite");
 		NewDir.Move("Monster");
 		NewDir.Move("Zakum");
-		NewDir.Move("Arm");
+		NewDir.Move("ZakumArm");
 		NewDir.Move("Right_3");
 
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm3_Stand").GetFullPath());
