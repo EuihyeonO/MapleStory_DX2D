@@ -15,6 +15,11 @@ public:
 	Logo& operator=(const Logo& _Other) = delete;
 	Logo& operator=(Logo&& _Other) noexcept = delete;
 
+	bool GetIsCreateObject()
+	{
+		return isCreateObject;
+	}
+
 protected:
 	void Start();
 	void Update(float _DeltaTime) override;

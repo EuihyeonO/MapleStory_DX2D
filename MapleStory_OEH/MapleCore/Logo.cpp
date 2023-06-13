@@ -38,7 +38,6 @@ void Logo::Update(float _DeltaTime)
 		{
 			GetLevel()->CreateActor<TitleObjects>();			
 			isCreateObject = true;
-			Death();
 		}
 	}
 }
@@ -90,7 +89,7 @@ void Logo::WizetAnimation()
 
 		WizetCount += TimeCount;
 
-		if (WizetCount >= 0.1)
+		if (WizetCount >= 0.09)
 		{
 			if (WizetIndex == 61)
 			{

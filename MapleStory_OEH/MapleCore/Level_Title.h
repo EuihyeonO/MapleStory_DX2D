@@ -33,8 +33,10 @@ private:
 	float4 CamPos;
 
 	float LerpRatio = 0.0f;
-	float LerpSpeed = 3.f;
+	float LerpSpeed = 2.f;
 
 	float4 LerpCamPos = {0,0};
+
+	std::shared_ptr<class Logo> GameLogo = nullptr;
 };
 

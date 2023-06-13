@@ -38,31 +38,54 @@ void Level_Title::Start()
 
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, 0.0f });
+	GetMainCamera()->SetSortType(0, SortType::ZSort);
 
-
-	//std::shared_ptr<Player> _Player = CreateActor<Player>();
-	
-	//std::shared_ptr<Logo> GameLogo = CreateActor<Logo>();
-	std::shared_ptr<TitleObjects> NewTitleObjects = CreateActor<TitleObjects>();
+	GameLogo = CreateActor<Logo>();
 	std::shared_ptr<Player> NewPlayer = CreateActor<Player>();
 
-	NewPlayer->GetTransform()->SetLocalPosition({ -20, 1768 });
+	NewPlayer->GetTransform()->SetLocalPosition({ -20, 1768, -1 });
 	NewPlayer->SetRight();
 
 	CreateActor<Mouse>(static_cast<int>(RenderOrder::UI));
 	//std::shared_ptr<Test> NewTitleObjects = CreateActor<Test>();
+
+	if (GameEngineInput::IsKey("CameraUp") == false)
+	{
+		GameEngineInput::CreateKey("CameraUp", 'W');
+	}
+
+	if (GameEngineInput::IsKey("CameraDown") == false)
+	{
+		GameEngineInput::CreateKey("CameraDown", 'S');
+	}
+
+	if (GameEngineInput::IsKey("LevelChange") == false)
+	{
+		GameEngineInput::CreateKey("LevelChange", 'L');
+	}
+
 }
 
 void Level_Title::Update(float _DeltaTime)
 {
+	if (GameLogo != nullptr && GameLogo->GetIsCreateObject() == true)
+	{
+		GameLogo->Death();
+		GameLogo = nullptr;
+	}
+	if (GameEngineInput::IsDown("LevelChange") == true)
+	{
+		GameEngineCore::ChangeLevel("Level_BeginnersTown1");
+	}
+
 	CameraMove(_DeltaTime);
 }
 
 void Level_Title::CameraMove(float _DeltaTime)
 {
-	if (GameEngineInput::IsKey("CameraUp") == false)
+	if (GameLogo != nullptr)
 	{
-		GameEngineInput::CreateKey("CameraUp", 'W');
+		return;
 	}
 
 	if (GameEngineInput::IsDown("CameraUp") == true)
@@ -73,11 +96,6 @@ void Level_Title::CameraMove(float _DeltaTime)
 		}
 
 		isCamUp = true;
-	}
-
-	if (GameEngineInput::IsKey("CameraDown") == false)
-	{
-		GameEngineInput::CreateKey("CameraDown", 'S');
 	}
 
 	if (GameEngineInput::IsDown("CameraDown") == true)

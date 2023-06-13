@@ -55,7 +55,7 @@ void MapleCore::GameStart()
 	GameEngineCore::CreateLevel<Level_BeginnersTown2>();
 	GameEngineCore::CreateLevel<Level_CrossRoad>();
 	GameEngineCore::CreateLevel<Level_AlterOfZakum>();
-	GameEngineCore::ChangeLevel("Level_AlterOfZakum");
+	GameEngineCore::ChangeLevel("Level_Title");
 }
 
 void MapleCore::GameEnd()
