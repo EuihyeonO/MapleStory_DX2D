@@ -34,8 +34,6 @@ void ZakumLArm_1::Start()
 
 void ZakumLArm_1::Update(float _DeltaTime)
 {
-	Attack();
-
 	DeltaTime = _DeltaTime;
 }
 

@@ -38,7 +38,7 @@ void Zakum::Start()
 
 void Zakum::Update(float _DeltaTime)
 {
-	//ArmAttack();
+	ArmAttack();
 }
 
 void Zakum::Render(float _DeltaTime)
@@ -290,6 +290,6 @@ void Zakum::ArmAttack()
 	}
 
 	isArmAtCoolTime = true;
-	GetLevel()->TimeEvent.AddEvent(2.0f, [this](GameEngineTimeEvent::TimeEvent& _Event, GameEngineTimeEvent* _Manager){isArmAtCoolTime = false; }, false);
 
+	GetLevel()->TimeEvent.AddEvent(2.0f, [this](GameEngineTimeEvent::TimeEvent& _Event, GameEngineTimeEvent* _Manager){isArmAtCoolTime = false; }, false);
 }
