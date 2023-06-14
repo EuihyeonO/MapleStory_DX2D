@@ -118,10 +118,9 @@ void Player::Update(float _DeltaTime)
 	GetItem();
 	CameraUpdate(_DeltaTime);
 
-	PrevPos = GetTransform()->GetLocalPosition();
+	StatusFuncUpdate();
 
-	float4 Pos1 = GetTransform()->GetLocalPosition();
-	float4 Pos2 = GetTransform()->GetWorldPosition();
+	PrevPos = GetTransform()->GetLocalPosition();
 	/*Test*/
 }
 

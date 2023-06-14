@@ -92,6 +92,16 @@ void Level_AlterOfZakum::LevelChangeEnd()
 
 void Level_AlterOfZakum::CreateSprite()
 {
+	if (nullptr == GameEngineSprite::Find("Poison"))
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("MapleResources");
+		NewDir.Move("MapleResources");
+		NewDir.Move("Sprite");
+		NewDir.Move("StatusEffect");
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Poison").GetFullPath());
+	}
+
 	if (nullptr == GameEngineSprite::Find("LArm0_Stand"))
 	{
 		GameEngineDirectory NewDir;

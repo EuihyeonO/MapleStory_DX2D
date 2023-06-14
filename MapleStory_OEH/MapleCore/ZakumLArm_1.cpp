@@ -30,10 +30,22 @@ void ZakumLArm_1::Start()
 	ArmCollision->On();
 
 	ArmRender->ChangeAnimation("Stand");
+
+	SmogVec.reserve(30);
+	SmogVec.resize(30);
+
+	isSmogAlphaUp.reserve(30);
+	isSmogAlphaUp.resize(30);
+
 }
 
 void ZakumLArm_1::Update(float _DeltaTime)
 {
+	if(UpdateFunc != nullptr)
+	{
+		UpdateFunc();
+	}
+
 	DeltaTime = _DeltaTime;
 }
 
@@ -48,7 +60,7 @@ void ZakumLArm_1::Attack()
 		return;
 	}
 
-	int Num = GameEngineRandom::MainRandom.RandomInt(0, 0);
+	int Num = GameEngineRandom::MainRandom.RandomInt(0, 1);
 
 	switch (Num)
 	{
@@ -56,6 +68,11 @@ void ZakumLArm_1::Attack()
 		ArmRender->ChangeAnimation("1Attack");
 		break;
 	case 1:
+		if (isSmogOn == true)
+		{
+			return;
+		}
+
 		ArmRender->ChangeAnimation("Skill");
 		break;
 	}
@@ -91,7 +108,7 @@ void ZakumLArm_1::SetAnimation()
 
 	ArmRender->SetAnimationStartEvent("Skill", 9, [this]
 		{
-			//독가스 이펙트
+			PosionSmog();
 		});
 
 	ArmRender->SetAnimationUpdateEvent("Skill", 14, [this]
@@ -205,3 +222,135 @@ void ZakumLArm_1::FireRain()
 		GetLevel()->TimeEvent.AddEvent(DeathTime, [NewEff, NewEffCol](GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*) {NewEff.lock()->Death(); NewEffCol.lock()->Death(); }, false);
 	}
 }
+
+void ZakumLArm_1::PosionSmog()
+{
+	isSmogOn = true;
+	float4 StartPos = { 0, 0 };
+
+	//float4 StartPos = { 275, 150 };
+	//float4 StartPos = { 275, -50 };
+	//float4 StartPos = { 275, -150 };
+	int PosNum = GameEngineRandom::MainRandom.RandomInt(0, 4);
+	
+	switch (PosNum)
+	{
+	case 0:
+		{
+			float Xpos = GameEngineRandom::MainRandom.RandomFloat(-400, 250);
+			StartPos = { Xpos, -150 };
+		}
+		break;
+	case 1:
+		StartPos = { 275, -50 };
+		break;
+	case 2:
+		StartPos = { 275, 150 };
+		break;
+	case 3:
+		StartPos = { -450, 100 };
+		break;
+	case 4:
+		StartPos = { -550, 0 };
+		break;
+	}
+
+	for(int i = 0; i < 30; i++)
+	{
+		std::shared_ptr<GameEngineSpriteRenderer> NewSmog = CreateComponent<GameEngineSpriteRenderer>();
+
+		int Index = GameEngineRandom::MainRandom.RandomInt(0, 10);
+		std::string TextureName = "PoisonGas" + std::to_string(Index) + ".png";
+
+		NewSmog->SetScaleToTexture(TextureName);
+		float Xpos = GameEngineRandom::MainRandom.RandomFloat(25, 35);
+		float YPos = GameEngineRandom::MainRandom.RandomFloat(30, 50);
+		NewSmog->GetTransform()->SetWorldPosition(StartPos + float4{(i % 10) *  Xpos,(i / 10) * YPos, -1000.0f });
+		
+		float Alpha = GameEngineRandom::MainRandom.RandomFloat(0.4f, 1.0f);
+		NewSmog->ColorOptionValue.MulColor.a = Alpha;
+
+		SmogVec[i].first = NewSmog;
+		isSmogAlphaUp[i] = true;
+
+		std::shared_ptr<GameEngineCollision> NewSmogCol = CreateComponent<GameEngineCollision>();
+		NewSmogCol->GetTransform()->SetWorldPosition(NewSmog->GetTransform()->GetWorldPosition());
+		NewSmogCol->GetTransform()->SetWorldScale(NewSmog->GetTransform()->GetWorldScale() * 0.5f);
+		NewSmogCol->SetColType(ColType::AABBBOX2D);
+		NewSmogCol->SetOrder(static_cast<int>(CollisionOrder::Monster));
+
+		SmogVec[i].second = NewSmogCol;
+	}
+
+	UpdateFunc = [this] 
+	{
+		for(int i = 0; i < 30; i++)
+		{
+			if (SmogVec[i].first == nullptr || SmogVec[i].second == nullptr)
+			{
+				return;
+			}
+
+			if (isSmogAlphaUp[i] == true)
+			{
+				SmogVec[i].first->ColorOptionValue.MulColor.a += 0.5f * DeltaTime;
+			}
+			else if (isSmogAlphaUp[i] == false)
+			{
+				SmogVec[i].first->ColorOptionValue.MulColor.a -= 0.5f * DeltaTime;
+			}
+
+			if (SmogVec[i].first->ColorOptionValue.MulColor.a < 0.4f)
+			{
+				SmogVec[i].first->ColorOptionValue.MulColor.a = 0.4f;
+				isSmogAlphaUp[i] = true;
+			}
+			else if (SmogVec[i].first->ColorOptionValue.MulColor.a > 1.0f)
+			{
+				SmogVec[i].first->ColorOptionValue.MulColor.a = 1.0f;
+				isSmogAlphaUp[i] = false;
+			}
+
+			if (SmogVec[i].second->Collision(static_cast<int>(CollisionOrder::Player), ColType::AABBBOX2D, ColType::AABBBOX2D) != nullptr)
+			{
+				//중독상태이상
+				Player::GetCurPlayer()->Poison(5.0f);
+			}
+		}
+	};
+
+	GetLevel()->TimeEvent.AddEvent(5.0f, [this](GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*)
+		{
+			UpdateFunc = [this]
+			{
+				int NullCount = 0;
+
+				for (int i = 0; i < 30; i++)
+				{
+					if (SmogVec[i].first == nullptr || SmogVec[i].second == nullptr)
+					{
+						NullCount++;
+						continue;
+					}
+
+					SmogVec[i].first->ColorOptionValue.MulColor.a -= 0.5f * DeltaTime;
+
+					if (SmogVec[i].first->ColorOptionValue.MulColor.a < 0.0f)
+					{
+						SmogVec[i].first->Death();
+						SmogVec[i].second->Death();
+						SmogVec[i].first = nullptr;
+						SmogVec[i].second = nullptr;
+					}
+				}
+
+				if (NullCount == 30)
+				{
+					isSmogOn = false;
+					UpdateFunc = nullptr;
+				}
+			};
+		}
+	,false);
+}
+

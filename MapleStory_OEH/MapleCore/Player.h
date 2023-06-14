@@ -10,6 +10,7 @@ class Player : public BasicFunction
 	friend class SkillActor;
 	friend class SkillList;
 public:
+	void Poison(float PoisonDuration);
 
 	void Hit(int _Damage);
 
@@ -146,6 +147,13 @@ private:
 	float4 PlayerPos = {0,0};
 
 	void GetItem();
+	//상태이상 관련
+	void StatusFuncUpdate();
+
+	std::map<std::string, std::function<bool()>> StatusEffectList;
+	std::shared_ptr<GameEngineSpriteRenderer> PoisonRender;
+	float PoisonDuration = 0.0f;
+	float PoisonCount = 0.0f;
 
 	//키 관련
 	int GetStateByKeyInput() const;

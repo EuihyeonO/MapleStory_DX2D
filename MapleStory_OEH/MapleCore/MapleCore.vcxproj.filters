@@ -351,6 +351,9 @@
     <ClCompile Include="ZakumBasicFunction.cpp">
       <Filter>Actor\Monster\Boss</Filter>
     </ClCompile>
+    <ClCompile Include="StatusEffect.cpp">
+      <Filter>Actor\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">

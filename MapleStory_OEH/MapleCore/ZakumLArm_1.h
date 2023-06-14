@@ -23,5 +23,13 @@ private:
 	void Attack() override;
 	
 	void FireRain();
+	void PosionSmog();
+	
+	
+	std::function<void()> UpdateFunc;
+
+	std::vector<std::pair<std::shared_ptr<GameEngineSpriteRenderer>, std::shared_ptr<class GameEngineCollision>>> SmogVec;
+	std::vector<bool> isSmogAlphaUp;
+	bool isSmogOn = false;
 };
 

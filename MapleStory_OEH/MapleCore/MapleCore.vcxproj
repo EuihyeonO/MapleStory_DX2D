@@ -578,6 +578,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="StatusEffect.cpp" />
     <ClCompile Include="StatusWindow.cpp">
       <SubType>
       </SubType>
