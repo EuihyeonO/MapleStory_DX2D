@@ -22,6 +22,8 @@ Level_CrossRoad::~Level_CrossRoad()
 
 void Level_CrossRoad::Start()
 {
+	SetName("CROSSROAD");
+
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetCamera(100)->SetProjectionType(CameraType::Orthogonal);
 

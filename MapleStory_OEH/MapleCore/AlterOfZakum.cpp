@@ -91,6 +91,7 @@ void AlterOfZakum::Start()
 	Alter = CreateComponent<GameEngineSpriteRenderer>();
 	Alter->SetScaleToTexture("Alter0.png");
 	Alter->GetTransform()->SetLocalPosition({ 0, -180.0f , -5.0f });
+
 }
 
 void AlterOfZakum::Update(float _DeltaTime) 

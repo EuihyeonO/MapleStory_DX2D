@@ -28,7 +28,6 @@ void ZakumRArm_0::Start()
 	ArmCollision->SetOrder(static_cast<int>(CollisionOrder::Monster));
 	ArmCollision->GetTransform()->SetLocalPosition({ 10, 10 });
 	ArmCollision->On();
-	ArmCollision->DebugOn();
 
 	ArmRender->ChangeAnimation("Stand");
 
@@ -36,8 +35,6 @@ void ZakumRArm_0::Start()
 
 void ZakumRArm_0::Update(float _DeltaTime) 
 {
-
-
 	DeltaTime = _DeltaTime;
 }
 
@@ -74,19 +71,20 @@ void ZakumRArm_0::SetAnimation()
 	ArmRender->SetAnimationUpdateEvent("1Attack", 0, [this] {GetTransform()->SetLocalPosition({ 145, 135, -4.0f }); ArmCollision->GetTransform()->SetLocalPosition({ -5, -15 }); isAttack = true; isAtCoolTime = true; });
 	ArmRender->SetAnimationStartEvent("1Attack", 9, [this]
 		{
-			std::shared_ptr<GameEngineSpriteRenderer> Eff = CreateComponent<GameEngineSpriteRenderer>();
-			Player::GetCurPlayer()->Hit();
-			Eff->GetTransform()->SetWorldPosition(Player::GetCurPlayer()->GetTransform()->GetWorldPosition() + float4{ 3.0f, 40.0f, -10.0f });
-			Eff->CreateAnimation({ .AnimationName = "1AtEffect",.SpriteName = "RArm0_1AtEffect",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
-			Eff->ChangeAnimation("1AtEffect");
-			Eff->SetAnimationUpdateEvent("1AtEffect", 6, [Eff]
+			std::weak_ptr<GameEngineSpriteRenderer> Effect = CreateComponent<GameEngineSpriteRenderer>();
+			Player::GetCurPlayer()->Hit(10);
+			Effect.lock()->GetTransform()->SetWorldPosition(Player::GetCurPlayer()->GetTransform()->GetWorldPosition() + float4{ 3.0f, 40.0f, -10.0f });
+			Effect.lock()->CreateAnimation({ .AnimationName = "1AtEffect",.SpriteName = "RArm0_1AtEffect",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
+			Effect.lock()->ChangeAnimation("1AtEffect");
+			Effect.lock()->SetAnimationUpdateEvent("1AtEffect", 6, [Effect]
 				{
-					if (Eff->IsAnimationEnd() == true)
+					if (Effect.lock()->IsAnimationEnd() == true)
 					{
-						Eff->Death();
+						Effect.lock()->Death();
 					}
 				});
 		});
+
 	ArmRender->SetAnimationUpdateEvent("1Attack", 12, [this]
 		{
 			if (ArmRender->IsAnimationEnd() == true)
@@ -104,19 +102,20 @@ void ZakumRArm_0::SetAnimation()
 	ArmRender->SetAnimationUpdateEvent("2Attack", 0, [this] {GetTransform()->SetLocalPosition({ 145, 135, -4.0f }); ArmCollision->GetTransform()->SetLocalPosition({ -5, -15 }); isAttack = true; isAtCoolTime = true; });
 	ArmRender->SetAnimationStartEvent("2Attack", 9, [this]
 		{
-			std::shared_ptr<GameEngineSpriteRenderer> Eff = CreateComponent<GameEngineSpriteRenderer>();
-			Player::GetCurPlayer()->Hit();
-			Eff->GetTransform()->SetWorldPosition(Player::GetCurPlayer()->GetTransform()->GetWorldPosition() + float4{ 3.0f, 40.0f, -10.0f });
-			Eff->CreateAnimation({ .AnimationName = "2AtEffect",.SpriteName = "RArm0_2AtEffect",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
-			Eff->ChangeAnimation("2AtEffect");
-			Eff->SetAnimationUpdateEvent("2AtEffect", 6, [Eff]
+			std::weak_ptr<GameEngineSpriteRenderer> Effect = CreateComponent<GameEngineSpriteRenderer>();
+			Player::GetCurPlayer()->Hit(10);
+			Effect.lock()->GetTransform()->SetWorldPosition(Player::GetCurPlayer()->GetTransform()->GetWorldPosition() + float4{3.0f, 40.0f, -10.0f});
+			Effect.lock()->CreateAnimation({ .AnimationName = "2AtEffect",.SpriteName = "RArm0_2AtEffect",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
+			Effect.lock()->ChangeAnimation("2AtEffect");
+			Effect.lock()->SetAnimationUpdateEvent("2AtEffect", 6, [Effect]
 				{
-					if (Eff->IsAnimationEnd() == true)
+					if (Effect.lock()->IsAnimationEnd() == true)
 					{
-						Eff->Death();
+						Effect.lock()->Death();
 					}
 				});
 		});
+
 	ArmRender->SetAnimationUpdateEvent("2Attack", 12, [this]
 		{
 			if (ArmRender->IsAnimationEnd() == true)

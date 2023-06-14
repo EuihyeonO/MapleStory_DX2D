@@ -67,6 +67,8 @@ void Level_BeginnersTown1::LevelChangeEnd()
 
 void Level_BeginnersTown1::Start()
 {
+	SetName("BEGINNERSTOWN1");
+
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetCamera(100)->SetProjectionType(CameraType::Orthogonal);
 
@@ -85,6 +87,7 @@ void Level_BeginnersTown1::Start()
 	MyUIWindowManager = CreateActor<UIWindowManager>();
 	MyMouse = CreateActor<Mouse>();
 	MyMouse->SetCurMouse(MyMouse);
+
 }
 
 void Level_BeginnersTown1::Update(float _DeltaTime)

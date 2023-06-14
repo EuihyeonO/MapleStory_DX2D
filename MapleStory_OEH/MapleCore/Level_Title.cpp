@@ -59,9 +59,12 @@ void Level_Title::Start()
 		GameEngineInput::CreateKey("CameraDown", 'S');
 	}
 
-	if (GameEngineInput::IsKey("LevelChange") == false)
+	if (GameEngineInput::IsKey("LevelChange1") == false)
 	{
-		GameEngineInput::CreateKey("LevelChange", 'L');
+		GameEngineInput::CreateKey("LevelChange1", '1');
+		GameEngineInput::CreateKey("LevelChange2", '2');
+		GameEngineInput::CreateKey("LevelChange3", '3');
+		GameEngineInput::CreateKey("LevelChange4", '4');
 	}
 
 }
@@ -73,9 +76,22 @@ void Level_Title::Update(float _DeltaTime)
 		GameLogo->Death();
 		GameLogo = nullptr;
 	}
-	if (GameEngineInput::IsDown("LevelChange") == true)
+
+	if (GameEngineInput::IsDown("LevelChange1") == true)
 	{
 		GameEngineCore::ChangeLevel("Level_BeginnersTown1");
+	}
+	else if (GameEngineInput::IsDown("LevelChange2") == true)
+	{
+		GameEngineCore::ChangeLevel("Level_BeginnersTown2");
+	}
+	else if (GameEngineInput::IsDown("LevelChange3") == true)
+	{
+		GameEngineCore::ChangeLevel("Level_CrossRoad");
+	}
+	else if (GameEngineInput::IsDown("LevelChange4") == true)
+	{
+		GameEngineCore::ChangeLevel("Level_AlterOfZakum");
 	}
 
 	CameraMove(_DeltaTime);

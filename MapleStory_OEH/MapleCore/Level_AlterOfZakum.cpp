@@ -21,8 +21,9 @@ Level_AlterOfZakum::~Level_AlterOfZakum()
 
 void Level_AlterOfZakum::Start()
 {
-	CreateSprite();
+	SetName("ALTEROFZAKUM");
 
+	CreateSprite();
 
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetCamera(100)->SetProjectionType(CameraType::Orthogonal);
@@ -127,6 +128,9 @@ void Level_AlterOfZakum::CreateSprite()
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm1_Hit").GetFullPath());
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm1_1Attack").GetFullPath());
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm1_1AtEffect").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm1_1AtObj0").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm1_1AtObj1").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm1_1AtObj2").GetFullPath());
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm1_Skill").GetFullPath());
 	}
 

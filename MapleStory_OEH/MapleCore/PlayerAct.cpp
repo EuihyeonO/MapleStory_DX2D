@@ -14,7 +14,7 @@
 
 void Player::Jump(float _DeltaTime)
 {
-	if (isMovable == false)
+	if (isMovable == false || isRopeOrLadder == true)
 	{
 		return;
 	}
@@ -46,108 +46,56 @@ void Player::Jump(float _DeltaTime)
 
 void Player::JumpUpdate(float _DeltaTime)
 {
-	if(isSwing == false)
+	float4 MapHalfScale = { static_cast<float>(ColMap->GetWidth() / 2) ,  static_cast<float>(ColMap->GetHeight() / 2) };
+
+	GameEnginePixelColor Magenta = { (char)255, (char)0, (char)255, (char)255 };
+	GameEnginePixelColor White = { (char)255, (char)255, (char)255, (char)255 };
+
+	float4 CurPos = GetTransform()->GetLocalPosition();
+	float4 CurColorPos = MapHalfScale + float4{ CurPos.x, -CurPos.y };
+	GameEnginePixelColor CurColor = ColMap->GetPixel(static_cast<int>(CurColorPos.x), static_cast<int>(CurColorPos.y));
+
+	Gravity += GravityAccel * _DeltaTime;
+
+	if (Gravity > 1000.0f)
 	{
-		MoveType = "Jump";
+		Gravity = 1000.0f;
 	}
 
-	float PrevYPos = GetTransform()->GetLocalPosition().y;
+	float4 NextPos = GetTransform()->GetLocalPosition() + float4{ JumpXMove * _DeltaTime , (JumpPower - Gravity) * _DeltaTime };
+	float4 NextColorPos = MapHalfScale + float4{ NextPos.x, -NextPos.y };
+	GameEnginePixelColor NextColor = ColMap->GetPixel(static_cast<int>(NextColorPos.x), static_cast<int>(NextColorPos.y));
 
-	if(GameEngineInput::IsPress("LMove") == false && GameEngineInput::IsPress("RMove") == false)
+	if (NextPos.y - CurPos.y < 0.0f && CurColor == White && NextColor == Magenta)
 	{
-		float4 NextPos = GetTransform()->GetLocalPosition() + float4{ JumpXMove * _DeltaTime , JumpPower * _DeltaTime };
+		float Count = 0.5f;
 
-		float4 MapHalfScale = { static_cast<float>(ColMap->GetWidth() / 2) ,  static_cast<float>(ColMap->GetHeight() / 2) };
-		float4 ColorPos = MapHalfScale + float4{ NextPos.x, -NextPos.y };
-
-		GameEnginePixelColor Color = { (char)255, 0, (char)255, (char)255 };
-		GameEnginePixelColor MapColor = ColMap->GetPixel(static_cast<int>(ColorPos.x), static_cast<int>(ColorPos.y));
-
-		if (Color == MapColor)
+		while (NextColor == Magenta)
 		{
-			GetTransform()->AddLocalPosition({ 0 , JumpPower * _DeltaTime });
-		}
-		else
-		{
-			float4 Pos = GetTransform()->GetLocalPosition();
-			GetTransform()->AddLocalPosition({ JumpXMove * _DeltaTime , JumpPower * _DeltaTime });
+			NextPos = GetTransform()->GetLocalPosition() + float4{ Count * JumpXMove * _DeltaTime , Count * (JumpPower - Gravity) * _DeltaTime };
+			NextColorPos = MapHalfScale + float4{ NextPos.x, -NextPos.y };
+			NextColor = ColMap->GetPixel(static_cast<int>(NextColorPos.x), static_cast<int>(NextColorPos.y));
+
+			Count *= 0.5f;
 		}
 
-		NextPos = GetTransform()->GetLocalPosition();
-		MapHalfScale = { static_cast<float>(ColMap->GetWidth() / 2) ,  static_cast<float>(ColMap->GetHeight() / 2) };
-		ColorPos = MapHalfScale + float4{ NextPos.x, -NextPos.y };
+		Gravity = 200.0f;
 
-		Color = { (char)255, 0, (char)255, (char)255 };
-		MapColor = ColMap->GetPixel(static_cast<int>(ColorPos.x), static_cast<int>(ColorPos.y));
-		
-		if (Color == MapColor)
+		if(isSwing == false)
 		{
-			if(isJumpUp == false)
-			{
-				isKeyJump = false;
-				JumpPower = 585.0f;
-				isFlashJump = false;
-
-				if (isSwing == false)
-				{
-					MoveType = "Stand";
-				}
-			}
-		}
-	}
-	else
-	{
-		if (isSwing == true)
-		{
-			if (JumpXMove == 0)
-			{
-				GetTransform()->AddLocalPosition({ 0 , JumpPower * _DeltaTime });
-			}
-			else
-			{
-				GetTransform()->AddLocalPosition({ (JumpXMove / abs(JumpXMove)) * MoveSpeed * _DeltaTime , JumpPower * _DeltaTime });
-			}
-		}
-		else if (isFlashJump == true)
-		{
-			GetTransform()->AddLocalPosition({JumpXMove * _DeltaTime , JumpPower * _DeltaTime });
-		}
-		else
-		{
-			GetTransform()->AddLocalPosition({ 0 , JumpPower * _DeltaTime });
+			MoveType = "Stand";
 		}
 
-		float4 PlayerPos = GetTransform()->GetLocalPosition();
+		isKeyJump = false;
+		JumpPower = 600.0f;
 
-		float4 MapHalfScale = { static_cast<float>(ColMap->GetWidth() / 2) ,  static_cast<float>(ColMap->GetHeight() / 2) };
-		float4 ColorPos = MapHalfScale + float4{ PlayerPos.x, -PlayerPos.y };
-
-		GameEnginePixelColor Color = { (char)255, 0, (char)255, (char)255 };
-		GameEnginePixelColor MapColor = ColMap->GetPixel(static_cast<int>(ColorPos.x), static_cast<int>(ColorPos.y));
-
-		if (Color == MapColor && isJumpUp == false)
-		{
-			isKeyJump = false;
-			JumpPower = 585.0f;
-			isFlashJump = false;
-
-			if (isSwing == false)
-			{
-				MoveType = "Stand";
-			}
-		}
+		float4 RealNextPos = { NextColorPos.x - MapHalfScale.x, MapHalfScale.y - NextColorPos.y - 1.0f, -5.0f };
+		GetTransform()->SetLocalPosition(RealNextPos);
+		return;
 	}
 
-	float4 Pos = GetTransform()->GetLocalPosition() - PrevPos;
-
-	if (Pos.y > 0)
-	{
-		isJumpUp = true;
-	}
-	else
-	{
-		isJumpUp = false;
-	}
+	float4 RealNextPos = { NextColorPos.x - MapHalfScale.x, MapHalfScale.y - NextColorPos.y, -5.0f };
+	GetTransform()->SetLocalPosition(RealNextPos);
 }
 
 void Player::Move(float _DeltaTime)
@@ -157,103 +105,125 @@ void Player::Move(float _DeltaTime)
 		return;
 	}
 
-	if (isMovable == false)
+	if (isKeyJump == true || isFalling == true)
 	{
+		if (GameEngineInput::IsPress("LMove") == true)
+		{
+			SetLeft();
+		}
+		else if (GameEngineInput::IsPress("RMove") == true)
+		{
+			SetRight();
+		}
+
 		return;
 	}
+
+	float4 MapHalfScale = { static_cast<float>(ColMap->GetWidth() / 2) ,  static_cast<float>(ColMap->GetHeight() / 2) };
+
+	GameEnginePixelColor Magenta = { (char)255, (char)0, (char)255, (char)255 };
+	GameEnginePixelColor White = { (char)255, (char)255, (char)255, (char)255 };
+
+	float4 CurPos = GetTransform()->GetLocalPosition();
+	float4 CurColorPos = MapHalfScale + float4{ CurPos.x, -CurPos.y };
+	GameEnginePixelColor CurColor = ColMap->GetPixel(static_cast<int>(CurColorPos.x), static_cast<int>(CurColorPos.y));
+	
+	float MoveDir = 0.0f;
 
 	if (GameEngineInput::IsPress("LMove") == true)
 	{
 		SetLeft();
-
-		if (MoveType != "Jump" && isSwing == false)
-		{
-			MoveType = "Walk";
-		}
-
-		float4 NextPlayerPos = GetTransform()->GetLocalPosition() + float4{ -1 * MoveSpeed * _DeltaTime, 0 };
-
-		float4 MapHalfScale = { static_cast<float>(ColMap->GetWidth() / 2) ,  static_cast<float>(ColMap->GetHeight() / 2) };
-		float4 ColorPos = MapHalfScale + float4{ NextPlayerPos.x, -NextPlayerPos.y };
-
-		GameEnginePixelColor Color = { (char)255, 0, (char)255, (char)255 };
-		GameEnginePixelColor MapColor = ColMap->GetPixel(static_cast<int>(ColorPos.x), static_cast<int>(ColorPos.y));
-
-		if (Color == MapColor)
-		{
-			float Count = 0;
-
-			while (Color == MapColor)
-			{
-				ColorPos.y--;
-				MapColor = ColMap->GetPixel(static_cast<int>(ColorPos.x), static_cast<int>(ColorPos.y));
-				Count++;
-			}
-
-			float4 Vector1 = { -1, 0 };
-			Vector1.Normalize();
-			float4 Vector2 = { -1, Count };
-			Vector2.Normalize();
-
-			float Angle = (Vector1.x) * (Vector2.x) + (Vector1.y) * (Vector2.y);
-
-			if (Angle > 0.2f)
-			{
-				GetTransform()->AddLocalPosition({ -1 * MoveSpeed * _DeltaTime, 0 });
-			}
-		}
-		else
-		{
-			GetTransform()->AddLocalPosition({ -1 * MoveSpeed * _DeltaTime, 0 });
-		}
+		MoveType = "Walk";
+		MoveDir = -1.0f;
 	}
-
-	if (GameEngineInput::IsPress("RMove") == true)
+	else if (GameEngineInput::IsPress("RMove") == true)
 	{
 		SetRight();
+		MoveType = "Walk";
+		MoveDir = 1.0f;
+	}
 
-		if (MoveType != "Jump" && isSwing == false)
+	float4 NextPos = GetTransform()->GetLocalPosition() + float4{ MoveDir * MoveSpeed * _DeltaTime , 0};
+	float4 NextColorPos = MapHalfScale + float4{ NextPos.x, -NextPos.y };
+	GameEnginePixelColor NextColor = ColMap->GetPixel(static_cast<int>(NextColorPos.x), static_cast<int>(NextColorPos.y));
+
+	//내리막길 or 절벽
+
+	if (CurColor == Magenta && NextColor == White)
+	{
+		float4 CopyNextColorPos = NextColorPos;
+		GameEnginePixelColor CopyNextColor = NextColor;
+
+		int DownCount = 0;
+
+		while (CopyNextColor == White)
 		{
-			MoveType = "Walk";
+			CopyNextColorPos.y++;
+			CopyNextColor = ColMap->GetPixel(static_cast<int>(CopyNextColorPos.x), static_cast<int>(CopyNextColorPos.y));
+			DownCount++;
+
+			if (DownCount >= 10)
+			{
+				//낙하함수
+				GetTransform()->SetLocalPosition(NextPos);
+
+				if (LeftRightDir == "Left")
+				{
+					FallingXMove = -MoveSpeed;
+				}
+				else if (LeftRightDir == "Right")
+				{
+					FallingXMove = MoveSpeed;
+
+				}
+
+				return;
+			}
 		}
 
-		float4 NextPlayerPos = GetTransform()->GetLocalPosition() + float4{ 1 * MoveSpeed * _DeltaTime, 0 };
-
-		float4 MapHalfScale = { static_cast<float>(ColMap->GetWidth() / 2) ,  static_cast<float>(ColMap->GetHeight() / 2) };
-		float4 ColorPos = MapHalfScale + float4{ NextPlayerPos.x, -NextPlayerPos.y };
-
-		GameEnginePixelColor Color = { (char)255, 0, (char)255, (char)255 };
-		GameEnginePixelColor MapColor = ColMap->GetPixel(static_cast<int>(ColorPos.x), static_cast<int>(ColorPos.y));
-
-		if (Color == MapColor)
+		if (DownCount < 10)
 		{
-			float Count = 0;
-
-			while (Color == MapColor)
-			{
-				ColorPos.y--;
-				MapColor = ColMap->GetPixel(static_cast<int>(ColorPos.x), static_cast<int>(ColorPos.y));
-				Count++;
-			}
-
-			float4 Vector1 = { 1, 0 };
-			Vector1.Normalize();
-			float4 Vector2 = { 1, Count };
-			Vector2.Normalize();
-
-			float Angle = (Vector1.x) * (Vector2.x) + (Vector1.y) * (Vector2.y);
-
-			if (Angle > 0.2f)
-			{
-				GetTransform()->AddLocalPosition({ 1 * MoveSpeed * _DeltaTime, 0 });
-			}
-		}
-		else
-		{
-			GetTransform()->AddLocalPosition({ 1 * MoveSpeed * _DeltaTime, 0 });
+			GetTransform()->SetLocalPosition(NextPos);
+			return;
 		}
 	}
 
+	if (CurColor == Magenta && NextColor == Magenta)
+	{
+		float4 CopyNextColorPos = NextColorPos;
+		GameEnginePixelColor CopyNextColor = NextColor;
+
+		int UpCount = 0;
+
+		while (CopyNextColor == Magenta)
+		{
+			CopyNextColorPos.y--;
+			CopyNextColor = ColMap->GetPixel(static_cast<int>(CopyNextColorPos.x), static_cast<int>(CopyNextColorPos.y));
+			UpCount++;
+
+			if (UpCount >= 10)
+			{
+				return;
+			}
+		}
+
+		if (UpCount < 10)
+		{
+			float4 NextPosDir = NextPos - CurPos;
+			NextPosDir.Normalize();
+			
+			float4 NextUpPosDir = NextPos + float4{0, static_cast<float>(UpCount)} - CurPos;
+			NextUpPosDir.Normalize();
+				
+			float DotProduct = NextPosDir.x * NextUpPosDir.x + NextPosDir.y * NextUpPosDir.y;
+			
+			if (DotProduct > 0.0f)
+			{
+				GetTransform()->SetLocalPosition(NextPos + float4{ 0, static_cast<float>(UpCount - 1)});
+				return;
+			}
+		}
+	}
 }
 
 void Player::Swing()
@@ -278,7 +248,6 @@ void Player::Swing()
 	NewStar1->SetStarName("Wednes");
 	NewStar1->SetTimingTime(0.25);
 	
-	//std::shared_ptr<GameEngineCollision> HitMonster = RangeCheck->Collision(static_cast<int>(CollisionOrder::Monster), ColType::AABBBOX2D, ColType::AABBBOX2D);
 	std::vector<std::shared_ptr<GameEngineCollision>> HitMonsterVector;
 	RangeCheck->CollisionAll(static_cast<int>(CollisionOrder::Monster), HitMonsterVector, ColType::AABBBOX2D, ColType::AABBBOX2D);
 	float4 PlayerPos = GetTransform()->GetWorldPosition();
@@ -327,6 +296,12 @@ void Player::Idle()
 		return;
 	}
 
+	if (isFalling == true)
+	{
+		return;
+	}
+
+	JumpPower = 600.0f;
 	MoveType = "Stand";
 	FrontBackDir = "Front";
 }
@@ -343,6 +318,9 @@ void Player::RopeAndLadder(float _DeltaTime)
 		isKeyJump = true;
 		isRopeOrLadder = false;
 		FrontBackDir = "Front";
+		AnimationCount = 0.0f;
+		AniIndex = 0;
+		MoveType = "Jump";
 		Gravity = 200.0f;
 
 		if (GameEngineInput::IsDown("RMove") == true || GameEngineInput::IsPress("RMove") == true)
@@ -386,6 +364,7 @@ void Player::RopeAndLadderUp(float _DeltaTime)
 		if (Col == nullptr)
 		{
 			isRopeOrLadder = false;
+			MoveType = "Stand";
 			FrontBackDir = "Front";
 			TextureUpdate();
 		}
@@ -394,15 +373,14 @@ void Player::RopeAndLadderUp(float _DeltaTime)
 	//위로 가는 것
 	if (Col != nullptr)
 	{
-		//사다리가 아래에 있으면 위 방향키를 입력해도 상호작용x
-		if (isGround == true && Col->GetTransform()->GetWorldPosition().y < GetTransform()->GetWorldPosition().y)
-		{
-			return;
-		}
-
 		//최초 사다리 탈 때 설정
 		if (isRopeOrLadder == false && GameEngineInput::IsDown("UpKey") == true)
-		{
+		{	
+			if (Col->GetTransform()->GetWorldPosition().y < GetTransform()->GetWorldPosition().y)
+			{
+				return;
+			}
+
 			AniIndex = 0;
 			AnimationCount = 0.0f;
 
@@ -448,15 +426,15 @@ void Player::RopeAndLadderDown(float _DeltaTime)
 	//위로 가는 것
 	if (Col != nullptr)
 	{
-		//사다리가 위에 있으면 아래 방향키를 입력해도 상호작용x
-		if (isGround == true && Col->GetTransform()->GetWorldPosition().y > GetTransform()->GetWorldPosition().y)
-		{
-			return;
-		}
 
 		//최초 사다리 탈 때 설정
 		if (isRopeOrLadder == false && GameEngineInput::IsDown("DownKey") == true)
 		{
+			if (Col->GetTransform()->GetWorldPosition().y > GetTransform()->GetWorldPosition().y)
+			{
+				return;
+			}
+
 			AniIndex = 0;
 			AnimationCount = 0.0f;
 
@@ -477,9 +455,13 @@ void Player::RopeAndLadderDown(float _DeltaTime)
 }
 
 
-void Player::Hit()
+void Player::Hit(int _Damage)
 {
-	isHit = true;
+	if(isHit == false)
+	{
+		isHit = true;
+		PlayerValue::Value.SubHp(_Damage);
+	}
 
 	if(isRopeOrLadder == false && isSwing == false)
 	{

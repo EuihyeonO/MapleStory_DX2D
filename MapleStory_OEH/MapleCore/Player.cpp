@@ -38,6 +38,11 @@ void Player::Start()
 	GetTransform()->SetLocalPosition({ 0, 0, -5.0f});
 	GetTransform()->SetLocalScale({ 1, 1, 1 });
 
+	FootCollision = CreateComponent<GameEngineCollision>();
+	FootCollision->SetColType(ColType::AABBBOX2D);
+	FootCollision->GetTransform()->SetLocalScale({ 2, 2 });
+	FootCollision->SetOrder(static_cast<int>(CollisionOrder::Player));
+
 	BodyCollision = CreateComponent<GameEngineCollision>();
 	BodyCollision->GetTransform()->SetLocalScale({ 30, 50 });
 	BodyCollision->SetOrder(static_cast<int>(CollisionOrder::Player));
@@ -64,6 +69,7 @@ void Player::Start()
 	RangeCheck = CreateComponent<GameEngineCollision>();
 	RangeCheck->GetTransform()->SetLocalScale({ PlayerValue::Value.GetAttackDistance() , 100.0f});
 	RangeCheck->SetOrder(static_cast<int>(CollisionOrder::Range));
+	RangeCheck->SetColType(ColType::AABBBOX2D);
 
 	float4 RangeScale = RangeCheck->GetTransform()->GetLocalScale();
 	RangeCheck->GetTransform()->SetLocalPosition({ -RangeScale.hx(), RangeScale.hy()});
@@ -102,7 +108,7 @@ void Player::Update(float _DeltaTime)
 
 	TimeCounting();
 
-	GravityUpdate(_DeltaTime);
+	FallingDown(_DeltaTime);
 	ActingUpdate(_DeltaTime);
 
 	TextureAnimationUpdate();
@@ -113,6 +119,9 @@ void Player::Update(float _DeltaTime)
 	CameraUpdate(_DeltaTime);
 
 	PrevPos = GetTransform()->GetLocalPosition();
+
+	float4 Pos1 = GetTransform()->GetLocalPosition();
+	float4 Pos2 = GetTransform()->GetWorldPosition();
 	/*Test*/
 }
 
@@ -141,98 +150,6 @@ void Player::SetMoveType(const std::string_view& _MoveType)
 
 	TextureUpdate();
 	TexturePosUpdate();
-}
-
-void Player::GravityUpdate(float _DeltaTime)
-{
-	if (isRopeOrLadder == true)
-	{
-		return;
-	}
-
-	Gravity += GravityAccel * _DeltaTime;
-
-	if (Gravity >= 1000.0f)
-	{
-		Gravity = 1000.0f;
-	}
-
-	float4 PlayerPos = GetTransform()->GetLocalPosition();
-
-	float4 MapHalfScale = { static_cast<float>(ColMap->GetWidth() / 2) ,  static_cast<float>(ColMap->GetHeight() / 2) };
-	float4 ColorPos = float4{ MapHalfScale.x, MapHalfScale.y } + float4{ PlayerPos.x, -PlayerPos.y };
-
-	GameEnginePixelColor Color = { (char)255, 0, (char)255, (char)255 };
-
-	int X = static_cast<int>(ColorPos.x);
-	int Y = static_cast<int>(ColorPos.y);
-
-	GameEnginePixelColor MapColor = ColMap->GetPixel(static_cast<int>(ColorPos.x), static_cast<int>(ColorPos.y));
-
-	////중력적용유무
-	if (Color != MapColor)
-	{
-		int count = 0;
-
-		while (Color != MapColor)
-		{
-			ColorPos.y++;
-			count++;
-			MapColor = ColMap->GetPixel(static_cast<int>(ColorPos.x), static_cast<int>(ColorPos.y));
-		}
-
-		if (count < 3 && isKeyJump == false)
-		{
-				GetTransform()->AddLocalPosition({ 0 , static_cast<float>(-count)});
-				isGround = true;
-
-				if (isSwing == false)
-				{
-					MoveType = "Stand";
-				}
-		}
-		else
-		{
-			GetTransform()->AddLocalPosition({ 0 , -Gravity * _DeltaTime });
-
-			if (isSwing == false)
-			{
-				MoveType = "Jump";
-			}
-
-			isGround = false;
-		}
-	}
-	else
-	{	
-		float Count = 0.0f;
-
-		while (Color == MapColor)
-		{
-			ColorPos.y--;
-			MapColor = ColMap->GetPixel(static_cast<int>(ColorPos.x), static_cast<int>(ColorPos.y));
-			Count++;
-		}
-
-		if (isKeyJump == true)
-		{
-			return;
-		}
-		
-		GetTransform()->AddLocalPosition({ 0, Count - 1.0f });
-		
-		Gravity = 200.0f;
-		isGround = true;
-		
-		if (isSwing == false)
-		{
-			if (MoveType == "Jump" && isKeyJump == false)
-			{
-				MoveType = "Stand";
-			}
-		}
-		
-	}
 }
 
 void Player::CreateAllKey()
@@ -406,6 +323,13 @@ void Player::CameraUpdate(float _DeltaTime)
 	// 플레이어와 카메라의 위치를 보간하여 새로운 위치 계산
 	float4 newPosition = newPosition.Lerp(CameraPos, PlayerPos, 1.5f * _DeltaTime);
 	
+	float MaxY = 350.0f;
+
+	if (GetLevel()->GetName() == "ALTEROFZAKUM")
+	{
+		MaxY = 425.0f;
+	}
+
 	if (newPosition.x - 425 < -HalfWidth)
 	{
 		newPosition.x = -HalfWidth + 425;
@@ -419,9 +343,9 @@ void Player::CameraUpdate(float _DeltaTime)
 	{
 		newPosition.y = -HalfHeight +490;
 	}
-	else if (newPosition.y + 425 > HalfHeight)
+	else if (newPosition.y + MaxY > HalfHeight)
 	{
-		newPosition.y = HalfHeight - 425;
+		newPosition.y = HalfHeight - MaxY;
 	}
 
 	GetLevel()->GetMainCamera()->GetTransform()->SetLocalPosition(newPosition);
@@ -454,5 +378,78 @@ void Player::GetItem()
 	{
 		std::shared_ptr<DropItem> _Item = collision->GetActor()->DynamicThis<DropItem>();
 		_Item->GetItem();
+	}
+}
+
+void Player::FallingDown(float _DeltaTime)
+{
+	if (isKeyJump == true || isRopeOrLadder == true)
+	{
+		return;
+	}
+
+	float4 MapHalfScale = { static_cast<float>(ColMap->GetWidth() / 2) ,  static_cast<float>(ColMap->GetHeight() / 2) };
+
+	GameEnginePixelColor Magenta = { (char)255, (char)0, (char)255, (char)255 };
+	GameEnginePixelColor White = { (char)255, (char)255, (char)255, (char)255 };
+
+	float4 CurPos = GetTransform()->GetLocalPosition();
+	float4 CurColorPos = MapHalfScale + float4{ CurPos.x, -CurPos.y };
+	GameEnginePixelColor CurColor = ColMap->GetPixel(static_cast<int>(CurColorPos.x), static_cast<int>(CurColorPos.y));
+
+	if (CurColor == Magenta)
+	{
+		return;
+	}
+	isFalling = true;
+
+	if(isSwing == false)
+	{
+		MoveType = "Jump";
+	}
+
+	Gravity += GravityAccel * _DeltaTime;
+
+	if (Gravity > 800.0f)
+	{
+		Gravity = 800.0f;
+	}
+
+	float4 NextPos = GetTransform()->GetLocalPosition() + float4{ FallingXMove * _DeltaTime , -Gravity * _DeltaTime };
+	float4 NextColorPos = MapHalfScale + float4{ NextPos.x, -NextPos.y };
+	GameEnginePixelColor NextColor = ColMap->GetPixel(static_cast<int>(NextColorPos.x), static_cast<int>(NextColorPos.y));
+
+	if (CurColor == White && NextColor == White)
+	{
+		GetTransform()->SetLocalPosition(NextPos + float4{0, 0, -5.0f});
+		return;
+	}
+	else if (CurColor == White && NextColor == Magenta)
+	{
+		float Count = 0.5f;
+
+		while (NextColor == Magenta)
+		{
+			NextPos = GetTransform()->GetLocalPosition() + float4{ Count * FallingXMove * _DeltaTime , Count * -Gravity * _DeltaTime };
+			NextColorPos = MapHalfScale + float4{ NextPos.x, -NextPos.y };
+			NextColor = ColMap->GetPixel(static_cast<int>(NextColorPos.x), static_cast<int>(NextColorPos.y));
+
+			Count *= 0.5f;
+		}
+
+		Gravity = 200.0f;
+		FallingXMove = 0.0f;
+
+		if (isSwing == false)
+		{
+			MoveType = "Stand";
+		}
+
+		JumpPower = 600.0f;
+		isFalling = false;
+
+		float4 RealNextPos = { NextColorPos.x - MapHalfScale.x, MapHalfScale.y - NextColorPos.y - 1.0f, -5.0f };
+		GetTransform()->SetLocalPosition(RealNextPos);
+		return;
 	}
 }

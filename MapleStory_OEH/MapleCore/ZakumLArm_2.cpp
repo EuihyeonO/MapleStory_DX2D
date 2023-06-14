@@ -29,8 +29,6 @@ void ZakumLArm_2::Start()
 	ArmCollision->GetTransform()->SetLocalPosition({ -30, -50 });
 	ArmCollision->On();
 
-	ArmCollision->DebugOn();
-
 	ArmRender->ChangeAnimation("Stand");
 }
 

@@ -50,6 +50,9 @@ void Level_BeginnersTown2::LevelChangeStart()
 
 void Level_BeginnersTown2::Start()
 {
+
+	SetName("BEGINNERSTOWN2");
+	
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetCamera(100)->SetProjectionType(CameraType::Orthogonal);
 

@@ -50,7 +50,7 @@ enum class CollisionOrder
 	SkillMoveIcon,
 	QuickSlotSkill,
 	DropItem,
-
+	foothold,
 };
 
 enum class MonsterName

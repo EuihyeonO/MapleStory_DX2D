@@ -27,7 +27,6 @@ void ZakumRArm_2::Start()
 	ArmCollision->SetOrder(static_cast<int>(CollisionOrder::Monster));
 	ArmCollision->GetTransform()->SetLocalPosition({ 10, -35 });
 	ArmCollision->On();
-	ArmCollision->DebugOn();
 
 	ArmRender->ChangeAnimation("Stand");
 }

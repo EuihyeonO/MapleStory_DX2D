@@ -11,7 +11,7 @@ class Player : public BasicFunction
 	friend class SkillList;
 public:
 
-	void Hit();
+	void Hit(int _Damage);
 
 	static std::shared_ptr<Player> GetCurPlayer()
 	{
@@ -21,6 +21,11 @@ public:
 	void SetisHit(bool _isHit)
 	{
 		isHit = _isHit;
+	}
+
+	bool GetisHit()
+	{
+		return isHit;
 	}
 
 	void SetColMap(const std::string_view& _MapName)
@@ -129,6 +134,7 @@ private:
 	static std::shared_ptr<Player> CurPlayer;
 	std::shared_ptr<GameEngineTexture> ColMap;
 	std::shared_ptr<class GameEngineCollision> BodyCollision;
+	std::shared_ptr<class GameEngineCollision> FootCollision;
 	std::shared_ptr<class GameEngineCollision> PointCollision;
 
 	void CameraUpdate(float _DeltaTime);
@@ -146,8 +152,7 @@ private:
 	void CreateAllKey();
 
 	//움직임관련
-
-	void GravityUpdate(float _DeltaTime);
+	void FallingDown(float _DeltaTime);
 	void ActingUpdate(float _DeltaTime);
 
 	bool isSameColor();
@@ -165,17 +170,19 @@ private:
 	bool isGround = false;
 	bool isKeyJump = false;
 	bool isSwing = false;
+	bool isFalling = false;
 
 	bool isMovable = true;
 	bool isHit = false;
+
 	float HitTimeCount = 0.0f;
 
-	bool isJumpUp = false;
+	float FallingXMove = 0.0f;
 
 	float Gravity = 200.0f;
 	float GravityAccel = 1000.0f;
 
-	float JumpPower = 585.0f;
+	float JumpPower = 600.0f;
 	float JumpXMove = 0.0f;
 
 	float BasicMoveSpeed = 100.0f;

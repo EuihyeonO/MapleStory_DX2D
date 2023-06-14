@@ -752,16 +752,6 @@ void Player::TexturePosUpdate()
 		Weapon->GetTransform()->SetLocalPosition({ WeaponScale.hx(), -WeaponScale.hy(), 0 });
 		Weapon->GetTransform()->AddLocalPosition(HandPos + WeaponToHandPos[MoveType][WeaponName][AniIndex] + WeaponOriginPos[MoveType][WeaponName][AniIndex]);
 	}
-
-	Body->GetTransform()->AddLocalPosition({ 0, 0, -static_cast<float>(RenderOrder::Player) });
-	Arm->GetTransform()->AddLocalPosition({ 0, 0, -static_cast<float>(RenderOrder::Player) });
-	Head->GetTransform()->AddLocalPosition({ 0, 0, -static_cast<float>(RenderOrder::Player) });
-	Hair->GetTransform()->AddLocalPosition({ 0, 0, -static_cast<float>(RenderOrder::Player) });
-	Face->GetTransform()->AddLocalPosition({ 0, 0, -static_cast<float>(RenderOrder::Player) });
-	Coat->GetTransform()->AddLocalPosition({ 0, 0, -static_cast<float>(RenderOrder::Player) });
-	CoatArm->GetTransform()->AddLocalPosition({ 0, 0, -static_cast<float>(RenderOrder::Player) });
-	Pants->GetTransform()->AddLocalPosition({ 0, 0, -static_cast<float>(RenderOrder::Player) });
-	Weapon->GetTransform()->AddLocalPosition({ 0, 0, -static_cast<float>(RenderOrder::Player) });
 }
 
 void Player::SetMulColorAllTexture(float _MulColor)

@@ -126,6 +126,7 @@ void Star::Move(float _DeltaTime)
 		if (Target != nullptr)
 		{
 			Dir = Target->GetTransform()->GetWorldPosition() - StarRender->GetTransform()->GetWorldPosition();
+			Dir.z = 0.0f;
 			Dir.Normalize();
 		}
 
