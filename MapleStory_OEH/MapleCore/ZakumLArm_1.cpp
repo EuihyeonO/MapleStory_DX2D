@@ -36,7 +36,6 @@ void ZakumLArm_1::Start()
 
 	isSmogAlphaUp.reserve(30);
 	isSmogAlphaUp.resize(30);
-
 }
 
 void ZakumLArm_1::Update(float _DeltaTime)

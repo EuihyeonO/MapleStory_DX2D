@@ -34,8 +34,6 @@ void ZakumLArm_3::Start()
 
 void ZakumLArm_3::Update(float _DeltaTime)
 {
-
-
 	DeltaTime = _DeltaTime;
 }
 
@@ -99,7 +97,7 @@ void ZakumLArm_3::SetAnimation()
 			}
 		});
 
-	// 2Skill
+	// 2Attack
 	ArmRender->CreateAnimation({ .AnimationName = "2Attack",.SpriteName = "LArm3_2Attack",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
 	ArmRender->SetAnimationUpdateEvent("2Attack", 0, [this] {GetTransform()->SetLocalPosition({ -135, -65, -4.0f }); ArmCollision->GetTransform()->SetLocalPosition({ -15, -65 });  isAttack = true; isAtCoolTime = true; });
 	ArmRender->SetAnimationStartEvent("2Attack", 9, [this]
@@ -131,7 +129,7 @@ void ZakumLArm_3::SetAnimation()
 			}
 		});
 
-	//
+	//Stand
 	ArmRender->CreateAnimation({ .AnimationName = "Stand",.SpriteName = "LArm3_Stand",.Loop = true,.ScaleToTexture = true,.FrameTime = {0.13f, 0.1f,0.1f, 0.1f, 0.13f, 0.1f, 0.1f, 0.1f } });
 	ArmRender->SetAnimationUpdateEvent("Stand", 0, [this]
 		{

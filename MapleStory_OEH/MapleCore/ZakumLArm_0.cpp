@@ -36,7 +36,6 @@ void ZakumLArm_0::Start()
 
 void ZakumLArm_0::Update(float _DeltaTime)
 {
-	
 	DeltaTime = _DeltaTime;
 }
 

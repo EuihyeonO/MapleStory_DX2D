@@ -4,6 +4,14 @@
 
 class Zakum : public ZakumBasicFunction
 {
+	friend class ZakumLArm_0;
+	friend class ZakumLArm_1;
+	friend class ZakumLArm_2;
+	friend class ZakumLArm_3;
+	friend class ZakumRArm_0;
+	friend class ZakumRArm_1;
+	friend class ZakumRArm_2;
+	friend class ZakumRArm_3;
 
 public:
 
@@ -22,13 +30,14 @@ public:
 		return GlobalZakum;
 	}
 
-	void ArmDeath(bool _isLeft, int _ArmIndex);
-
 protected:
 	void Start();
 	void Update(float _DeltaTime) override;
 	void Render(float _DeltaTime) override;
 private:
+
+	void ArmDeath(bool _isLeft, int _ArmIndex);
+	
 	void Spawn(float _DeltaTime) {}
 	void MonsterDeath(float _DeltaTime) {}
 	void CreateArm(bool _isLeft, int _ArmIndex);

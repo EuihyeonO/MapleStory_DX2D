@@ -100,6 +100,10 @@ void Level_AlterOfZakum::CreateSprite()
 		NewDir.Move("Sprite");
 		NewDir.Move("StatusEffect");
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Poison").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("SkillLock").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("MoreMiss").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("DamagedDouble").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("CannotJump").GetFullPath());
 	}
 
 	if (nullptr == GameEngineSprite::Find("LArm0_Stand"))
@@ -219,7 +223,16 @@ void Level_AlterOfZakum::CreateSprite()
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm1_Death").GetFullPath());
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm1_Hit").GetFullPath());
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm1_1Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm1_1AtEffect").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm1_1AtObj").GetFullPath());
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm1_2Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm1_2AtObj0").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm1_2AtObj1").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm1_2AtObj2").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm1_2AtObj3").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm1_2AtObj4").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm1_2AtObj5").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm1_2AtEffect").GetFullPath());
 	}
 
 	if (nullptr == GameEngineSprite::Find("RArm2_Stand"))

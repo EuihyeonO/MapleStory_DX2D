@@ -460,7 +460,15 @@ void Player::Hit(int _Damage)
 	if(isHit == false)
 	{
 		isHit = true;
-		PlayerValue::Value.SubHp(_Damage);
+
+		if (isDamagedDouble == true)
+		{
+			PlayerValue::Value.SubHp(2 * _Damage);
+		}
+		else
+		{
+			PlayerValue::Value.SubHp(_Damage);
+		}
 	}
 
 	if(isRopeOrLadder == false && isSwing == false)

@@ -21,5 +21,10 @@ protected:
 private:
 	void SetAnimation();
 	void Attack() override;
+
+	void SkillLock();
+	void MoreMiss();
+	void DamagedDouble();
+	void CannotJump();
 };
 

@@ -38,7 +38,7 @@ void Zakum::Start()
 
 void Zakum::Update(float _DeltaTime)
 {
-	//ArmAttack();
+	ArmAttack();
 }
 
 void Zakum::Render(float _DeltaTime)

@@ -21,5 +21,8 @@ protected:
 private:
 	void SetAnimation();
 	void Attack() override;
+
+	void IceHorn();
+	void ElectricAttack();
 };
 

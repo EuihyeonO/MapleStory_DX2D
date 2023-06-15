@@ -22,7 +22,7 @@ void Player::Haste()
 		return;
 	}
 
-	if(isSwing == false && isGround == true)
+	if(isSwing == false && isFalling == false)
 	{
 		PlayerValue::Value.SetMp(CurMp - 10);
 

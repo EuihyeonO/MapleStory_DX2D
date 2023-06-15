@@ -179,6 +179,11 @@ void Player::ActingUpdate(float _DeltaTime)
 		JumpUpdate(_DeltaTime);
 	}
 
+	if (isHit == true)
+	{
+		return;
+	}
+
 	if (isRopeOrLadder == true)
 	{
 		RopeAndLadder(_DeltaTime);
@@ -193,7 +198,10 @@ void Player::ActingUpdate(float _DeltaTime)
 		Move(_DeltaTime);
 		break;
 	case static_cast<int>(State::Jump):
-		Jump(_DeltaTime);
+		if(isCannotJump == false)
+		{
+			Jump(_DeltaTime);
+		}
 		break;
 	case static_cast<int>(State::Up):
 		RopeAndLadder(_DeltaTime);
@@ -202,49 +210,49 @@ void Player::ActingUpdate(float _DeltaTime)
 		RopeAndLadder(_DeltaTime);
 		break;
 	case static_cast<int>(State::ShiftSkill):	
-		if (ShiftSkill != nullptr)
+		if (ShiftSkill != nullptr && isLockSkill == false)
 		{
 			ShiftSkill(DynamicThis<Player>());
 		}
 		break;
 	case static_cast<int>(State::InsSkill):
-		if (InsertSkill != nullptr)
+		if (InsertSkill != nullptr && isLockSkill == false)
 		{
 			InsertSkill(DynamicThis<Player>());
 		}
 		break;
 	case static_cast<int>(State::HomeSkill):
-		if (HomeSkill != nullptr)
+		if (HomeSkill != nullptr && isLockSkill == false)
 		{
 			HomeSkill(DynamicThis<Player>());
 		}
 		break;
 	case static_cast<int>(State::PgUpSkill):
-		if (PageUpSkill != nullptr)
+		if (PageUpSkill != nullptr && isLockSkill == false)
 		{
 			PageUpSkill(DynamicThis<Player>());
 		}
 		break;
 	case static_cast<int>(State::CtrlSkill):
-		if (CtrlSkill != nullptr)
+		if (CtrlSkill != nullptr && isLockSkill == false)
 		{
 			CtrlSkill(DynamicThis<Player>());
 		}
 		break;
 	case static_cast<int>(State::DelSkill):
-		if (DelSkill != nullptr)
+		if (DelSkill != nullptr && isLockSkill == false)
 		{
 			DelSkill(DynamicThis<Player>());
 		}
 		break;
 	case static_cast<int>(State::EndSkill):
-		if (EndSkill != nullptr)
+		if (EndSkill != nullptr && isLockSkill == false)
 		{
 			EndSkill(DynamicThis<Player>());
 		}
 		break;
 	case static_cast<int>(State::PgDnSkill):
-		if (PageDownSkill != nullptr)
+		if (PageDownSkill != nullptr && isLockSkill == false)
 		{
 			PageDownSkill(DynamicThis<Player>());
 		}

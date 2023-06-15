@@ -10,7 +10,11 @@ class Player : public BasicFunction
 	friend class SkillActor;
 	friend class SkillList;
 public:
-	void Poison(float PoisonDuration);
+	void Poison(float _Duration);
+	void SkillLock(float _Duration);
+	void MoreMiss(float _Duration);
+	void DamagedDouble(float _Duration);
+	void CannotJump(float _Duration);
 
 	void Hit(int _Damage);
 
@@ -147,13 +151,32 @@ private:
 	float4 PlayerPos = {0,0};
 
 	void GetItem();
-	//상태이상 관련
-	void StatusFuncUpdate();
 
+	//상태이상 관련
+	bool FindStatusRender(const std::string_view& _StatusName);
+	void DeleteStatusRender(const std::string_view& _StatusName);
+	
+	void SortStatusRender();
+
+	void StatusFuncUpdate();
+	
 	std::map<std::string, std::function<bool()>> StatusEffectList;
-	std::shared_ptr<GameEngineSpriteRenderer> PoisonRender;
+	std::map<std::string, std::shared_ptr<GameEngineSpriteRenderer>> StatusRenderList;
+	
+	bool isLockSkill = false;
+	bool isDamagedDouble = false;
+	bool isCannotJump = false;
+
 	float PoisonDuration = 0.0f;
 	float PoisonCount = 0.0f;
+
+	float SkillLockDuration = 0.0f;
+
+	float MoreMissDuration = 0.0f;
+
+	float DamagedDoubleDuration = 0.0f;
+
+	float CannotJumpDuration = 0.0f;
 
 	//키 관련
 	int GetStateByKeyInput() const;
@@ -199,6 +222,7 @@ private:
 	//스킬관련
 
 		//Active
+
 	void LuckySeven();
 	void Haste();
 	void Avenger();

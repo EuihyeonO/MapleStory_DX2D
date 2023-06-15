@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "ZakumRArm_1.h"
 #include "Zakum.h"
+#include "Player.h"
 
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineBase/GameEngineRandom.h>
@@ -29,12 +30,11 @@ void ZakumRArm_1::Start()
 	ArmCollision->On();
 
 	ArmRender->ChangeAnimation("Stand");
+
 }
 
 void ZakumRArm_1::Update(float _DeltaTime)
 {
-
-
 	DeltaTime = _DeltaTime;
 }
 
@@ -67,13 +67,12 @@ void ZakumRArm_1::Attack()
 void ZakumRArm_1::SetAnimation()
 {
 	//1Attack
-
 	ArmRender->CreateAnimation({ .AnimationName = "1Attack",.SpriteName = "RArm1_1Attack",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
 	ArmRender->SetAnimationUpdateEvent("1Attack", 0, [this] {GetTransform()->SetLocalPosition({ 210, 50, -4.0f }); ArmCollision->GetTransform()->SetLocalPosition({ -40, -20 });  isAttack = true; isAtCoolTime = true;  });
 
 	ArmRender->SetAnimationStartEvent("1Attack", 9, [this]
 		{
-			//ÀÌÆåÆ®
+			IceHorn();
 		});
 
 	ArmRender->SetAnimationUpdateEvent("1Attack", 14, [this]
@@ -95,7 +94,7 @@ void ZakumRArm_1::SetAnimation()
 
 	ArmRender->SetAnimationStartEvent("2Attack", 9, [this]
 		{
-			//ÀÌÆåÆ®
+			ElectricAttack();
 		});
 
 	ArmRender->SetAnimationUpdateEvent("2Attack", 14, [this]
@@ -155,4 +154,217 @@ void ZakumRArm_1::SetAnimation()
 			GetTransform()->SetLocalPosition({ 200, 70, -4.0f });
 			ArmCollision->Off();
 		});
+}
+
+void ZakumRArm_1::IceHorn()
+{
+	std::vector<float> FrameVec;
+	FrameVec.reserve(20);
+
+	for (int i = 0; i < 20; i++)
+	{
+		FrameVec.push_back(0.09f);
+	}
+	FrameVec[0] = 1.3f;
+
+	int NumOfHorn = GameEngineRandom::MainRandom.RandomInt(2,4);
+
+	for(int i = 0; i < NumOfHorn; i++)
+	{
+		float Xpos = GameEngineRandom::MainRandom.RandomFloat(-400, 400);
+
+		std::weak_ptr<GameEngineSpriteRenderer> Effect = CreateComponent<GameEngineSpriteRenderer>();
+		Effect.lock()->GetTransform()->SetWorldPosition({ Xpos , -40.0f, -5.0f});
+		Effect.lock()->CreateAnimation({ .AnimationName = "1Attack",.SpriteName = "RArm1_1AtObj",.Loop = false,.ScaleToTexture = true,.FrameTime = FrameVec });
+		Effect.lock()->ChangeAnimation("1Attack");
+
+		std::weak_ptr<GameEngineCollision> EffCol = CreateComponent<GameEngineCollision>();
+		EffCol.lock()->SetOrder(static_cast<int>(CollisionOrder::Monster));
+		EffCol.lock()->Off();
+		EffCol.lock()->GetTransform()->SetWorldPosition({ Xpos , -40.0f, -5.0f });
+		
+		for (int i = 11; i < 14; i++)
+		{
+			Effect.lock()->SetAnimationUpdateEvent("1Attack", i, [Effect, EffCol, this]
+				{
+					EffCol.lock()->On();
+					EffCol.lock()->GetTransform()->SetWorldScale({ Effect.lock()->GetTransform()->GetWorldScale().x * 0.6f, Effect.lock()->GetTransform()->GetWorldScale().y });
+					if (EffCol.lock()->Collision(static_cast<int>(CollisionOrder::Player), ColType::AABBBOX2D, ColType::AABBBOX2D) != nullptr)
+					{
+						if(Player::GetCurPlayer()->GetisHit() == false)
+						{
+							Player::GetCurPlayer()->Hit(10);
+							std::weak_ptr<GameEngineSpriteRenderer> AtEff = CreateComponent<GameEngineSpriteRenderer>();
+							AtEff.lock()->CreateAnimation({ .AnimationName = "AtEffect",.SpriteName = "RArm1_1AtEffect",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
+							AtEff.lock()->SetAnimationUpdateEvent("AtEffect", 3, [AtEff] {if (AtEff.lock()->IsAnimationEnd() == true) { AtEff.lock()->Death(); }});
+							AtEff.lock()->GetTransform()->SetWorldPosition(Player::GetCurPlayer()->GetTransform()->GetWorldPosition() + float4{0, 15.0f});
+							AtEff.lock()->ChangeAnimation("AtEffect");
+						}
+					}
+				});
+		}
+
+		Effect.lock()->SetAnimationUpdateEvent("1Attack", 19, [Effect, EffCol]
+			{
+				if (Effect.lock()->IsAnimationEnd() == true)
+				{
+					EffCol.lock()->Death();
+					Effect.lock()->Death();
+				}
+			});
+	}
+}
+
+
+void ZakumRArm_1::ElectricAttack()
+{	
+	int FalseCount = 0;
+
+	for (int i = 0; i < 6; i++)
+	{
+		int OnOff = GameEngineRandom::MainRandom.RandomInt(0, 1);
+
+		if (OnOff == 0 && FalseCount < 2)
+		{
+			FalseCount++;
+			continue;
+		}
+		else if (OnOff == 1 || (OnOff == 0 && FalseCount >= 2))
+		{
+			int SparkType = GameEngineRandom::MainRandom.RandomInt(0, 5);
+
+			std::weak_ptr<GameEngineSpriteRenderer> Spark = CreateComponent<GameEngineSpriteRenderer>();
+			std::string SpriteName = "RArm1_2AtObj" + std::to_string(SparkType);
+			
+			int LastIndex = 0;
+
+			if (SparkType == 0 || SparkType == 2 || SparkType == 4 || SparkType == 5)
+			{
+				LastIndex = 3;
+			}
+			else if (SparkType == 1)
+			{
+				LastIndex = 4;
+			}
+			else if (SparkType == 3)
+			{
+				LastIndex = 5;
+			}
+
+			std::weak_ptr<GameEngineCollision> SparkCol = CreateComponent<GameEngineCollision>();
+			SparkCol.lock()->GetTransform()->SetWorldScale({ 200, 130 });
+			SparkCol.lock()->SetColType(ColType::AABBBOX2D);
+			SparkCol.lock()->SetOrder(static_cast<int>(CollisionOrder::Monster));
+
+			Spark.lock()->CreateAnimation({ .AnimationName = "Spark",.SpriteName = SpriteName,.FrameInter = 0.13f,.Loop = false,.ScaleToTexture = true});
+			Spark.lock()->ChangeAnimation("Spark");
+			Spark.lock()->GetTransform()->SetWorldPosition({ -400.0f + 160.0f * i, -120.0f, -5.0f });
+			Spark.lock()->SetAnimationUpdateEvent("Spark", LastIndex, [Spark, SparkCol] {if (Spark.lock()->IsAnimationEnd() == true) { Spark.lock()->Death(); SparkCol.lock()->Death(); }});
+
+			SparkCol.lock()->GetTransform()->SetWorldPosition({ -400.0f + 160.0f * i, -120.0f});
+
+			for (int i = 0; i < LastIndex - 1; i++)
+			{
+				Spark.lock()->SetAnimationUpdateEvent("Spark", i, [Spark, SparkCol, this]
+					{
+						if (SparkCol.lock()->Collision(static_cast<int>(CollisionOrder::Player), ColType::AABBBOX2D, ColType::AABBBOX2D) != nullptr)
+						{
+							if(Player::GetCurPlayer()->GetisHit() == false)
+							{
+								std::weak_ptr<GameEngineSpriteRenderer> HitEff = CreateComponent<GameEngineSpriteRenderer>();
+								HitEff.lock()->GetTransform()->SetWorldPosition(Player::GetCurPlayer()->GetTransform()->GetWorldPosition() + float4{0, 40.0f});
+								HitEff.lock()->CreateAnimation({ .AnimationName = "AtEffect",.SpriteName = "RArm1_2AtEffect",.FrameInter = 0.13f,.Loop = false,.ScaleToTexture = true });
+								HitEff.lock()->SetAnimationUpdateEvent("AtEffect", 5, [HitEff] {if (HitEff.lock()->IsAnimationEnd() == true) { HitEff.lock()->Death();}});
+								HitEff.lock()->ChangeAnimation("AtEffect");
+								Player::GetCurPlayer()->Hit(10);
+							}
+						}
+					});
+			}
+		}
+	}
+
+	FalseCount = 0;
+
+	for (int i = 0; i < 4; i++)
+	{
+		int OnOff = GameEngineRandom::MainRandom.RandomInt(0, 1);
+
+		if (OnOff == 0 && FalseCount < 2)
+		{
+			FalseCount++;
+			continue;
+		}
+		else if (OnOff == 1 || (OnOff == 0 && FalseCount >= 2))
+		{
+			int SparkType = GameEngineRandom::MainRandom.RandomInt(0, 5);
+
+			std::weak_ptr<GameEngineSpriteRenderer> Spark = CreateComponent<GameEngineSpriteRenderer>();
+			std::string SpriteName = "RArm1_2AtObj" + std::to_string(SparkType);
+
+			int LastIndex = 0;
+
+			if (SparkType == 0 || SparkType == 2 || SparkType == 4 || SparkType == 5)
+			{
+				LastIndex = 3;
+			}
+			else if (SparkType == 1)
+			{
+				LastIndex = 4;
+			}
+			else if (SparkType == 3)
+			{
+				LastIndex = 5;
+			}
+
+			std::weak_ptr<GameEngineCollision> SparkCol = CreateComponent<GameEngineCollision>();
+			SparkCol.lock()->GetTransform()->SetWorldScale({ 200, 130 });
+			SparkCol.lock()->SetColType(ColType::AABBBOX2D);
+			SparkCol.lock()->SetOrder(static_cast<int>(CollisionOrder::Monster));
+
+			Spark.lock()->CreateAnimation({ .AnimationName = "Spark",.SpriteName = SpriteName,.FrameInter = 0.13f,.Loop = false,.ScaleToTexture = true });
+			Spark.lock()->ChangeAnimation("Spark");
+			Spark.lock()->SetAnimationUpdateEvent("Spark", LastIndex, [Spark, SparkCol] {if (Spark.lock()->IsAnimationEnd() == true) { Spark.lock()->Death(); SparkCol.lock()->Death(); }});
+
+			float4 Pos = { 0, 0 };
+
+			switch (i)
+			{
+			case 0:
+				Pos = { -430, 70.0f, -5.0f };
+				break;
+			case 1:
+				Pos = { -430, 200.0f, -5.0f };
+				break;
+			case 2:
+				Pos = { 360, 0.0f, -5.0f };
+				break;
+			case 3:
+				Pos = { 380, 210.0f, -5.0f };
+				break;
+			}
+
+			Spark.lock()->GetTransform()->SetWorldPosition(Pos);
+			SparkCol.lock()->GetTransform()->SetWorldPosition(Pos);
+
+			for (int i = 0; i < LastIndex - 1; i++)
+			{
+				Spark.lock()->SetAnimationUpdateEvent("Spark", i, [Spark, SparkCol, this]
+					{
+						if (SparkCol.lock()->Collision(static_cast<int>(CollisionOrder::Player), ColType::AABBBOX2D, ColType::AABBBOX2D) != nullptr)
+						{
+							if (Player::GetCurPlayer()->GetisHit() == false)
+							{
+								std::weak_ptr<GameEngineSpriteRenderer> HitEff = CreateComponent<GameEngineSpriteRenderer>();
+								HitEff.lock()->GetTransform()->SetWorldPosition(Player::GetCurPlayer()->GetTransform()->GetWorldPosition() + float4{ 0, 40.0f });
+								HitEff.lock()->CreateAnimation({ .AnimationName = "AtEffect",.SpriteName = "RArm1_2AtEffect",.FrameInter = 0.13f,.Loop = false,.ScaleToTexture = true });
+								HitEff.lock()->SetAnimationUpdateEvent("AtEffect", 5, [HitEff] {if (HitEff.lock()->IsAnimationEnd() == true) { HitEff.lock()->Death(); }});
+								HitEff.lock()->ChangeAnimation("AtEffect");
+								Player::GetCurPlayer()->Hit(10);
+							}
+						}
+					});
+			}
+		}
+	}
 }

@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "ZakumLArm_2.h"
 #include "Zakum.h"
+#include "Player.h"
 
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineBase/GameEngineRandom.h>
@@ -34,13 +35,11 @@ void ZakumLArm_2::Start()
 
 void ZakumLArm_2::Update(float _DeltaTime)
 {
-
 	DeltaTime = _DeltaTime;
 }
 
 void ZakumLArm_2::Render(float _DeltaTime)
 {
-
 }
 
 void ZakumLArm_2::Attack()
@@ -50,7 +49,7 @@ void ZakumLArm_2::Attack()
 		return;
 	}
 
-	int Num = GameEngineRandom::MainRandom.RandomInt(0, 3);
+	int Num = GameEngineRandom::MainRandom.RandomInt(0,3);
 
 	switch (Num)
 	{
@@ -78,6 +77,7 @@ void ZakumLArm_2::SetAnimation()
 
 	ArmRender->SetAnimationStartEvent("1Skill", 9, [this]
 		{
+			SkillLock();
 		});
 
 	ArmRender->SetAnimationUpdateEvent("1Skill", 14, [this]
@@ -98,6 +98,7 @@ void ZakumLArm_2::SetAnimation()
 
 	ArmRender->SetAnimationStartEvent("2Skill", 9, [this]
 		{
+			MoreMiss();
 		});
 
 	ArmRender->SetAnimationUpdateEvent("2Skill", 14, [this]
@@ -118,6 +119,7 @@ void ZakumLArm_2::SetAnimation()
 
 	ArmRender->SetAnimationStartEvent("3Skill", 9, [this]
 		{
+			DamagedDouble();
 		});
 
 	ArmRender->SetAnimationUpdateEvent("3Skill", 14, [this]
@@ -138,6 +140,7 @@ void ZakumLArm_2::SetAnimation()
 
 	ArmRender->SetAnimationStartEvent("4Skill", 9, [this]
 		{
+			CannotJump();
 		});
 
 	ArmRender->SetAnimationUpdateEvent("4Skill", 14, [this]
@@ -197,4 +200,24 @@ void ZakumLArm_2::SetAnimation()
 			GetTransform()->SetLocalPosition({ -145, -60, -4.0f });
 			ArmCollision->Off();
 		});
+}
+
+void ZakumLArm_2::SkillLock()
+{
+	Player::GetCurPlayer()->SkillLock(4.0f);
+}
+
+void ZakumLArm_2::MoreMiss()
+{
+	Player::GetCurPlayer()->MoreMiss(1.0f);
+}
+
+void ZakumLArm_2::DamagedDouble()
+{
+	Player::GetCurPlayer()->DamagedDouble(4.0f);
+}
+
+void ZakumLArm_2::CannotJump()
+{
+	Player::GetCurPlayer()->CannotJump(4.0f);
 }
