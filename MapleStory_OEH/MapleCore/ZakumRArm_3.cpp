@@ -36,16 +36,6 @@ void ZakumRArm_3::Start()
 
 void ZakumRArm_3::Update(float _DeltaTime)
 {
-	if (GameEngineInput::IsKey("MyTest") == false)
-	{
-		GameEngineInput::CreateKey("MyTest", 'B');
-	}
-
-	if (GameEngineInput::IsDown("MyTest") == true)
-	{
-		ArmRender->ChangeAnimation("2Attack");
-	}
-
 	DeltaTime = _DeltaTime;
 }
 
@@ -82,18 +72,26 @@ void ZakumRArm_3::SetAnimation()
 	ArmRender->SetAnimationUpdateEvent("1Attack", 0, [this] {GetTransform()->SetLocalPosition({ 250, -25, -4.0f }); ArmCollision->GetTransform()->SetLocalPosition({ -60, -95 });  isAttack = true; isAtCoolTime = true; });
 	ArmRender->SetAnimationStartEvent("1Attack", 9, [this]
 		{
-			std::shared_ptr<GameEngineSpriteRenderer> Eff = CreateComponent<GameEngineSpriteRenderer>();
-			Player::GetCurPlayer()->Hit(10);
-			Eff->GetTransform()->SetWorldPosition(Player::GetCurPlayer()->GetTransform()->GetWorldPosition() + float4{ 3.0f, 40.0f, -10.0f });
-			Eff->CreateAnimation({ .AnimationName = "1AtEffect",.SpriteName = "RArm3_1AtEffect",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
-			Eff->ChangeAnimation("1AtEffect");
-			Eff->SetAnimationUpdateEvent("1AtEffect", 1, [Eff, this]
-				{
-					Eff->ColorOptionValue.MulColor.a -= 1.5f * DeltaTime;
+			std::weak_ptr<GameEngineSpriteRenderer> Eff = CreateComponent<GameEngineSpriteRenderer>();
+			
+			int RealAtt = Att;
 
-					if (Eff->ColorOptionValue.MulColor.a <= 0)
+			if (Zakum::GetZakum()->GetIsAtPowerUp() == true)
+			{
+				RealAtt *= 2;
+			}
+
+			Player::GetCurPlayer()->Hit(RealAtt);
+			Eff.lock()->GetTransform()->SetWorldPosition(Player::GetCurPlayer()->GetTransform()->GetWorldPosition() + float4{ 3.0f, 40.0f, -10.0f });
+			Eff.lock()->CreateAnimation({ .AnimationName = "1AtEffect",.SpriteName = "RArm3_1AtEffect",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
+			Eff.lock()->ChangeAnimation("1AtEffect");
+			Eff.lock()->SetAnimationUpdateEvent("1AtEffect", 1, [Eff, this]
+				{
+					Eff.lock()->ColorOptionValue.MulColor.a -= 1.5f * DeltaTime;
+
+					if (Eff.lock()->ColorOptionValue.MulColor.a <= 0)
 					{
-						Eff->Death();
+						Eff.lock()->Death();
 					}
 				});
 		});
@@ -113,18 +111,26 @@ void ZakumRArm_3::SetAnimation()
 	ArmRender->SetAnimationUpdateEvent("2Attack", 0, [this] {GetTransform()->SetLocalPosition({ 200, -65, -4.0f }); ArmCollision->GetTransform()->SetLocalPosition({ -10, -55 });  isAttack = true; isAtCoolTime = true; });
 	ArmRender->SetAnimationStartEvent("2Attack", 9, [this]
 		{
-			std::shared_ptr<GameEngineSpriteRenderer> Eff = CreateComponent<GameEngineSpriteRenderer>();
-			Player::GetCurPlayer()->Hit(10);
-			Eff->GetTransform()->SetWorldPosition(Player::GetCurPlayer()->GetTransform()->GetWorldPosition() + float4{ 3.0f, 60.0f, -10.0f });
-			Eff->CreateAnimation({ .AnimationName = "2AtEffect",.SpriteName = "RArm3_2AtEffect",.Loop = false,.ScaleToTexture = true,.FrameTime = {0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.01f} });
-			Eff->ChangeAnimation("2AtEffect");
-			Eff->SetAnimationUpdateEvent("2AtEffect", 5, [Eff, this]
-				{
-					Eff->ColorOptionValue.MulColor.a -= 3.0f * DeltaTime;
+			std::weak_ptr<GameEngineSpriteRenderer> Eff = CreateComponent<GameEngineSpriteRenderer>();
+			
+			int RealAtt = Att;
 
-					if (Eff->ColorOptionValue.MulColor.a <= 0)
+			if (Zakum::GetZakum()->GetIsAtPowerUp() == true)
+			{
+				RealAtt *= 2;
+			}
+
+			Player::GetCurPlayer()->Hit(RealAtt);
+			Eff.lock()->GetTransform()->SetWorldPosition(Player::GetCurPlayer()->GetTransform()->GetWorldPosition() + float4{3.0f, 60.0f, -10.0f});
+			Eff.lock()->CreateAnimation({ .AnimationName = "2AtEffect",.SpriteName = "RArm3_2AtEffect",.Loop = false,.ScaleToTexture = true,.FrameTime = {0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.01f} });
+			Eff.lock()->ChangeAnimation("2AtEffect");
+			Eff.lock()->SetAnimationUpdateEvent("2AtEffect", 5, [Eff, this]
+				{
+					Eff.lock()->ColorOptionValue.MulColor.a -= 3.0f * DeltaTime;
+
+					if (Eff.lock()->ColorOptionValue.MulColor.a <= 0)
 					{
-						Eff->Death();
+						Eff.lock()->Death();
 					}
 				});
 		});

@@ -291,5 +291,5 @@ void Zakum::ArmAttack()
 
 	isArmAtCoolTime = true;
 
-	GetLevel()->TimeEvent.AddEvent(2.0f, [this](GameEngineTimeEvent::TimeEvent& _Event, GameEngineTimeEvent* _Manager){isArmAtCoolTime = false; }, false);
+	GetLevel()->TimeEvent.AddEvent(1.0f, [this](GameEngineTimeEvent::TimeEvent& _Event, GameEngineTimeEvent* _Manager){isArmAtCoolTime = false; }, false);
 }

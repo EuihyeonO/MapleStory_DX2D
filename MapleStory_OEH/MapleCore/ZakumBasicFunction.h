@@ -26,6 +26,8 @@ protected:
 
 	float DeltaTime = 0.0f;
 
+	int Att = 10;
+
 	std::shared_ptr<class GameEngineSpriteRenderer> ArmRender = nullptr;
 	std::shared_ptr<class GameEngineCollision> ArmCollision = nullptr;
 

@@ -210,7 +210,15 @@ void ZakumLArm_1::FireRain()
 							NewHitEff.lock()->SetAnimationUpdateEvent("AtEffect", 3, [NewHitEff] {if (NewHitEff.lock()->IsAnimationEnd() == true) { NewHitEff.lock()->Death(); }});
 							NewHitEff.lock()->ChangeAnimation("AtEffect");
 						}
-						Player::GetCurPlayer()->Hit(10);
+
+						int RealAtt = Att;
+
+						if (Zakum::GetZakum()->GetIsAtPowerUp() == true)
+						{
+							RealAtt *= 2;
+						}
+
+						Player::GetCurPlayer()->Hit(RealAtt);
 					}
 				});
 		}
@@ -227,9 +235,6 @@ void ZakumLArm_1::PosionSmog()
 	isSmogOn = true;
 	float4 StartPos = { 0, 0 };
 
-	//float4 StartPos = { 275, 150 };
-	//float4 StartPos = { 275, -50 };
-	//float4 StartPos = { 275, -150 };
 	int PosNum = GameEngineRandom::MainRandom.RandomInt(0, 4);
 	
 	switch (PosNum)
@@ -313,6 +318,14 @@ void ZakumLArm_1::PosionSmog()
 			if (SmogVec[i].second->Collision(static_cast<int>(CollisionOrder::Player), ColType::AABBBOX2D, ColType::AABBBOX2D) != nullptr)
 			{
 				//중독상태이상
+
+				int RealAtt = Att;
+
+				if (Zakum::GetZakum()->GetIsAtPowerUp() == true)
+				{
+					RealAtt *= 2;
+				}
+
 				Player::GetCurPlayer()->Poison(5.0f);
 			}
 		}

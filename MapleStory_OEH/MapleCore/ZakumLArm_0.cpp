@@ -77,7 +77,14 @@ void ZakumLArm_0::SetAnimation()
 	ArmRender->SetAnimationStartEvent("1Attack", 9, [this]
 		{
 			std::weak_ptr<GameEngineSpriteRenderer> Effect = CreateComponent<GameEngineSpriteRenderer>();
-			Player::GetCurPlayer()->Hit(10);
+			int RealAtt = Att;
+
+			if (Zakum::GetZakum()->GetIsAtPowerUp() == true)
+			{
+				RealAtt *= 2;
+			}
+
+			Player::GetCurPlayer()->Hit(RealAtt);
 			Effect.lock()->GetTransform()->SetWorldPosition(Player::GetCurPlayer()->GetTransform()->GetWorldPosition() + float4{ 3.0f, 40.0f, -10.0f });
 			Effect.lock()->CreateAnimation({ .AnimationName = "1AtEffect",.SpriteName = "LArm0_1AtEffect",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
 			Effect.lock()->ChangeAnimation("1AtEffect");
@@ -108,7 +115,14 @@ void ZakumLArm_0::SetAnimation()
 	ArmRender->SetAnimationStartEvent("2Attack", 9, [this]
 		{
 			std::weak_ptr<GameEngineSpriteRenderer> Effect = CreateComponent<GameEngineSpriteRenderer>();
-			Player::GetCurPlayer()->Hit(10);
+			int RealAtt = Att;
+
+			if (Zakum::GetZakum()->GetIsAtPowerUp() == true)
+			{
+				RealAtt *= 2;
+			}
+
+			Player::GetCurPlayer()->Hit(RealAtt);
 			Effect.lock()->GetTransform()->SetWorldPosition(Player::GetCurPlayer()->GetTransform()->GetWorldPosition() + float4{ 3.0f, 40.0f, -10.0f });
 			Effect.lock()->CreateAnimation({ .AnimationName = "2AtEffect",.SpriteName = "LArm0_2AtEffect",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
 			Effect.lock()->ChangeAnimation("2AtEffect");

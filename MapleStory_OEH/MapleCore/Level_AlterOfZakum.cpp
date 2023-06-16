@@ -250,7 +250,9 @@ void Level_AlterOfZakum::CreateSprite()
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm2_Death").GetFullPath());
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm2_Hit").GetFullPath());
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm2_1Skill").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm2_1SkEffect").GetFullPath());
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm2_2Skill").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm2_2SkEffect").GetFullPath());
 	}
 
 	if (nullptr == GameEngineSprite::Find("RArm3_Stand"))

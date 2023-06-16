@@ -408,14 +408,8 @@
     <None Include="ThirdParty\DirectXTex\inc\DirectXTex.inl">
       <Filter>ThirdParty\DirectXTex\Header</Filter>
     </None>
-    <None Include="ThirdParty\FW1Font\lib\x64\Release\FW1FontWrapper.lib">
-      <Filter>ThirdParty\Fw1Font\bin\Release</Filter>
-    </None>
     <None Include="ThirdParty\FW1Font\lib\x64\Release\FW1FontWrapper.dll">
       <Filter>ThirdParty\Fw1Font\bin\Release</Filter>
-    </None>
-    <None Include="ThirdParty\FW1Font\lib\x64\Debug\FW1FontWrapper.lib">
-      <Filter>ThirdParty\Fw1Font\bin\Debug</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -427,6 +421,12 @@
     </CopyFileToFolders>
     <CopyFileToFolders Include="ThirdParty\FW1Font\lib\x64\Debug\FW1FontWrapper.dll">
       <Filter>ThirdParty\Fw1Font\bin\Debug</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\FW1Font\lib\x64\Debug\FW1FontWrapper.lib">
+      <Filter>ThirdParty\Fw1Font\bin\Debug</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\FW1Font\lib\x64\Release\FW1FontWrapper.lib">
+      <Filter>ThirdParty\Fw1Font\bin\Release</Filter>
     </CopyFileToFolders>
   </ItemGroup>
 </Project>

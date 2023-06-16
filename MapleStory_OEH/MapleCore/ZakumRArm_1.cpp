@@ -193,7 +193,14 @@ void ZakumRArm_1::IceHorn()
 					{
 						if(Player::GetCurPlayer()->GetisHit() == false)
 						{
-							Player::GetCurPlayer()->Hit(10);
+							int RealAtt = Att;
+
+							if (Zakum::GetZakum()->GetIsAtPowerUp() == true)
+							{
+								RealAtt *= 2;
+							}
+
+							Player::GetCurPlayer()->Hit(RealAtt);
 							std::weak_ptr<GameEngineSpriteRenderer> AtEff = CreateComponent<GameEngineSpriteRenderer>();
 							AtEff.lock()->CreateAnimation({ .AnimationName = "AtEffect",.SpriteName = "RArm1_1AtEffect",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
 							AtEff.lock()->SetAnimationUpdateEvent("AtEffect", 3, [AtEff] {if (AtEff.lock()->IsAnimationEnd() == true) { AtEff.lock()->Death(); }});
@@ -276,7 +283,15 @@ void ZakumRArm_1::ElectricAttack()
 								HitEff.lock()->CreateAnimation({ .AnimationName = "AtEffect",.SpriteName = "RArm1_2AtEffect",.FrameInter = 0.13f,.Loop = false,.ScaleToTexture = true });
 								HitEff.lock()->SetAnimationUpdateEvent("AtEffect", 5, [HitEff] {if (HitEff.lock()->IsAnimationEnd() == true) { HitEff.lock()->Death();}});
 								HitEff.lock()->ChangeAnimation("AtEffect");
-								Player::GetCurPlayer()->Hit(10);
+								
+								int RealAtt = Att;
+
+								if (Zakum::GetZakum()->GetIsAtPowerUp() == true)
+								{
+									RealAtt *= 2;
+								}
+
+								Player::GetCurPlayer()->Hit(RealAtt);
 							}
 						}
 					});

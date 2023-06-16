@@ -6,6 +6,8 @@
 #include "BuffList.h"
 #include "DropItem.h"
 #include "UIController.h"
+#include "DamageRender.h"
+#include "Zakum.h"
 
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
@@ -172,7 +174,20 @@ void Player::Poison(float _Duration)
 		if (PoisonCount > 1.0f)
 		{
 			PoisonCount = 0.0f;
-			PlayerValue::GetValue()->SubHp(5);
+
+
+			int RealAtt = Zakum::GetZakum()->GetAtt() / 2;
+
+			if (Zakum::GetZakum()->GetIsAtPowerUp() == true)
+			{
+				RealAtt *= 2;
+			}
+
+			PlayerValue::GetValue()->SubHp(RealAtt);
+
+			std::shared_ptr<DamageRender> NewDR = GetLevel()->CreateActor<DamageRender>();
+			NewDR->PushDamageToQueue(5);
+			NewDR->GetTransform()->SetWorldPosition(GetTransform()->GetWorldPosition() + float4{ -16.0f, 55.0f });
 		}
 
 		if (PoisonDuration < 0)

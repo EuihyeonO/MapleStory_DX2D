@@ -25,6 +25,31 @@ public:
 	
 	void Hit(int _Damage, bool _isRealAttack) override {}
 	
+	bool GetIsAtPowerUp()
+	{
+		return isAtPowerUp;
+	}
+
+	bool GetIsDefUp()
+	{
+		return isDefUp;
+	}
+
+	void SetIsAtPowerUp(bool _Bool)
+	{
+		isAtPowerUp = _Bool;
+	}
+
+	void SetIsDefUp(bool _Bool)
+	{
+		isDefUp = _Bool;
+	}
+
+	int GetAtt()
+	{
+		return Att;
+	}
+
 	static std::shared_ptr<Zakum> GetZakum()
 	{
 		return GlobalZakum;
@@ -63,5 +88,8 @@ private:
 	bool isArmAtCoolTime = false;
 	int AniIndex = 0;
 	float AniCount = 0;
+	
+	bool isAtPowerUp = false;
+	bool isDefUp = false;
 };
 

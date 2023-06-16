@@ -33,8 +33,6 @@ void ZakumRArm_2::Start()
 
 void ZakumRArm_2::Update(float _DeltaTime)
 {
-
-
 	DeltaTime = _DeltaTime;
 }
 
@@ -55,12 +53,17 @@ void ZakumRArm_2::Attack()
 	switch (Num)
 	{
 	case 0:
-		ArmRender->ChangeAnimation("1Skill");
+		if(Zakum::GetZakum()->GetIsAtPowerUp() == false)
+		{
+			ArmRender->ChangeAnimation("1Skill");
+		}
 		break;
 	case 1:
-		ArmRender->ChangeAnimation("2Skill");
+		if(Zakum::GetZakum()->GetIsDefUp() == false)
+		{
+			ArmRender->ChangeAnimation("2Skill");
+		}
 		break;
-
 	}
 }
 
@@ -73,7 +76,26 @@ void ZakumRArm_2::SetAnimation()
 
 	ArmRender->SetAnimationStartEvent("1Skill", 9, [this]
 		{
-			//¿Ã∆Â∆Æ
+			std::weak_ptr<GameEngineSpriteRenderer> Eff = CreateComponent<GameEngineSpriteRenderer>();
+			Eff.lock()->CreateAnimation({ .AnimationName = "1SkEffect",.SpriteName = "RArm2_1SkEffect",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
+			Eff.lock()->GetTransform()->SetWorldPosition({ 0, 80, -5.0f});
+			Eff.lock()->ChangeAnimation("1SkEffect");
+			Eff.lock()->SetAnimationUpdateEvent("1SkEffect", 7, [Eff, this] 
+				{
+					Eff.lock()->ColorOptionValue.MulColor.a -= 5.0f * DeltaTime; 
+					
+					if (Eff.lock()->ColorOptionValue.MulColor.a <= 0.0f) 
+					{ 
+						Eff.lock()->Death();
+
+						std::weak_ptr<GameEngineSpriteRenderer> AtUpEff = CreateComponent<GameEngineSpriteRenderer>();
+						AtUpEff.lock()->SetScaleToTexture("AtPowerUp.png");
+						AtUpEff.lock()->GetTransform()->SetWorldPosition({ 0, 80, -5.0f});
+						Zakum::GetZakum()->SetIsAtPowerUp(true);
+
+						GetLevel()->TimeEvent.AddEvent(10.0f, [AtUpEff, this](GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*) {AtUpEff.lock()->Death(); Zakum::GetZakum()->SetIsAtPowerUp(false);}, false);
+					}
+				});
 		});
 
 	ArmRender->SetAnimationUpdateEvent("1Skill", 12, [this]
@@ -94,14 +116,34 @@ void ZakumRArm_2::SetAnimation()
 
 	ArmRender->SetAnimationStartEvent("2Skill", 9, [this]
 		{
-			//¿Ã∆Â∆Æ
+			std::weak_ptr<GameEngineSpriteRenderer> Eff = CreateComponent<GameEngineSpriteRenderer>();
+			Eff.lock()->CreateAnimation({ .AnimationName = "2SkEffect",.SpriteName = "RArm2_2SkEffect",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
+			Eff.lock()->GetTransform()->SetWorldPosition({ 0, 80, -5.0f });
+			Eff.lock()->ChangeAnimation("2SkEffect");
+			Eff.lock()->SetAnimationUpdateEvent("2SkEffect", 7, [Eff, this]
+				{
+					Eff.lock()->ColorOptionValue.MulColor.a -= 5.0f * DeltaTime;
+
+					if (Eff.lock()->ColorOptionValue.MulColor.a <= 0.0f)
+					{
+						Eff.lock()->Death();
+
+						std::weak_ptr<GameEngineSpriteRenderer> DefUpEff = CreateComponent<GameEngineSpriteRenderer>();
+						DefUpEff.lock()->SetScaleToTexture("DefUp.png");
+						DefUpEff.lock()->GetTransform()->SetWorldPosition({ 15, 80, -5.0f });
+						
+						Zakum::GetZakum()->SetIsDefUp(true);
+
+						GetLevel()->TimeEvent.AddEvent(10.0f, [DefUpEff, this](GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*) {DefUpEff.lock()->Death(); Zakum::GetZakum()->SetIsDefUp(false);}, false);
+					}
+				});
 		});
 
 	ArmRender->SetAnimationUpdateEvent("2Skill", 12, [this]
 		{
 			if (ArmRender->IsAnimationEnd() == true)
 			{
-				isAtCoolTime = false;
+				isAttack = false;
 				GetLevel()->TimeEvent.AddEvent(3.0f, [this](GameEngineTimeEvent::TimeEvent& _Event, GameEngineTimeEvent* _Manager) {isAtCoolTime = false; }, false);
 				GetTransform()->SetLocalPosition({ 170, -10, -4.0f });
 				ArmCollision->GetTransform()->SetLocalPosition({ 10, -35 });

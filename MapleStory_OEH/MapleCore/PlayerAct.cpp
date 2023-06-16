@@ -3,6 +3,7 @@
 #include "PlayerValue.h"
 #include "ContentEnums.h"
 #include "Star.h"
+#include "DamageRender.h"
 
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
@@ -464,10 +465,18 @@ void Player::Hit(int _Damage)
 		if (isDamagedDouble == true)
 		{
 			PlayerValue::Value.SubHp(2 * _Damage);
+
+			std::shared_ptr<DamageRender> NewDR = GetLevel()->CreateActor<DamageRender>();
+			NewDR->PushDamageToQueue(2 * _Damage);
+			NewDR->GetTransform()->SetWorldPosition(GetTransform()->GetWorldPosition() + float4{ -16.0f, 55.0f });
 		}
 		else
 		{
 			PlayerValue::Value.SubHp(_Damage);
+
+			std::shared_ptr<DamageRender> NewDR = GetLevel()->CreateActor<DamageRender>();
+			NewDR->PushDamageToQueue(_Damage);
+			NewDR->GetTransform()->SetWorldPosition(GetTransform()->GetWorldPosition() + float4{ -16.0f, 55.0f });
 		}
 	}
 

@@ -230,6 +230,12 @@ public: //local
 	void SubHp(int _Hp)
 	{
 		Hp -= _Hp;
+		
+		if (Hp <= 0)
+		{
+			Hp = 0;
+		}
+
 	}
 
 	int GetMp()
