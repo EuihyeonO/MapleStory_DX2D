@@ -55,6 +55,27 @@ public:
 		return GlobalZakum;
 	}
 
+	void SubHp(int _Damage)
+	{
+		Hp -= _Damage;
+	}
+
+	void SubArmCount()
+	{
+		ArmCount--;
+	}
+
+	void BodyStart()
+	{
+		if (ArmCount <= 0)
+		{
+			BodyAttackStart = true;
+		}
+	}
+
+	void AtPowerUp();
+	void DefUp();
+
 protected:
 	void Start();
 	void Update(float _DeltaTime) override;
@@ -89,7 +110,16 @@ private:
 	int AniIndex = 0;
 	float AniCount = 0;
 	
+	int CurPhase = 1;
+
 	bool isAtPowerUp = false;
 	bool isDefUp = false;
+
+	bool BodyAttackStart = false;
+	
+	int ArmCount = 8;
+
+	bool isArm = false;
+	int Hp = 3000;
 };
 

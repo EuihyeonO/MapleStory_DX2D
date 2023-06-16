@@ -117,9 +117,9 @@ public:
 
 	void SetMulColorAllTexture(float _MulColor);
 
-
 	void SetLeft();
 	void SetRight();
+	void KnockBack(float4 _Dir, float _Distance, int _Damage);
 
 	Player();
 	~Player();
@@ -141,7 +141,8 @@ private:
 	std::shared_ptr<class GameEngineCollision> BodyCollision;
 	std::shared_ptr<class GameEngineCollision> FootCollision;
 	std::shared_ptr<class GameEngineCollision> PointCollision;
-
+	
+	void BasicUpdate(float _DeltaTime);
 	void CameraUpdate(float _DeltaTime);
 
 	float4 LerpStart = { 0,0 };
@@ -197,6 +198,10 @@ private:
 	void RopeAndLadderUp(float _DeltaTime);
 	void RopeAndLadderDown(float _DeltaTime);
 
+	void KnockBackUpdate(float _DeltaTime);
+
+	std::shared_ptr<std::pair<float4, float>> KnockBackInfo = nullptr;
+
 	bool isRopeOrLadder = false;
 	bool isGround = false;
 	bool isKeyJump = false;
@@ -205,6 +210,8 @@ private:
 
 	bool isMovable = true;
 	bool isHit = false;
+
+	bool isKnockBack = false;
 
 	float HitTimeCount = 0.0f;
 

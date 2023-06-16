@@ -51,6 +51,11 @@ void ZakumLArm_0::Attack()
 		return;
 	}
 
+	if (isStartDeath == true)
+	{
+		return;
+	}
+
 	int Num = GameEngineRandom::MainRandom.RandomInt(0, 1);
 	
 	switch (Num)
@@ -179,11 +184,14 @@ void ZakumLArm_0::SetAnimation()
 			if (ArmRender->ColorOptionValue.MulColor.a <= 0.0f)
 			{
 				Zakum::GetZakum()->ArmDeath(isLeft, ArmIndex);
+				Zakum::GetZakum()->SubArmCount();
+				Zakum::GetZakum()->BodyStart();
 			}
 		});
 
 	ArmRender->SetAnimationUpdateEvent("Death", 0, [this]
 		{
+			isStartDeath = true;
 			GetTransform()->SetLocalPosition({ -115, 140, -4.0f });
 			ArmCollision->Off();
 		});

@@ -597,7 +597,7 @@ void Player::TextureUpdate()
 	std::string PantsTexture = PantsName + MoveType + std::to_string(AniIndex) + ".png";
 	Pants->SetScaleToTexture(PantsTexture);
 
-	if (isHit == true)
+	if (isHit == true || isKnockBack == true)
 	{
 		HitTimeCount += TimeCount;
 

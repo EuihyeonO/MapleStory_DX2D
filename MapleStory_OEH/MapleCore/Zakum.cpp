@@ -10,8 +10,11 @@
 #include "ZakumLArm_2.h"
 #include "ZakumLArm_3.h"
 
+#include "Player.h"
+
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineBase/GameEngineRandom.h>
+#include <GameEnginePlatform/GameEngineInput.h>
 
 std::shared_ptr<Zakum> Zakum::GlobalZakum = nullptr;
 
@@ -38,7 +41,20 @@ void Zakum::Start()
 
 void Zakum::Update(float _DeltaTime)
 {
-	ArmAttack();
+	if (GameEngineInput::IsKey("MyTest") == false)
+	{
+		GameEngineInput::CreateKey("MyTest", 'B');
+	}
+
+	if (GameEngineInput::IsDown("MyTest") == true)
+	{
+		float4 Dir = Player::GetCurPlayer()->GetTransform()->GetWorldPosition() - GetTransform()->GetWorldPosition();
+		Dir.Normalize();
+
+		Player::GetCurPlayer()->KnockBack(Dir, 1000.0f, 10);
+	}
+
+	//ArmAttack();
 }
 
 void Zakum::Render(float _DeltaTime)
@@ -134,9 +150,17 @@ void Zakum::SetAnimation()
 		NewDir.Move("Phase1");
 
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase1Stand").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase1Die").GetFullPath());
+
+		NewDir.MoveParent();
+		NewDir.Move("Phase2");
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase2Stand").GetFullPath());
 	}
 
 	BodyRender->CreateAnimation({ .AnimationName = "Spawn",.SpriteName = "ZakumSpawn",.FrameInter = 0.11f,.Loop = false,.ScaleToTexture = true });
+	BodyRender->CreateAnimation({ .AnimationName = "Phase1Die",.SpriteName = "Phase1Die",.FrameInter = 0.11f,.Loop = false,.ScaleToTexture = true });
+	BodyRender->CreateAnimation({ .AnimationName = "Phase2Stand",.SpriteName = "Phase2Stand",.FrameInter = 0.09f,.Loop = true,.ScaleToTexture = true });
 
 	BodyRender->SetAnimationStartEvent("Spawn", 20, [this]
 		{
@@ -293,3 +317,39 @@ void Zakum::ArmAttack()
 
 	GetLevel()->TimeEvent.AddEvent(1.0f, [this](GameEngineTimeEvent::TimeEvent& _Event, GameEngineTimeEvent* _Manager){isArmAtCoolTime = false; }, false);
 }
+
+void Zakum::DefUp()
+{
+	std::weak_ptr<GameEngineSpriteRenderer> DefUpEff = CreateComponent<GameEngineSpriteRenderer>();
+	DefUpEff.lock()->SetScaleToTexture("DefUp.png");
+	DefUpEff.lock()->GetTransform()->SetWorldPosition({ 15, 80, -5.0f });
+
+	Zakum::GetZakum()->SetIsDefUp(true);
+
+	GetLevel()->TimeEvent.AddEvent(10.0f, [DefUpEff, this](GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*) {DefUpEff.lock()->Death(); Zakum::GetZakum()->SetIsDefUp(false); }, false);
+}
+
+void Zakum::AtPowerUp()
+{
+	std::weak_ptr<GameEngineSpriteRenderer> AtUpEff = CreateComponent<GameEngineSpriteRenderer>();
+	AtUpEff.lock()->SetScaleToTexture("AtPowerUp.png");
+	AtUpEff.lock()->GetTransform()->SetWorldPosition({ 0, 80, -5.0f });
+	Zakum::GetZakum()->SetIsAtPowerUp(true);
+
+	GetLevel()->TimeEvent.AddEvent(10.0f, [AtUpEff, this](GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*) {AtUpEff.lock()->Death(); Zakum::GetZakum()->SetIsAtPowerUp(false); }, false);
+}
+
+//void Zakum::BodyStart()
+//{
+//	if (ArmCount <= 0)
+//	{
+//		BodyAttackStart = true;
+//		//GetTransform()->AddLocalPosition({ 0, -6.0f });
+//		//CurPhase++;
+//		//BodyRender->ChangeAnimation("Phase1Die");
+//		
+//		//GetLevel()->TimeEvent.AddEvent(1.0f, [this](GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*) {BodyRender->ChangeAnimation("Phase2Stand"); });
+//		//다음페이즈스폰	
+//	}
+//	
+//}

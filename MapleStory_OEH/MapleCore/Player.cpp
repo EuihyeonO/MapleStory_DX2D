@@ -47,6 +47,7 @@ void Player::Start()
 	BodyCollision->GetTransform()->SetLocalScale({ 30, 50 });
 	BodyCollision->SetOrder(static_cast<int>(CollisionOrder::Player));
 	BodyCollision->GetTransform()->SetLocalPosition({ 0, 25 });
+	BodyCollision->SetColType(ColType::AABBBOX2D);
 
 	PointCollision = CreateComponent<GameEngineCollision>();
 	PointCollision->GetTransform()->SetLocalScale({ 1.0f, 1.0f });
@@ -91,7 +92,6 @@ void Player::Start()
 	CreateAllKey();
 	
 	CtrlSkill = &Player::Swing;
-
 }
 
 void Player::Update(float _DeltaTime)
@@ -103,6 +103,7 @@ void Player::Update(float _DeltaTime)
 		TextureAnimationUpdate();
 		TextureUpdate();
 		TexturePosUpdate();
+
 		return;
 	}
 
@@ -111,6 +112,11 @@ void Player::Update(float _DeltaTime)
 	FallingDown(_DeltaTime);
 	ActingUpdate(_DeltaTime);
 
+	BasicUpdate(_DeltaTime);
+}
+
+void Player::BasicUpdate(float _DeltaTime)
+{
 	TextureAnimationUpdate();
 	TextureUpdate();
 	TexturePosUpdate();
@@ -119,9 +125,6 @@ void Player::Update(float _DeltaTime)
 	CameraUpdate(_DeltaTime);
 
 	StatusFuncUpdate();
-
-	PrevPos = GetTransform()->GetLocalPosition();
-	/*Test*/
 }
 
 void Player::Render(float _DeltaTime) 
@@ -174,6 +177,12 @@ void Player::CreateAllKey()
 
 void Player::ActingUpdate(float _DeltaTime)
 {	
+	if (isKnockBack == true)
+	{
+		KnockBackUpdate(_DeltaTime);
+		return;
+	}
+
 	if (isKeyJump == true)
 	{
 		JumpUpdate(_DeltaTime);
@@ -234,10 +243,7 @@ void Player::ActingUpdate(float _DeltaTime)
 		}
 		break;
 	case static_cast<int>(State::CtrlSkill):
-		if (CtrlSkill != nullptr && isLockSkill == false)
-		{
-			CtrlSkill(DynamicThis<Player>());
-		}
+		CtrlSkill(DynamicThis<Player>());
 		break;
 	case static_cast<int>(State::DelSkill):
 		if (DelSkill != nullptr && isLockSkill == false)
@@ -408,9 +414,10 @@ void Player::FallingDown(float _DeltaTime)
 	{
 		return;
 	}
+
 	isFalling = true;
 
-	if(isSwing == false)
+	if(isSwing == false && isKnockBack == false)
 	{
 		MoveType = "Jump";
 	}
@@ -447,13 +454,14 @@ void Player::FallingDown(float _DeltaTime)
 		Gravity = 200.0f;
 		FallingXMove = 0.0f;
 
-		if (isSwing == false)
+		if (isSwing == false && isKnockBack == false)
 		{
 			MoveType = "Stand";
 		}
 
 		JumpPower = 600.0f;
 		isFalling = false;
+		isFlashJump = false;
 
 		float4 RealNextPos = { NextColorPos.x - MapHalfScale.x, MapHalfScale.y - NextColorPos.y - 1.0f, -5.0f };
 		GetTransform()->SetLocalPosition(RealNextPos);

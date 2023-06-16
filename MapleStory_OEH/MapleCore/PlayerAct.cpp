@@ -88,6 +88,7 @@ void Player::JumpUpdate(float _DeltaTime)
 		}
 
 		isKeyJump = false;
+		isFlashJump = false;
 		JumpPower = 600.0f;
 
 		float4 RealNextPos = { NextColorPos.x - MapHalfScale.x, MapHalfScale.y - NextColorPos.y - 1.0f, -5.0f };
@@ -458,6 +459,11 @@ void Player::RopeAndLadderDown(float _DeltaTime)
 
 void Player::Hit(int _Damage)
 {
+	if (isKnockBack == true)
+	{
+		return;
+	}
+
 	if(isHit == false)
 	{
 		isHit = true;
@@ -488,12 +494,210 @@ void Player::Hit(int _Damage)
 		AnimationCount = 0.0f;
 	}
 
-	std::function<void(GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*)> HitEndFunc = [=](GameEngineTimeEvent::TimeEvent& _Event, GameEngineTimeEvent* _Manager)
+	std::function<void(GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*)> HitEndFunc = [this](GameEngineTimeEvent::TimeEvent& _Event, GameEngineTimeEvent* _Manager)
 	{
-		Player::GetCurPlayer()->SetMovable(true);
-		Player::GetCurPlayer()->SetisHit(false);
-		Player::GetCurPlayer()->SetMulColorAllTexture(1.0f);
+		isMovable = true;
+		isHit = false;
+		SetMulColorAllTexture(1.0f);
 	};
 
 	GetLevel()->TimeEvent.AddEvent(1.0f, HitEndFunc, false);
+}
+
+
+void Player::KnockBack(float4 _Dir, float _Distance, int _Damage)
+{
+	if (isKnockBack == false)
+	{
+		isKnockBack = true;
+
+		if (isKeyJump == true)
+		{
+			isKeyJump = false;
+			isFlashJump = false;
+			JumpPower = 600.0f;
+			Gravity = 200.0f;
+		}
+
+		if (isRopeOrLadder == true)
+		{
+			FrontBackDir = "Front";
+			isRopeOrLadder = false;
+		}
+
+		std::shared_ptr<DamageRender> NewDR = GetLevel()->CreateActor<DamageRender>();
+		NewDR->GetTransform()->SetWorldPosition(GetTransform()->GetWorldPosition() + float4{ -16.0f, 55.0f });
+		
+		if (isDamagedDouble == true)
+		{
+			PlayerValue::Value.SubHp(2 * _Damage);
+			NewDR->PushDamageToQueue(2 * _Damage);
+		}
+		else
+		{
+			PlayerValue::Value.SubHp(_Damage);
+			NewDR->PushDamageToQueue(_Damage);
+		}
+
+		if (_Dir.x > 0)
+		{
+			SetLeft();
+		}
+		else
+		{
+			SetRight();
+		}
+
+		isMovable = false;
+		MoveType = "Alert";
+		AniIndex = 0;
+		AnimationCount = 0.0f;
+
+		if(KnockBackInfo == nullptr)
+		{
+			KnockBackInfo = std::make_shared<std::pair<float4, float>>();
+			KnockBackInfo->first = _Dir;
+			KnockBackInfo->second = _Distance;
+		}
+		else
+		{
+			MsgAssert("KnockBackInfo 널포인터 검사 필요");
+			return;
+		}
+	}
+}
+
+void Player::KnockBackUpdate(float _DeltaTime)
+{
+	if (KnockBackInfo == nullptr)
+	{
+		MsgAssert("넉백인포가 Nullptr인데 넉백되었습니다.");
+	}
+
+	float4 MapHalfScale = { static_cast<float>(ColMap->GetWidth() / 2) ,  static_cast<float>(ColMap->GetHeight() / 2) };
+
+	GameEnginePixelColor Magenta = { (char)255, (char)0, (char)255, (char)255 };
+	GameEnginePixelColor White = { (char)255, (char)255, (char)255, (char)255 };
+
+	float4 CurPos = GetTransform()->GetLocalPosition();
+	float4 CurColorPos = MapHalfScale + float4{ CurPos.x, -CurPos.y };
+	GameEnginePixelColor CurColor = ColMap->GetPixel(static_cast<int>(CurColorPos.x), static_cast<int>(CurColorPos.y));
+	
+	float4 NextPos = CurPos + KnockBackInfo->first * float4{ 750, 750 } *_DeltaTime;
+	float4 NextColorPos = MapHalfScale + float4{ NextPos.x, -NextPos.y };
+	GameEnginePixelColor NextColor = ColMap->GetPixel(static_cast<int>(NextColorPos.x), static_cast<int>(NextColorPos.y));
+
+	float MoveDistance = sqrt((NextPos.x - CurPos.x) * (NextPos.x - CurPos.x) + (NextPos.y - CurPos.y) * (NextPos.y - CurPos.y));
+
+	bool isUp = false;
+
+	if (NextPos.y > CurPos.y)
+	{
+		isUp = true;
+	}
+
+	if (CurColor == White && NextColor == Magenta)
+	{
+		float4 NextUpPos = NextPos + float4{ 0, 15.0f };
+		float4 NextUpColorPos = MapHalfScale + float4{ NextUpPos.x, -NextUpPos.y };
+		GameEnginePixelColor NextUpColor = ColMap->GetPixel(static_cast<int>(NextUpColorPos.x), static_cast<int>(NextUpColorPos.y));
+
+
+		if (isUp == false && NextUpColor != Magenta)
+		{
+			KnockBackInfo->first.y = 0.0f;
+			KnockBackInfo->first.Normalize();
+
+			float4 CopyNextColorPos = NextColorPos;
+			GameEnginePixelColor CopyNextColor = NextColor;
+
+			while (CopyNextColor == Magenta)
+			{
+				CopyNextColorPos.y--;
+				CopyNextColor = ColMap->GetPixel(static_cast<int>(CopyNextColorPos.x), static_cast<int>(CopyNextColorPos.y));
+			}
+
+			float4 RealNextColor = float4{ CopyNextColorPos.x - MapHalfScale.x, MapHalfScale.y - CopyNextColorPos.y } + float4{ 0, -1};
+			GetTransform()->SetLocalPosition(RealNextColor + float4{0, 0, -5.0f});
+		}
+		else
+		{
+			float4 NextUpPos = NextPos + float4{ 0, 20.0f };
+			float4 NextUpColorPos = MapHalfScale + float4{ NextUpPos.x, -NextUpPos.y };
+			GameEnginePixelColor NextUpColor = ColMap->GetPixel(static_cast<int>(NextUpColorPos.x), static_cast<int>(NextUpColorPos.y));
+
+			if (NextUpColor == Magenta)
+			{
+			}
+			else
+			{
+				GetTransform()->SetLocalPosition(NextPos + float4{ 0, 0, -5.0f });
+			}
+		}
+	}
+	else if(CurColor == Magenta && NextColor == Magenta)
+	{
+		KnockBackInfo->first.y = 0.0f;
+		KnockBackInfo->first.Normalize();
+
+		NextPos = CurPos + KnockBackInfo->first * float4{ 750, 750 } *_DeltaTime;
+		//내적
+
+		int UpCount = 0;
+
+		float4 CopyNextColorPos = NextColorPos;
+		GameEnginePixelColor CopyNextColor = NextColor;
+
+		while (CopyNextColor == Magenta)
+		{
+			UpCount++;
+			CopyNextColorPos.y--;
+			CopyNextColor = ColMap->GetPixel(static_cast<int>(CopyNextColorPos.x), static_cast<int>(CopyNextColorPos.y));
+			
+			if (UpCount >= 10)
+			{
+				break;
+			}
+		}
+
+		if(UpCount < 10)
+		{
+			float4 NextPosDir = NextPos - CurPos;
+			NextPosDir.Normalize();
+
+			float4 NextUpPosDir = NextPos + float4{ 0, static_cast<float>(UpCount) } - CurPos;
+			NextUpPosDir.Normalize();
+
+			float DotProduct = NextPosDir.x * NextUpPosDir.x + NextPosDir.y * NextUpPosDir.y;
+
+			if (DotProduct > 0.2f)
+			{
+				GetTransform()->SetLocalPosition(NextPos + float4{ 0, static_cast<float>(UpCount - 1)});
+			}
+		}
+	}
+	else
+	{
+		GetTransform()->SetLocalPosition(NextPos);
+	}
+
+	KnockBackInfo->second -= MoveDistance;
+
+	if (KnockBackInfo->second <= 0)
+	{
+		isMovable = true;
+		isKnockBack = false;
+		MoveType = "Stand";
+
+		
+		if(CurColor == Magenta)
+		{
+			isFalling = false;
+		}
+
+		SetMulColorAllTexture(1.0f);
+
+		KnockBackInfo = nullptr;
+	}
+
 }

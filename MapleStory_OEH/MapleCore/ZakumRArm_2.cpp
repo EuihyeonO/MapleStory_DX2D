@@ -48,7 +48,12 @@ void ZakumRArm_2::Attack()
 		return;
 	}
 
-	int Num = GameEngineRandom::MainRandom.RandomInt(0, 1);
+	if (isStartDeath == true)
+	{
+		return;
+	}
+
+	int Num = GameEngineRandom::MainRandom.RandomInt(1, 1);
 
 	switch (Num)
 	{
@@ -87,13 +92,7 @@ void ZakumRArm_2::SetAnimation()
 					if (Eff.lock()->ColorOptionValue.MulColor.a <= 0.0f) 
 					{ 
 						Eff.lock()->Death();
-
-						std::weak_ptr<GameEngineSpriteRenderer> AtUpEff = CreateComponent<GameEngineSpriteRenderer>();
-						AtUpEff.lock()->SetScaleToTexture("AtPowerUp.png");
-						AtUpEff.lock()->GetTransform()->SetWorldPosition({ 0, 80, -5.0f});
-						Zakum::GetZakum()->SetIsAtPowerUp(true);
-
-						GetLevel()->TimeEvent.AddEvent(10.0f, [AtUpEff, this](GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*) {AtUpEff.lock()->Death(); Zakum::GetZakum()->SetIsAtPowerUp(false);}, false);
+						Zakum::GetZakum()->AtPowerUp();
 					}
 				});
 		});
@@ -127,14 +126,7 @@ void ZakumRArm_2::SetAnimation()
 					if (Eff.lock()->ColorOptionValue.MulColor.a <= 0.0f)
 					{
 						Eff.lock()->Death();
-
-						std::weak_ptr<GameEngineSpriteRenderer> DefUpEff = CreateComponent<GameEngineSpriteRenderer>();
-						DefUpEff.lock()->SetScaleToTexture("DefUp.png");
-						DefUpEff.lock()->GetTransform()->SetWorldPosition({ 15, 80, -5.0f });
-						
-						Zakum::GetZakum()->SetIsDefUp(true);
-
-						GetLevel()->TimeEvent.AddEvent(10.0f, [DefUpEff, this](GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*) {DefUpEff.lock()->Death(); Zakum::GetZakum()->SetIsDefUp(false);}, false);
+						Zakum::GetZakum()->DefUp();
 					}
 				});
 		});
@@ -182,11 +174,14 @@ void ZakumRArm_2::SetAnimation()
 			if (ArmRender->ColorOptionValue.MulColor.a <= 0.0f)
 			{
 				Zakum::GetZakum()->ArmDeath(isLeft, ArmIndex);
+				Zakum::GetZakum()->SubArmCount();
+				Zakum::GetZakum()->BodyStart();
 			}
 		});
 
 	ArmRender->SetAnimationUpdateEvent("Death", 0, [this]
 		{
+			isStartDeath = true;
 			GetTransform()->SetLocalPosition({ 200, 10, -4.0f });
 			ArmCollision->Off();
 		});

@@ -14,6 +14,11 @@ void ZakumBasicFunction::Hit(int _Damage, bool _isRealAttack)
 {
 	Hp -= _Damage;
 
+	if (isArm == true)
+	{
+		Zakum::GetZakum()->SubHp(_Damage);
+	}
+
 	if(isAttack == false)
 	{
 		ArmRender->ChangeAnimation("Hit");

@@ -28,6 +28,10 @@ protected:
 
 	int Att = 10;
 
+	bool isArm = true;
+
+	bool isStartDeath = false;
+
 	std::shared_ptr<class GameEngineSpriteRenderer> ArmRender = nullptr;
 	std::shared_ptr<class GameEngineCollision> ArmCollision = nullptr;
 
