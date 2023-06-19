@@ -57,7 +57,7 @@ OutPut Content_VS(Input _Value)
     
     return OutPutValue;
 }
-
+    
 cbuffer ColorOption : register(b0)
 {
     float4 MulColor;
@@ -70,6 +70,14 @@ cbuffer UVconstant : register(b1)
     float YMove;
     float XScale;
     float YScale;
+}
+
+cbuffer CircleMulColor : register(b2)
+{
+    float XPos;
+    float YPos;
+    float Distance;
+    float MulValue;
 }
 
 
@@ -90,6 +98,32 @@ float4 Content_PS(OutPut _Value) : SV_Target0
     
     Color = DiffuseTex.Sample(WRAPSAMPLER, float2((_Value.UV.x * XScale) + XMove, (_Value.UV.y * YScale) + YMove));
     Color.a *= MulColor.a;
+    
+    if (Distance > 0.0f)
+    {
+        if ((_Value.Pos.x - XPos) * (_Value.Pos.x - XPos) + (_Value.Pos.y - YPos) * (_Value.Pos.y - YPos) >= (Distance + 20) * (Distance + 20))
+        {
+            Color.r *= MulValue;
+            Color.g *= MulValue;
+            Color.b *= MulValue;
+        }
+        else if ((_Value.Pos.x - XPos) * (_Value.Pos.x - XPos) + (_Value.Pos.y - YPos) * (_Value.Pos.y - YPos) >= Distance * Distance)
+        {
+            float DistanceRatio = (Distance + 20) - sqrt((_Value.Pos.x - XPos) * (_Value.Pos.x - XPos) + (_Value.Pos.y - YPos) * (_Value.Pos.y - YPos));
+           
+            DistanceRatio = DistanceRatio / 20.0f;
+            
+            Color.r *= MulValue;
+            Color.g *= MulValue;
+            Color.b *= MulValue;
+            
+            Color.a *= 1 - DistanceRatio;
+        }
+        else
+        {
+            Color.a *= 0.0f;
+        }
+    }
     
     return Color;
 }

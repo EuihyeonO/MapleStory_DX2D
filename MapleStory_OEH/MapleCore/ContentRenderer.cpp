@@ -28,4 +28,5 @@ void ContentRenderer::Start()
 	GetShaderResHelper().SetConstantBufferLink("AtlasData", AtlasData);
 	GetShaderResHelper().SetConstantBufferLink("ColorOption", ColorOptionValue);
 	GetShaderResHelper().SetConstantBufferLink("UVconstant", UVconstant);
+	GetShaderResHelper().SetConstantBufferLink("CircleMulColor", CircleMulColor);
 }

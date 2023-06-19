@@ -1,6 +1,7 @@
 #pragma once
 #include "ZakumBasicFunction.h"
 #include <GameEngineCore/GameEngineActor.h>
+#include <GameEngineCore/GameEngineLevel.h>
 
 class Zakum : public ZakumBasicFunction
 {
@@ -69,7 +70,7 @@ public:
 	{
 		if (ArmCount <= 0)
 		{
-			BodyAttackStart = true;
+			GetLevel()->TimeEvent.AddEvent(3.0f, [this](GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*) {BodyAttackStart = true;});
 		}
 	}
 
@@ -84,12 +85,19 @@ private:
 
 	void ArmDeath(bool _isLeft, int _ArmIndex);
 	
+	std::function<void()> UpdateFunc = nullptr;
+
 	void Spawn(float _DeltaTime) {}
 	void MonsterDeath(float _DeltaTime) {}
 	void CreateArm(bool _isLeft, int _ArmIndex);
 
+	void SetAttack();
+
 	void SetAnimation();
 	void ArmAttack();
+	void BodyAttack();
+	
+	void Attack() override;
 
 	static std::shared_ptr<Zakum> GlobalZakum;
 
@@ -106,7 +114,9 @@ private:
 	std::shared_ptr<class ZakumLArm_2> LArm_2 = nullptr;
 	std::shared_ptr<class ZakumLArm_3> LArm_3 = nullptr;
 
-	bool isArmAtCoolTime = false;
+	bool isArmAttCoolTime = false;
+	bool isBodyAttCoolTime = false;
+
 	int AniIndex = 0;
 	float AniCount = 0;
 	
@@ -121,5 +131,7 @@ private:
 
 	bool isArm = false;
 	int Hp = 3000;
+
+	std::shared_ptr<class ContentRenderer> BlackOut = nullptr;
 };
 

@@ -29,10 +29,18 @@ public:
 		UVconstant = _UV;
 	}
 
+
+	void SetCircleMulColor(float4 _CircleMulColor)
+	{
+		CircleMulColor = _CircleMulColor;
+	}
+
 protected:
 
 private:
 	float4 UVconstant = { 0,0,1,1 };
+	float4 CircleMulColor = { 0, 0, -1, 0 };
+
 	void Start() override;
 };
 

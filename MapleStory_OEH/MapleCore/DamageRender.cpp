@@ -46,6 +46,12 @@ void DamageRender::Render(float _DeltaTime)
 
 void DamageRender::PushDamageToQueue(int _Damage)
 {
+	if (_Damage == 0)
+	{
+		Death();
+		return;
+	}
+
 	std::vector<std::shared_ptr<GameEngineSpriteRenderer>>* Vec = new std::vector<std::shared_ptr<GameEngineSpriteRenderer>>();
 	
 	int NumArr[9] = {0,};

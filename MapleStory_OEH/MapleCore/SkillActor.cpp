@@ -486,11 +486,18 @@ void SkillActor::FlashJump()
 	if (AnimationIndex == 0 && AnimationCount == 0.0f)
 	{
 		float4 Pos = Player::GetCurPlayer()->GetTransform()->GetWorldPosition();
-		GetTransform()->SetLocalPosition(Pos + float4{0, 20.0f, 1.0f});
+
+		GetTransform()->SetLocalPosition(Pos + float4{-30, 30.0f, 1.0f});
+
 		if (Player::GetCurPlayer()->GetLeftRightDir() == "Left")
 		{
-			GetTransform()->SetLocalPosition(Pos + float4{ 25.0f, 20.0f, 1.0f });
+			GetTransform()->SetLocalPosition(Pos + float4{ 35.0f, 30.0f, 1.0f });
 		}
+		else
+		{
+			GetTransform()->SetLocalScale({ -1, 1 });
+		}
+
 		AnimationRender->SetScaleToTexture("FlashJump0.png");
 	}
 

@@ -43,9 +43,9 @@ void AlterOfZakum::Start()
 	AlterBack->SetScaleToTexture("Alter1.png");
 	AlterBack->GetTransform()->SetLocalPosition({ 50.0f, 70.0f , -1.0f });
 
-	//Layer = CreateComponent<GameEngineSpriteRenderer>();
-	//Layer->SetScaleToTexture("AlterOfZakumLayer.png");
-	//Layer->GetTransform()->SetLocalPosition({ 0, 0, -10.0f });
+	Layer = CreateComponent<GameEngineSpriteRenderer>();
+	Layer->SetScaleToTexture("AlterOfZakumLayer.png");
+	Layer->GetTransform()->SetLocalPosition({ 0, 0, -10.0f });
 
 	Magma = CreateComponent<ContentRenderer>();
 	Magma->SetTexture("Magma.png");
@@ -91,7 +91,6 @@ void AlterOfZakum::Start()
 	Alter = CreateComponent<GameEngineSpriteRenderer>();
 	Alter->SetScaleToTexture("Alter0.png");
 	Alter->GetTransform()->SetLocalPosition({ 0, -180.0f , -5.0f });
-
 }
 
 void AlterOfZakum::Update(float _DeltaTime) 
