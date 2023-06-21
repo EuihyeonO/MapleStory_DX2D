@@ -387,6 +387,12 @@
     <ClCompile Include="ZakumPhase1.cpp">
       <Filter>Actor\Monster\Boss\ZakumBody</Filter>
     </ClCompile>
+    <ClCompile Include="ZakumPhase2.cpp">
+      <Filter>Actor\Monster\Boss\ZakumBody</Filter>
+    </ClCompile>
+    <ClCompile Include="ZakumPhase3.cpp">
+      <Filter>Actor\Monster\Boss\ZakumBody</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">

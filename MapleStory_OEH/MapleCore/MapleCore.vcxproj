@@ -660,6 +660,11 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="ZakumPhase1.cpp" />
+    <ClCompile Include="ZakumPhase2.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ZakumPhase3.cpp" />
     <ClCompile Include="ZakumRArm_0.cpp">
       <SubType>
       </SubType>

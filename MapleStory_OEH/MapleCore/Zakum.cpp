@@ -44,11 +44,13 @@ void Zakum::Start()
 	GetTransform()->SetLocalPosition({ -10.0f , 40.0f, -5.0f });
 	
 	SetAnimation();
+
 	SetPhase1Attack();
+	SetPhase2Attack();
+	SetPhase3Attack();
 
 	MoveType = "";
 	isSpawnAnimationEnd = false;
-
 	BodyRender->ChangeAnimation("Spawn");
 
 	BodyCollision = CreateComponent<GameEngineCollision>();
@@ -67,6 +69,7 @@ void Zakum::Update(float _DeltaTime)
 	if (GameEngineInput::IsKey("MyTest") == false)
 	{
 		GameEngineInput::CreateKey("MyTest", 'B');
+		GameEngineInput::CreateKey("MyTest1", 'V');
 	}
 
 	if (GameEngineInput::IsDown("MyTest") == true)
@@ -80,6 +83,11 @@ void Zakum::Update(float _DeltaTime)
 		RArm_1->Hit(201, true);
 		RArm_2->Hit(201, true);
 		RArm_3->Hit(201, true);
+	}
+
+	if (GameEngineInput::IsDown("MyTest1") == true)
+	{
+		BodyRender->ChangeAnimation("Phase2Die");
 	}
 
 	FunctionUpdate();
@@ -210,18 +218,17 @@ void Zakum::SetAnimation()
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("2AtEffect4").GetFullPath());
 
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase1_3Attack").GetFullPath());
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase1_3AtEffect").GetFullPath());
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase1_3AtObj").GetFullPath());
-
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("3AtEffect").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("3AtObj").GetFullPath());
 
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase1_1Skill").GetFullPath());
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("1SkEffect").GetFullPath());
 
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase1_2Skill").GetFullPath());
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase1_2SkEffect").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("2SkEffect").GetFullPath());
 
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase1_3Skill").GetFullPath());
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase1_3SkEffect").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("3SkEffect").GetFullPath());
 
 		NewDir.Move("1AtEffect1");
 
@@ -238,13 +245,37 @@ void Zakum::SetAnimation()
 		NewDir.Move("Phase2");
 
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase2Stand").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase2Hit").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase2Die").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase2_1Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase2_2Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase2_3Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase2_1Skill").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase2_2Skill").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase2_3Skill").GetFullPath());
+		
+		NewDir.MoveParent();
+		NewDir.Move("Phase3");
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase3Stand").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase3Hit").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase3_1Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase3_2Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase3_3Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase3_1Skill").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase3_2Skill").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase3_3Skill").GetFullPath());
+
 	}
 
 	BodyRender->CreateAnimation({ .AnimationName = "Spawn",.SpriteName = "ZakumSpawn",.FrameInter = 0.11f,.Loop = false,.ScaleToTexture = true });
 	BodyRender->CreateAnimation({ .AnimationName = "Phase1Die",.SpriteName = "Phase1Die",.FrameInter = 0.11f,.Loop = false,.ScaleToTexture = true });
+	BodyRender->CreateAnimation({ .AnimationName = "Phase2Die",.SpriteName = "Phase2Die",.FrameInter = 0.11f,.Loop = false,.ScaleToTexture = true });
 	BodyRender->CreateAnimation({ .AnimationName = "Phase1Hit",.SpriteName = "Phase1Hit",.FrameInter = 0.6f,.Loop = false,.ScaleToTexture = true });
+	BodyRender->CreateAnimation({ .AnimationName = "Phase2Hit",.SpriteName = "Phase2Hit",.FrameInter = 0.6f,.Loop = false,.ScaleToTexture = true });
+	BodyRender->CreateAnimation({ .AnimationName = "Phase3Hit",.SpriteName = "Phase3Hit",.FrameInter = 0.6f,.Loop = false,.ScaleToTexture = true });
 	BodyRender->CreateAnimation({ .AnimationName = "Phase1Stand",.SpriteName = "Phase1Stand",.FrameInter = 0.09f,.Loop = true,.ScaleToTexture = true });
 	BodyRender->CreateAnimation({ .AnimationName = "Phase2Stand",.SpriteName = "Phase2Stand",.FrameInter = 0.09f,.Loop = true,.ScaleToTexture = true });
+	BodyRender->CreateAnimation({ .AnimationName = "Phase3Stand",.SpriteName = "Phase3Stand",.FrameInter = 0.09f,.Loop = true,.ScaleToTexture = true });
 
 	BodyRender->SetAnimationStartEvent("Spawn", 20, [this]
 		{
@@ -264,10 +295,19 @@ void Zakum::SetAnimation()
 		{
 			if (BodyRender->IsAnimationEnd() == true)
 			{
+				isHit = false;
 				BodyRender->ChangeAnimation("Phase1Stand");
 			}
 		});
 
+	BodyRender->SetAnimationUpdateEvent("Phase2Hit", 0, [this]
+		{
+			if (BodyRender->IsAnimationEnd() == true)
+			{
+				isHit = false;
+				BodyRender->ChangeAnimation("Phase2Stand");
+			}
+		});
 
 	BodyRender->SetAnimationUpdateEvent("Phase1Die", 0, [this]
 		{
@@ -278,15 +318,38 @@ void Zakum::SetAnimation()
 		{
 			if (BodyRender->IsAnimationEnd() == true)
 			{			
+				GetTransform()->SetLocalPosition({ 12, 3, -4.0f }); 
+				BodyRender->ChangeAnimation("Phase2Stand"); 
+				
 				GetLevel()->TimeEvent.AddEvent(1.0f, [this](GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*) 
 					{
-						GetTransform()->SetLocalPosition({ 12, 7, -4.0f }); 
-						BodyRender->ChangeAnimation("Phase2Stand"); 
+						BodyCollision->On();
+						isHit = false;
 						CurPhase = 2; 
 					});
 			}
 		});
 
+	BodyRender->SetAnimationUpdateEvent("Phase2Die", 0, [this]
+		{
+			GetTransform()->SetLocalPosition({ 3, 15, -4.0f });
+		});
+
+	BodyRender->SetAnimationUpdateEvent("Phase2Die", 9, [this]
+		{
+			if (BodyRender->IsAnimationEnd() == true)
+			{
+				BodyRender->ChangeAnimation("Phase3Stand");
+				GetTransform()->SetLocalPosition({ 12, 18, -4.0f });
+				
+				GetLevel()->TimeEvent.AddEvent(1.0f, [this](GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*)
+					{
+						BodyCollision->On();
+						isHit = false;
+						CurPhase = 3;
+					});
+			}
+		});
 }
 
 void Zakum::ArmDeath(bool _isLeft, int _ArmIndex)
@@ -298,29 +361,25 @@ void Zakum::ArmDeath(bool _isLeft, int _ArmIndex)
 		case 0:
 			if(LArm_0 != nullptr)
 			{
-				LArm_0->Death();
-				LArm_0 = nullptr;
+				GetLevel()->TimeEvent.AddEvent(1.0f, [this](GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*) {LArm_0->Death(); LArm_0 = nullptr; });
 			}
 			break;
 		case 1:
 			if (LArm_1 != nullptr)
 			{
-				LArm_1->Death();
-				LArm_1 = nullptr;
+				GetLevel()->TimeEvent.AddEvent(1.0f, [this](GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*) {LArm_1->Death(); LArm_1 = nullptr; });
 			}
 			break;
 		case 2:
 			if (LArm_2 != nullptr)
 			{
-				LArm_2->Death();
-				LArm_2 = nullptr;
+				GetLevel()->TimeEvent.AddEvent(1.0f, [this](GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*) {LArm_2->Death(); LArm_2 = nullptr; });
 			}
 			break;
 		case 3:
 			if (LArm_3 != nullptr)
 			{
-				LArm_3->Death();
-				LArm_3 = nullptr;
+				GetLevel()->TimeEvent.AddEvent(1.0f, [this](GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*) {LArm_3->Death(); LArm_3 = nullptr; });
 			}
 			break;
 		}
@@ -332,29 +391,25 @@ void Zakum::ArmDeath(bool _isLeft, int _ArmIndex)
 		case 0:
 			if (RArm_0 != nullptr)
 			{
-				RArm_0->Death();
-				RArm_0 = nullptr;
+				GetLevel()->TimeEvent.AddEvent(1.0f, [this](GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*) {RArm_0->Death(); RArm_0 = nullptr; });
 			}
 			break;
 		case 1:
 			if (RArm_1 != nullptr)
 			{
-				RArm_1->Death();
-				RArm_1 = nullptr;
+				GetLevel()->TimeEvent.AddEvent(1.0f, [this](GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*) {RArm_1->Death(); RArm_1 = nullptr; });
 			}
 			break;
 		case 2:
 			if (RArm_2 != nullptr)
 			{
-				RArm_2->Death();
-				RArm_2 = nullptr;
+				GetLevel()->TimeEvent.AddEvent(1.0f, [this](GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*) {RArm_2->Death(); RArm_2 = nullptr; });
 			}
 			break;
 		case 3:
 			if (RArm_3 != nullptr)
 			{
-				RArm_3->Death();
-				RArm_3 = nullptr;
+				GetLevel()->TimeEvent.AddEvent(1.0f, [this](GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*) {RArm_3->Death(); RArm_3 = nullptr; });
 			}
 			break;
 		}
@@ -451,10 +506,18 @@ void Zakum::AtPowerUp()
 
 void Zakum::BodyAttack()
 {
+	bool a = isAttack;
+
 	if (isBodyAttCoolTime == true)
 	{
 		return;
 	}
+
+	if (isHit == true)
+	{
+		return;
+	}
+
 
 	int Num = GameEngineRandom::MainRandom.RandomInt(0, 6);
 	std::string AttackName = "";
@@ -564,21 +627,31 @@ void Zakum::Hit(int _Damage, bool _isRealAttack)
 {
 	if(isAttack == false && isHit == false)
 	{
-		isHit = true;
-		BodyRender->ChangeAnimation("Phase1Hit");
-
-		GetLevel()->TimeEvent.AddEvent(1.0f, [this](GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*) {isHit = false; });
+		std::string AniName = "Phase" + std::to_string(CurPhase) + "Hit";
+		BodyRender->ChangeAnimation(AniName);
 	}
+	
+	Hp -= _Damage;
 
 	if (_isRealAttack == true)
 	{
-		Hp -= _Damage;
-
-		if (Hp <= 2000 && isAttack == false)
+		if (Hp > 1000 && Hp <= 2000 && isAttack == false && CurPhase == 1)
 		{
 			BodyCollision->Off();
 			BodyRender->ChangeAnimation("Phase1Die");
-			GetLevel()->TimeEvent.AddEvent(1.0f, [this](GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*) {isHit = false; });
+		}
+		else if(Hp > 0 && Hp <= 1000 && isAttack == false && CurPhase == 2)
+		{
+			BodyCollision->Off();
+			BodyRender->ChangeAnimation("Phase2Die");
+		}
+		else if (Hp < 0)
+		{
+			BodyCollision->Off();
+			//BodyRender->ChangeAnimation("Phase3Die");
+			//GetLevel()->TimeEvent.AddEvent(1.0f, [this](GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*) {isHit = false; BodyCollision->On(); });
 		}
 	}
+
+	isHit = true;
 }

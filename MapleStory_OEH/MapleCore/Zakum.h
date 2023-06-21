@@ -93,6 +93,8 @@ private:
 	void CreateArm(bool _isLeft, int _ArmIndex);
 
 	void SetPhase1Attack();
+	void SetPhase2Attack();
+	void SetPhase3Attack();
 
 	void SetAnimation();
 	void ArmAttack();

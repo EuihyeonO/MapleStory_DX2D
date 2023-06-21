@@ -30,7 +30,7 @@ void Zakum::SetPhase1Attack()
 
 	BodyRender->SetAnimationUpdateEvent("Phase1_1Attack", 0, [this]
 		{
-			GetTransform()->SetLocalPosition({ 12.0f, 14.0f, -4.0f });
+			GetTransform()->SetLocalPosition({ 12.0f, 13.0f, -4.0f });
 
 			if (isAttack == false)
 			{
@@ -103,7 +103,7 @@ void Zakum::SetPhase1Attack()
 			if (BodyRender->IsAnimationEnd() == true)
 			{
 				BodyRender->ChangeAnimation("Phase1Stand");
-				GetTransform()->AddLocalPosition({ 0.0f, -7.0f });
+				GetTransform()->SetLocalPosition({ 12.0f, 7.0f,-4.0f });
 				isAttack = false;
 				GetLevel()->TimeEvent.AddEvent(3.0f, [this](GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*) {isBodyAttCoolTime = false; });
 			}});
@@ -113,7 +113,7 @@ void Zakum::SetPhase1Attack()
 
 	BodyRender->SetAnimationUpdateEvent("Phase1_2Attack", 0, [this]
 		{
-			//GetTransform()->SetLocalPosition({ 12.0f, 14.0f, -4.0f });
+			GetTransform()->SetLocalPosition({ 12.0f, 4.0f, -4.0f });
 
 			if (isAttack == false)
 			{
@@ -263,6 +263,7 @@ void Zakum::SetPhase1Attack()
 		{
 			if (BodyRender->IsAnimationEnd() == true)
 			{
+				GetTransform()->SetLocalPosition({ 12.0f, 7.0f, -4.0f });
 				BodyRender->ChangeAnimation("Phase1Stand");
 				isAttack = false;
 				GetLevel()->TimeEvent.AddEvent(3.0f, [this](GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*) {isBodyAttCoolTime = false; });
@@ -276,13 +277,13 @@ void Zakum::SetPhase1Attack()
 	BodyRender->SetAnimationUpdateEvent("Phase1_3Attack", 0,
 		[this]
 		{
-			GetTransform()->SetLocalPosition({ 12.0f, 23.0f, -4.0f });
+			GetTransform()->SetLocalPosition({ 12.0f, 22.0f, -4.0f });
 
 			if (isAttack == false)
 			{
 				std::weak_ptr<GameEngineSpriteRenderer> Eff = CreateComponent<GameEngineSpriteRenderer>();
 				Eff.lock()->GetTransform()->SetWorldPosition({ 20.0f, 0.0f, -4.0f });
-				Eff.lock()->CreateAnimation({ .AnimationName = "3AtEffect",.SpriteName = "Phase1_3AtEffect",.FrameInter = 0.08f,.Loop = false,.ScaleToTexture = true });
+				Eff.lock()->CreateAnimation({ .AnimationName = "3AtEffect",.SpriteName = "3AtEffect",.FrameInter = 0.08f,.Loop = false,.ScaleToTexture = true });
 				Eff.lock()->SetAnimationUpdateEvent("3AtEffect", 18, [Eff] {if (Eff.lock()->IsAnimationEnd() == true) { Eff.lock()->Death(); }});
 				Eff.lock()->ChangeAnimation("3AtEffect");
 			}
@@ -330,7 +331,7 @@ void Zakum::SetPhase1Attack()
 				}
 
 				AtObj.lock()->GetTransform()->SetWorldPosition({ Xpos, Ypos, -5.0f });
-				AtObj.lock()->CreateAnimation({ .AnimationName = "Phase1_3AtObj",.SpriteName = "Phase1_3AtObj",.Loop = false,.ScaleToTexture = true,.FrameTime = {0.105f, 0.105f, 0.105f, 0.105f, 0.105f, 0.105f, 0.105f, 0.2f, 0.09f, 0.09f, 0.09f, 0.09f, 0.09f, 0.09f, 0.09f, 0.09f, 0.09f, 0.09f, 0.09f} });
+				AtObj.lock()->CreateAnimation({ .AnimationName = "Phase1_3AtObj",.SpriteName = "3AtObj",.Loop = false,.ScaleToTexture = true,.FrameTime = {0.105f, 0.105f, 0.105f, 0.105f, 0.105f, 0.105f, 0.105f, 0.2f, 0.09f, 0.09f, 0.09f, 0.09f, 0.09f, 0.09f, 0.09f, 0.09f, 0.09f, 0.09f, 0.09f} });
 				AtObj.lock()->ChangeAnimation("Phase1_3AtObj");
 
 				std::weak_ptr<GameEngineCollision> AtObjCol = CreateComponent<GameEngineCollision>();
@@ -364,7 +365,7 @@ void Zakum::SetPhase1Attack()
 		{
 			if (BodyRender->IsAnimationEnd() == true)
 			{
-				GetTransform()->AddLocalPosition({ 0, -13.0f, 0 });
+				GetTransform()->SetLocalPosition({ 12.0f, 7.0f, -4.0f });
 				isAttack = false;
 				GetLevel()->TimeEvent.AddEvent(3.0f, [this](GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*) {isBodyAttCoolTime = false; });
 				BodyRender->ChangeAnimation("Phase1Stand");
@@ -395,7 +396,7 @@ void Zakum::SetPhase1Attack()
 
 	BodyRender->SetAnimationStartEvent("Phase1_1Skill", 13, [this]
 		{
-			GetTransform()->AddLocalPosition({ 1, 9, 0 });
+			GetTransform()->AddLocalPosition({ 0, 8, 0 });
 		});
 
 	BodyRender->SetAnimationUpdateEvent("Phase1_1Skill", 16, [this]
@@ -428,7 +429,7 @@ void Zakum::SetPhase1Attack()
 			{
 				std::weak_ptr<GameEngineSpriteRenderer> Eff = CreateComponent<GameEngineSpriteRenderer>();
 				Eff.lock()->GetTransform()->SetWorldPosition({ 0, 0, -4.0f });
-				Eff.lock()->CreateAnimation({ .AnimationName = "2SkEffect",.SpriteName = "Phase1_2SkEffect",.FrameInter = 0.093f,.Loop = false,.ScaleToTexture = true });
+				Eff.lock()->CreateAnimation({ .AnimationName = "2SkEffect",.SpriteName = "2SkEffect",.FrameInter = 0.093f,.Loop = false,.ScaleToTexture = true });
 				Eff.lock()->SetAnimationUpdateEvent("2SkEffect", 14, [Eff] {if (Eff.lock()->IsAnimationEnd() == true) { Eff.lock()->Death(); }});
 				Eff.lock()->ChangeAnimation("2SkEffect");
 			}
@@ -462,7 +463,7 @@ void Zakum::SetPhase1Attack()
 			{
 				std::weak_ptr<GameEngineSpriteRenderer> Eff = CreateComponent<GameEngineSpriteRenderer>();
 				Eff.lock()->GetTransform()->SetWorldPosition({ 0, 0, -4.0f });
-				Eff.lock()->CreateAnimation({ .AnimationName = "3SkEffect",.SpriteName = "Phase1_3SkEffect",.FrameInter = 0.094f,.Loop = false,.ScaleToTexture = true });
+				Eff.lock()->CreateAnimation({ .AnimationName = "3SkEffect",.SpriteName = "3SkEffect",.FrameInter = 0.094f,.Loop = false,.ScaleToTexture = true });
 
 				Eff.lock()->SetAnimationUpdateEvent("3SkEffect", 15, [Eff, this]
 					{
@@ -517,7 +518,7 @@ void Zakum::SetPhase1Attack()
 			isBodyAttCoolTime = true;
 		});
 
-	BodyRender->SetAnimationUpdateEvent("Phase1_3Skill", 10, [this]
+	BodyRender->SetAnimationUpdateEvent("Phase1_3Skill", 15, [this]
 		{
 			if (BodyRender->IsAnimationEnd() == true)
 			{

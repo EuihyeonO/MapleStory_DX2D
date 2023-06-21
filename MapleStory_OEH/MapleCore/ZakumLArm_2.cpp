@@ -193,13 +193,22 @@ void ZakumLArm_2::SetAnimation()
 	ArmRender->CreateAnimation({ .AnimationName = "Death",.SpriteName = "LArm2_Death",.Loop = false,.ScaleToTexture = true,.FrameTime = FrameVec });
 	ArmRender->SetAnimationUpdateEvent("Death", 18, [this]
 		{
+			if (isArmDeath == true)
+			{
+				return;
+			}
+
 			ArmRender->ColorOptionValue.MulColor.a -= 4.0f * DeltaTime;
 
 			if (ArmRender->ColorOptionValue.MulColor.a <= 0.0f)
 			{
+				ArmRender->ColorOptionValue.MulColor.a = 0.0f;
+
 				Zakum::GetZakum()->ArmDeath(isLeft, ArmIndex);
 				Zakum::GetZakum()->SubArmCount();
 				Zakum::GetZakum()->BodyStart();
+
+				isArmDeath = true;
 			}
 		});
 

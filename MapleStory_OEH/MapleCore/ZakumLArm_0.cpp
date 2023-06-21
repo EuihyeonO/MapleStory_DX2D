@@ -167,25 +167,34 @@ void ZakumLArm_0::SetAnimation()
 
 	//Death
 	std::vector<float> FrameVec;
-	FrameVec.reserve(19);
+	FrameVec.reserve(20);
 	
-	for (int i = 0; i < 19; i++)
+	for (int i = 0; i < 20; i++)
 	{
 		FrameVec.push_back(0.11f);
 	}
 
-	FrameVec[18] = 1.0f;
+	FrameVec[19] = 1.0f;
 
 	ArmRender->CreateAnimation({ .AnimationName = "Death",.SpriteName = "LArm0_Death",.Loop = false,.ScaleToTexture = true,.FrameTime = FrameVec });
-	ArmRender->SetAnimationUpdateEvent("Death", 18, [this] 
+	ArmRender->SetAnimationUpdateEvent("Death", 19, [this] 
 		{
+			if (isArmDeath == true)
+			{
+				return;
+			}
+
 			ArmRender->ColorOptionValue.MulColor.a -= 4.0f * DeltaTime;
-			
+
 			if (ArmRender->ColorOptionValue.MulColor.a <= 0.0f)
 			{
+				ArmRender->ColorOptionValue.MulColor.a = 0.0f;
+
 				Zakum::GetZakum()->ArmDeath(isLeft, ArmIndex);
 				Zakum::GetZakum()->SubArmCount();
 				Zakum::GetZakum()->BodyStart();
+
+				isArmDeath = true;
 			}
 		});
 
