@@ -49,9 +49,6 @@
     <ClInclude Include="BuffList.h">
       <Filter>Actor\Player\Skill\Actor</Filter>
     </ClInclude>
-    <ClInclude Include="GreenSnail.h">
-      <Filter>Actor\Monster</Filter>
-    </ClInclude>
     <ClInclude Include="MonsterBasicFunction.h">
       <Filter>Actor\Monster</Filter>
     </ClInclude>
@@ -139,9 +136,6 @@
     <ClInclude Include="AlterOfZakum.h">
       <Filter>Actor\Map</Filter>
     </ClInclude>
-    <ClInclude Include="Zakum.h">
-      <Filter>Actor\Monster\Boss</Filter>
-    </ClInclude>
     <ClInclude Include="ZakumRArm_0.h">
       <Filter>Actor\Monster\Boss</Filter>
     </ClInclude>
@@ -168,6 +162,27 @@
     </ClInclude>
     <ClInclude Include="ZakumBasicFunction.h">
       <Filter>Actor\Monster\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentUIRenderer.h">
+      <Filter>ContentRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="GreenSnail.h">
+      <Filter>Actor\Monster\Mob</Filter>
+    </ClInclude>
+    <ClInclude Include="Boogie.h">
+      <Filter>Actor\Monster\Mob</Filter>
+    </ClInclude>
+    <ClInclude Include="SmallZakum0.h">
+      <Filter>Actor\Monster\Mob</Filter>
+    </ClInclude>
+    <ClInclude Include="SmallZakum1.h">
+      <Filter>Actor\Monster\Mob</Filter>
+    </ClInclude>
+    <ClInclude Include="SmallZakum2.h">
+      <Filter>Actor\Monster\Mob</Filter>
+    </ClInclude>
+    <ClInclude Include="Zakum.h">
+      <Filter>Actor\Monster\Boss\ZakumBody</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -233,9 +248,6 @@
     </ClCompile>
     <ClCompile Include="ActiveBuff.cpp">
       <Filter>Actor\Player\Skill\PlayerSkill</Filter>
-    </ClCompile>
-    <ClCompile Include="GreenSnail.cpp">
-      <Filter>Actor\Monster</Filter>
     </ClCompile>
     <ClCompile Include="MonsterBasicFunction.cpp">
       <Filter>Actor\Monster</Filter>
@@ -321,9 +333,6 @@
     <ClCompile Include="AlterOfZakum.cpp">
       <Filter>Actor\Map</Filter>
     </ClCompile>
-    <ClCompile Include="Zakum.cpp">
-      <Filter>Actor\Monster\Boss</Filter>
-    </ClCompile>
     <ClCompile Include="ZakumRArm_0.cpp">
       <Filter>Actor\Monster\Boss</Filter>
     </ClCompile>
@@ -353,6 +362,30 @@
     </ClCompile>
     <ClCompile Include="StatusEffect.cpp">
       <Filter>Actor\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentUIRenderer.cpp">
+      <Filter>ContentRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="GreenSnail.cpp">
+      <Filter>Actor\Monster\Mob</Filter>
+    </ClCompile>
+    <ClCompile Include="Boogie.cpp">
+      <Filter>Actor\Monster\Mob</Filter>
+    </ClCompile>
+    <ClCompile Include="SmallZakum0.cpp">
+      <Filter>Actor\Monster\Mob</Filter>
+    </ClCompile>
+    <ClCompile Include="SmallZakum1.cpp">
+      <Filter>Actor\Monster\Mob</Filter>
+    </ClCompile>
+    <ClCompile Include="SmallZakum2.cpp">
+      <Filter>Actor\Monster\Mob</Filter>
+    </ClCompile>
+    <ClCompile Include="Zakum.cpp">
+      <Filter>Actor\Monster\Boss\ZakumBody</Filter>
+    </ClCompile>
+    <ClCompile Include="ZakumPhase1.cpp">
+      <Filter>Actor\Monster\Boss\ZakumBody</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -433,6 +466,12 @@
     </Filter>
     <Filter Include="Actor\Monster\Boss">
       <UniqueIdentifier>{ece51027-570d-4f12-b344-095882b292bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Monster\Mob">
+      <UniqueIdentifier>{7a78c709-7ea7-4f3a-b9d2-375090b61dfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Monster\Boss\ZakumBody">
+      <UniqueIdentifier>{a948a709-c62b-44cf-9531-5a152e455bc9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

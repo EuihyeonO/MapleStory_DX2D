@@ -101,7 +101,8 @@ float4 Content_PS(OutPut _Value) : SV_Target0
     
     if (Distance > 0.0f)
     {
-        if ((_Value.Pos.x - XPos) * (_Value.Pos.x - XPos) + (_Value.Pos.y - YPos) * (_Value.Pos.y - YPos) >= (Distance + 20) * (Distance + 20))
+        
+        if ((_Value.Pos.x - XPos) * (_Value.Pos.x - XPos) + (_Value.Pos.y - YPos) * (_Value.Pos.y - YPos) >= (Distance + 30) * (Distance + 30))
         {
             Color.r *= MulValue;
             Color.g *= MulValue;
@@ -109,9 +110,9 @@ float4 Content_PS(OutPut _Value) : SV_Target0
         }
         else if ((_Value.Pos.x - XPos) * (_Value.Pos.x - XPos) + (_Value.Pos.y - YPos) * (_Value.Pos.y - YPos) >= Distance * Distance)
         {
-            float DistanceRatio = (Distance + 20) - sqrt((_Value.Pos.x - XPos) * (_Value.Pos.x - XPos) + (_Value.Pos.y - YPos) * (_Value.Pos.y - YPos));
+            float DistanceRatio = (Distance + 30) - sqrt((_Value.Pos.x - XPos) * (_Value.Pos.x - XPos) + (_Value.Pos.y - YPos) * (_Value.Pos.y - YPos));
            
-            DistanceRatio = DistanceRatio / 20.0f;
+            DistanceRatio = DistanceRatio / 30.0f;
             
             Color.r *= MulValue;
             Color.g *= MulValue;

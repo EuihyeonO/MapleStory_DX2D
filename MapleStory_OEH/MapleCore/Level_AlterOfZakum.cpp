@@ -106,6 +106,65 @@ void Level_AlterOfZakum::CreateSprite()
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("CannotJump").GetFullPath());
 	}
 
+	if (nullptr == GameEngineSprite::Find("BoogieMove"))
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("MapleResources");
+		NewDir.Move("MapleResources");
+		NewDir.Move("Sprite");
+		NewDir.Move("Monster");
+		NewDir.Move("Boogie");
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("BoogieMove").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("BoogieStand").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("BoogieHit").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("BoogieDeath").GetFullPath());
+	}
+
+	if (nullptr == GameEngineSprite::Find("SmallZakum0Fly"))
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("MapleResources");
+		NewDir.Move("MapleResources");
+		NewDir.Move("Sprite");
+		NewDir.Move("Monster");
+		NewDir.Move("SmallZakum0");
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("SmallZakum0Fly").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("SmallZakum0Hit").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("SmallZakum0Death").GetFullPath());
+	}
+
+	if (nullptr == GameEngineSprite::Find("SmallZakum1Fly"))
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("MapleResources");
+		NewDir.Move("MapleResources");
+		NewDir.Move("Sprite");
+		NewDir.Move("Monster");
+		NewDir.Move("SmallZakum1");
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("SmallZakum1Fly").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("SmallZakum1Hit").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("SmallZakum1Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("SmallZakum1Death").GetFullPath());
+	}
+
+	if (nullptr == GameEngineSprite::Find("SmallZakum2Fly"))
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("MapleResources");
+		NewDir.Move("MapleResources");
+		NewDir.Move("Sprite");
+		NewDir.Move("Monster");
+		NewDir.Move("SmallZakum2");
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("SmallZakum2Fly").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("SmallZakum2Hit").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("SmallZakum2Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("SmallZakum2Death").GetFullPath());
+	}
+
 	if (nullptr == GameEngineSprite::Find("LArm0_Stand"))
 	{
 		GameEngineDirectory NewDir;

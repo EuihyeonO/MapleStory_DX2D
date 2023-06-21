@@ -457,7 +457,7 @@ void SkillActor::ShadowPartner()
 					AnimationCount = 0.0f;
 				}
 
-				AnimationRender->GetTransform()->SetLocalPosition(CurPlayer->GetTransform()->GetWorldPosition() + float4{ Dir.x * 30.0f, 35.0f });
+				AnimationRender->GetTransform()->SetLocalPosition(CurPlayer->GetTransform()->GetWorldPosition() + float4{ Dir.x * 20.0f, 35.0f });
 			}
 			else
 			{
@@ -470,7 +470,8 @@ void SkillActor::ShadowPartner()
 				float4 Scale = AnimationRender->GetTransform()->GetLocalScale();
 
 				AnimationRender->GetTransform()->SetLocalScale({ Dir.x * Scale.x, Scale.y });
-				AnimationRender->GetTransform()->SetLocalPosition(CurPlayer->GetTransform()->GetWorldPosition() + float4{ Dir.x * 30.0f, 35.0f });
+				AnimationRender->GetTransform()->SetLocalPosition(CurPlayer->GetTransform()->GetWorldPosition() + float4{ Dir.x * 20.0f, 35.0f});
+				GetTransform()->SetLocalPosition({ 0, 0, 1.0f });
 			}
 		};
 

@@ -13,7 +13,7 @@ ContentRenderer::~ContentRenderer()
 void ContentRenderer::Start()
 {
 	GameEngineRenderer::Start();
-
+	
 	SetMesh("Rect");
 	SetPipeLine("ContentShader");
 

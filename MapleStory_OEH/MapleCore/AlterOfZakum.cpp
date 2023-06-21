@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "AlterOfZakum.h"
 #include "Zakum.h"
+#include "Boogie.h"
 
 #include "ContentRenderer.h"
 #include <GameEngineCore/GameEngineLevel.h>

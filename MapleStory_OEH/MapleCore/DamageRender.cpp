@@ -46,7 +46,7 @@ void DamageRender::Render(float _DeltaTime)
 
 void DamageRender::PushDamageToQueue(int _Damage)
 {
-	if (_Damage == 0)
+	if (_Damage <= 0)
 	{
 		Death();
 		return;
@@ -123,8 +123,6 @@ void DamageRender::DeleteDamage()
 
 	std::list<std::vector<std::shared_ptr<GameEngineSpriteRenderer>>*>::iterator Start = DamageRenderList.begin();
 	std::list<std::vector<std::shared_ptr<GameEngineSpriteRenderer>>*>::iterator End = DamageRenderList.end();
-
-	//std::vector<std::shared_ptr<GameEngineSpriteRenderer>>* Vec
 	
 	for (; Start != End;)
 	{

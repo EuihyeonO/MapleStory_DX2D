@@ -193,7 +193,7 @@ void Star::Damage()
 	
 		std::shared_ptr<DamageRender> NewDR = GetLevel()->CreateActor<DamageRender>();
 		NewDR->PushDamageToQueue(Damage);
-		NewDR->GetTransform()->SetWorldPosition(_Collision->GetTransform()->GetWorldPosition() + float4{-16.0f, 5.0f});
+		NewDR->GetTransform()->SetWorldPosition(_Collision->GetTransform()->GetWorldPosition() + float4{-16.0f, 5.0f, -20.0f});
 
 		_Collision->GetActor()->DynamicThis<MonsterBasicFunction>()->Hit(Damage, isRealAttack);
 

@@ -132,7 +132,10 @@ void GreenSnail::Hit(int _Damage, bool _isRealAttack)
 	BasicCollision->GetTransform()->SetLocalScale({ abs(RenderData.LocalScale.x), abs(RenderData.LocalScale.y) });
 	BasicCollision->GetTransform()->SetLocalPosition(RenderData.LocalPosition);
 	
-	Hp -= _Damage;
+	if(_isRealAttack == true)
+	{
+		Hp -= _Damage;
+	}
 
 	if (Hp <= 0)
 	{

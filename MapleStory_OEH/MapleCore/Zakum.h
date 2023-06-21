@@ -2,6 +2,7 @@
 #include "ZakumBasicFunction.h"
 #include <GameEngineCore/GameEngineActor.h>
 #include <GameEngineCore/GameEngineLevel.h>
+//#include <GameEngineCore/GameEngineCollision.h>
 
 class Zakum : public ZakumBasicFunction
 {
@@ -24,7 +25,7 @@ public:
 	Zakum& operator=(const Zakum& _Other) = delete;
 	Zakum& operator=(Zakum&& _Other) noexcept = delete;
 	
-	void Hit(int _Damage, bool _isRealAttack) override {}
+	void Hit(int _Damage, bool _isRealAttack) override;
 	
 	bool GetIsAtPowerUp()
 	{
@@ -71,6 +72,7 @@ public:
 		if (ArmCount <= 0)
 		{
 			GetLevel()->TimeEvent.AddEvent(3.0f, [this](GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*) {BodyAttackStart = true;});
+			BodyCollision->On();
 		}
 	}
 
@@ -85,23 +87,24 @@ private:
 
 	void ArmDeath(bool _isLeft, int _ArmIndex);
 	
-	std::function<void()> UpdateFunc = nullptr;
 
 	void Spawn(float _DeltaTime) {}
 	void MonsterDeath(float _DeltaTime) {}
 	void CreateArm(bool _isLeft, int _ArmIndex);
 
-	void SetAttack();
+	void SetPhase1Attack();
 
 	void SetAnimation();
 	void ArmAttack();
 	void BodyAttack();
 	
 	void Attack() override;
+	void BlackOut();
 
 	static std::shared_ptr<Zakum> GlobalZakum;
 
 	std::shared_ptr<class GameEngineSpriteRenderer> BodyRender = nullptr;
+	std::shared_ptr<GameEngineCollision> BodyCollision = nullptr;
 	std::string AnimationName = "";
 
 	std::shared_ptr<class ZakumRArm_0> RArm_0 = nullptr;
@@ -117,6 +120,8 @@ private:
 	bool isArmAttCoolTime = false;
 	bool isBodyAttCoolTime = false;
 
+	bool isHit = false;
+
 	int AniIndex = 0;
 	float AniCount = 0;
 	
@@ -126,12 +131,17 @@ private:
 	bool isDefUp = false;
 
 	bool BodyAttackStart = false;
-	
+	bool isBodyDefUp = false;
+	bool isBlackOut = false;
+
 	int ArmCount = 8;
 
 	bool isArm = false;
-	int Hp = 3000;
 
-	std::shared_ptr<class ContentRenderer> BlackOut = nullptr;
+	int Hp = 4600;
+
+	void FunctionUpdate();
+	std::list<std::function<bool()>> UpdateFuncList;
+
 };
 
