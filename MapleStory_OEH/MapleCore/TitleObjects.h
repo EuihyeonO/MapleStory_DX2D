@@ -29,6 +29,8 @@ private:
 	void Create_CharCreateObject();
 	void EmptySlotAnimation();
 
+	void RollStatDice();
+
 	std::shared_ptr<GameEngineSpriteRenderer> Frame;
 	std::shared_ptr<GameEngineSpriteRenderer> BackGround;
 	std::shared_ptr<GameEngineSpriteRenderer> Logo;
@@ -83,7 +85,8 @@ private:
 	//캐릭터 생성창 오브젝트
 	std::shared_ptr<GameEngineSpriteRenderer> CharInfo;
 	std::shared_ptr<GameEngineSpriteRenderer> InfoScroll;
-	std::shared_ptr<GameEngineSpriteRenderer> Dice;
+	std::shared_ptr<class GameEngineSpriteRenderer> Dice;
+	std::shared_ptr<class GameEngineCollision> DiceCol;
 	std::shared_ptr<GameEngineSpriteRenderer> OkButton;
 	std::shared_ptr<GameEngineSpriteRenderer> NoButton;
 
@@ -94,11 +97,14 @@ private:
 	std::shared_ptr<GameEngineSpriteRenderer> SelectCharStage;
 	std::shared_ptr<GameEngineSpriteRenderer> CreateCharStage;
 
-
-
 	float EmptyAniTimeCount = 0.0f;
 	int EmptyAniIndex = 0;
-
 	int ScrollIndex = 0;
+
+	std::shared_ptr<class GameEngineFontRenderer> StrRender;
+	std::shared_ptr<class GameEngineFontRenderer> DexRender;
+	std::shared_ptr<class GameEngineFontRenderer> IntRender;
+	std::shared_ptr<class GameEngineFontRenderer> LukRender;
+
 };
 

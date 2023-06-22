@@ -24,15 +24,11 @@ void Mouse::Start()
 
 	CursorCollision = CreateComponent<GameEngineCollision>();
 	CursorCollision->SetOrder(static_cast<int>(CollisionOrder::Mouse));
-	CursorCollision->GetTransform()->SetLocalScale({ 4 , 4 });
+	CursorCollision->GetTransform()->SetLocalScale({ 5 , 5 });
 	CursorCollision->GetTransform()->SetLocalPosition({ -8, 10 });
+	CursorCollision->SetColType(ColType::AABBBOX2D);
 
 	TransformData Data = CursorCollision->GetTransform()->GetTransDataRef();
-
-	Test = CreateComponent<GameEngineUIRenderer>();
-	Test->SetTexture("MouseTest.png");
-	Test->GetTransform()->SetLocalScale(Data.LocalScale);
-	Test->GetTransform()->SetLocalPosition(Data.LocalPosition);
 	
 	ShowCursor(false);
 
@@ -59,6 +55,7 @@ void Mouse::PosUpdate()
 
 	MousePos = { MousePos.x - WindowSize.hx(),  WindowSize.hy() - MousePos.y,  -1000.0f};
 	GetTransform()->SetLocalPosition(MousePos);
+	CursorCollision->GetTransform()->SetWorldPosition(GetLevel()->GetMainCamera()->GetTransform()->GetWorldPosition() + float4{ -8, 10 } + MousePos);
 }
 
 void Mouse::ClickUpdate()

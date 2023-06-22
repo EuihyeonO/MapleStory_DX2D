@@ -6,6 +6,7 @@
 #include "BuffList.h"
 #include "DropItem.h"
 #include "UIController.h"
+#include "Mouse.h"
 
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
@@ -93,12 +94,6 @@ void Player::Start()
 	
 	CtrlSkill = &Player::Swing;
 
-
-	//test
-	std::shared_ptr<GameEngineFontRenderer> FontRender = CreateComponent<GameEngineFontRenderer>(300);
-	FontRender->SetFont("±¼¸²");
-	FontRender->SetText("¾È³çÇÏ¼¼¿ä");
-	FontRender->SetScale(100.0f);
 }
 
 void Player::Update(float _DeltaTime)
@@ -120,6 +115,7 @@ void Player::Update(float _DeltaTime)
 	ActingUpdate(_DeltaTime);
 
 	BasicUpdate(_DeltaTime);
+
 }
 
 void Player::BasicUpdate(float _DeltaTime)

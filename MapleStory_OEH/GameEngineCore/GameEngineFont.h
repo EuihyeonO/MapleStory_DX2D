@@ -3,11 +3,11 @@
 
 #include "ThirdParty/FW1Font/Inc/FW1FontWrapper.h"
 
-//#ifdef _DEBUG
-//#pragma comment(lib, "..\\GameEngineCore\\ThirdParty\\FW1Font\\lib\\x64\\Debug\\FW1FontWrapper.lib")
-//#else
-//#pragma comment(lib, "..\\GameEnginePlatform\\ThirdParty\\FW1Font\\lib\\x64\\Release\\FW1FontWrapper.lib")
-//#endif
+#ifdef _DEBUG
+#pragma comment(lib, "..\\GameEngineCore\\ThirdParty\\FW1Font\\lib\\x64\\Debug\\FW1FontWrapper.lib")
+#else
+#pragma comment(lib, "..\\GameEngineCore\\ThirdParty\\FW1Font\\lib\\x64\\Release\\FW1FontWrapper.lib")
+#endif
 
 //#pragma comment(lib, "FW1FontWrapper.lib")
 

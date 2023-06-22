@@ -22,12 +22,22 @@ protected:
 	void Render(float _DeltaTime) override;
 private:
 
-	void AllWindowUpdate();	
+	void StatUpdate();
 
 	std::shared_ptr<class GameEngineUIRenderer> MainWindow;
 	std::shared_ptr<class GameEngineCollision> MainWindowClickBar;
 	std::shared_ptr<class GameEngineUIRenderer> SubWindow;
 
-	std::list<std::function<bool(StatusWindow&)>> UpdateFunction;
+	std::shared_ptr<class ContentFontRenderer> Hp;
+	std::shared_ptr<class ContentFontRenderer> Mp;
+	std::shared_ptr<class ContentFontRenderer> Level;
+	std::shared_ptr<class ContentFontRenderer> Exp;
+	
+	std::shared_ptr<class ContentFontRenderer> Str;
+	std::shared_ptr<class ContentFontRenderer> Dex;
+	std::shared_ptr<class ContentFontRenderer> Luk;
+	std::shared_ptr<class ContentFontRenderer> Int;
+
+
 };
 

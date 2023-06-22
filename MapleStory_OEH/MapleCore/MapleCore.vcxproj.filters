@@ -184,6 +184,9 @@
     <ClInclude Include="Zakum.h">
       <Filter>Actor\Monster\Boss\ZakumBody</Filter>
     </ClInclude>
+    <ClInclude Include="ContentFontRenderer.h">
+      <Filter>ContentRenderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Level_Title.cpp">
@@ -392,6 +395,9 @@
     </ClCompile>
     <ClCompile Include="ZakumPhase3.cpp">
       <Filter>Actor\Monster\Boss\ZakumBody</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentFontRenderer.cpp">
+      <Filter>ContentRenderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

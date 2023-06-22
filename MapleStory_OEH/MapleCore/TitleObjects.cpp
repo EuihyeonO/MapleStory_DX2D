@@ -1,10 +1,13 @@
 #include "PrecompileHeader.h"
+#include "Mouse.h"
 #include "TitleObjects.h"
+
+#include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <gameengineCore/GameEngineLevel.h>
 #include <gameengineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineTexture.h>
 #include <GameEnginePlatform/GameEngineInput.h>
-
+#include <GameEngineBase/GameEngineRandom.h>
 #include <ctime>
 
 TitleObjects::TitleObjects()
@@ -52,10 +55,11 @@ void TitleObjects::Update(float _DeltaTime)
 {
 	TimeCounting();
 	EmptySlotAnimation();
-
+	RollStatDice();
 	//Frame °íÁ¤
 	float4 CamPos = GetLevel()->GetMainCamera()->GetTransform()->GetWorldPosition();
 	Frame->GetTransform()->SetLocalPosition(CamPos);
+
 }
 
 void TitleObjects::Render(float _DeltaTime)
@@ -288,6 +292,15 @@ void TitleObjects::Create_CharCreateObject()
 	Dice->SetTexture("Dice0.png");
 	Dice->GetTransform()->SetLocalScale({ 37, 56 });
 	Dice->GetTransform()->SetLocalPosition(CharInfoPos + float4{50, -40});
+	Dice->CreateAnimation({ .AnimationName = "Rolling",.SpriteName = "StatDiceRoll",.FrameInter = 0.09f,.Loop = false,.ScaleToTexture = true });
+	Dice->CreateAnimation({ .AnimationName = "Stand",.SpriteName = "DiceStand",.FrameInter = 0.01f,.Loop = false,.ScaleToTexture = true });
+	Dice->SetAnimationUpdateEvent("Rolling", 3, [this] {if (Dice->IsAnimationEnd() == true) { Dice->ChangeAnimation("Stand"); DiceCol->On(); }});
+	
+	DiceCol = CreateComponent<GameEngineCollision>();
+	DiceCol->SetColType(ColType::AABBBOX2D);
+	DiceCol->SetOrder(static_cast<int>(CollisionOrder::UI));
+	DiceCol->GetTransform()->SetLocalScale({ 25, 28 });
+	DiceCol->GetTransform()->SetLocalPosition(CharInfoPos + float4{ 44, -54 });
 
 	OkButton = CreateComponent<GameEngineSpriteRenderer>();
 	OkButton->SetTexture("OkRelease.png");
@@ -298,4 +311,88 @@ void TitleObjects::Create_CharCreateObject()
 	NoButton->SetTexture("NoRelease.png");
 	NoButton->GetTransform()->SetLocalScale({ 81, 41 });
 	NoButton->GetTransform()->SetLocalPosition(CharInfoPos + float4{ 43, -140 });
+
+	StrRender = CreateComponent<GameEngineFontRenderer>();
+	DexRender = CreateComponent<GameEngineFontRenderer>();
+	IntRender = CreateComponent<GameEngineFontRenderer>();
+	LukRender = CreateComponent<GameEngineFontRenderer>();
+
+	StrRender->SetFont("±¼¸²");
+	StrRender->SetColor({0, 0, 0, 1});
+	StrRender->SetScale(11.0f);
+	StrRender->SetText("4");
+	StrRender->GetTransform()->SetLocalPosition(CharInfoPos + float4{ -31, 10 });
+
+	DexRender->SetFont("±¼¸²");
+	DexRender->SetColor({0, 0, 0, 1});
+	DexRender->SetScale(11.0f);
+	DexRender->SetText("4");
+	DexRender->GetTransform()->SetLocalPosition(CharInfoPos + float4{ -31, -10 });
+
+	IntRender->SetFont("±¼¸²");
+	IntRender->SetColor({0, 0, 0, 1});
+	IntRender->SetScale(11.0f);
+	IntRender->SetText("4");
+	IntRender->GetTransform()->SetLocalPosition(CharInfoPos + float4{ -31, -30 });
+
+	LukRender->SetFont("±¼¸²");
+	LukRender->SetColor({ 0, 0, 0, 1 });
+	LukRender->SetScale(11.0f);
+	LukRender->SetText("4");
+	LukRender->GetTransform()->SetLocalPosition(CharInfoPos + float4{ -31, -50 });
+
+}
+
+void TitleObjects::RollStatDice()
+{
+	if (Mouse::GetMouse()->IsClick() == true)
+	{
+		if (DiceCol->Collision(static_cast<int>(CollisionOrder::Mouse), ColType::AABBBOX2D, ColType::AABBBOX2D) != nullptr)
+		{
+			Dice->ChangeAnimation("Rolling");
+			DiceCol->Off();
+
+			int MaxSumStat = 28;
+
+			int StrStat = 0;
+			int DexStat = 0;
+			int IntStat = 0;
+			int LukStat = 0;
+
+			StrStat = GameEngineRandom::MainRandom.RandomInt(4, 10);
+			MaxSumStat -= StrStat;
+
+			DexStat = GameEngineRandom::MainRandom.RandomInt(4, 10);
+
+			while (DexStat > 10)
+			{
+				DexStat = GameEngineRandom::MainRandom.RandomInt(4, 10);
+			}
+			MaxSumStat -= DexStat;
+
+			IntStat = GameEngineRandom::MainRandom.RandomInt(4, 10);
+	
+			while(MaxSumStat - IntStat < 4)
+			{
+				IntStat = GameEngineRandom::MainRandom.RandomInt(4, 10);
+				while (IntStat > 10)
+				{
+					IntStat = GameEngineRandom::MainRandom.RandomInt(4, 10);
+				}
+			}
+			
+			MaxSumStat -= IntStat;
+			if (MaxSumStat > 10)
+			{
+				MaxSumStat = 10;
+			}
+
+			LukStat = GameEngineRandom::MainRandom.RandomInt(4, MaxSumStat);
+
+			StrRender->SetText(std::to_string(StrStat));
+			DexRender->SetText(std::to_string(DexStat));
+			IntRender->SetText(std::to_string(IntStat));
+			LukRender->SetText(std::to_string(LukStat));
+		}
+	}
 }

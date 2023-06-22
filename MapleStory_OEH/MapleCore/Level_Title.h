@@ -20,6 +20,7 @@ protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;
 	void LevelChangeEnd() override;
+	void LevelChangeStart() override;
 private:
 
 	void CameraMove(float _DeltaTime);
@@ -38,5 +39,6 @@ private:
 	float4 LerpCamPos = {0,0};
 
 	std::shared_ptr<class Logo> GameLogo = nullptr;
+	std::shared_ptr<class Mouse> MyMouse = nullptr;
 };
 

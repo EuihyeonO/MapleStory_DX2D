@@ -151,17 +151,17 @@
     <ClInclude Include="GameEngineDebug3D.h">
       <Filter>Debug</Filter>
     </ClInclude>
-    <ClInclude Include="GameEngineFontRenderer.h">
-      <Filter>Object\Rendering\Component</Filter>
-    </ClInclude>
     <ClInclude Include="GameEngineFont.h">
       <Filter>Resources\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\DirectXTex\inc\DirectXTex.h">
+      <Filter>ThirdParty\DirectXTex\Header</Filter>
     </ClInclude>
     <ClInclude Include="ThirdParty\FW1Font\Inc\FW1FontWrapper.h">
       <Filter>ThirdParty\Fw1Font\header</Filter>
     </ClInclude>
-    <ClInclude Include="ThirdParty\DirectXTex\inc\DirectXTex.h">
-      <Filter>ThirdParty\DirectXTex\Header</Filter>
+    <ClInclude Include="GameEngineFontRenderer.h">
+      <Filter>Object\Rendering\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -420,24 +420,24 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <CopyFileToFolders Include="..\..\..\..\AssortRock\AR45\DirectX\DirectX45\GameEngineCore\ThirdParty\FW1Font\lib\x64\Debug\FW1FontWrapper.lib">
-      <Filter>ThirdParty\Fw1Font\bin\Debug</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="..\..\..\..\AssortRock\AR45\DirectX\DirectX45\GameEngineCore\ThirdParty\FW1Font\lib\x64\Debug\FW1FontWrapper.dll">
-      <Filter>ThirdParty\Fw1Font\bin\Debug</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="..\..\..\..\AssortRock\AR45\DirectX\DirectX45\GameEngineCore\ThirdParty\FW1Font\lib\x64\Release\FW1FontWrapper.dll">
-      <Filter>ThirdParty\Fw1Font\bin\Release</Filter>
-    </CopyFileToFolders>
     <CopyFileToFolders Include="ThirdParty\DirectXTex\lib\x64\Debug\DirectXTex.lib">
       <Filter>ThirdParty\DirectXTex\bin\Debug</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="ThirdParty\DirectXTex\lib\x64\Release\DirectXTex.lib">
       <Filter>ThirdParty\DirectXTex\bin\Release</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\FW1Font\lib\x64\Release\FW1FontWrapper.dll">
+      <Filter>ThirdParty\Fw1Font\bin\Release</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\FW1Font\lib\x64\Debug\FW1FontWrapper.dll">
+      <Filter>ThirdParty\Fw1Font\bin\Debug</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\FW1Font\lib\x64\Debug\FW1FontWrapper.lib">
+      <Filter>ThirdParty\Fw1Font\bin\Debug</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="..\..\..\..\AssortRock\AR45\DirectX\DirectX45\GameEngineCore\ThirdParty\FW1Font\lib\x64\Release\FW1FontWrapper.lib">
+    <Library Include="ThirdParty\FW1Font\lib\x64\Release\FW1FontWrapper.lib">
       <Filter>ThirdParty\Fw1Font\bin\Release</Filter>
     </Library>
   </ItemGroup>

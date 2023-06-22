@@ -38,18 +38,33 @@ void Level_Title::Start()
 		}
 	}
 
+
+	if (nullptr == GameEngineSprite::Find("SmallZakum1Fly"))
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("MapleResources");
+		NewDir.Move("MapleResources");
+		NewDir.Move("Sprite");
+		NewDir.Move("UI");
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("StatDiceRoll").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("DiceStand").GetFullPath());
+	}
+
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, 0.0f });
 	GetMainCamera()->SetSortType(0, SortType::ZSort);
 
-	GameLogo = CreateActor<Logo>();
+	//GameLogo = CreateActor<Logo>();
+
+	std::shared_ptr<TitleObjects> NewTitleObjects = CreateActor<TitleObjects>();
 	std::shared_ptr<Player> NewPlayer = CreateActor<Player>();
 
 	NewPlayer->GetTransform()->SetLocalPosition({ -20, 1768, -1 });
 	NewPlayer->SetRight();
 
-	CreateActor<Mouse>(static_cast<int>(RenderOrder::UI));
-	//std::shared_ptr<Test> NewTitleObjects = CreateActor<Test>();
+	MyMouse = CreateActor<Mouse>(static_cast<int>(RenderOrder::UI));
+	MyMouse->SetCurMouse(MyMouse);
 
 	if (GameEngineInput::IsKey("CameraUp") == false)
 	{
@@ -158,6 +173,14 @@ void Level_Title::CameraMove(float _DeltaTime)
 			CameraIndex--;
 			LerpRatio = 0.0f;
 		}
+	}
+}
+
+void Level_Title::LevelChangeStart()
+{
+	if(MyMouse != nullptr)
+	{
+		MyMouse->SetCurMouse(MyMouse);
 	}
 }
 
