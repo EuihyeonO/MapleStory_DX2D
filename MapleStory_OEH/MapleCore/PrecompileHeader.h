@@ -9,3 +9,5 @@
 #include <GameEngineCore/GameEngineCollision.h>
 
 #include <GameEngineCore/GameEngineDebug3D.h>
+#include <GameEngineCore/GameEngineFont.h>
+#include <GameEngineCore/GameEngineFontRenderer.h>

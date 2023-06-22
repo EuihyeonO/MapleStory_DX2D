@@ -64,6 +64,18 @@ public:
 	std::vector<float> FrameTime = std::vector<float>();
 };
 
+enum class ClipXDir
+{
+	Left,
+	Right,
+};
+
+enum class ClipYDir
+{
+	Top,
+	Bot,
+};
+
 
 // 설명 :
 class GameEngineSpriteRenderer : public GameEngineRenderer
@@ -117,6 +129,10 @@ public:
 		return AtlasData;
 	}
 
+	// 내 눈에 보이는 이미지에서 0.1;
+	void ImageClippingX(float _Ratio, ClipXDir _Dir);
+	void ImageClippingY(float _Ratio, ClipYDir _Dir);
+
 	inline float GetScaleRatio() const
 	{
 		return ScaleRatio;
@@ -149,6 +165,7 @@ public:
 protected:
 	void SpriteRenderInit();
 	float4 AtlasData;
+	float4 Clip = float4::One;
 
 private:
 	void Update(float _Delta) override;
@@ -159,11 +176,10 @@ private:
 
 	std::shared_ptr<AnimationInfo> CurAnimation;
 
-
-
 	std::shared_ptr<GameEngineSprite> Sprite = nullptr;
 	size_t Frame = -1;
 
+	std::shared_ptr<GameEngineTexture> CurTexture;
 
 	float ScaleRatio = 1.0f;
 

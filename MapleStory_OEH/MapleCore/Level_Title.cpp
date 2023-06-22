@@ -19,6 +19,8 @@ Level_Title::~Level_Title()
 
 void Level_Title::Start()
 {
+	GameEngineFont::Load("±¼¸²");
+
 	SetName("TITLE");
 
 	{

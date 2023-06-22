@@ -85,9 +85,6 @@
     <ClInclude Include="GameEngineShaderResHelper.h">
       <Filter>Object\Rendering\Component</Filter>
     </ClInclude>
-    <ClInclude Include="ThirdParty\DirectXTex\inc\DirectXTex.h">
-      <Filter>ThirdParty\DirectXTex\Header</Filter>
-    </ClInclude>
     <ClInclude Include="GameEngineSampler.h">
       <Filter>Resources\Texture</Filter>
     </ClInclude>
@@ -154,8 +151,17 @@
     <ClInclude Include="GameEngineDebug3D.h">
       <Filter>Debug</Filter>
     </ClInclude>
+    <ClInclude Include="GameEngineFontRenderer.h">
+      <Filter>Object\Rendering\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineFont.h">
+      <Filter>Resources\Font</Filter>
+    </ClInclude>
     <ClInclude Include="ThirdParty\FW1Font\Inc\FW1FontWrapper.h">
       <Filter>ThirdParty\Fw1Font\header</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\DirectXTex\inc\DirectXTex.h">
+      <Filter>ThirdParty\DirectXTex\Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -305,6 +311,12 @@
     <ClCompile Include="GameEngineDebug3D.cpp">
       <Filter>Debug</Filter>
     </ClCompile>
+    <ClCompile Include="GameEngineFontRenderer.cpp">
+      <Filter>Object\Rendering\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineFont.cpp">
+      <Filter>Resources\Font</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Object">
@@ -403,30 +415,35 @@
     <Filter Include="ThirdParty\Fw1Font\bin\Release">
       <UniqueIdentifier>{f4c0e6bb-17cb-4ab3-abd2-1a8c2543821e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources\Font">
+      <UniqueIdentifier>{44b2790c-58a7-4065-8220-cd5ee80c764b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ThirdParty\DirectXTex\inc\DirectXTex.inl">
-      <Filter>ThirdParty\DirectXTex\Header</Filter>
-    </None>
-    <None Include="ThirdParty\FW1Font\lib\x64\Release\FW1FontWrapper.dll">
+    <CopyFileToFolders Include="..\..\..\..\AssortRock\AR45\DirectX\DirectX45\GameEngineCore\ThirdParty\FW1Font\lib\x64\Debug\FW1FontWrapper.lib">
+      <Filter>ThirdParty\Fw1Font\bin\Debug</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\..\..\..\AssortRock\AR45\DirectX\DirectX45\GameEngineCore\ThirdParty\FW1Font\lib\x64\Debug\FW1FontWrapper.dll">
+      <Filter>ThirdParty\Fw1Font\bin\Debug</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\..\..\..\AssortRock\AR45\DirectX\DirectX45\GameEngineCore\ThirdParty\FW1Font\lib\x64\Release\FW1FontWrapper.dll">
       <Filter>ThirdParty\Fw1Font\bin\Release</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
+    </CopyFileToFolders>
     <CopyFileToFolders Include="ThirdParty\DirectXTex\lib\x64\Debug\DirectXTex.lib">
       <Filter>ThirdParty\DirectXTex\bin\Debug</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="ThirdParty\DirectXTex\lib\x64\Release\DirectXTex.lib">
       <Filter>ThirdParty\DirectXTex\bin\Release</Filter>
     </CopyFileToFolders>
-    <CopyFileToFolders Include="ThirdParty\FW1Font\lib\x64\Debug\FW1FontWrapper.dll">
-      <Filter>ThirdParty\Fw1Font\bin\Debug</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="ThirdParty\FW1Font\lib\x64\Debug\FW1FontWrapper.lib">
-      <Filter>ThirdParty\Fw1Font\bin\Debug</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="ThirdParty\FW1Font\lib\x64\Release\FW1FontWrapper.lib">
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\..\..\..\AssortRock\AR45\DirectX\DirectX45\GameEngineCore\ThirdParty\FW1Font\lib\x64\Release\FW1FontWrapper.lib">
       <Filter>ThirdParty\Fw1Font\bin\Release</Filter>
-    </CopyFileToFolders>
+    </Library>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ThirdParty\DirectXTex\inc\DirectXTex.inl">
+      <Filter>ThirdParty\DirectXTex\Header</Filter>
+    </None>
   </ItemGroup>
 </Project>

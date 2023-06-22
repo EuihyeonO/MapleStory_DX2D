@@ -92,6 +92,13 @@ void Player::Start()
 	CreateAllKey();
 	
 	CtrlSkill = &Player::Swing;
+
+
+	//test
+	std::shared_ptr<GameEngineFontRenderer> FontRender = CreateComponent<GameEngineFontRenderer>(300);
+	FontRender->SetFont("±¼¸²");
+	FontRender->SetText("¾È³çÇÏ¼¼¿ä");
+	FontRender->SetScale(100.0f);
 }
 
 void Player::Update(float _DeltaTime)
