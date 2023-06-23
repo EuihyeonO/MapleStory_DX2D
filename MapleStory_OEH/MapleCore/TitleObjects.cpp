@@ -2,6 +2,7 @@
 #include "Mouse.h"
 #include "TitleObjects.h"
 
+#include <GameEngineCore/GameEngineButton.h>
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <gameengineCore/GameEngineLevel.h>
 #include <gameengineCore/GameEngineCamera.h>
@@ -294,6 +295,9 @@ void TitleObjects::Create_CharCreateObject()
 	Dice->GetTransform()->SetLocalPosition(CharInfoPos + float4{50, -40});
 	Dice->CreateAnimation({ .AnimationName = "Rolling",.SpriteName = "StatDiceRoll",.FrameInter = 0.09f,.Loop = false,.ScaleToTexture = true });
 	Dice->CreateAnimation({ .AnimationName = "Stand",.SpriteName = "DiceStand",.FrameInter = 0.01f,.Loop = false,.ScaleToTexture = true });
+	Dice->SetAnimationUpdateEvent("Rolling", 0, [this] { StatChange();});
+	Dice->SetAnimationUpdateEvent("Rolling", 1, [this] { StatChange();});
+	Dice->SetAnimationUpdateEvent("Rolling", 2, [this] { StatChange();});
 	Dice->SetAnimationUpdateEvent("Rolling", 3, [this] {if (Dice->IsAnimationEnd() == true) { Dice->ChangeAnimation("Stand"); DiceCol->On(); }});
 	
 	DiceCol = CreateComponent<GameEngineCollision>();
@@ -319,27 +323,27 @@ void TitleObjects::Create_CharCreateObject()
 
 	StrRender->SetFont("±¼¸²");
 	StrRender->SetColor({0, 0, 0, 1});
-	StrRender->SetScale(11.0f);
+	StrRender->SetScale(12.0f);
 	StrRender->SetText("4");
-	StrRender->GetTransform()->SetLocalPosition(CharInfoPos + float4{ -31, 10 });
+	StrRender->GetTransform()->SetLocalPosition(CharInfoPos + float4{ -31, 9 });
 
 	DexRender->SetFont("±¼¸²");
 	DexRender->SetColor({0, 0, 0, 1});
-	DexRender->SetScale(11.0f);
+	DexRender->SetScale(12.0f);
 	DexRender->SetText("4");
-	DexRender->GetTransform()->SetLocalPosition(CharInfoPos + float4{ -31, -10 });
+	DexRender->GetTransform()->SetLocalPosition(CharInfoPos + float4{ -31, -11 });
 
 	IntRender->SetFont("±¼¸²");
 	IntRender->SetColor({0, 0, 0, 1});
-	IntRender->SetScale(11.0f);
+	IntRender->SetScale(12.0f);
 	IntRender->SetText("4");
-	IntRender->GetTransform()->SetLocalPosition(CharInfoPos + float4{ -31, -30 });
+	IntRender->GetTransform()->SetLocalPosition(CharInfoPos + float4{ -31, -31 });
 
 	LukRender->SetFont("±¼¸²");
 	LukRender->SetColor({ 0, 0, 0, 1 });
-	LukRender->SetScale(11.0f);
+	LukRender->SetScale(12.0f);
 	LukRender->SetText("4");
-	LukRender->GetTransform()->SetLocalPosition(CharInfoPos + float4{ -31, -50 });
+	LukRender->GetTransform()->SetLocalPosition(CharInfoPos + float4{ -31, -51 });
 
 }
 
@@ -351,48 +355,47 @@ void TitleObjects::RollStatDice()
 		{
 			Dice->ChangeAnimation("Rolling");
 			DiceCol->Off();
-
-			int MaxSumStat = 28;
-
-			int StrStat = 0;
-			int DexStat = 0;
-			int IntStat = 0;
-			int LukStat = 0;
-
-			StrStat = GameEngineRandom::MainRandom.RandomInt(4, 10);
-			MaxSumStat -= StrStat;
-
-			DexStat = GameEngineRandom::MainRandom.RandomInt(4, 10);
-
-			while (DexStat > 10)
-			{
-				DexStat = GameEngineRandom::MainRandom.RandomInt(4, 10);
-			}
-			MaxSumStat -= DexStat;
-
-			IntStat = GameEngineRandom::MainRandom.RandomInt(4, 10);
-	
-			while(MaxSumStat - IntStat < 4)
-			{
-				IntStat = GameEngineRandom::MainRandom.RandomInt(4, 10);
-				while (IntStat > 10)
-				{
-					IntStat = GameEngineRandom::MainRandom.RandomInt(4, 10);
-				}
-			}
-			
-			MaxSumStat -= IntStat;
-			if (MaxSumStat > 10)
-			{
-				MaxSumStat = 10;
-			}
-
-			LukStat = GameEngineRandom::MainRandom.RandomInt(4, MaxSumStat);
-
-			StrRender->SetText(std::to_string(StrStat));
-			DexRender->SetText(std::to_string(DexStat));
-			IntRender->SetText(std::to_string(IntStat));
-			LukRender->SetText(std::to_string(LukStat));
 		}
+	}
+}
+
+void TitleObjects::StatChange()
+{
+	Counting += TimeCount;
+	if(Counting >=0.03f)
+	{
+		Counting = 0.0f;
+
+		int MaxSumStat = 28;
+
+		int StrStat = 0;
+		int DexStat = 0;
+		int IntStat = 0;
+		int LukStat = 0;
+
+		StrStat = GameEngineRandom::MainRandom.RandomInt(4, 10);
+		MaxSumStat -= StrStat;
+
+		DexStat = GameEngineRandom::MainRandom.RandomInt(4, 10);
+		MaxSumStat -= DexStat;
+
+		IntStat = GameEngineRandom::MainRandom.RandomInt(4, 10);
+		while (MaxSumStat - IntStat < 4)
+		{
+			IntStat = GameEngineRandom::MainRandom.RandomInt(4, 10);
+		}
+
+		MaxSumStat -= IntStat;
+		if (MaxSumStat > 10)
+		{
+			MaxSumStat = 10;
+		}
+
+		LukStat = GameEngineRandom::MainRandom.RandomInt(4, MaxSumStat);
+
+		StrRender->SetText(std::to_string(StrStat));
+		DexRender->SetText(std::to_string(DexStat));
+		IntRender->SetText(std::to_string(IntStat));
+		LukRender->SetText(std::to_string(LukStat));
 	}
 }

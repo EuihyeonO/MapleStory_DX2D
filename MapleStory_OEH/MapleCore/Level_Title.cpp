@@ -92,6 +92,7 @@ void Level_Title::Update(float _DeltaTime)
 	{
 		GameLogo->Death();
 		GameLogo = nullptr;
+
 	}
 
 	if (GameEngineInput::IsDown("LevelChange1") == true)

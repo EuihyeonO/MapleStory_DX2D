@@ -30,6 +30,7 @@ private:
 	void EmptySlotAnimation();
 
 	void RollStatDice();
+	void StatChange();
 
 	std::shared_ptr<GameEngineSpriteRenderer> Frame;
 	std::shared_ptr<GameEngineSpriteRenderer> BackGround;
@@ -44,6 +45,7 @@ private:
 	std::shared_ptr<GameEngineSpriteRenderer> LoginBoard;
 	std::shared_ptr<GameEngineSpriteRenderer> SignUp;
 	std::shared_ptr<GameEngineSpriteRenderer> Login;
+	std::shared_ptr<class GameEngineButton> LoginBt;
 	std::shared_ptr<GameEngineSpriteRenderer> HomePage;
 	std::shared_ptr<GameEngineSpriteRenderer> Exit;
 	std::shared_ptr<GameEngineSpriteRenderer> SaveEmail;
@@ -105,6 +107,8 @@ private:
 	std::shared_ptr<class GameEngineFontRenderer> DexRender;
 	std::shared_ptr<class GameEngineFontRenderer> IntRender;
 	std::shared_ptr<class GameEngineFontRenderer> LukRender;
+
+	float Counting = 0.0f;
 
 };
 
