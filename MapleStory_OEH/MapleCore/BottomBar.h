@@ -26,6 +26,7 @@ private:
 	void GradationUpdate();
 
 	void LevelUpdate();
+	void HPAndMPUpdate();
 
 	std::shared_ptr<GameEngineUIRenderer> BottomBarBackGround = nullptr;
 	std::shared_ptr<GameEngineUIRenderer> BottomBarLayer = nullptr;
@@ -35,6 +36,10 @@ private:
 	std::shared_ptr<GameEngineUIRenderer> HpGradation = nullptr;
 	std::shared_ptr<GameEngineUIRenderer> MpGradation = nullptr;
 	std::shared_ptr<GameEngineUIRenderer> ExpGradation = nullptr;
+
+	std::shared_ptr<class ContentFontRenderer> HpFont = nullptr;
+	std::shared_ptr<class ContentFontRenderer> MpFont = nullptr;
+	std::shared_ptr<class ContentFontRenderer> ExpFont = nullptr;
 
 	std::vector<std::shared_ptr<GameEngineUIRenderer>> LevelRenderer;
 	float4 ExpBarRightPos = { 0, 0 };

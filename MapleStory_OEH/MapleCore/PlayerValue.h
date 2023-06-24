@@ -186,7 +186,7 @@ public: //local
 		}
 		else
 		{
-			return 0.0f;
+			return round(0.0f);
 		}
 	}
 
@@ -270,6 +270,16 @@ public: //local
 		Mp -= _Mp;
 	}
 
+	void AddStatPoint(int _Sp)
+	{
+		StatPoint += _Sp;
+	}
+
+	int GetStatPoint()
+	{
+		return StatPoint;
+	}
+
 	const std::string_view& GetName()
 	{
 		return Name;
@@ -349,6 +359,8 @@ private:
 	int Dex = 0;
 	int Int = 0;
 	int Luk = 0;
+
+	int StatPoint = 0;
 
 	float PAtt = 0.0f;
 	float MAtt = 0.0f;

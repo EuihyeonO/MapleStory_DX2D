@@ -8,6 +8,7 @@
 #include <GameEngineCore/GameEngineTexture.h>
 #include <GameEngineCore/GameEngineShader.h>
 #include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 
 Level_Title::Level_Title()
 {
@@ -49,15 +50,65 @@ void Level_Title::Start()
 
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("StatDiceRoll").GetFullPath());
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("DiceStand").GetFullPath());
+		
+		NewDir.Move("ChannelScroll");
+		
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Akenia").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Bera").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Broa").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Croa").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Demetos").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Kastia").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Khaini").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Mardia").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Plana").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Skania").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Stierce").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Yellond").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Zenis").GetFullPath());
+
+		NewDir.MoveParent();
+		NewDir.MoveParent();
+		NewDir.Move("Title");
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("TitleLight0").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("TitleLight1").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("TitleLight2").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("TitleLight3").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("TitleLight4").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("TitleLight5").GetFullPath());
+	}
+
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("MapleResources");
+		NewDir.Move("MapleResources");
+		NewDir.Move("Sound");
+
+		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".mp3", });
+
+		for (size_t i = 0; i < File.size(); i++)
+		{
+			GameEngineSound::Load(File[i].GetFullPath());
+		}
 	}
 
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
+	GetCamera(100)->SetProjectionType(CameraType::Orthogonal);
+
 	GetMainCamera()->GetTransform()->SetLocalPosition({ 0, 0, 0.0f });
+	
 	GetMainCamera()->SetSortType(0, SortType::ZSort);
+	GetCamera(100)->SetSortType(0, SortType::ZSort);
 
 	//GameLogo = CreateActor<Logo>();
-
 	std::shared_ptr<TitleObjects> NewTitleObjects = CreateActor<TitleObjects>();
+
+	NewTitleObjects->SetLoginBtEvent([this]
+		{
+			isCamUp = true;
+		});
+
 	std::shared_ptr<Player> NewPlayer = CreateActor<Player>();
 
 	NewPlayer->GetTransform()->SetLocalPosition({ -20, 1768, -1 });
@@ -90,9 +141,19 @@ void Level_Title::Update(float _DeltaTime)
 {
 	if (GameLogo != nullptr && GameLogo->GetIsCreateObject() == true)
 	{
+		//콜백형식으로 바꿔서 Logo에서 알아서 처리하도록 설정, nullptr을 넣어줄 필요 없게 아예 start에 선언된 지역변수에서 처리
+		GameEngineSoundPlayer TitlePlayer = GameEngineSound::Play("Title.mp3");
+		TitlePlayer.SetLoop(-1);
+		TitlePlayer.SetVolume(0.3f);
+		std::shared_ptr<TitleObjects> NewTitleObjects = CreateActor<TitleObjects>();
+		
+		NewTitleObjects->SetLoginBtEvent([this]
+			{
+				isCamUp = true;
+			});
+
 		GameLogo->Death();
 		GameLogo = nullptr;
-
 	}
 
 	if (GameEngineInput::IsDown("LevelChange1") == true)

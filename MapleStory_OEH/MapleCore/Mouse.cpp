@@ -53,7 +53,7 @@ void Mouse::PosUpdate()
 	float4 WindowSize = GameEngineWindow::GetScreenSize();
 	float4 MousePos = GameEngineWindow::GetMousePosition();
 
-	MousePos = { MousePos.x - WindowSize.hx(),  WindowSize.hy() - MousePos.y,  -1000.0f};
+	MousePos = { MousePos.x - WindowSize.hx(),  WindowSize.hy() - MousePos.y, -1000.0f};
 	GetTransform()->SetLocalPosition(MousePos);
 	CursorCollision->GetTransform()->SetWorldPosition(GetLevel()->GetMainCamera()->GetTransform()->GetWorldPosition() + float4{ -8, 10 } + MousePos);
 }

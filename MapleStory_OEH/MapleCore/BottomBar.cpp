@@ -1,6 +1,8 @@
 #include "PrecompileHeader.h"
 #include "BottomBar.h"
 #include "PlayerValue.h"
+#include "ContentFontRenderer.h"
+
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineUIRenderer.h>
 #include <GameEngineCore/GameEngineCamera.h>
@@ -41,13 +43,32 @@ void BottomBar::Start()
 
 	LevelRenderer.reserve(4);
 
-	BottomBarPosUpdate();
+	HpFont = CreateComponent<ContentFontRenderer>();
+	HpFont->SetFont("±¼¸²");
+	HpFont->SetColor({ 1, 1, 1, 1 });
+	HpFont->SetScale(11.0f);
+	HpFont->GetTransform()->SetLocalPosition({ -165, -267 });
+
+	MpFont = CreateComponent<ContentFontRenderer>();
+	MpFont->SetFont("±¼¸²");
+	MpFont->SetColor({ 1, 1, 1, 1 });
+	MpFont->SetScale(11.0f); 
+	MpFont->GetTransform()->SetLocalPosition({ -54, -267 });
+
+	ExpFont = CreateComponent<ContentFontRenderer>();
+	ExpFont->SetFont("±¼¸²");
+	ExpFont->SetColor({ 1, 1, 1, 1 });
+	ExpFont->SetScale(11.0f);
+	ExpFont->GetTransform()->SetLocalPosition({ 63, -267 });
+
+	BottomBarPosUpdate();	
 }
 
 void BottomBar::Update(float _DeltaTime) 
 {
 	GradationUpdate();
 	LevelUpdate();
+	HPAndMPUpdate();
 }
 
 void BottomBar::Render(float _DeltaTime) 
@@ -153,4 +174,16 @@ void BottomBar::LevelUpdate()
 	{
 		LevelRenderer[i]->GetTransform()->SetLocalPosition(BottomBarLayerPos + float4{ StartXpos + ((LevelRendererSize - i) * 12.0f) + 0.5f, -18.5f });
 	}
+}
+
+void BottomBar::HPAndMPUpdate()
+{
+	std::string Hp = "[" + std::to_string(PlayerValue::GetValue()->GetHp()) + " / " + std::to_string(PlayerValue::GetValue()->GetMaxHp()) + " ]";
+	HpFont->SetText(Hp);
+
+	std::string Mp = "[" + std::to_string(PlayerValue::GetValue()->GetMp()) + " / " + std::to_string(PlayerValue::GetValue()->GetMaxMp()) + " ]";
+	MpFont->SetText(Mp);
+
+	std::string Exp = std::to_string(PlayerValue::GetValue()->GetExp()) + " [" + std::to_string(PlayerValue::GetValue()->GetExpRate()) + " %]";
+	ExpFont->SetText(Exp);
 }

@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "TitleObjects.h"
 #include <gameEngineCore/GameEngineLevel.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 #include <ctime>
 
 Logo::Logo()
@@ -36,7 +37,6 @@ void Logo::Update(float _DeltaTime)
 
 		if (DeathWaitingCount >= 1.0f)
 		{
-			GetLevel()->CreateActor<TitleObjects>();			
 			isCreateObject = true;
 		}
 	}
@@ -48,6 +48,11 @@ void Logo::Render(float _DeltaTime)
 
 void Logo::NexonAnimation()
 {
+	if (NexonCount == 0 && NexonIndex == 0)
+	{
+		GameEngineSound::Play("Nexon.mp3");
+	}
+
 	NexonCount += TimeCount;
 	Nexon->GetTransform()->SetLocalScale({ 800, 600 });
 
@@ -84,12 +89,13 @@ void Logo::WizetAnimation()
 			Wizet->GetTransform()->SetLocalScale({ 550, 420 });
 			Wizet->GetTransform()->SetLocalPosition({ -125, 90 });
 			
+			GameEngineSound::Play("Wizet.mp3");
 			isWizetSet = true;
 		}
 
 		WizetCount += TimeCount;
 
-		if (WizetCount >= 0.09)
+		if (WizetCount >= 0.1)
 		{
 			if (WizetIndex == 61)
 			{

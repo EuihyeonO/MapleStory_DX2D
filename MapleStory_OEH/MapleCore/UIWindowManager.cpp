@@ -55,6 +55,7 @@ void UIWindowManager::UIOnOff()
 		}
 		else
 		{
+			MyStatusWindow->ButtonDeath();
 			MyStatusWindow->Death();
 			MyStatusWindow = nullptr;
 		}
@@ -115,6 +116,7 @@ void UIWindowManager::AllWindowDeath()
 {
 	if(MyStatusWindow != nullptr)
 	{
+		MyStatusWindow->ButtonDeath();
 		MyStatusWindow->Death();
 		MyStatusWindow = nullptr;
 	}
