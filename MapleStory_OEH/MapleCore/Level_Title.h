@@ -1,7 +1,8 @@
 #pragma once
 
 #include <GameEngineBase/GameEngineTimeEvent.h>
-#include <GameEngineCore\GameEngineLevel.h>
+#include <GameEngineCore/GameEngineLevel.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 
 class Level_Title : public GameEngineLevel
 {
@@ -23,6 +24,11 @@ protected:
 	void LevelChangeStart() override;
 private:
 
+	void LoadResources();
+	void UnLoadResources();
+
+	GameEngineSoundPlayer TitlePlayer;
+
 	void CameraMove(float _DeltaTime);
 
 	bool isCamUp = false;
@@ -38,7 +44,9 @@ private:
 
 	float4 LerpCamPos = {0,0};
 
+	std::shared_ptr<class TitleObjects> NewTitleObjects = nullptr;
 	std::shared_ptr<class Logo> GameLogo = nullptr;
 	std::shared_ptr<class Mouse> MyMouse = nullptr;
+	std::shared_ptr<class Player> MyPlayer = nullptr;
 };
 

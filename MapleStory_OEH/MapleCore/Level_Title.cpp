@@ -28,31 +28,45 @@ void Level_Title::Start()
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("MapleResources");
 		NewDir.Move("MapleResources");
-		NewDir.Move("NotSprite");
+		NewDir.Move("Common");
+		NewDir.Move("CommonNotSprite");
 
 		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
-
 
 		for (size_t i = 0; i < File.size(); i++)
 		{
 			GameEngineTexture::Load(File[i].GetFullPath());
 		}
+
+		NewDir.MoveParent();
+		NewDir.Move("CommonSprite");
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Portal").GetFullPath());
 	}
 
 
-	if (nullptr == GameEngineSprite::Find("SmallZakum1Fly"))
+	if (nullptr == GameEngineSprite::Find("StatDiceRoll"))
 	{
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("MapleResources");
 		NewDir.Move("MapleResources");
-		NewDir.Move("Sprite");
+		NewDir.Move("TitleLevel");
+		NewDir.Move("TitleNotSprite");
+
+		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
+		for (size_t i = 0; i < File.size(); i++)
+		{
+			GameEngineTexture::Load(File[i].GetFullPath());
+		}
+
+		NewDir.MoveParent();
+		NewDir.Move("TitleSprite");
 		NewDir.Move("UI");
 
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("StatDiceRoll").GetFullPath());
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("DiceStand").GetFullPath());
-		
+
 		NewDir.Move("ChannelScroll");
-		
+
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Akenia").GetFullPath());
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Bera").GetFullPath());
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Broa").GetFullPath());
@@ -69,7 +83,7 @@ void Level_Title::Start()
 
 		NewDir.MoveParent();
 		NewDir.MoveParent();
-		NewDir.Move("Title");
+		NewDir.Move("TitleLight");
 
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("TitleLight0").GetFullPath());
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("TitleLight1").GetFullPath());
@@ -78,6 +92,7 @@ void Level_Title::Start()
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("TitleLight4").GetFullPath());
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("TitleLight5").GetFullPath());
 	}
+
 
 	{
 		GameEngineDirectory NewDir;
@@ -102,17 +117,16 @@ void Level_Title::Start()
 	GetCamera(100)->SetSortType(0, SortType::ZSort);
 
 	//GameLogo = CreateActor<Logo>();
-	std::shared_ptr<TitleObjects> NewTitleObjects = CreateActor<TitleObjects>();
+	std::shared_ptr<TitleObjects> NewTitleObjects1 = CreateActor<TitleObjects>();
 
-	NewTitleObjects->SetLoginBtEvent([this]
+	NewTitleObjects1->SetLoginBtEvent([this]
 		{
 			isCamUp = true;
 		});
 
-	std::shared_ptr<Player> NewPlayer = CreateActor<Player>();
-
-	NewPlayer->GetTransform()->SetLocalPosition({ -20, 1768, -1 });
-	NewPlayer->SetRight();
+	MyPlayer = CreateActor<Player>();
+	MyPlayer->GetTransform()->SetLocalPosition({ -20, 1768, -1 });
+	MyPlayer->SetRight();
 
 	MyMouse = CreateActor<Mouse>(static_cast<int>(RenderOrder::UI));
 	MyMouse->SetCurMouse(MyMouse);
@@ -134,7 +148,6 @@ void Level_Title::Start()
 		GameEngineInput::CreateKey("LevelChange3", '3');
 		GameEngineInput::CreateKey("LevelChange4", '4');
 	}
-
 }
 
 void Level_Title::Update(float _DeltaTime)
@@ -142,11 +155,11 @@ void Level_Title::Update(float _DeltaTime)
 	if (GameLogo != nullptr && GameLogo->GetIsCreateObject() == true)
 	{
 		//콜백형식으로 바꿔서 Logo에서 알아서 처리하도록 설정, nullptr을 넣어줄 필요 없게 아예 start에 선언된 지역변수에서 처리
-		GameEngineSoundPlayer TitlePlayer = GameEngineSound::Play("Title.mp3");
+		TitlePlayer = GameEngineSound::Play("Title.mp3");
 		TitlePlayer.SetLoop(-1);
 		TitlePlayer.SetVolume(0.3f);
-		std::shared_ptr<TitleObjects> NewTitleObjects = CreateActor<TitleObjects>();
-		
+
+		NewTitleObjects = CreateActor<TitleObjects>();
 		NewTitleObjects->SetLoginBtEvent([this]
 			{
 				isCamUp = true;
@@ -240,14 +253,130 @@ void Level_Title::CameraMove(float _DeltaTime)
 
 void Level_Title::LevelChangeStart()
 {
-	if(MyMouse != nullptr)
+	if (nullptr == GameEngineSprite::Find("StatDiceRoll"))
 	{
-		MyMouse->SetCurMouse(MyMouse);
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("MapleResources");
+		NewDir.Move("MapleResources");
+		NewDir.Move("TitleLevel");
+		NewDir.Move("TitleNotSprite");
+
+		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
+		for (size_t i = 0; i < File.size(); i++)
+		{
+			GameEngineTexture::Load(File[i].GetFullPath());
+		}
+
+		NewDir.MoveParent();
+		NewDir.Move("TitleSprite");
+		NewDir.Move("UI");
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("StatDiceRoll").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("DiceStand").GetFullPath());
+
+		NewDir.Move("ChannelScroll");
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Akenia").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Bera").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Broa").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Croa").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Demetos").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Kastia").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Khaini").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Mardia").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Plana").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Skania").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Stierce").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Yellond").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Zenis").GetFullPath());
+
+		NewDir.MoveParent();
+		NewDir.MoveParent();
+		NewDir.Move("Title");
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("TitleLight0").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("TitleLight1").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("TitleLight2").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("TitleLight3").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("TitleLight4").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("TitleLight5").GetFullPath());
 	}
 }
 
 void Level_Title::LevelChangeEnd()
 {
+	if (nullptr != GameEngineSprite::Find("StatDiceRoll"))
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("MapleResources");
+		NewDir.Move("MapleResources");
+		NewDir.Move("TitleLevel");
+		NewDir.Move("TitleNotSprite");
+
+		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
+		for (size_t i = 0; i < File.size(); i++)
+		{
+			std::string FileFullPath = File[i].GetFullPath();
+			std::string FileName = "";
+			int Count = 0;
+
+			for (Count = FileFullPath.size(); Count > 0; Count--)
+			{
+				char a = FileFullPath[Count];
+				if (FileFullPath[Count] == '\\')
+				{
+					break;
+				}
+			}
+
+			for (int j = Count + 1; j < FileFullPath.size(); j++)
+			{
+				FileName.push_back(FileFullPath[j]);
+			}
+
+ 			GameEngineTexture::UnLoad(FileName);
+		}
+
+		NewDir.MoveParent();
+		NewDir.Move("TitleSprite");
+		NewDir.Move("UI");
+
+		GameEngineSprite::UnLoad("StatDiceRoll");
+		GameEngineSprite::UnLoad("DiceStand");
+
+		NewDir.Move("ChannelScroll");
+
+		GameEngineSprite::UnLoad("Akenia");
+		GameEngineSprite::UnLoad("Bera");
+		GameEngineSprite::UnLoad("Broa");
+		GameEngineSprite::UnLoad("Croa");
+		GameEngineSprite::UnLoad("Demetos");
+		GameEngineSprite::UnLoad("Kastia");
+		GameEngineSprite::UnLoad("Khaini");
+		GameEngineSprite::UnLoad("Mardia");
+		GameEngineSprite::UnLoad("Plana");
+		GameEngineSprite::UnLoad("Skania");
+		GameEngineSprite::UnLoad("Stierce");
+		GameEngineSprite::UnLoad("Yellond");
+		GameEngineSprite::UnLoad("Zenis");
+
+		NewDir.MoveParent();
+		NewDir.MoveParent();
+		NewDir.Move("TitleLight");
+
+		GameEngineSprite::UnLoad("TitleLight0");
+		GameEngineSprite::UnLoad("TitleLight1");
+		GameEngineSprite::UnLoad("TitleLight2");
+		GameEngineSprite::UnLoad("TitleLight3");
+		GameEngineSprite::UnLoad("TitleLight4");
+		GameEngineSprite::UnLoad("TitleLight5");
+	}
+	
+	MyPlayer->Death();
+	//NewTitleObjects->Death();
+	MyMouse->Death();
+
+	TitlePlayer.Stop();
 	//캐릭터 데스해버리기
 	//PlayerList에서도 erase해야함
 }

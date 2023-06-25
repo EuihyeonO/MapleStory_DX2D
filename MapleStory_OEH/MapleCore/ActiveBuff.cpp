@@ -22,7 +22,7 @@ void Player::Haste()
 		return;
 	}
 
-	if(isSwing == false && isFalling == false)
+	if(isSwing == false && isFalling == false && isKeyJump == false)
 	{
 		PlayerValue::Value.SetMp(CurMp - 10);
 
@@ -64,7 +64,7 @@ void Player::JavelinBooster()
 		return;
 	}
 
-	if (isSwing == false && isMovable == true)
+	if (isSwing == false && isMovable == true && isFalling == false && isKeyJump == false)
 	{
 		PlayerValue::Value.SetMp(CurMp - 10);
 
@@ -104,7 +104,7 @@ void Player::ShadowPartner()
 		return;
 	}
 
-	if (isSwing == false && isMovable == true)
+	if (isSwing == false && isMovable == true && isFalling == false && isKeyJump == false)
 	{
 		PlayerValue::Value.SetMp(CurMp - 10);
 

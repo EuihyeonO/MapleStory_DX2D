@@ -40,13 +40,13 @@ void BeginnersTown2::Start()
 
 	std::shared_ptr<Rozar> npc = GetLevel()->CreateActor<Rozar>(static_cast<int>(RenderOrder::NPC));
 	
-	std::shared_ptr<Portal> Port1 = GetLevel()->CreateActor<Portal>(static_cast<int>(RenderOrder::UI));
-	Port1->SetLinkedMap("Level_BeginnersTown1");
-	Port1->SetPortalPos({ -460, 95, -10 });
+	MyPortal1 = GetLevel()->CreateActor<Portal>(static_cast<int>(RenderOrder::UI));
+	MyPortal1->SetLinkedMap("Level_BeginnersTown1");
+	MyPortal1->SetPortalPos({ -460, 95, -10 });
 
-	std::shared_ptr<Portal> Port2 = GetLevel()->CreateActor<Portal>(static_cast<int>(RenderOrder::UI));
-	Port2->SetLinkedMap("Level_CrossRoad");
-	Port2->SetPortalPos({ 465, 155, -10 });
+	MyPortal2 = GetLevel()->CreateActor<Portal>(static_cast<int>(RenderOrder::UI));
+	MyPortal2->SetLinkedMap("Level_CrossRoad");
+	MyPortal2->SetPortalPos({ 465, 155, -10 });
 
 	MyMiniMap = GetLevel()->CreateActor<MiniMap>(static_cast<int>(RenderOrder::UI));
 	MyMiniMap->SetMap(MapName);
@@ -74,4 +74,14 @@ void BeginnersTown2::BackGroundMove(float _DeltaTime)
 
 	float4 CameraPos = GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition();
 	LandScape2->GetTransform()->SetLocalPosition({ CameraPos.x * 0.5f , 200, static_cast<float>(RenderOrder::BasicMap) });
+}
+
+
+void BeginnersTown2::ActorDeath()
+{
+	MyPortal1->Death();
+	MyPortal1 = nullptr;
+
+	MyPortal2->Death();
+	MyPortal2 = nullptr;
 }

@@ -22,6 +22,15 @@ protected:
 	void LevelChangeStart() override;
 	void LevelChangeEnd() override;
 private:
+
+	void ActorCreate();
+	void ActorDeath();
+
+	void LoadResources();
+	void UnLoadResources();
+
+	std::shared_ptr<class QuickSlot> MyQuickSlot = nullptr;
+	std::shared_ptr<class BottomBar> MyBottomBar = nullptr;
 	std::shared_ptr<class Player> MyPlayer = nullptr;
 	std::shared_ptr<class BeginnersTown2> Map = nullptr;
 	std::shared_ptr<class Mouse> MyMouse = nullptr;

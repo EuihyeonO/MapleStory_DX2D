@@ -68,9 +68,9 @@ void BeginnersTown1::Start()
 	MyMiniMap = GetLevel()->CreateActor<MiniMap>(static_cast<int>(RenderOrder::UI));
 	MyMiniMap->SetMap(MapName);
 
-	std::shared_ptr<Portal> Port = GetLevel()->CreateActor<Portal>();
-	Port->SetLinkedMap("Level_BeginnersTown2");
-	Port->SetPortalPos({ 625, 45, -10 });
+	MyPortal = GetLevel()->CreateActor<Portal>();
+	MyPortal->SetLinkedMap("Level_BeginnersTown2");
+	MyPortal->SetPortalPos({ 625, 45, -10 });
 }
 
 void BeginnersTown1::Update(float _DeltaTime)
@@ -96,4 +96,11 @@ void BeginnersTown1::BackGroundMove(float _DeltaTime)
 
 	float4 CameraPos = GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition();
 	LandScape2->GetTransform()->SetLocalPosition({ CameraPos.x * 0.5f , 200, static_cast<float>(RenderOrder::BasicMap) });
+}
+
+
+void BeginnersTown1::ActorDeath()
+{
+	MyPortal->Death();
+	MyPortal = nullptr;
 }

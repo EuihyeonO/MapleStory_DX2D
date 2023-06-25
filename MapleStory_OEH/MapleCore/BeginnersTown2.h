@@ -6,7 +6,7 @@ class GameEngineSpriteRenderer;
 class BeginnersTown2 : public GameEngineActor
 {
 	friend class MiniMap;
-
+	friend class Level_BeginnersTown2;
 public:
 
 	const std::string_view GetColMapName()
@@ -27,7 +27,7 @@ protected:
 	void Update(float _DeltaTime) override;
 	void Render(float _DeltaTime) override;
 private:
-
+	void ActorDeath();
 	void BackGroundMove(float _DeltaTime);
 
 	float XMoveConstant = 0.0f;
@@ -41,6 +41,9 @@ private:
 
 	std::shared_ptr<GameEngineSpriteRenderer> LandScape0 = nullptr;
 	std::shared_ptr<GameEngineSpriteRenderer> LandScape2 = nullptr;
+
+	std::shared_ptr<class Portal> MyPortal1 = nullptr;
+	std::shared_ptr<class Portal> MyPortal2 = nullptr;
 
 	std::shared_ptr<class ContentRenderer> Cloud = nullptr;
 };

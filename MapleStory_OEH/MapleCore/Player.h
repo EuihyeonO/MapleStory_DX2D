@@ -33,6 +33,11 @@ public:
 		return isHit;
 	}
 
+	bool GetIsFalling()
+	{
+		return isFalling;
+	}
+
 	void SetColMap(const std::string_view& _MapName)
 	{		
 		ColMap = GameEngineTexture::Find(_MapName);
