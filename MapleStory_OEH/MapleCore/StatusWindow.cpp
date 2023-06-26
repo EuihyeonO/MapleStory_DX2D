@@ -121,7 +121,6 @@ void StatusWindow::Start()
 	LukBt->GetTransform()->SetLocalScale({ 12, 12 });
 	LukBt->GetTransform()->SetLocalPosition({ -30, -128 });
 
-	GetLevel()->IsDebugSwitch();
 }
 
 void StatusWindow::Update(float _DeltaTime)

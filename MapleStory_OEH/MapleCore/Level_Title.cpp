@@ -117,15 +117,10 @@ void Level_Title::Start()
 	GetMainCamera()->SetSortType(0, SortType::ZSort);
 	GetCamera(100)->SetSortType(0, SortType::ZSort);
 
-	//GameLogo = CreateActor<Logo>();
-	std::shared_ptr<TitleObjects> NewTitleObjects1 = CreateActor<TitleObjects>();
+	GameLogo = CreateActor<Logo>();
+	//std::shared_ptr<TitleObjects> NewTitleObjects1 = CreateActor<TitleObjects>();
 
-	NewTitleObjects1->SetLoginBtEvent([this]
-		{
-			isCamUp = true;
-		});
 
-	NewTitleObjects1->SetChannelClickFunc([this] {isCamUp = true; });
 
 	MyPlayer = CreateActor<Player>();
 	MyPlayer->GetTransform()->SetLocalPosition({ -20, 1768, -1 });
@@ -167,6 +162,8 @@ void Level_Title::Update(float _DeltaTime)
 			{
 				isCamUp = true;
 			});
+
+		NewTitleObjects->SetChannelClickFunc([this] {isCamUp = true; });
 
 		GameLogo->Death();
 		GameLogo = nullptr;
