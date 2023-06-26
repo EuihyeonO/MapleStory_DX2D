@@ -2,6 +2,7 @@
 #include "Item.h"
 #include "Mouse.h"
 #include "ItemList.h"
+#include "UIController.h"
 
 #include <GameEnginePlatform/GameEngineInput.h>
 
@@ -29,16 +30,16 @@ void Item::Render(float _DeltaTime)
 {
 }
 
-void Item::SetItemInfo(const std::string_view& _ItemName, int _ItemType, int _EquipLevel, int _EquipType)
+void Item::SetItemInfo(std::shared_ptr<ItemInfo> _ItemInfo, int _ItemType)
 {
-	ItemName = _ItemName;
+	ItemName = _ItemInfo->ItemName;
+	NumOfItem = _ItemInfo->Num;
+	EquipLevel = _ItemInfo->Level;
 	ItemType = static_cast<int>(_ItemType);
-
-	EquipLevel = _EquipLevel;
 
 	if(_ItemType == static_cast<int>(ItemType::Equip))
 	{
-		EquipType = _EquipType;
+		EquipType = _ItemInfo->EquipType;
 	}
 
 	ItemRender->SetScaleToTexture(ItemName + "Icon.png");
@@ -48,14 +49,6 @@ void Item::SetItemInfo(const std::string_view& _ItemName, int _ItemType, int _Eq
 	ItemCollision->GetTransform()->SetLocalScale({30, 30});
 }
 
-void Item::SetEmptyItem()
-{
-	isEmptyItem = true;
-
-	ItemRender->Off();
-	ItemCollision = CreateComponent<GameEngineCollision>();
-	ItemCollision->Off();
-}
 
 void Item::Clicked()
 {

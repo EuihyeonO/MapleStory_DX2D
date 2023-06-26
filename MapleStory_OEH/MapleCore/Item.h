@@ -29,8 +29,7 @@ public:
 		return ItemCollision;
 	}
 
-	void SetItemInfo(const std::string_view& _ItemName, int _ItemType, int _EquipLevel = 0, int EquipType = 0);
-	void SetEmptyItem();
+	void SetItemInfo(std::shared_ptr<struct ItemInfo> _ItemName, int _ItemType);
 
 	void SetParentItemList(std::shared_ptr<class ItemList> _ParentItemList)
 	{
@@ -54,6 +53,8 @@ private:
 
 	int ItemType = 0;
 	int EquipLevel = 0;
+	
+	int NumOfItem = 0;
 
 	int EquipType = -1;
 	

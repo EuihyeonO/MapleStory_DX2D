@@ -17,150 +17,125 @@ ItemList::~ItemList()
 }
 
 void ItemList::Start()
-{	
+{
+	MyItemList[(static_cast<int>(EquipType::Cap))].reserve(24);
+	MyItemList[(static_cast<int>(EquipType::Shoes))].reserve(24);
+	MyItemList[(static_cast<int>(EquipType::Weapon))].reserve(24);
+	MyItemList[(static_cast<int>(EquipType::Pants))].reserve(24);
+	MyItemList[(static_cast<int>(EquipType::Coat))].reserve(24);
+
+	for (int i = 0; i < 24; i++)
+	{
+		MyItemList[(static_cast<int>(EquipType::Cap))].push_back(nullptr);
+		MyItemList[(static_cast<int>(EquipType::Shoes))].push_back(nullptr);
+		MyItemList[(static_cast<int>(EquipType::Weapon))].push_back(nullptr);
+		MyItemList[(static_cast<int>(EquipType::Pants))].push_back(nullptr);
+		MyItemList[(static_cast<int>(EquipType::Coat))].push_back(nullptr);
+	}
 }
 
 void ItemList::Update(float _DeltaTime) 
 {
-
 }
 
 void ItemList::Render(float _DeltaTime) 
 {
 }
 
-std::shared_ptr<Item> ItemList::CreateItem(const std::string_view& _ItemName, int _ItemType)
+std::shared_ptr<Item> ItemList::CreateItem(const std::shared_ptr<ItemInfo> _ItemInfo, int _ItemType, int _Index)
 {
-	std::shared_ptr<Item> NewItem = GetLevel()->CreateActor<Item>();
-	
-	if (_ItemName == "EMPTY")
+	if (_ItemInfo == nullptr)
 	{
-		NewItem->SetEmptyItem();
-		NewItem->GetTransform()->SetParent(GetTransform());
-		NewItem->SetParentItemList(DynamicThis<ItemList>());
-		MyItemList[static_cast<int>(_ItemType)].push_back(NewItem);
-		return NewItem;
-	}
-	else
-	{
-		NewItem->SetItemInfo(_ItemName, _ItemType);
+		return nullptr;
 	}
 
+	std::shared_ptr<Item> NewItem = GetLevel()->CreateActor<Item>();
+	
+	NewItem->SetItemInfo(_ItemInfo, _ItemType);
 	NewItem->GetTransform()->SetParent(GetTransform());
 	NewItem->SetParentItemList(DynamicThis<ItemList>());
 
-	std::list<std::shared_ptr<class Item>>::iterator Start = MyItemList[static_cast<int>(_ItemType)].begin();
-	std::list<std::shared_ptr<class Item>>::iterator End = MyItemList[static_cast<int>(_ItemType)].end();
-
-	for (; Start != End; Start++)
+	if (_Index != -1)
 	{
-		if (Start->get()->isEmptyItem == true)
+		MyItemList[static_cast<int>(_ItemType)][_Index] = NewItem;
+		return NewItem;
+	}
+
+	size_t Size = MyItemList[static_cast<int>(_ItemType)].size();
+	
+	for (int i = 0; i < Size; i++)
+	{	
+		if (MyItemList[static_cast<int>(_ItemType)][i] == nullptr)
 		{
-			Start->get()->Death();
-			*Start = NewItem;
+			MyItemList[static_cast<int>(_ItemType)][i] = NewItem;
 			return NewItem;
 		}
 	}
-
-	MyItemList[static_cast<int>(_ItemType)].push_back(NewItem);
-	return NewItem;
 }
 
-void ItemList::LoadItem(const std::string_view& _ItemName, int _ItemType)
+void ItemList::LoadItem(const std::shared_ptr<ItemInfo> _ItemInfo, int _ItemType, int _Index)
 {
-	std::shared_ptr<Item> NewItem = GetLevel()->CreateActor<Item>();
-
-	if (_ItemName == "EMPTY")
+	if(_ItemInfo == nullptr)
 	{
-		NewItem->SetEmptyItem();
-		NewItem->GetTransform()->SetParent(GetTransform());
-		NewItem->SetParentItemList(DynamicThis<ItemList>());
-		MyItemList[static_cast<int>(_ItemType)].push_back(NewItem);
-		return;
+		MyItemList[static_cast<int>(_ItemType)][_Index] = nullptr;
 	}
 	else
 	{
-		NewItem->SetItemInfo(_ItemName, _ItemType);
-		NewItem->GetTransform()->SetParent(GetTransform());
-		NewItem->SetParentItemList(DynamicThis<ItemList>());
-		MyItemList[static_cast<int>(_ItemType)].push_back(NewItem);
-		return;
+		CreateItem(_ItemInfo, _ItemType, _Index);
 	}
+
+	return;
 }
 
 void ItemList::LoadAllItem()
 {
-	std::map<int, std::list<std::string>> CopyMap = UIController::GetUIController()->GetItemList();
-	
-	std::list<std::string>::iterator Start;
-	std::list<std::string>::iterator End;
+	std::map<int, std::vector<std::shared_ptr<ItemInfo>>>& Copy = UIController::GetUIController()->GetItemList();
 
-	size_t EquipSize = CopyMap[static_cast<int>(ItemType::Equip)].size();
-	
-	Start = CopyMap[static_cast<int>(ItemType::Equip)].begin();
-	End = CopyMap[static_cast<int>(ItemType::Equip)].end();
+	size_t Size = 24;
 
-	for (; Start != End; Start++)
+	int i = 0;
+
+	for (i = 0; i < Size; i++)
 	{
-		std::string _ItemName = *Start;
-		LoadItem(_ItemName, static_cast<int>(ItemType::Equip));
+		LoadItem(Copy[static_cast<int>(ItemType::Equip)][i], static_cast<int>(ItemType::Equip), i);
 	}
 
-	size_t UseSize = CopyMap[static_cast<int>(ItemType::Use)].size();
-
-	Start = CopyMap[static_cast<int>(ItemType::Use)].begin();
-	End = CopyMap[static_cast<int>(ItemType::Use)].end();
-
-	for (; Start != End; Start++)
+	for (i = 0; i < Size; i++)
 	{
-		std::string _ItemName = *Start;
-		LoadItem(_ItemName, static_cast<int>(ItemType::Use));
+		LoadItem(Copy[static_cast<int>(ItemType::Use)][i], static_cast<int>(ItemType::Use), i);
 	}
 
-	size_t EtcSize = CopyMap[static_cast<int>(ItemType::Etc)].size();
-
-	Start = CopyMap[static_cast<int>(ItemType::Etc)].begin();
-	End = CopyMap[static_cast<int>(ItemType::Etc)].end();
-
-	for (; Start != End; Start++)
+	for (i = 0; i < Size; i++)
 	{
-		std::string _ItemName = *Start;
-		LoadItem(_ItemName, static_cast<int>(ItemType::Etc));
+		LoadItem(Copy[static_cast<int>(ItemType::Etc)][i], static_cast<int>(ItemType::Etc), i);
 	}
 
-	size_t SetupSize = CopyMap[static_cast<int>(ItemType::Setup)].size();
-	
-	Start = CopyMap[static_cast<int>(ItemType::Setup)].begin();
-	End = CopyMap[static_cast<int>(ItemType::Setup)].end();
-
-	for (; Start != End; Start++)
+	for (i = 0; i < Size; i++)
 	{
-		std::string _ItemName = *Start;
-		LoadItem(_ItemName, static_cast<int>(ItemType::Setup));
+		LoadItem(Copy[static_cast<int>(ItemType::Setup)][i], static_cast<int>(ItemType::Setup), i);
 	}
 
-	size_t CashSize = CopyMap[static_cast<int>(ItemType::Cash)].size();
-	
-	Start = CopyMap[static_cast<int>(ItemType::Cash)].begin();
-	End = CopyMap[static_cast<int>(ItemType::Cash)].end();
-	
-	for (; Start != End; Start++)
+	for (i = 0; i < Size; i++)
 	{
-		std::string _ItemName = *Start;
-		LoadItem(_ItemName, static_cast<int>(ItemType::Cash));
+		LoadItem(Copy[static_cast<int>(ItemType::Cash)][i], static_cast<int>(ItemType::Cash), i);
 	}
 }
 
 void ItemList::SortItemListToType(int _ItemType)
 {
-	std::list<std::shared_ptr<class Item>>::iterator Start = MyItemList[_ItemType].begin();
-	std::list<std::shared_ptr<class Item>>::iterator End = MyItemList[_ItemType].end();
-
 	int count = 0;
 
-	for (;Start != End; Start++)
+	size_t Size = MyItemList[_ItemType].size();
+
+	for (int i = 0; i < Size; i++)
 	{
-		if (Start->get()->isClicked == true)
+		if (MyItemList[_ItemType][i] == nullptr)
+		{
+			count++;
+			continue;
+		}
+
+		if (MyItemList[_ItemType][i]->isClicked == true)
 		{
 			count++;
 			continue;
@@ -169,8 +144,8 @@ void ItemList::SortItemListToType(int _ItemType)
 		int Yindex = count / 4;
 		int Xindex = count % 4;
 
-		Start->get()->GetTransform()->SetLocalPosition(StartPos + float4{Xinterval * Xindex, Yinterval * Yindex });
-		Start->get()->ItemIndex = count;
+		MyItemList[_ItemType][i]->GetTransform()->SetLocalPosition(StartPos + float4{Xinterval * Xindex, Yinterval * Yindex });
+		MyItemList[_ItemType][i]->ItemIndex = count;
 
 		count++;
 	}
@@ -178,55 +153,99 @@ void ItemList::SortItemListToType(int _ItemType)
 
 void ItemList::ClearItem()
 {
-	std::list<std::shared_ptr<class Item>>::iterator Start = MyItemList[static_cast<int>(ItemType::Equip)].begin();
-	std::list<std::shared_ptr<class Item>>::iterator End = MyItemList[static_cast<int>(ItemType::Equip)].end();
+	size_t Size = MyItemList[static_cast<int>(ItemType::Equip)].size();
 
-	for (;Start != End;)
+	for (int i = 0; i < Size; i++)
 	{
-		if (Start->get()->isClicked == true)
+		if (MyItemList[static_cast<int>(ItemType::Equip)][i] == nullptr)
 		{
-			Start->get()->ItemRender->GetTransform()->SetParent(Start->get()->GetTransform());
-			Start->get()->ItemCollision->GetTransform()->SetParent(Start->get()->GetTransform());
+			continue;
 		}
 
-		Start->get()->Death();
-		Start = MyItemList[static_cast<int>(ItemType::Equip)].erase(Start);
+		if (MyItemList[static_cast<int>(ItemType::Equip)][i]->isClicked == true)
+		{
+			MyItemList[static_cast<int>(ItemType::Equip)][i]->ItemRender->GetTransform()->SetParent(MyItemList[static_cast<int>(ItemType::Equip)][i]->GetTransform());
+			MyItemList[static_cast<int>(ItemType::Equip)][i]->ItemCollision->GetTransform()->SetParent(MyItemList[static_cast<int>(ItemType::Equip)][i]->GetTransform());
+		}
+
+		MyItemList[static_cast<int>(ItemType::Equip)][i]->Death();
+		MyItemList[static_cast<int>(ItemType::Equip)][i] = nullptr;
 	}
 
-	Start = MyItemList[static_cast<int>(ItemType::Use)].begin();
-	End = MyItemList[static_cast<int>(ItemType::Use)].end();
-
-	for (; Start != End;)
+	Size = MyItemList[static_cast<int>(ItemType::Use)].size();
+	
+	for (int i = 0; i < Size; i++)
 	{
-		Start->get()->Death();
-		Start = MyItemList[static_cast<int>(ItemType::Use)].erase(Start);
+		if (MyItemList[static_cast<int>(ItemType::Use)][i] == nullptr)
+		{
+			continue;
+		}
+
+		if (MyItemList[static_cast<int>(ItemType::Use)][i]->isClicked == true)
+		{
+			MyItemList[static_cast<int>(ItemType::Use)][i]->ItemRender->GetTransform()->SetParent(MyItemList[static_cast<int>(ItemType::Use)][i]->GetTransform());
+			MyItemList[static_cast<int>(ItemType::Use)][i]->ItemCollision->GetTransform()->SetParent(MyItemList[static_cast<int>(ItemType::Use)][i]->GetTransform());
+		}
+
+		MyItemList[static_cast<int>(ItemType::Use)][i]->Death();
+		MyItemList[static_cast<int>(ItemType::Use)][i] = nullptr;
 	}
 
-	Start = MyItemList[static_cast<int>(ItemType::Etc)].begin();
-	End = MyItemList[static_cast<int>(ItemType::Etc)].end();
+	Size = MyItemList[static_cast<int>(ItemType::Etc)].size();
 
-	for (; Start != End;)
+	for (int i = 0; i < Size; i++)
 	{
-		Start->get()->Death();
-		Start = MyItemList[static_cast<int>(ItemType::Etc)].erase(Start);
+		if (MyItemList[static_cast<int>(ItemType::Etc)][i] == nullptr)
+		{
+			continue;
+		}
+
+		if (MyItemList[static_cast<int>(ItemType::Etc)][i]->isClicked == true)
+		{
+			MyItemList[static_cast<int>(ItemType::Etc)][i]->ItemRender->GetTransform()->SetParent(MyItemList[static_cast<int>(ItemType::Etc)][i]->GetTransform());
+			MyItemList[static_cast<int>(ItemType::Etc)][i]->ItemCollision->GetTransform()->SetParent(MyItemList[static_cast<int>(ItemType::Etc)][i]->GetTransform());
+		}
+
+		MyItemList[static_cast<int>(ItemType::Etc)][i]->Death();
+		MyItemList[static_cast<int>(ItemType::Etc)][i] = nullptr;
 	}
 
-	Start = MyItemList[static_cast<int>(ItemType::Setup)].begin();
-	End = MyItemList[static_cast<int>(ItemType::Setup)].end();
+	Size = MyItemList[static_cast<int>(ItemType::Setup)].size();
 
-	for (; Start != End;)
+	for (int i = 0; i < Size; i++)
 	{
-		Start->get()->Death();
-		Start = MyItemList[static_cast<int>(ItemType::Setup)].erase(Start);
+		if (MyItemList[static_cast<int>(ItemType::Setup)][i] == nullptr)
+		{
+			continue;
+		}
+
+		if (MyItemList[static_cast<int>(ItemType::Setup)][i]->isClicked == true)
+		{
+			MyItemList[static_cast<int>(ItemType::Setup)][i]->ItemRender->GetTransform()->SetParent(MyItemList[static_cast<int>(ItemType::Setup)][i]->GetTransform());
+			MyItemList[static_cast<int>(ItemType::Setup)][i]->ItemCollision->GetTransform()->SetParent(MyItemList[static_cast<int>(ItemType::Setup)][i]->GetTransform());
+		}
+
+		MyItemList[static_cast<int>(ItemType::Setup)][i]->Death();
+		MyItemList[static_cast<int>(ItemType::Setup)][i] = nullptr;
 	}
 
-	Start = MyItemList[static_cast<int>(ItemType::Cash)].begin();
-	End = MyItemList[static_cast<int>(ItemType::Cash)].end();
+	Size = MyItemList[static_cast<int>(ItemType::Cash)].size();
 
-	for (; Start != End;)
+	for (int i = 0; i < Size; i++)
 	{
-		Start->get()->Death();
-		Start = MyItemList[static_cast<int>(ItemType::Cash)].erase(Start);
+		if (MyItemList[static_cast<int>(ItemType::Cash)][i] == nullptr)
+		{
+			continue;
+		}
+
+		if (MyItemList[static_cast<int>(ItemType::Cash)][i]->isClicked == true)
+		{
+			MyItemList[static_cast<int>(ItemType::Cash)][i]->ItemRender->GetTransform()->SetParent(MyItemList[static_cast<int>(ItemType::Cash)][i]->GetTransform());
+			MyItemList[static_cast<int>(ItemType::Cash)][i]->ItemCollision->GetTransform()->SetParent(MyItemList[static_cast<int>(ItemType::Cash)][i]->GetTransform());
+		}
+
+		MyItemList[static_cast<int>(ItemType::Cash)][i]->Death();
+		MyItemList[static_cast<int>(ItemType::Cash)][i] = nullptr;
 	}
 }
 
@@ -239,28 +258,29 @@ void ItemList::ChangeRenderItem(int _CurItemType, int _NextItemType)
 
 void ItemList::InventoryItemOn(int _CurItemType)
 {
-	std::list<std::shared_ptr<class Item>>::iterator Start = MyItemList[_CurItemType].begin();
-	std::list<std::shared_ptr<class Item>>::iterator End = MyItemList[_CurItemType].end();
+	size_t Size = MyItemList[_CurItemType].size();
 
-	for (; Start != End; Start++)
+	for (int i = 0; i < Size; i++)
 	{
-		if(Start->get()->isEmptyItem == false)
+		if(MyItemList[_CurItemType][i] != nullptr)
 		{
-			Start->get()->GetItemRender()->On();
-			Start->get()->GetItemCollision()->On();
+			MyItemList[_CurItemType][i]->GetItemRender()->On();
+			MyItemList[_CurItemType][i]->GetItemCollision()->On();
 		}
 	}
 }
 
 void ItemList::InventoryItemOff(int _CurItemType)
 {
-	std::list<std::shared_ptr<class Item>>::iterator Start = MyItemList[_CurItemType].begin();
-	std::list<std::shared_ptr<class Item>>::iterator End = MyItemList[_CurItemType].end();
+	size_t Size = MyItemList[_CurItemType].size();
 
-	for (; Start != End; Start++)
+	for (int i = 0; i < Size; i++)
 	{
-		Start->get()->GetItemRender()->Off();
-		Start->get()->GetItemCollision()->Off();
+		if (MyItemList[_CurItemType][i] != nullptr)
+		{
+			MyItemList[_CurItemType][i]->GetItemRender()->Off();
+			MyItemList[_CurItemType][i]->GetItemCollision()->Off();
+		}
 	}
 }
 
@@ -268,12 +288,15 @@ void ItemList::InventoryItemOff(int _CurItemType)
 int ItemList::GetRealSizeOfItemList(int _ItemType)
 {
 	int count = 0;
-	std::list<std::shared_ptr<class Item>>::iterator Start = MyItemList[static_cast<int>(_ItemType)].begin();
-	std::list<std::shared_ptr<class Item>>::iterator End = MyItemList[static_cast<int>(_ItemType)].end();
 
-	for (;Start != End; Start++)
+	size_t Size = MyItemList[_ItemType].size();
+
+	for (int i = 0; i < Size; i++)
 	{
-		count++;	
+		if(MyItemList[_ItemType][i] != nullptr)
+		{
+			count++;
+		}
 	}
 
 	return count;
@@ -281,54 +304,46 @@ int ItemList::GetRealSizeOfItemList(int _ItemType)
 
 void ItemList::EquipItem(std::shared_ptr<class Item> _Item)
 {
-	if (_Item->EquipLevel > PlayerValue::GetValue()->GetLevel())
-	{
-		return;
-	}
+	//if (_Item->EquipLevel > PlayerValue::GetValue()->GetLevel())
+	//{
+	//	return;
+	//}
 
-	std::string ItemName = GameEngineString::ToUpper(_Item->ItemName);
-	int ItemType = _Item->ItemType;
+	//std::string ItemName = GameEngineString::ToUpper(_Item->ItemName);
+	//int ItemType = _Item->ItemType;
 
-	std::string CurEquipItemName = UIController::GetUIController()->GetEquipItem(ItemType).data();
-	
-	DeleteItem(_Item);
+	//std::string CurEquipItemName = UIController::GetUIController()->GetEquipItem(ItemType).data();
+	//
+	//DeleteItem(_Item);
 
-	if (CurEquipItemName != "")
-	{
-		UIController::GetUIController()->AddToItemList(CurEquipItemName, ItemType);
-	}
+	//if (CurEquipItemName != "")
+	//{
+	//	UIController::GetUIController()->AddToItemList(CurEquipItemName, ItemType);
+	//}
 
-	UIController::GetUIController()->GetEquipItem(ItemType);
-	UIController::GetUIController()->AddToEquipItemList(ItemName, ItemType);
+	//UIController::GetUIController()->GetEquipItem(ItemType);
+	//UIController::GetUIController()->AddToEquipItemList(ItemName, ItemType);
 }
 
 void ItemList::DeleteItem(std::shared_ptr<Item> _Item)
 {
 	int ItemType = _Item->ItemType;
 
-	UIController::GetUIController()->DeleteToItemList(_Item->ItemIndex, ItemType);
-
-	std::list<std::shared_ptr<class Item>>::iterator Start = MyItemList[ItemType].begin();
-	std::list<std::shared_ptr<class Item>>::iterator End = MyItemList[ItemType].end();
-	std::list<std::shared_ptr<class Item>>::iterator EndCopy = MyItemList[ItemType].end();
+	UIController::GetUIController()->DeleteToItemList(_Item->ItemName, ItemType);
 	
-	for (; Start != End;)
+	size_t Size = MyItemList.size();
+
+	for (int i = 0; i < Size; i++)
 	{
-		if (Start->get()->DynamicThis<Item>() == _Item)
+		if (MyItemList[_item->ItemType][i] == _Item)
 		{
-			Start->get()->Death();
+			_Item->NumOfItem--;
 
-			if (Start == EndCopy--)
+			if (_Item->NumOfItem <= 0)
 			{
-				Start = MyItemList[ItemType].erase(Start);
-				return;
+				_Item->Death();
+				MyItemList[ItemType][i] = nullptr;
 			}
-
-			std::shared_ptr<Item> NewItem = GetLevel()->CreateActor<Item>();
-			NewItem->SetEmptyItem();
-			*Start = NewItem;
-			return;
 		}
-		Start++;
 	}
 }

@@ -82,6 +82,7 @@ void Level_Title::Start()
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Zenis").GetFullPath());
 
 		NewDir.MoveParent();
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("ChannelCheck").GetFullPath());
 		NewDir.MoveParent();
 		NewDir.Move("TitleLight");
 
@@ -123,6 +124,8 @@ void Level_Title::Start()
 		{
 			isCamUp = true;
 		});
+
+	NewTitleObjects1->SetChannelClickFunc([this] {isCamUp = true; });
 
 	MyPlayer = CreateActor<Player>();
 	MyPlayer->GetTransform()->SetLocalPosition({ -20, 1768, -1 });
@@ -291,6 +294,8 @@ void Level_Title::LevelChangeStart()
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Zenis").GetFullPath());
 
 		NewDir.MoveParent();
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("ChannelCheck").GetFullPath());
+
 		NewDir.MoveParent();
 		NewDir.Move("Title");
 
@@ -318,7 +323,7 @@ void Level_Title::LevelChangeEnd()
 		{
 			std::string FileFullPath = File[i].GetFullPath();
 			std::string FileName = "";
-			int Count = 0;
+			size_t Count = 0;
 
 			for (Count = FileFullPath.size(); Count > 0; Count--)
 			{
@@ -329,7 +334,7 @@ void Level_Title::LevelChangeEnd()
 				}
 			}
 
-			for (int j = Count + 1; j < FileFullPath.size(); j++)
+			for (size_t j = Count + 1; j < FileFullPath.size(); j++)
 			{
 				FileName.push_back(FileFullPath[j]);
 			}
@@ -361,6 +366,8 @@ void Level_Title::LevelChangeEnd()
 		GameEngineSprite::UnLoad("Zenis");
 
 		NewDir.MoveParent();
+		GameEngineSprite::UnLoad("ChannelCheck");
+
 		NewDir.MoveParent();
 		NewDir.Move("TitleLight");
 

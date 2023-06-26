@@ -67,7 +67,7 @@ void DropItem::MoveDropItem(float _DeltaTime)
 
 		if (DropItemCollision->Collision(static_cast<int>(CollisionOrder::PlayerPoint), ColType::AABBBOX2D, ColType::AABBBOX2D) != nullptr)
 		{
-			UIController::GetUIController()->AddToItemList("GreenShell", static_cast<int>(ItemType::Etc));
+			//UIController::GetUIController()->AddToItemList("GreenShell", static_cast<int>(ItemType::Etc));
 			Death();
 			return;
 		}

@@ -49,7 +49,7 @@ void EquipItemList::LoadAllEquipItem()
 	if(ItemName != "")
 	{
 		std::shared_ptr<Item> NewItem = GetLevel()->CreateActor<Item>();
-		NewItem->SetItemInfo(ItemName, static_cast<int>(EquipType::Cap));
+		//NewItem->SetItemInfo(ItemName, static_cast<int>(EquipType::Cap));
 		NewItem->isEquip = true;
 
 		MyEquipItems[static_cast<int>(EquipType::Cap)] = NewItem;
@@ -60,7 +60,7 @@ void EquipItemList::LoadAllEquipItem()
 	if (ItemName != "")
 	{
 		std::shared_ptr<Item> NewItem = GetLevel()->CreateActor<Item>();
-		NewItem->SetItemInfo(ItemName, static_cast<int>(EquipType::Weapon));
+		//NewItem->SetItemInfo(ItemName, static_cast<int>(EquipType::Weapon));
 		NewItem->isEquip = true;
 
 		MyEquipItems[static_cast<int>(EquipType::Weapon)] = NewItem;
@@ -71,7 +71,7 @@ void EquipItemList::LoadAllEquipItem()
 	if (ItemName != "")
 	{
 		std::shared_ptr<Item> NewItem = GetLevel()->CreateActor<Item>();
-		NewItem->SetItemInfo(ItemName, static_cast<int>(EquipType::Shoes));
+		//NewItem->SetItemInfo(ItemName, static_cast<int>(EquipType::Shoes));
 		NewItem->isEquip = true;
 
 		MyEquipItems[static_cast<int>(EquipType::Shoes)] = NewItem;
@@ -82,7 +82,7 @@ void EquipItemList::LoadAllEquipItem()
 	if (ItemName != "")
 	{
 		std::shared_ptr<Item> NewItem = GetLevel()->CreateActor<Item>();
-		NewItem->SetItemInfo(ItemName, static_cast<int>(EquipType::Coat));
+		//NewItem->SetItemInfo(ItemName, static_cast<int>(EquipType::Coat));
 		NewItem->isEquip = true;
 
 		MyEquipItems[static_cast<int>(EquipType::Coat)] = NewItem;
@@ -93,7 +93,7 @@ void EquipItemList::LoadAllEquipItem()
 	if (ItemName != "")
 	{
 		std::shared_ptr<Item> NewItem = GetLevel()->CreateActor<Item>();
-		NewItem->SetItemInfo(ItemName, static_cast<int>(EquipType::Pants));
+		//NewItem->SetItemInfo(ItemName, static_cast<int>(EquipType::Pants));
 		NewItem->isEquip = true;
 
 		MyEquipItems[static_cast<int>(EquipType::Pants)] = NewItem;
@@ -128,7 +128,7 @@ void EquipItemList::LoadEquipItem(int _ItemType)
 		}
 
 		std::shared_ptr<Item> NewItem = GetLevel()->CreateActor<Item>();
-		NewItem->SetItemInfo(ItemName, _ItemType);
+		//NewItem->SetItemInfo(ItemName, _ItemType);
 		NewItem->GetItemRender()->On();
 		NewItem->GetItemCollision()->On();
 		NewItem->isEquip = true;

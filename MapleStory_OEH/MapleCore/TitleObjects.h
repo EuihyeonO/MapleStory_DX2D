@@ -3,6 +3,7 @@
 #include "ContentButton.h"
 
 class GameEngineSpriteRenderer;
+
 class TitleObjects : public BasicFunction
 {
 
@@ -19,6 +20,11 @@ public:
 	void SetLoginBtEvent(std::function<void()> _Event)
 	{
 		LoginBt->SetEvent(_Event);
+	}
+
+	void SetChannelClickFunc(std::function<void()> _Event)
+	{
+		ChannelClickFunc = _Event;
 	}
 
 protected:
@@ -135,5 +141,17 @@ private:
 
 	float Counting = 0.0f;
 
+	bool isChScrollOpen = false;
+	
+	std::vector<std::shared_ptr<class GameEngineCollision>> ChColVec;
+	void SetChCollision();
+
+	void AllChColOn();
+	void AllChColOff();
+
+	std::shared_ptr<GameEngineSpriteRenderer> ChannelCheck = nullptr;
+	std::shared_ptr<GameEngineCollision> SelectedChannel = nullptr;
+	void ChannelChecking();
+	std::function<void()> ChannelClickFunc = nullptr;
 };
 

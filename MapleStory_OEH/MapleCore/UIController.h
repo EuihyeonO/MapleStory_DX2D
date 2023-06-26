@@ -10,6 +10,15 @@
 #include <string_view>
 #include <functional>
 
+struct ItemInfo {
+	int Num = 0;
+	int Level = 0;
+	int EquipType = 0;
+
+	float4 Stat = { 0, 0, 0, 0 };
+	std::string ItemName = "";
+};
+
 class UIController
 {
 
@@ -30,7 +39,7 @@ public:
 		QuickSlotList.push_back(_QuickSlot);
 	}
 
-	std::map<int, std::list<std::string>>& GetItemList()
+	std::map<int, std::vector<std::shared_ptr<ItemInfo>>>& GetItemList()
 	{
 		return MyItemList;
 	}
@@ -45,58 +54,104 @@ public:
 		CurEquipItemList = _EquipItemList;
 	}
 
-	void AddToItemList(const std::string_view& _ItemName, int _ItemType)
+	int ItemFind(const std::string_view& _ItemName, int _ItemType)
 	{
+		size_t Size = MyItemList[_ItemType].size();
 
-		std::list<std::string>::iterator Start = MyItemList[_ItemType].begin();
-		std::list<std::string>::iterator End = MyItemList[_ItemType].end();
-
-		for (; Start != End; Start++)
+		for (int i = 0; i < Size; i++)
 		{
-			if (*Start == "EMPTY")
+			if (MyItemList[_ItemType][i] != nullptr && MyItemList[_ItemType][i]->ItemName == _ItemName)
 			{
-				*Start = _ItemName.data();
+				return i;
+			}
+		}
+
+		return -1;
+	}
+
+	int GetNumOfItem(int _ItemType)
+	{
+		int count = 0;
+
+		for (int i = 0; i < 24; i++)
+		{
+			if (MyItemList[_ItemType][i] != nullptr)
+			{
+				count++;
+			}
+		}
+
+		return count;
+	}
+
+	void AddToItemList(const std::shared_ptr<ItemInfo> _ItemInfo, int _ItemType)
+	{
+		int Index = -1;
+
+		if (Index = ItemFind(_ItemInfo->ItemName, _ItemType), Index != -1)
+		{
+			if (MyItemList[_ItemType][Index] != nullptr && _ItemType != static_cast<int>(ItemType::Equip))
+			{
+				MyItemList[_ItemType][Index]->Num++;
+				
+				//업데이트에 반영되도록 현재 액터의 인벤토리도 업데이트
+				if(CurItemList !=nullptr)
+				{
+					CurItemList->CreateItem(_ItemInfo, _ItemType);
+				}
+			}
+			else if (MyItemList[_ItemType][Index] != nullptr && _ItemType == static_cast<int>(ItemType::Equip))
+			{
+				for (int i = 0; i < MyItemList[_ItemType].size(); i++)
+				{
+					if (MyItemList[_ItemType][i] == nullptr)
+					{
+						MyItemList[_ItemType][i] = _ItemInfo;
+						break;
+					}
+				}
 
 				if (CurItemList != nullptr)
 				{
-					CurItemList->CreateItem(_ItemName, _ItemType);
+					CurItemList->CreateItem(_ItemInfo, _ItemType);
 				}
-
-				return;
 			}
 		}
-
-		MyItemList[_ItemType].push_back(_ItemName.data());
-
-		if (CurItemList != nullptr)
+		else if(Index == -1)
 		{
-			CurItemList->CreateItem(_ItemName, _ItemType);
+			for (int i = 0; i < MyItemList[_ItemType].size(); i++)
+			{
+				if (MyItemList[_ItemType][i] == nullptr)
+				{
+					MyItemList[_ItemType][i] = _ItemInfo;
+					break;
+				}
+			}
+
+			if (CurItemList != nullptr)
+			{
+				CurItemList->CreateItem(_ItemInfo, _ItemType);
+			}
 		}
 	}
 
-	void DeleteToItemList(int ItemIndex, int _ItemType)
+	void DeleteToItemList(const std::string_view& _ItemName, int _ItemType, bool AllDelete = false)
 	{
-		int IndexCount = 0;
 
-		std::list<std::string>::iterator Start = MyItemList[_ItemType].begin();
-		std::list<std::string>::iterator End = MyItemList[_ItemType].end();
-
-		for (; Start != End; )
+		int Index = ItemFind(_ItemName, _ItemType);
+		
+		if (AllDelete == true)
 		{
+			MyItemList[_ItemType][Index] = nullptr;
+		}
+		else if(AllDelete == false && MyItemList[_ItemType][Index]->Num >= 1)
+		{
+			MyItemList[_ItemType][Index]->Num--;
 
-			if (IndexCount == ItemIndex && IndexCount != MyItemList[_ItemType].size() - 1)
+			if (MyItemList[_ItemType][Index]->Num <= 0)
 			{
-				*Start = "EMPTY";
-				return;
+				MyItemList[_ItemType][Index] = nullptr;
 			}
-			else if (IndexCount == ItemIndex && IndexCount == MyItemList[_ItemType].size() - 1)
-			{
-				Start = MyItemList[_ItemType].erase(Start);
-				return;
-			}
-
-			IndexCount++;
-			Start++;
 		}
 	}
 
@@ -245,7 +300,7 @@ private:
 	std::function<void(std::shared_ptr<class Player>)> PgDNSkill = nullptr;
 
 	//ItemWindow
-	std::map<int, std::list<std::string>> MyItemList;
+	std::map<int, std::vector<std::shared_ptr<ItemInfo>>> MyItemList;
 
 	std::shared_ptr<class ItemList> CurItemList = nullptr;
 	//EquipWindow

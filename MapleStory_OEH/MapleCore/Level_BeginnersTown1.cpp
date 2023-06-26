@@ -200,7 +200,7 @@ void Level_BeginnersTown1::UnLoadResources()
 		{
 			std::string FileFullPath = File[i].GetFullPath();
 			std::string FileName = "";
-			int Count = 0;
+			size_t Count = 0;
 
 			for (Count = FileFullPath.size(); Count > 0; Count--)
 			{
@@ -211,7 +211,7 @@ void Level_BeginnersTown1::UnLoadResources()
 				}
 			}
 
-			for (int j = Count + 1; j < FileFullPath.size(); j++)
+			for (size_t j = Count + 1; j < FileFullPath.size(); j++)
 			{
 				FileName.push_back(FileFullPath[j]);
 			}

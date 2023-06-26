@@ -51,6 +51,7 @@ enum class CollisionOrder
 	QuickSlotSkill,
 	DropItem,
 	foothold,
+	Channel,
 };
 
 enum class MonsterName

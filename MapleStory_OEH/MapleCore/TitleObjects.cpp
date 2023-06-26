@@ -81,6 +81,11 @@ void TitleObjects::Start()
 	Frame->SetTexture("Frame.png");
 	Frame->GetTransform()->SetLocalScale({ 800, 600 });
 
+	ChannelCheck = CreateComponent<GameEngineSpriteRenderer>();
+	ChannelCheck->CreateAnimation({ .AnimationName = "Check",.SpriteName = "ChannelCheck",.Loop = false,.ScaleToTexture = true,.FrameTime = {0.1f, 0.05f ,0.05f ,0.1f } });
+	ChannelCheck->Off();
+
+	SetChCollision();
 	Create_FrameObject();
 }
 
@@ -108,6 +113,16 @@ void TitleObjects::Update(float _DeltaTime)
 	SignUp->GetTransform()->SetLocalPosition(-CamPos + LoginBoardPos + float4{ -68, -44 });
 	Exit->GetTransform()->SetLocalPosition(-CamPos + LoginBoardPos + float4{ 127, -42 });
 	HomePage->GetTransform()->SetLocalPosition(-CamPos + LoginBoardPos + float4{ 33, -44 });
+
+	if (isChScrollOpen == true)
+	{
+		if(ChScroll->GetCurrentFrame() == 0) 
+		{
+			ChScroll->GetTransform()->SetLocalPosition({ 0, 620.5 }); 
+		}
+
+		ChannelChecking();
+	}
 }
 
 void TitleObjects::Render(float _DeltaTime)
@@ -592,68 +607,132 @@ void TitleObjects::LoginObjectAlphaUpdate(float _DeltaTime)
 void TitleObjects::SetChScroll()
 {
 	ChScroll->CreateAnimation({ .AnimationName = "Akenia",.SpriteName = "Akenia",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
-	ChScroll->SetAnimationStartEvent("Akenia", 0, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 620.5 }); });
+	ChScroll->SetAnimationStartEvent("Akenia", 0, [this] {isChScrollOpen = true; AllChColOff(); });
 	ChScroll->SetAnimationStartEvent("Akenia", 1, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 617 }); });
-	ChScroll->SetAnimationStartEvent("Akenia", 2, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 613 }); });
+	ChScroll->SetAnimationStartEvent("Akenia", 2, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 613 }); AllChColOn(); });
 
 	ChScroll->CreateAnimation({ .AnimationName = "Bera",.SpriteName = "Bera",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
-	ChScroll->SetAnimationStartEvent("Bera", 0, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 620.5 }); });
+	ChScroll->SetAnimationStartEvent("Bera", 0, [this] {isChScrollOpen = true; AllChColOff(); });
 	ChScroll->SetAnimationStartEvent("Bera", 1, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 617 }); });
-	ChScroll->SetAnimationStartEvent("Bera", 2, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 613 }); });
+	ChScroll->SetAnimationStartEvent("Bera", 2, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 613 }); AllChColOn(); });
 	
 	ChScroll->CreateAnimation({ .AnimationName = "Broa",.SpriteName = "Broa",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
-	ChScroll->SetAnimationStartEvent("Broa", 0, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 620.5 }); });
+	ChScroll->SetAnimationStartEvent("Broa", 0, [this] {isChScrollOpen = true; AllChColOff(); });
 	ChScroll->SetAnimationStartEvent("Broa", 1, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 617 }); });
-	ChScroll->SetAnimationStartEvent("Broa", 2, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 613 }); });
+	ChScroll->SetAnimationStartEvent("Broa", 2, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 613 }); AllChColOn(); });
 
 	ChScroll->CreateAnimation({ .AnimationName = "Croa",.SpriteName = "Croa",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
-	ChScroll->SetAnimationStartEvent("Croa", 0, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 620.5 }); });
+	ChScroll->SetAnimationStartEvent("Croa", 0, [this] {isChScrollOpen = true; AllChColOff(); });
 	ChScroll->SetAnimationStartEvent("Croa", 1, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 617 }); });
-	ChScroll->SetAnimationStartEvent("Croa", 2, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 613 }); });
+	ChScroll->SetAnimationStartEvent("Croa", 2, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 613 }); AllChColOn(); });
 
 	ChScroll->CreateAnimation({ .AnimationName = "Demetos",.SpriteName = "Demetos",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
-	ChScroll->SetAnimationStartEvent("Demetos", 0, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 620.5 }); });
+	ChScroll->SetAnimationStartEvent("Demetos", 0, [this] {isChScrollOpen = true; AllChColOff(); });
 	ChScroll->SetAnimationStartEvent("Demetos", 1, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 617 }); });
-	ChScroll->SetAnimationStartEvent("Demetos", 2, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 613 }); });
+	ChScroll->SetAnimationStartEvent("Demetos", 2, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 613 }); AllChColOn(); });
 
 	ChScroll->CreateAnimation({ .AnimationName = "Kastia",.SpriteName = "Kastia",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
-	ChScroll->SetAnimationStartEvent("Kastia", 0, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 620.5 }); });
+	ChScroll->SetAnimationStartEvent("Kastia", 0, [this] {isChScrollOpen = true; AllChColOff(); });
 	ChScroll->SetAnimationStartEvent("Kastia", 1, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 617 }); });
-	ChScroll->SetAnimationStartEvent("Kastia", 2, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 613 }); });
+	ChScroll->SetAnimationStartEvent("Kastia", 2, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 613 }); AllChColOn(); });
 
 	ChScroll->CreateAnimation({ .AnimationName = "Khaini",.SpriteName = "Khaini",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
-	ChScroll->SetAnimationStartEvent("Khaini", 0, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 620.5 }); });
+	ChScroll->SetAnimationStartEvent("Khaini", 0, [this] {isChScrollOpen = true; AllChColOff();  });
 	ChScroll->SetAnimationStartEvent("Khaini", 1, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 617 }); });
-	ChScroll->SetAnimationStartEvent("Khaini", 2, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 613 }); });
+	ChScroll->SetAnimationStartEvent("Khaini", 2, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 613 }); AllChColOn(); });
 
 	ChScroll->CreateAnimation({ .AnimationName = "Mardia",.SpriteName = "Mardia",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
-	ChScroll->SetAnimationStartEvent("Mardia", 0, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 620.5 }); });
+	ChScroll->SetAnimationStartEvent("Mardia", 0, [this] {isChScrollOpen = true; AllChColOff();  });
 	ChScroll->SetAnimationStartEvent("Mardia", 1, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 617 }); });
-	ChScroll->SetAnimationStartEvent("Mardia", 2, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 613 }); });
+	ChScroll->SetAnimationStartEvent("Mardia", 2, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 613 }); AllChColOn(); });
 
 	ChScroll->CreateAnimation({ .AnimationName = "Plana",.SpriteName = "Plana",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
-	ChScroll->SetAnimationStartEvent("Plana", 0, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 620.5 }); });
+	ChScroll->SetAnimationStartEvent("Plana", 0, [this] {isChScrollOpen = true; AllChColOff();  });
 	ChScroll->SetAnimationStartEvent("Plana", 1, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 617 }); });
-	ChScroll->SetAnimationStartEvent("Plana", 2, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 613 }); });
+	ChScroll->SetAnimationStartEvent("Plana", 2, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 613 }); AllChColOn(); });
 
 	ChScroll->CreateAnimation({ .AnimationName = "Skania",.SpriteName = "Skania",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
-	ChScroll->SetAnimationStartEvent("Skania", 0, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 620.5 }); });
+	ChScroll->SetAnimationStartEvent("Skania", 0, [this] {isChScrollOpen = true; AllChColOff();  });
 	ChScroll->SetAnimationStartEvent("Skania", 1, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 617 }); });
-	ChScroll->SetAnimationStartEvent("Skania", 2, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 613 }); });
+	ChScroll->SetAnimationStartEvent("Skania", 2, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 613 }); AllChColOn(); });
 
 	ChScroll->CreateAnimation({ .AnimationName = "Stierce",.SpriteName = "Stierce",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
-	ChScroll->SetAnimationStartEvent("Stierce", 0, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 620.5 }); });
+	ChScroll->SetAnimationStartEvent("Stierce", 0, [this] {isChScrollOpen = true; AllChColOff();  });
 	ChScroll->SetAnimationStartEvent("Stierce", 1, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 617 }); });
-	ChScroll->SetAnimationStartEvent("Stierce", 2, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 613 }); });
+	ChScroll->SetAnimationStartEvent("Stierce", 2, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 613 }); AllChColOn(); });
 
 	ChScroll->CreateAnimation({ .AnimationName = "Yellond",.SpriteName = "Yellond",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
-	ChScroll->SetAnimationStartEvent("Yellond", 0, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 620.5 }); });
+	ChScroll->SetAnimationStartEvent("Yellond", 0, [this] {isChScrollOpen = true; AllChColOff(); });
 	ChScroll->SetAnimationStartEvent("Yellond", 1, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 617 }); });
-	ChScroll->SetAnimationStartEvent("Yellond", 2, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 613 }); });
+	ChScroll->SetAnimationStartEvent("Yellond", 2, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 613 }); AllChColOn(); });
 
 	ChScroll->CreateAnimation({ .AnimationName = "Zenis",.SpriteName = "Zenis",.FrameInter = 0.1f,.Loop = false,.ScaleToTexture = true });
-	ChScroll->SetAnimationStartEvent("Zenis", 0, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 620.5 }); });
+	ChScroll->SetAnimationStartEvent("Zenis", 0, [this] {isChScrollOpen = true; AllChColOff();  });
 	ChScroll->SetAnimationStartEvent("Zenis", 1, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 617 }); });
-	ChScroll->SetAnimationStartEvent("Zenis", 2, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 613 }); });
+	ChScroll->SetAnimationStartEvent("Zenis", 2, [this] {ChScroll->GetTransform()->SetLocalPosition({ 0, 613 }); AllChColOn(); });
 
+}
+
+void TitleObjects::SetChCollision()
+{
+	ChColVec.reserve(20);
+
+	for (int i = 0; i < 20; i++)
+	{
+		std::shared_ptr<GameEngineCollision> NewCol = CreateComponent<GameEngineCollision>();
+		
+		NewCol->SetColType(ColType::AABBBOX2D);
+		NewCol->SetOrder(static_cast<int>(CollisionOrder::Channel));
+		NewCol->GetTransform()->SetLocalScale({ 92, 30 });
+		NewCol->GetTransform()->SetLocalPosition({ -139 + ((i % 4) * 97.0f), 603 - ((i / 4) * 32.0f)});
+		NewCol->Off();
+
+		ChColVec.push_back(NewCol);
+
+	}
+
+	ChannelCheck->On();
+}
+
+void TitleObjects::AllChColOn()
+{
+	for (int i = 0; i < 20; i++)
+	{
+		ChColVec[i]->On();
+	}
+}
+
+void TitleObjects::AllChColOff()
+{
+	for (int i = 0; i < 20; i++)
+	{
+		ChColVec[i]->Off();
+	}
+
+	ChannelCheck->Off();
+	SelectedChannel = nullptr;
+}
+
+void TitleObjects::ChannelChecking()
+{
+	std::shared_ptr<Mouse> MyMouse = Mouse::GetMouse();
+	std::shared_ptr<GameEngineCollision> Col = MyMouse->GetMouseCollision()->Collision(static_cast<int>(CollisionOrder::Channel), ColType::AABBBOX2D, ColType::AABBBOX2D);
+	
+	if (Col != nullptr)
+	{
+		if(Col != SelectedChannel && GameEngineInput::IsDown("LClick") == true)
+		{
+			ChannelCheck->On();
+			ChannelCheck->ChangeAnimation("Check");
+			ChannelCheck->GetTransform()->SetWorldPosition(Col->GetTransform()->GetWorldPosition() + float4{ -22.0f, 7.0f });
+			SelectedChannel = Col;
+		}
+		else if(Col == SelectedChannel && MyMouse->IsDoubleClick() == true)
+		{
+			if(MyMouse->IsDoubleClick() == true)
+			{
+				ChannelClickFunc();
+			}
+		}
+	}
 }

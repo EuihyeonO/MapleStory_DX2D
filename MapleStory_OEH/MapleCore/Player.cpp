@@ -115,7 +115,21 @@ void Player::Update(float _DeltaTime)
 	ActingUpdate(_DeltaTime);
 
 	BasicUpdate(_DeltaTime);
+	
+	if (GameEngineInput::IsKey("MyTest1") == false)
+	{
+		GameEngineInput::CreateKey("MyTest1", 'B');
+	}
+	if (GameEngineInput::IsDown("MyTest1") == true)
+	{
+		if(UIController::GetUIController()->GetNumOfItem(static_cast<int>(ItemType::Equip)) < 24)
+		{
+			std::shared_ptr<ItemInfo> NewItem = std::make_shared<ItemInfo>();
+			NewItem->ItemName = "WhiteTShirt";
 
+			UIController::GetUIController()->AddToItemList(NewItem, static_cast<int>(ItemType::Equip));
+		}
+	}
 }
 
 void Player::BasicUpdate(float _DeltaTime)
