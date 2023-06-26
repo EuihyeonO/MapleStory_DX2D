@@ -42,58 +42,56 @@ void EquipItemList::Render(float _DeltaTime)
 
 void EquipItemList::LoadAllEquipItem()
 {
-	std::string ItemName;
-	
-	ItemName = UIController::GetUIController()->GetEquipItem(static_cast<int>(EquipType::Cap)).data();
+	std::shared_ptr<ItemInfo> LoadedItem = UIController::GetUIController()->GetEquipItem(static_cast<int>(EquipType::Cap));
 
-	if(ItemName != "")
+	if(LoadedItem != nullptr)
 	{
 		std::shared_ptr<Item> NewItem = GetLevel()->CreateActor<Item>();
-		//NewItem->SetItemInfo(ItemName, static_cast<int>(EquipType::Cap));
+		NewItem->SetItemInfo(LoadedItem, static_cast<int>(EquipType::Cap));
 		NewItem->isEquip = true;
 
 		MyEquipItems[static_cast<int>(EquipType::Cap)] = NewItem;
 	}
 
-	ItemName = UIController::GetUIController()->GetEquipItem(static_cast<int>(EquipType::Weapon)).data();
+	LoadedItem = UIController::GetUIController()->GetEquipItem(static_cast<int>(EquipType::Weapon));
 
-	if (ItemName != "")
+	if (LoadedItem != nullptr)
 	{
 		std::shared_ptr<Item> NewItem = GetLevel()->CreateActor<Item>();
-		//NewItem->SetItemInfo(ItemName, static_cast<int>(EquipType::Weapon));
+		NewItem->SetItemInfo(LoadedItem, static_cast<int>(EquipType::Weapon));
 		NewItem->isEquip = true;
 
 		MyEquipItems[static_cast<int>(EquipType::Weapon)] = NewItem;
 	}
 
-	ItemName = UIController::GetUIController()->GetEquipItem(static_cast<int>(EquipType::Shoes)).data();
+	LoadedItem = UIController::GetUIController()->GetEquipItem(static_cast<int>(EquipType::Shoes));
 
-	if (ItemName != "")
+	if (LoadedItem != nullptr)
 	{
 		std::shared_ptr<Item> NewItem = GetLevel()->CreateActor<Item>();
-		//NewItem->SetItemInfo(ItemName, static_cast<int>(EquipType::Shoes));
+		NewItem->SetItemInfo(LoadedItem, static_cast<int>(EquipType::Shoes));
 		NewItem->isEquip = true;
 
 		MyEquipItems[static_cast<int>(EquipType::Shoes)] = NewItem;
 	}
 
-	ItemName = UIController::GetUIController()->GetEquipItem(static_cast<int>(EquipType::Coat)).data();
+	LoadedItem = UIController::GetUIController()->GetEquipItem(static_cast<int>(EquipType::Coat));
 
-	if (ItemName != "")
+	if (LoadedItem != nullptr)
 	{
 		std::shared_ptr<Item> NewItem = GetLevel()->CreateActor<Item>();
-		//NewItem->SetItemInfo(ItemName, static_cast<int>(EquipType::Coat));
+		NewItem->SetItemInfo(LoadedItem, static_cast<int>(EquipType::Coat));
 		NewItem->isEquip = true;
 
 		MyEquipItems[static_cast<int>(EquipType::Coat)] = NewItem;
 	}
 
-	ItemName = UIController::GetUIController()->GetEquipItem(static_cast<int>(EquipType::Pants)).data();
+	LoadedItem = UIController::GetUIController()->GetEquipItem(static_cast<int>(EquipType::Pants));
 
-	if (ItemName != "")
+	if (LoadedItem != nullptr)
 	{
 		std::shared_ptr<Item> NewItem = GetLevel()->CreateActor<Item>();
-		//NewItem->SetItemInfo(ItemName, static_cast<int>(EquipType::Pants));
+		NewItem->SetItemInfo(LoadedItem, static_cast<int>(EquipType::Pants));
 		NewItem->isEquip = true;
 
 		MyEquipItems[static_cast<int>(EquipType::Pants)] = NewItem;
@@ -118,9 +116,9 @@ void EquipItemList::ClearEquipItem()
 
 void EquipItemList::LoadEquipItem(int _ItemType)
 {
-	std::string ItemName = UIController::GetUIController()->GetEquipItem(_ItemType).data();
+	std::shared_ptr<ItemInfo> LoadedItem = UIController::GetUIController()->GetEquipItem(_ItemType);
 
-	if (ItemName != "")
+	if (LoadedItem != nullptr)
 	{
 		if (MyEquipItems[_ItemType] != nullptr)
 		{
@@ -128,7 +126,7 @@ void EquipItemList::LoadEquipItem(int _ItemType)
 		}
 
 		std::shared_ptr<Item> NewItem = GetLevel()->CreateActor<Item>();
-		//NewItem->SetItemInfo(ItemName, _ItemType);
+		NewItem->SetItemInfo(LoadedItem, _ItemType);
 		NewItem->GetItemRender()->On();
 		NewItem->GetItemCollision()->On();
 		NewItem->isEquip = true;

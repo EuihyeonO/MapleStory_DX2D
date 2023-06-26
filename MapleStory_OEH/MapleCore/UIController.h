@@ -11,7 +11,7 @@
 #include <functional>
 
 struct ItemInfo {
-	int Num = 0;
+	int Num = 1;
 	int Level = 0;
 	int EquipType = 0;
 
@@ -140,11 +140,16 @@ public:
 
 		int Index = ItemFind(_ItemName, _ItemType);
 		
+		if(Index == -1)
+		{
+			return;
+		}
+
 		if (AllDelete == true)
 		{
 			MyItemList[_ItemType][Index] = nullptr;
 		}
-		else if(AllDelete == false && MyItemList[_ItemType][Index]->Num >= 1)
+		else if(AllDelete == false)
 		{
 			MyItemList[_ItemType][Index]->Num--;
 
@@ -155,9 +160,17 @@ public:
 		}
 	}
 
-	void AddToEquipItemList(const std::string_view& _EquipItemName, int _EquipType)
-	{
-		EquipItemList[_EquipType] = _EquipItemName;
+	void AddToEquipItemList(const std::shared_ptr<ItemInfo> _EquipItemName, int _EquipType)
+	{		
+		if(EquipItemList[_EquipType] == nullptr)
+		{
+			EquipItemList[_EquipType] = _EquipItemName;
+		}
+		else
+		{
+			AddToItemList(EquipItemList[_EquipType], _EquipType);
+			EquipItemList[_EquipType] = _EquipItemName;
+		}
 
 		if (CurEquipItemList != nullptr)
 		{
@@ -165,8 +178,7 @@ public:
 		}
 	}
 
-
-	const std::string_view GetEquipItem(int _EquipType)
+	const std::shared_ptr<ItemInfo> GetEquipItem(int _EquipType)
 	{
 		return EquipItemList[_EquipType];
 	}
@@ -304,7 +316,7 @@ private:
 
 	std::shared_ptr<class ItemList> CurItemList = nullptr;
 	//EquipWindow
-	std::map <int, std::string> EquipItemList;
+	std::map <int, std::shared_ptr<ItemInfo>> EquipItemList;
 
 	std::shared_ptr<class EquipItemList> CurEquipItemList = nullptr;
 };

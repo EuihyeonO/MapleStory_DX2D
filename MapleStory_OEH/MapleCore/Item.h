@@ -52,12 +52,12 @@ private:
 	bool isEquip = false;
 
 	int ItemType = 0;
-	int EquipLevel = 0;
+	//int EquipLevel = 0;
+	//int NumOfItem = 0;
+	//int EquipType = -1;
 	
-	int NumOfItem = 0;
+	std::shared_ptr<struct ItemInfo> MyInfo = nullptr;
 
-	int EquipType = -1;
-	
 	int ItemIndex = 0;
 
 	std::shared_ptr<class ItemList> ParentItemList = nullptr;

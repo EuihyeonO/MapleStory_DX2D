@@ -36,10 +36,12 @@ void ItemList::Start()
 
 void ItemList::Update(float _DeltaTime) 
 {
+
 }
 
 void ItemList::Render(float _DeltaTime) 
 {
+
 }
 
 std::shared_ptr<Item> ItemList::CreateItem(const std::shared_ptr<ItemInfo> _ItemInfo, int _ItemType, int _Index)
@@ -302,44 +304,40 @@ int ItemList::GetRealSizeOfItemList(int _ItemType)
 	return count;
 }
 
-void ItemList::EquipItem(std::shared_ptr<class Item> _Item)
+void ItemList::EquipItem(std::shared_ptr<Item> _Item)
 {
-	//if (_Item->EquipLevel > PlayerValue::GetValue()->GetLevel())
-	//{
-	//	return;
-	//}
+	if (_Item->MyInfo->Level > PlayerValue::GetValue()->GetLevel())
+	{
+		return;
+	}
 
-	//std::string ItemName = GameEngineString::ToUpper(_Item->ItemName);
-	//int ItemType = _Item->ItemType;
+	std::string ItemName = GameEngineString::ToUpper(_Item->ItemName);
+	int ItemType = _Item->ItemType;
 
-	//std::string CurEquipItemName = UIController::GetUIController()->GetEquipItem(ItemType).data();
-	//
-	//DeleteItem(_Item);
+	std::shared_ptr<ItemInfo> CurItem = UIController::GetUIController()->GetEquipItem(ItemType);
+	
+	DeleteItem(_Item);
 
-	//if (CurEquipItemName != "")
-	//{
-	//	UIController::GetUIController()->AddToItemList(CurEquipItemName, ItemType);
-	//}
-
-	//UIController::GetUIController()->GetEquipItem(ItemType);
-	//UIController::GetUIController()->AddToEquipItemList(ItemName, ItemType);
+	UIController::GetUIController()->AddToEquipItemList(_Item->MyInfo, ItemType);
 }
 
 void ItemList::DeleteItem(std::shared_ptr<Item> _Item)
 {
 	int ItemType = _Item->ItemType;
 
-	UIController::GetUIController()->DeleteToItemList(_Item->ItemName, ItemType);
+	std::map<int, std::vector<std::shared_ptr<ItemInfo>>>& CurList =  UIController::GetUIController()->GetItemList();
+
+	UIController::GetUIController()->DeleteToItemList(_Item->MyInfo->ItemName, ItemType);
 	
-	size_t Size = MyItemList.size();
+	std::map<int, std::vector<std::shared_ptr<ItemInfo>>>& NextList = UIController::GetUIController()->GetItemList();
+
+	size_t Size = MyItemList[ItemType].size();
 
 	for (int i = 0; i < Size; i++)
 	{
-		if (MyItemList[_item->ItemType][i] == _Item)
+		if (MyItemList[ItemType][i] == _Item)
 		{
-			_Item->NumOfItem--;
-
-			if (_Item->NumOfItem <= 0)
+			if (_Item->MyInfo->Num <= 0)
 			{
 				_Item->Death();
 				MyItemList[ItemType][i] = nullptr;

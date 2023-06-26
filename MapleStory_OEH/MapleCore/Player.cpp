@@ -125,9 +125,12 @@ void Player::Update(float _DeltaTime)
 		if(UIController::GetUIController()->GetNumOfItem(static_cast<int>(ItemType::Equip)) < 24)
 		{
 			std::shared_ptr<ItemInfo> NewItem = std::make_shared<ItemInfo>();
-			NewItem->ItemName = "WhiteTShirt";
+			NewItem->ItemName = "WHITETSHIRT";
+			std::shared_ptr<ItemInfo> NewItem2 = std::make_shared<ItemInfo>();
+			NewItem2->ItemName = "GRAYTSHIRT";
 
 			UIController::GetUIController()->AddToItemList(NewItem, static_cast<int>(ItemType::Equip));
+			UIController::GetUIController()->AddToItemList(NewItem2, static_cast<int>(ItemType::Equip));
 		}
 	}
 }
@@ -139,8 +142,8 @@ void Player::BasicUpdate(float _DeltaTime)
 	TexturePosUpdate();
 
 	GetItem();
-	CameraUpdate(_DeltaTime);
 
+	CameraUpdate(_DeltaTime);
 	StatusFuncUpdate();
 }
 
@@ -342,6 +345,7 @@ int Player::GetStateByKeyInput() const
 	}
 }
 
+
 void Player::CameraUpdate(float _DeltaTime)
 {
 	float HalfWidth = ColMap->GetWidth() * 0.5f;
@@ -350,9 +354,10 @@ void Player::CameraUpdate(float _DeltaTime)
 	float4 PlayerPos = GetTransform()->GetLocalPosition();
 	float4 CameraPos = GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition();
 
-	// 플레이어와 카메라의 위치를 보간하여 새로운 위치 계산
-	float4 newPosition = newPosition.Lerp(CameraPos, PlayerPos, 1.5f * _DeltaTime);
-	
+	float4 newPosition = PlayerPos;
+	// 플레이어와 카메라의 위치를 보간하여 새로운 위치 계산 
+	//float4 newPosition = newPosition.Lerp(CameraPos, PlayerPos, 2.0f * _DeltaTime);
+
 	float MaxY = 350.0f;
 
 	if (GetLevel()->GetName() == "ALTEROFZAKUM")

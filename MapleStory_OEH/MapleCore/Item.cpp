@@ -32,17 +32,11 @@ void Item::Render(float _DeltaTime)
 
 void Item::SetItemInfo(std::shared_ptr<ItemInfo> _ItemInfo, int _ItemType)
 {
-	ItemName = _ItemInfo->ItemName;
-	NumOfItem = _ItemInfo->Num;
-	EquipLevel = _ItemInfo->Level;
+	MyInfo = _ItemInfo;
+
 	ItemType = static_cast<int>(_ItemType);
 
-	if(_ItemType == static_cast<int>(ItemType::Equip))
-	{
-		EquipType = _ItemInfo->EquipType;
-	}
-
-	ItemRender->SetScaleToTexture(ItemName + "Icon.png");
+	ItemRender->SetScaleToTexture(MyInfo->ItemName + "Icon.png");
 	ItemRender->Off();
 
 	ItemCollision = CreateComponent<GameEngineCollision>();

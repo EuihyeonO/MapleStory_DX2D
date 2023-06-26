@@ -23,11 +23,11 @@ UIController::UIController()
 		MyItemList[(static_cast<int>(EquipType::Coat))].push_back(nullptr);
 	}
 
-	EquipItemList[(static_cast<int>(EquipType::Cap))] = "";
-	EquipItemList[(static_cast<int>(EquipType::Shoes))] = "";
-	EquipItemList[(static_cast<int>(EquipType::Weapon))] = "";
-	EquipItemList[(static_cast<int>(EquipType::Pants))] = "";
-	EquipItemList[(static_cast<int>(EquipType::Coat))] = "";
+	EquipItemList[(static_cast<int>(EquipType::Cap))] = nullptr;
+	EquipItemList[(static_cast<int>(EquipType::Shoes))] = nullptr;
+	EquipItemList[(static_cast<int>(EquipType::Weapon))] = nullptr;
+	EquipItemList[(static_cast<int>(EquipType::Pants))] = nullptr;
+	EquipItemList[(static_cast<int>(EquipType::Coat))] = nullptr;
 
 }
 
