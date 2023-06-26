@@ -155,7 +155,7 @@ void Level_CrossRoad::LoadResources()
 		NewDir.MoveParentToDirectory("MapleResources");
 		NewDir.Move("MapleResources");
 		NewDir.Move("CrossRoad");
-		NewDir.Move("NotSprite");
+		NewDir.Move("CrossRoadNotSprite");
 
 		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
 		for (size_t i = 0; i < File.size(); i++)
@@ -169,7 +169,7 @@ void Level_CrossRoad::LoadResources()
 		NewDir.MoveParentToDirectory("MapleResources");
 		NewDir.Move("MapleResources");
 		NewDir.Move("CrossRoad");
-		NewDir.Move("NotSprite");
+		NewDir.Move("CrossRoadNotSprite");
 
 		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
 		for (size_t i = 0; i < File.size(); i++)
@@ -187,7 +187,7 @@ void Level_CrossRoad::UnLoadResources()
 		NewDir.MoveParentToDirectory("MapleResources");
 		NewDir.Move("MapleResources");
 		NewDir.Move("CrossRoad");
-		NewDir.Move("NotSprite");
+		NewDir.Move("CrossRoadNotSprite");
 
 		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
 		for (size_t i = 0; i < File.size(); i++)

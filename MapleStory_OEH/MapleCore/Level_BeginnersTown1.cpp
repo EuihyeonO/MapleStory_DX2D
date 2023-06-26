@@ -160,7 +160,7 @@ void Level_BeginnersTown1::LoadResources()
 		NewDir.MoveParentToDirectory("MapleResources");
 		NewDir.Move("MapleResources");
 		NewDir.Move("BeginnersTown1");
-		NewDir.Move("NotSprite");
+		NewDir.Move("BeginnersTown1NotSprite");
 
 		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
 		for (size_t i = 0; i < File.size(); i++)
@@ -174,7 +174,7 @@ void Level_BeginnersTown1::LoadResources()
 		NewDir.MoveParentToDirectory("MapleResources");
 		NewDir.Move("MapleResources");
 		NewDir.Move("BeginnersTown1");
-		NewDir.Move("NotSprite");
+		NewDir.Move("BeginnersTown1NotSprite");
 
 		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
 		for (size_t i = 0; i < File.size(); i++)
@@ -192,7 +192,7 @@ void Level_BeginnersTown1::UnLoadResources()
 		NewDir.MoveParentToDirectory("MapleResources");
 		NewDir.Move("MapleResources");
 		NewDir.Move("BeginnersTown1");
-		NewDir.Move("NotSprite");
+		NewDir.Move("BeginnersTown1NotSprite");
 
 		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
 
