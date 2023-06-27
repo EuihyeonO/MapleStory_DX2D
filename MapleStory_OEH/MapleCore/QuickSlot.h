@@ -75,6 +75,9 @@ protected:
 	void Update(float _DeltaTime) override;
 	void Render(float _DeltaTime) override;
 private:
+
+	void ColPosUpdate();
+
 	std::shared_ptr<GameEngineUIRenderer> QuickSlotRender = nullptr;
 	std::shared_ptr<GameEngineUIRenderer> QuickSlotLayer = nullptr;
 

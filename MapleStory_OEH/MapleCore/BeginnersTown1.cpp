@@ -24,10 +24,7 @@ BeginnersTown1::~BeginnersTown1()
 
 void BeginnersTown1::Start()
 {
-	std::shared_ptr<MonsterSpawnZone> Zone = GetLevel()->CreateActor<MonsterSpawnZone>();
-	Zone->SetColMap(ColMapName);
-	Zone->SetMonsterToZone(MonsterName::GreenSnail, 5);
-	Zone->SetZonePosAndScale({ 200,0 }, 200.0f);
+
 
 	LandScape0 = CreateComponent<GameEngineSpriteRenderer>();
 	LandScape0->SetTexture("MapBackGround0.png");

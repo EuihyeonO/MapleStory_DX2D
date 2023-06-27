@@ -4,6 +4,7 @@
 
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineUIRenderer.h>
+#include <GameEngineCore/GameEngineLevel.h>
 
 QuickSlot::QuickSlot()
 {
@@ -15,10 +16,11 @@ QuickSlot::~QuickSlot()
 
 void QuickSlot::Start()
 {
-	UIController::GetUIController()->AddQuickSlotToList(DynamicThis<QuickSlot>());
+	UIController::GetUIController()->SetCurQuickSlot(DynamicThis<QuickSlot>());
 
 	QuickSlotRender = CreateComponent<GameEngineUIRenderer>();
 	QuickSlotRender->SetScaleToTexture("QuickSlot.png");
+
 
 	float4 ScreenSize = GameEngineWindow::GetScreenSize();
 	float4 QuickSlotScale = QuickSlotRender->GetTransform()->GetLocalScale();
@@ -111,23 +113,6 @@ void QuickSlot::Start()
 	PgDnSkill->GetTransform()->SetLocalPosition(QuickSlotRender->GetTransform()->GetLocalPosition() + float4{ 53, -17 });
 	PgDnSkill->Off();
 
-	//ColSlotSkill[DelSlot].first = &Player::SetDelSkill;
-	//ColSlotSkill[DelSlot].second = DelSkill;
-	//ColSlotSkill[ShiftSlot].first = &Player::SetShiftSkill;
-	//ColSlotSkill[ShiftSlot].second = ShiftSkill;
-	//ColSlotSkill[PgUpSlot].first = &Player::SetPgUpSkill;
-	//ColSlotSkill[PgUpSlot].second = PgUpSkill;
-	//ColSlotSkill[InsSlot].first = &Player::SetInsSkill;
-	//ColSlotSkill[InsSlot].second = InsSkill;
-	//ColSlotSkill[HomeSlot].first = &Player::SetHomeSkill;
-	//ColSlotSkill[HomeSlot].second = HomeSkill;
-	//ColSlotSkill[CtrlSlot].first = &Player::SetCtrlSkill;
-	//ColSlotSkill[CtrlSlot].second = CtrlSkill;
-	//ColSlotSkill[EndSlot].first = &Player::SetEndSkill;
-	//ColSlotSkill[EndSlot].second = EndSkill;
-	//ColSlotSkill[PgDnSlot].first = &Player::SetPgDnSkill;
-	//ColSlotSkill[PgDnSlot].second = PgDnSkill;
-
 	ColSlotSkill[DelSlot] = &UIController::SetDelSkill;
 	ColSlotSkill[ShiftSlot] = &UIController::SetShiftSkill;
 	ColSlotSkill[PgUpSlot] = &UIController::SetPgUpSkill;
@@ -139,13 +124,31 @@ void QuickSlot::Start()
 
 	CtrlSkill->On();
 	CtrlSkill->SetScaleToTexture("BasicSwingIcon.png");
+
+	UIController::GetUIController()->LoadQuickSlotSkill();
 }
 
 void QuickSlot::Update(float _DeltaTime) 
 {
+	ColPosUpdate();
 }
 
 void QuickSlot::Render(float _DeltaTime)
 {
 
+}
+
+void QuickSlot::ColPosUpdate()
+{
+	float4 CamPos = GetLevel()->GetMainCamera()->GetTransform()->GetWorldPosition();
+	float4 QuickSlotPos = QuickSlotRender->GetTransform()->GetLocalPosition();
+
+	ShiftSlot->GetTransform()->SetLocalPosition(CamPos + QuickSlotPos + float4{ -52, 17 });
+	InsSlot->GetTransform()->SetLocalPosition(CamPos + QuickSlotPos + float4{ -17, 17 });
+	HomeSlot->GetTransform()->SetLocalPosition(CamPos + QuickSlotPos + float4{ 18, 17 });
+	PgUpSlot->GetTransform()->SetLocalPosition(CamPos + QuickSlotPos + float4{ 53, 17 });
+	CtrlSlot->GetTransform()->SetLocalPosition(CamPos + QuickSlotPos + float4{ -52, -17 });
+	DelSlot->GetTransform()->SetLocalPosition(CamPos + QuickSlotPos + float4{ -17, -17 });
+	EndSlot->GetTransform()->SetLocalPosition(CamPos + QuickSlotPos + float4{ 18, -17 });
+	PgDnSlot->GetTransform()->SetLocalPosition(CamPos + QuickSlotPos + float4{ 53, -17 });
 }

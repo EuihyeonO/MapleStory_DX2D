@@ -39,6 +39,7 @@ protected:
 private:
 
 	void ChangeWindowIndex();
+	void ColPosUpdate();
 
 	int Index = 0;
 

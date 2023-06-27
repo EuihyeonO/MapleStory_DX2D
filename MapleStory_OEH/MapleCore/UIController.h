@@ -34,9 +34,9 @@ public:
 		return &Value;
 	}
 
-	void AddQuickSlotToList(std::shared_ptr<class QuickSlot> _QuickSlot)
+	void SetCurQuickSlot(std::shared_ptr<class QuickSlot> _QuickSlot)
 	{
-		QuickSlotList.push_back(_QuickSlot);
+		CurQuickSlot = _QuickSlot;
 	}
 
 	std::map<int, std::vector<std::shared_ptr<ItemInfo>>>& GetItemList()
@@ -185,99 +185,167 @@ public:
 
 	void SetShiftSkill(const std::string_view& _TexName, std::function<void(std::shared_ptr<class Player>)> _SkillFunc)
 	{
+		if (_SkillFunc == nullptr)
+		{
+			return;
+		}
+
 		ShiftSkillTexName = _TexName.data();
 		ShiftSkill = _SkillFunc;
 
-		for (int i = 0; i < QuickSlotList.size(); i++)
-		{
-			QuickSlotList[i]->SetShiftSlotTexture(ShiftSkillTexName);
-		}
+		CurQuickSlot->SetShiftSlotTexture(ShiftSkillTexName);
 
 		PlayerValue::GetValue()->SetShiftSkillAllPlayer(_SkillFunc);
 	}
 	void SetInsSkill(const std::string_view& _TexName, std::function<void(std::shared_ptr<class Player>)> _SkillFunc)
 	{
+		if (_SkillFunc == nullptr)
+		{
+			return;
+		}
+
 		InsSkillTexName = _TexName.data();
 		InsSkill = _SkillFunc;
 
-		for (int i = 0; i < QuickSlotList.size(); i++)
-		{
-			QuickSlotList[i]->SetInsSlotTexture(InsSkillTexName);
-		}
+		CurQuickSlot->SetInsSlotTexture(InsSkillTexName);
 
 		PlayerValue::GetValue()->SetInsSkillAllPlayer(_SkillFunc);
 	}
 	void SetHomeSkill(const std::string_view& _TexName, std::function<void(std::shared_ptr<class Player>)> _SkillFunc)
 	{
+		if (_SkillFunc == nullptr)
+		{
+			return;
+		}
+
 		HomeSkillTexName = _TexName.data();
 		HomeSkill = _SkillFunc;
-
-		for (int i = 0; i < QuickSlotList.size(); i++)
-		{
-			QuickSlotList[i]->SetHomeSlotTexture(HomeSkillTexName);
-		}
+			
+		CurQuickSlot->SetHomeSlotTexture(HomeSkillTexName);
 
 		PlayerValue::GetValue()->SetHomeSkillAllPlayer(_SkillFunc);
 	}
 	void SetPgUpSkill(const std::string_view& _TexName, std::function<void(std::shared_ptr<class Player>)> _SkillFunc)
 	{
+		if (_SkillFunc == nullptr)
+		{
+			return;
+		}
+
 		PgUpSkillTexName = _TexName.data();
 		PgUpSkill = _SkillFunc;
 
-		for (int i = 0; i < QuickSlotList.size(); i++)
-		{
-			QuickSlotList[i]->SetPgUpSlotTexture(PgUpSkillTexName);
-		}
+		CurQuickSlot->SetPgUpSlotTexture(PgUpSkillTexName);
 
 		PlayerValue::GetValue()->SetPgUpSkillAllPlayer(_SkillFunc);
 	}
 	void SetCtrlSkill(const std::string_view& _TexName, std::function<void(std::shared_ptr<class Player>)> _SkillFunc)
 	{
+		if (_SkillFunc == nullptr)
+		{
+			return;
+		}
+
 		CtrlSkillTexName = _TexName.data();
 		CtrlSkill = _SkillFunc;
 
-		for (int i = 0; i < QuickSlotList.size(); i++)
-		{
-			QuickSlotList[i]->SetCtrlSlotTexture(CtrlSkillTexName);
-		}
+		CurQuickSlot->SetCtrlSlotTexture(CtrlSkillTexName);
 
 		PlayerValue::GetValue()->SetCtrlSkillAllPlayer(_SkillFunc);
 	}
+
 	void SetDelSkill(const std::string_view& _TexName, std::function<void(std::shared_ptr<class Player>)> _SkillFunc)
 	{
+		if (_SkillFunc == nullptr)
+		{
+			return;
+		}
+
 		DelSkillTexName = _TexName.data();
 		DelSkill = _SkillFunc;
-
-		for (int i = 0; i < QuickSlotList.size(); i++)
-		{
-			QuickSlotList[i]->SetDelSlotTexture(DelSkillTexName);
-		}
+			
+		CurQuickSlot->SetDelSlotTexture(DelSkillTexName);
 
 		PlayerValue::GetValue()->SetDelSkillAllPlayer(_SkillFunc);
 	}
 	void SetEndSkill(const std::string_view& _TexName, std::function<void(std::shared_ptr<class Player>)> _SkillFunc)
 	{
+		if (_SkillFunc == nullptr)
+		{
+			return;
+		}
+
 		EndSkillTexName = _TexName.data();
 		EndSkill = _SkillFunc;
 
-		for (int i = 0; i < QuickSlotList.size(); i++)
-		{
-			QuickSlotList[i]->SetEndSlotTexture(EndSkillTexName);
-		}
+		CurQuickSlot->SetEndSlotTexture(EndSkillTexName);
 
 		PlayerValue::GetValue()->SetEndSkillAllPlayer(_SkillFunc);
 	}
 	void SetPgDNSkill(const std::string_view& _TexName, std::function<void(std::shared_ptr<class Player>)> _SkillFunc)
 	{
+		if (_SkillFunc == nullptr)
+		{
+			return;
+		}
+
 		PgDNSkillTexName = _TexName.data();
 		PgDNSkill = _SkillFunc;
 
-		for (int i = 0; i < QuickSlotList.size(); i++)
-		{
-			QuickSlotList[i]->SetPgDnSlotTexture(PgDNSkillTexName);
-		}
+		CurQuickSlot->SetPgDnSlotTexture(PgDNSkillTexName);
 
 		PlayerValue::GetValue()->SetPgDnSkillAllPlayer(_SkillFunc);
+	}
+
+	void LoadQuickSlotSkill()
+	{
+		if(ShiftSkillTexName != "" && ShiftSkill != nullptr)
+		{
+			CurQuickSlot->SetShiftSlotTexture(ShiftSkillTexName);
+			PlayerValue::GetValue()->SetShiftSkillAllPlayer(ShiftSkill);
+		}
+
+		if(CtrlSkillTexName != "" && CtrlSkill != nullptr)
+		{
+			CurQuickSlot->SetCtrlSlotTexture(CtrlSkillTexName);
+			PlayerValue::GetValue()->SetCtrlSkillAllPlayer(CtrlSkill);
+		}
+
+		if(EndSkillTexName != "" && EndSkill != nullptr)
+		{
+			CurQuickSlot->SetEndSlotTexture(EndSkillTexName);
+			PlayerValue::GetValue()->SetEndSkillAllPlayer(EndSkill);
+		}
+
+		if(HomeSkillTexName != "" && HomeSkill != nullptr)
+		{
+			CurQuickSlot->SetHomeSlotTexture(HomeSkillTexName);
+			PlayerValue::GetValue()->SetHomeSkillAllPlayer(HomeSkill);
+		}
+
+		if(InsSkillTexName != "" && InsSkill != nullptr)
+		{
+			CurQuickSlot->SetInsSlotTexture(InsSkillTexName);
+			PlayerValue::GetValue()->SetInsSkillAllPlayer(InsSkill);
+		}
+
+		if(PgUpSkillTexName != "" && PgUpSkill != nullptr)
+		{
+			CurQuickSlot->SetPgUpSlotTexture(PgUpSkillTexName);
+			PlayerValue::GetValue()->SetPgUpSkillAllPlayer(PgUpSkill);
+		}
+
+		if(DelSkillTexName != "" && DelSkill != nullptr)
+		{
+			CurQuickSlot->SetDelSlotTexture(DelSkillTexName);
+			PlayerValue::GetValue()->SetDelSkillAllPlayer(DelSkill);
+		}
+
+		if(PgDNSkillTexName != "" && PgDNSkill != nullptr)
+		{
+			CurQuickSlot->SetPgDnSlotTexture(PgDNSkillTexName);
+			PlayerValue::GetValue()->SetPgDnSkillAllPlayer(PgDNSkill);
+		}
 	}
 
 	void SetSkillAllQuickSlot();
@@ -291,7 +359,7 @@ private:
 	static UIController Value;
 
 	//QuickSlot
-	std::vector<std::shared_ptr<class QuickSlot>> QuickSlotList;
+	std::shared_ptr<class QuickSlot> CurQuickSlot;
 
 	std::string ShiftSkillTexName = "";
 	std::string InsSkillTexName = "";

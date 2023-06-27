@@ -190,6 +190,18 @@
     <ClInclude Include="ContentButton.h">
       <Filter>ContentRenderer</Filter>
     </ClInclude>
+    <ClInclude Include="Spore.h">
+      <Filter>Actor\Monster\Mob</Filter>
+    </ClInclude>
+    <ClInclude Include="BlueSnail.h">
+      <Filter>Actor\Monster\Mob</Filter>
+    </ClInclude>
+    <ClInclude Include="Level_ZakumRoad1.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="ZakumRoad1.h">
+      <Filter>Actor\Map</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Level_Title.cpp">
@@ -405,6 +417,18 @@
     <ClCompile Include="ContentButton.cpp">
       <Filter>ContentRenderer</Filter>
     </ClCompile>
+    <ClCompile Include="Spore.cpp">
+      <Filter>Actor\Monster\Mob</Filter>
+    </ClCompile>
+    <ClCompile Include="BlueSnail.cpp">
+      <Filter>Actor\Monster\Mob</Filter>
+    </ClCompile>
+    <ClCompile Include="Level_ZakumRoad1.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="ZakumRoad1.cpp">
+      <Filter>Actor\Map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -491,5 +515,10 @@
     <Filter Include="Actor\Monster\Boss\ZakumBody">
       <UniqueIdentifier>{a948a709-c62b-44cf-9531-5a152e455bc9}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\해야 할 일 .txt">
+      <Filter>Etc</Filter>
+    </Text>
   </ItemGroup>
 </Project>

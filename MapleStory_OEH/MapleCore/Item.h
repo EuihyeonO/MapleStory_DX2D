@@ -45,6 +45,9 @@ protected:
 	void Render(float _DeltaTime) override;
 private:
 	
+	void NumRenderUpdate();
+	void NumRenderOff();
+	void NumRenderOn();
 	std::string ItemName = "";
 
 	bool isEmptyItem = false;
@@ -64,5 +67,7 @@ private:
 
 	std::shared_ptr<GameEngineUIRenderer> ItemRender = nullptr;
 	std::shared_ptr<GameEngineCollision> ItemCollision = nullptr;
+
+	std::vector<std::shared_ptr<GameEngineUIRenderer>> NumRender;
 };
 

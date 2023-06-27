@@ -6,6 +6,7 @@
 #include "Level_BeginnersTown2.h"
 #include "Level_CrossRoad.h"
 #include "Level_AlterOfZakum.h"
+#include "Level_ZakumRoad1.h"
 
 #include <GameEngineCore/GameEngineCore.h>
 #include <GameEngineCore/GameEngineLevel.h>
@@ -74,6 +75,7 @@ void MapleCore::GameStart()
 	GameEngineCore::CreateLevel<Level_BeginnersTown1>();
 	GameEngineCore::CreateLevel<Level_BeginnersTown2>();
 	GameEngineCore::CreateLevel<Level_CrossRoad>();
+	GameEngineCore::CreateLevel<Level_ZakumRoad1>();
 	//GameEngineCore::CreateLevel<Level_AlterOfZakum>();
 	GameEngineCore::ChangeLevel("Level_Title");
 }

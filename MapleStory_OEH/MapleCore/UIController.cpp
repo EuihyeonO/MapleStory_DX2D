@@ -6,7 +6,6 @@ UIController UIController::Value;
 
 UIController::UIController()
 {
-	QuickSlotList.reserve(10);
 
 	MyItemList[(static_cast<int>(EquipType::Cap))].reserve(24);
 	MyItemList[(static_cast<int>(EquipType::Shoes))].reserve(24);

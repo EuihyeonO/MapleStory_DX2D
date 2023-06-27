@@ -46,6 +46,7 @@ void SkillWindow::Start()
 void SkillWindow::Update(float _DeltaTime) 
 {
 	ChangeWindowIndex();
+	ColPosUpdate();
 }
 
 void SkillWindow::Render(float _DeltaTime) 
@@ -142,4 +143,20 @@ void SkillWindow::ChangeWindowIndex()
 			return;
 		}
 	}
+}
+
+
+void SkillWindow::ColPosUpdate()
+{
+	float4 CamPos = GetLevel()->GetMainCamera()->GetTransform()->GetWorldPosition();
+
+	Index0->GetTransform()->SetLocalPosition(CamPos + float4{ -68, 110 });
+
+	Index1->GetTransform()->SetLocalPosition(CamPos + float4{ -36, 110 });
+
+	Index2->GetTransform()->SetLocalPosition(CamPos + float4{ -4, 110 });
+
+	Index3->GetTransform()->SetLocalPosition(CamPos + float4{ 28, 110 });
+
+	Index4->GetTransform()->SetLocalPosition(CamPos + float4{ 60, 110 });
 }

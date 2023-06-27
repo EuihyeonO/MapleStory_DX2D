@@ -67,7 +67,10 @@ void DropItem::MoveDropItem(float _DeltaTime)
 
 		if (DropItemCollision->Collision(static_cast<int>(CollisionOrder::PlayerPoint), ColType::AABBBOX2D, ColType::AABBBOX2D) != nullptr)
 		{
-			//UIController::GetUIController()->AddToItemList("GreenShell", static_cast<int>(ItemType::Etc));
+			std::shared_ptr<ItemInfo> NewItem = std::make_shared<ItemInfo>();
+			NewItem->ItemName = ItemName;
+
+			UIController::GetUIController()->AddToItemList(NewItem, static_cast<int>(ItemType::Etc));
 			Death();
 			return;
 		}
@@ -109,7 +112,6 @@ void DropItem::MoveDropItem(float _DeltaTime)
 	NextPos.x = CurPos.x + 2.0f * XDistance * _DeltaTime;
 	NextPos.y = CurPos.y;
 	NextPos.z = -15.0f;
-	//NextPos.y = Coefficient * (NextPos.x - StartPos.x) * (NextPos.x - Xintercept) + StartPos.y;
 
 	float4 MapSize = ColMap->GetScale();
 
@@ -155,28 +157,11 @@ void DropItem::MoveDropItem(float _DeltaTime)
 
 	GetTransform()->SetLocalPosition(NextPos);
 	DropItemRender->GetTransform()->AddLocalRotation({ 0.0f, 0.0f, -Dir * 1440.0f * _DeltaTime });
-	//if (Color == MapColor)
-	//{
-	//	while (Color == MapColor)
-	//	{
-	//		NextPos.y++;
-	//		ColorPos.y--;
-
-	//		MapColor = ColMap->GetPixel(static_cast<int>(ColorPos.x), static_cast<int>(ColorPos.y));
-	//	}
-
-	//	int ConvertYtoInt = static_cast<int>(NextPos.y);
-
-	//	GetTransform()->SetLocalPosition({ CurPos.x, static_cast<float>(ConvertYtoInt - 1.0f)});
-	//	return;
-	//}
-
-	//GetTransform()->SetLocalPosition(NextPos);
 }
 
 void DropItem::SetDropItemInfo(const std::string_view& _ItemName)
 {
-	std::string ItemName = _ItemName.data();
+	ItemName = _ItemName.data();
 	DropItemRender->SetScaleToTexture(ItemName + "Icon.png");
 
 	TransformData RenderData = DropItemRender->GetTransform()->GetTransDataRef();
@@ -184,7 +169,7 @@ void DropItem::SetDropItemInfo(const std::string_view& _ItemName)
 	DropItemRender->GetTransform()->SetLocalPosition({ 0.0f, RenderData.LocalScale.y * 0.5f });
 	DropItemRender->On();
 
-	DropItemCollision->GetTransform()->SetLocalScale(RenderData.LocalScale);
+	DropItemCollision->GetTransform()->SetLocalScale({5, 5});
 	DropItemCollision->On();
 
 	isInfoSet = true;

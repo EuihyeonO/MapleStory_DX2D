@@ -75,11 +75,15 @@ protected:
 	void Render(float _DeltaTime) override;
 private:
 
+	void ColPosUpdate();
+
 	void InsertSkillToList(int _Index, const std::string_view& _SkillName);
 	void IndexSkillOn(int _Index);
 	void IndexSkillOff(int _Index);
 	void SortSkillList(int _Index, float4 _Pos = {0, 0});
 	void SetSkillFunc(std::shared_ptr<SkillList::SkillIcon> _SkillIcon);
+
+	int CurIndex = 0;
 
 	std::shared_ptr<GameEngineCollision> CollisionCheck();
 	std::shared_ptr<GameEngineCollision> CollisionCheckToQuickSlot();

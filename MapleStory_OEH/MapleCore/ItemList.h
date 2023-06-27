@@ -18,7 +18,7 @@ public:
 	ItemList& operator=(const ItemList& _Other) = delete;
 	ItemList& operator=(ItemList&& _Other) noexcept = delete;
 	
-	std::shared_ptr<class Item> CreateItem(const std::shared_ptr<struct ItemInfo> _ItemInfo, int _ItemType, int _Index = -1);
+	void CreateItem(const std::shared_ptr<struct ItemInfo> _ItemInfo, int _ItemType, int _Index = -1);
 
 	void SortItemListToType(int _ItemType);
 	void SortItemList();
@@ -36,6 +36,9 @@ public:
 	void InventoryItemOff(int _CurItemType);
 
 	int GetRealSizeOfItemList(int _ItemType);
+
+	int FindItem(const std::string_view& _ItemName, int _ItemType);
+
 protected:
 	void Start();
 	void Update(float _DeltaTime) override;

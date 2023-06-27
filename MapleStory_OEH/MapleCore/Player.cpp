@@ -98,52 +98,31 @@ void Player::Start()
 
 void Player::Update(float _DeltaTime)
 {
+	TimeCounting();
+
 	if (GetLevel()->GetName() == "TITLE")
 	{
-		TimeCounting();
 
-		TextureAnimationUpdate();
-		TextureUpdate();
-		TexturePosUpdate();
+		BasicUpdate(_DeltaTime);
 
 		return;
 	}
-
-	TimeCounting();
 
 	FallingDown(_DeltaTime);
 	ActingUpdate(_DeltaTime);
 
 	BasicUpdate(_DeltaTime);
-	
-	if (GameEngineInput::IsKey("MyTest1") == false)
-	{
-		GameEngineInput::CreateKey("MyTest1", 'B');
-	}
-	if (GameEngineInput::IsDown("MyTest1") == true)
-	{
-		if(UIController::GetUIController()->GetNumOfItem(static_cast<int>(ItemType::Equip)) < 24)
-		{
-			std::shared_ptr<ItemInfo> NewItem = std::make_shared<ItemInfo>();
-			NewItem->ItemName = "WHITETSHIRT";
-			std::shared_ptr<ItemInfo> NewItem2 = std::make_shared<ItemInfo>();
-			NewItem2->ItemName = "GRAYTSHIRT";
-
-			UIController::GetUIController()->AddToItemList(NewItem, static_cast<int>(ItemType::Equip));
-			UIController::GetUIController()->AddToItemList(NewItem2, static_cast<int>(ItemType::Equip));
-		}
-	}
+	CameraUpdate(_DeltaTime);
 }
 
 void Player::BasicUpdate(float _DeltaTime)
 {
+	
 	TextureAnimationUpdate();
 	TextureUpdate();
 	TexturePosUpdate();
 
-	GetItem();
-
-	CameraUpdate(_DeltaTime);
+	GetItem();	
 	StatusFuncUpdate();
 }
 
@@ -354,9 +333,9 @@ void Player::CameraUpdate(float _DeltaTime)
 	float4 PlayerPos = GetTransform()->GetLocalPosition();
 	float4 CameraPos = GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition();
 
-	float4 newPosition = PlayerPos;
+	//float4 newPosition = PlayerPos;
 	// 플레이어와 카메라의 위치를 보간하여 새로운 위치 계산 
-	//float4 newPosition = newPosition.Lerp(CameraPos, PlayerPos, 2.0f * _DeltaTime);
+	float4 newPosition = newPosition.Lerp(CameraPos, PlayerPos, 2.0f * _DeltaTime);
 
 	float MaxY = 350.0f;
 

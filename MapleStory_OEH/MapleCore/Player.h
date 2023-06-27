@@ -3,6 +3,16 @@
 #include "BuffList.h"
 #include <GameEngineCore/GameEngineTexture.h>
 
+struct KnockBackInfo
+{
+	float4 Dir;
+	float4 RealDir;
+	float Distance;
+	float Speed;
+	float MinTime;
+	float Time = 0.0f;
+};
+
 class GameEngineSpriteRenderer;
 class Player : public BasicFunction
 {
@@ -124,7 +134,7 @@ public:
 
 	void SetLeft();
 	void SetRight();
-	void KnockBack(float4 _Dir, float _Distance, int _Damage);
+	void KnockBack(float4 _Dir, float _Distance, int _Damage, float _Speed = 750.0f, float _MinTime = 10.0f);
 
 	Player();
 	~Player();
@@ -205,7 +215,7 @@ private:
 
 	void KnockBackUpdate(float _DeltaTime);
 
-	std::shared_ptr<std::pair<float4, float>> KnockBackInfo = nullptr;
+	std::shared_ptr<KnockBackInfo> MyKnockBackInfo = nullptr;
 
 	bool isRopeOrLadder = false;
 	bool isGround = false;

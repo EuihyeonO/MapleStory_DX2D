@@ -4,6 +4,7 @@
 #include "UIController.h"
 #include "Mouse.h"
 #include "PlayerValue.h"
+#include "ContentFontRenderer.h"
 
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEnginePlatform/GameEngineInput.h>
@@ -44,33 +45,48 @@ void ItemList::Render(float _DeltaTime)
 
 }
 
-std::shared_ptr<Item> ItemList::CreateItem(const std::shared_ptr<ItemInfo> _ItemInfo, int _ItemType, int _Index)
+void ItemList::CreateItem(const std::shared_ptr<ItemInfo> _ItemInfo, int _ItemType, int _Index)
 {
 	if (_ItemInfo == nullptr)
 	{
-		return nullptr;
+		return;
+	}
+
+
+
+	//기존에 있던 아이템이라면
+	int Index = FindItem(_ItemInfo->ItemName, _ItemType);
+	
+	if (Index != -1 && _ItemType != static_cast<int>(ItemType::Equip))
+	{
+		MyItemList[_ItemType][Index]->MyInfo->Num++;
+		SortItemListToType(_ItemType);
+		return;
 	}
 
 	std::shared_ptr<Item> NewItem = GetLevel()->CreateActor<Item>();
-	
+
 	NewItem->SetItemInfo(_ItemInfo, _ItemType);
 	NewItem->GetTransform()->SetParent(GetTransform());
 	NewItem->SetParentItemList(DynamicThis<ItemList>());
 
+	//빈공간을 채우지 않게 하기 위해
 	if (_Index != -1)
 	{
 		MyItemList[static_cast<int>(_ItemType)][_Index] = NewItem;
-		return NewItem;
+		SortItemListToType(_ItemType);
+		return;
 	}
 
-	size_t Size = MyItemList[static_cast<int>(_ItemType)].size();
-	
+	size_t Size = MyItemList[_ItemType].size();
+	//새로운 아이템이라면 빈공간부터
 	for (int i = 0; i < Size; i++)
 	{	
 		if (MyItemList[static_cast<int>(_ItemType)][i] == nullptr)
 		{
 			MyItemList[static_cast<int>(_ItemType)][i] = NewItem;
-			return NewItem;
+			SortItemListToType(_ItemType);
+			return;
 		}
 	}
 }
@@ -128,6 +144,7 @@ void ItemList::SortItemListToType(int _ItemType)
 	int count = 0;
 
 	size_t Size = MyItemList[_ItemType].size();
+	float4 Campos = GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition();
 
 	for (int i = 0; i < Size; i++)
 	{
@@ -147,8 +164,9 @@ void ItemList::SortItemListToType(int _ItemType)
 		int Xindex = count % 4;
 
 		MyItemList[_ItemType][i]->GetTransform()->SetLocalPosition(StartPos + float4{Xinterval * Xindex, Yinterval * Yindex });
-		MyItemList[_ItemType][i]->ItemIndex = count;
+		MyItemList[_ItemType][i]->NumRenderUpdate();
 
+		MyItemList[_ItemType][i]->ItemIndex = count;
 		count++;
 	}
 }
@@ -268,6 +286,7 @@ void ItemList::InventoryItemOn(int _CurItemType)
 		{
 			MyItemList[_CurItemType][i]->GetItemRender()->On();
 			MyItemList[_CurItemType][i]->GetItemCollision()->On();
+			MyItemList[_CurItemType][i]->NumRenderOn();
 		}
 	}
 }
@@ -282,6 +301,7 @@ void ItemList::InventoryItemOff(int _CurItemType)
 		{
 			MyItemList[_CurItemType][i]->GetItemRender()->Off();
 			MyItemList[_CurItemType][i]->GetItemCollision()->Off();
+			MyItemList[_CurItemType][i]->NumRenderOff();
 		}
 	}
 }
@@ -344,4 +364,19 @@ void ItemList::DeleteItem(std::shared_ptr<Item> _Item)
 			}
 		}
 	}
+}
+
+int ItemList::FindItem(const std::string_view& _ItemName, int _ItemType)
+{
+	size_t Size = MyItemList[_ItemType].size();
+
+	for (int i = 0; i < Size; i++)
+	{
+		if (MyItemList[_ItemType][i] != nullptr && MyItemList[_ItemType][i]->MyInfo->ItemName == _ItemName)
+		{
+			return i;
+		}
+	}
+
+	return -1;
 }

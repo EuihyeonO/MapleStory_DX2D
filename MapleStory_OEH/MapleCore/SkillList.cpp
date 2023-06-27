@@ -42,6 +42,8 @@ void SkillList::Update(float _DeltaTime)
 	{
 		SkillCopy();
 	}
+
+	ColPosUpdate();
 }
 
 void SkillList::Render(float _DeltaTime) 
@@ -118,6 +120,8 @@ void SkillList::IndexSkillOn(int _Index)
 		SkillVector[_Index][i]->IconRender->On();
 		SkillVector[_Index][i]->IconCollision->On();
 	}
+
+	CurIndex = _Index;
 }
 
 void SkillList::IndexSkillOff(int _Index)
@@ -234,4 +238,17 @@ void SkillList::SkillCopy(std::shared_ptr<SkillList::SkillIcon> _SkillIcon)
 	SkillIcon::IconCopy->ColorOptionValue.MulColor = { 1, 1, 1, 0.8f };
 
 	SkillIcon::FunctionCopy = _SkillIcon->SkillFunc;
+}
+
+void SkillList::ColPosUpdate()
+{
+	float4 CamPos = GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition();
+
+	for (int i = 0; i < SkillVector[CurIndex].size(); i++)
+	{
+		if (SkillVector[CurIndex][i] != nullptr && SkillVector[CurIndex][i]->IconCollision != nullptr && SkillVector[CurIndex][i]->IconCollision->IsUpdate() == true)
+		{
+			SkillVector[CurIndex][i]->IconCollision->GetTransform()->SetLocalPosition(CamPos + SkillVector[CurIndex][i]->SkillBackGround->GetTransform()->GetLocalPosition() - float4{ 53, 0 });
+		}
+	}
 }

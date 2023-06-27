@@ -57,6 +57,9 @@ enum class CollisionOrder
 enum class MonsterName
 {
 	GreenSnail,
+	Spore,
+	Boogie,
+	BlueSnail,
 
 };
 

@@ -37,6 +37,7 @@ void Level_CrossRoad::Update(float _DeltaTime)
 
 void Level_CrossRoad::LevelChangeStart()
 {
+	LoadResources();
 	ActorCreate();
 
 	if (PlayerValue::GetValue()->GetPrevLevelName() == "Level_BeginnersTown2")
@@ -52,6 +53,7 @@ void Level_CrossRoad::LevelChangeEnd()
 {
 	PlayerValue::GetValue()->SetPrevLevelName("Level_CrossRoad");
 	ActorDeath();
+	UnLoadResources();
 }
 
 void Level_CrossRoad::ActorCreate()
@@ -149,7 +151,7 @@ void Level_CrossRoad::ActorDeath()
 
 void Level_CrossRoad::LoadResources()
 {
-	if (nullptr == GameEngineTexture::Find("RozarStand0.png"))
+	if (nullptr == GameEngineTexture::Find("CrossRoad.png"))
 	{
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("MapleResources");
@@ -177,6 +179,67 @@ void Level_CrossRoad::LoadResources()
 			GameEngineTexture::ReLoad(File[i].GetFullPath());
 		}
 	}
+
+	if (nullptr == GameEngineSprite::Find("GreenSnailDeath"))
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("MapleResources");
+		NewDir.Move("MapleResources");
+		NewDir.Move("CrossRoad");
+		NewDir.Move("CrossRoadSprite");
+		NewDir.Move("GreenSnail");
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("GreenSnailDeath").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("GreenSnailHit").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("GreenSnailMove").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("GreenSnailStand").GetFullPath());
+
+		NewDir.MoveParent();
+		NewDir.Move("Spore");
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("SporeDeath").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("SporeHit").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("SporeMove").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("SporeStand").GetFullPath());
+
+		NewDir.MoveParent();
+		NewDir.Move("BlueSnail");
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("BlueSnailDeath").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("BlueSnailHit").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("BlueSnailMove").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("BlueSnailStand").GetFullPath());
+	}
+	else
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("MapleResources");
+		NewDir.Move("MapleResources");
+		NewDir.Move("CrossRoad");
+		NewDir.Move("CrossRoadSprite");
+		NewDir.Move("GreenSnail");
+
+		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("GreenSnailDeath").GetFullPath());
+		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("GreenSnailHit").GetFullPath());
+		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("GreenSnailMove").GetFullPath());
+		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("GreenSnailStand").GetFullPath());
+
+		NewDir.MoveParent();
+		NewDir.Move("Spore");
+
+		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("SporeDeath").GetFullPath());
+		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("SporeHit").GetFullPath());
+		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("SporeMove").GetFullPath());
+		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("SporeStand").GetFullPath());
+
+		NewDir.MoveParent();
+		NewDir.Move("BlueSnail");
+
+		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("BlueSnailDeath").GetFullPath());
+		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("BlueSnailHit").GetFullPath());
+		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("BlueSnailMove").GetFullPath());
+		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("BlueSnailStand").GetFullPath());
+	}
 }
 
 void Level_CrossRoad::UnLoadResources()
@@ -195,7 +258,7 @@ void Level_CrossRoad::UnLoadResources()
 
 			std::string FileFullPath = File[i].GetFullPath();
 			std::string FileName = "";
-			int Count = 0;
+			size_t Count = 0;
 
 			for (Count = FileFullPath.size(); Count > 0; Count--)
 			{
@@ -206,12 +269,43 @@ void Level_CrossRoad::UnLoadResources()
 				}
 			}
 
-			for (int j = Count + 1; j < FileFullPath.size(); j++)
+			for (size_t j = Count + 1; j < FileFullPath.size(); j++)
 			{
 				FileName.push_back(FileFullPath[j]);
 			}
 
 			GameEngineTexture::UnLoad(FileName);
 		}
+	}
+
+	if (nullptr != GameEngineSprite::Find("GreenSnailDeath"))
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("MapleResources");
+		NewDir.Move("MapleResources");
+		NewDir.Move("CrossRoad");
+		NewDir.Move("CrossRoadSprite");
+		NewDir.Move("GreenSnail");
+
+		GameEngineSprite::UnLoad("GreenSnailDeath");
+		GameEngineSprite::UnLoad("GreenSnailHit");
+		GameEngineSprite::UnLoad("GreenSnailMove");
+		GameEngineSprite::UnLoad("GreenSnailStand");
+
+		NewDir.MoveParent();
+		NewDir.Move("Spore");
+
+		GameEngineSprite::UnLoad("SporeDeath");
+		GameEngineSprite::UnLoad("SporeHit");
+		GameEngineSprite::UnLoad("SporeMove");
+		GameEngineSprite::UnLoad("SporeStand");
+
+		NewDir.MoveParent();
+		NewDir.Move("BlueSnail");
+
+		GameEngineSprite::UnLoad("BlueSnailDeath");
+		GameEngineSprite::UnLoad("BlueSnailHit");
+		GameEngineSprite::UnLoad("BlueSnailMove");
+		GameEngineSprite::UnLoad("BlueSnailStand");
 	}
 }

@@ -36,7 +36,7 @@ public:
 		std::map<int, std::pair<int, int>>::iterator Start = NumOfMonster.begin();
 		std::map<int, std::pair<int, int>>::iterator End = NumOfMonster.end();
 
-		for (; Start != End;)
+		for (;Start != End; Start++)
 		{
 			if (Start->first == static_cast<int>(_MonsterName))
 			{

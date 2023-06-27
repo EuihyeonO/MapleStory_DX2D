@@ -505,7 +505,7 @@ void Player::Hit(int _Damage)
 }
 
 
-void Player::KnockBack(float4 _Dir, float _Distance, int _Damage)
+void Player::KnockBack(float4 _Dir, float _Distance, int _Damage, float _Speed, float _MinTime)
 {
 	if (isKnockBack == false)
 	{
@@ -553,11 +553,13 @@ void Player::KnockBack(float4 _Dir, float _Distance, int _Damage)
 		AniIndex = 0;
 		AnimationCount = 0.0f;
 
-		if(KnockBackInfo == nullptr)
+		if(MyKnockBackInfo == nullptr)
 		{
-			KnockBackInfo = std::make_shared<std::pair<float4, float>>();
-			KnockBackInfo->first = _Dir;
-			KnockBackInfo->second = _Distance;
+			MyKnockBackInfo = std::make_shared<KnockBackInfo>();
+			MyKnockBackInfo->Dir = _Dir;
+			MyKnockBackInfo->Distance = _Distance;
+			MyKnockBackInfo->Speed = _Speed;
+			MyKnockBackInfo->MinTime = _MinTime;
 		}
 		else
 		{
@@ -569,10 +571,17 @@ void Player::KnockBack(float4 _Dir, float _Distance, int _Damage)
 
 void Player::KnockBackUpdate(float _DeltaTime)
 {
-	if (KnockBackInfo == nullptr)
+	if (MyKnockBackInfo == nullptr)
 	{
 		MsgAssert("넉백인포가 Nullptr인데 넉백되었습니다.");
 	}
+
+	if (isFalling == false && MyKnockBackInfo->Time > 0.0f && MyKnockBackInfo->Dir.y > 0.0f)
+	{
+		MyKnockBackInfo->Dir = { 0, 0 };
+	}
+
+	MyKnockBackInfo->Time += TimeCount;
 
 	float4 MapHalfScale = { static_cast<float>(ColMap->GetWidth() / 2) ,  static_cast<float>(ColMap->GetHeight() / 2) };
 
@@ -583,7 +592,7 @@ void Player::KnockBackUpdate(float _DeltaTime)
 	float4 CurColorPos = MapHalfScale + float4{ CurPos.x, -CurPos.y };
 	GameEnginePixelColor CurColor = ColMap->GetPixel(static_cast<int>(CurColorPos.x), static_cast<int>(CurColorPos.y));
 	
-	float4 NextPos = CurPos + KnockBackInfo->first * float4{ 750, 750 } *_DeltaTime;
+	float4 NextPos = CurPos + MyKnockBackInfo->Dir * MyKnockBackInfo->Speed *_DeltaTime;
 	float4 NextColorPos = MapHalfScale + float4{ NextPos.x, -NextPos.y };
 	GameEnginePixelColor NextColor = ColMap->GetPixel(static_cast<int>(NextColorPos.x), static_cast<int>(NextColorPos.y));
 
@@ -605,8 +614,8 @@ void Player::KnockBackUpdate(float _DeltaTime)
 
 		if (isUp == false && NextUpColor != Magenta)
 		{
-			KnockBackInfo->first.y = 0.0f;
-			KnockBackInfo->first.Normalize();
+			MyKnockBackInfo->Dir.y = 0.0f;
+			MyKnockBackInfo->Dir.Normalize();
 
 			float4 CopyNextColorPos = NextColorPos;
 			GameEnginePixelColor CopyNextColor = NextColor;
@@ -637,10 +646,10 @@ void Player::KnockBackUpdate(float _DeltaTime)
 	}
 	else if(CurColor == Magenta && NextColor == Magenta)
 	{
-		KnockBackInfo->first.y = 0.0f;
-		KnockBackInfo->first.Normalize();
+		MyKnockBackInfo->Dir.y = 0.0f;
+		MyKnockBackInfo->Dir.Normalize();
 
-		NextPos = CurPos + KnockBackInfo->first * float4{ 750, 750 } *_DeltaTime;
+		NextPos = CurPos + MyKnockBackInfo->Dir * MyKnockBackInfo->Speed *_DeltaTime;
 		//내적
 
 		int UpCount = 0;
@@ -681,9 +690,9 @@ void Player::KnockBackUpdate(float _DeltaTime)
 		GetTransform()->SetLocalPosition(NextPos);
 	}
 
-	KnockBackInfo->second -= MoveDistance;
+	MyKnockBackInfo->Distance -= MoveDistance;
 
-	if (KnockBackInfo->second <= 0)
+	if ((MyKnockBackInfo->Distance <= 0 && isFalling == false) || MyKnockBackInfo->Time >= MyKnockBackInfo->MinTime)
 	{
 		isMovable = true;
 		isKnockBack = false;
@@ -697,7 +706,7 @@ void Player::KnockBackUpdate(float _DeltaTime)
 
 		SetMulColorAllTexture(1.0f);
 
-		KnockBackInfo = nullptr;
+		MyKnockBackInfo = nullptr;
 	}
 
 }

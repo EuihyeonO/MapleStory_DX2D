@@ -54,6 +54,7 @@ void InventoryWindow::Start()
 
 void InventoryWindow::Update(float _DeltaTime)
 {
+	ColPosUpdate();
 	ChangeInventory();
 	InventoryUpdate();
 }
@@ -147,4 +148,15 @@ void InventoryWindow::InventoryUpdate()
 void InventoryWindow::ClearInventory()
 {
 	Inventory->ClearItem();
+}
+
+void InventoryWindow::ColPosUpdate()
+{
+	float4 CamPos = GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition();
+
+	Equip->GetTransform()->SetLocalPosition(CamPos + float4{ -65, 110 });
+	Use->GetTransform()->SetLocalPosition(CamPos + float4{ -30, 110 });
+	Etc->GetTransform()->SetLocalPosition(CamPos + float4{ 3, 110 });
+	Setup->GetTransform()->SetLocalPosition(CamPos + float4{ 36 , 110 });
+	Cash->GetTransform()->SetLocalPosition(CamPos + float4{ 69, 110 });
 }

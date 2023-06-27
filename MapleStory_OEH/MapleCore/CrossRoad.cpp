@@ -2,6 +2,8 @@
 #include "CrossRoad.h"
 #include "ContentRenderer.h"
 #include "Portal.h"
+#include "MonsterSpawnZone.h"
+#include "MiniMap.h"
 
 #include <GameEngineCore/GameEngineLevel.h>
 
@@ -41,11 +43,75 @@ void CrossRoad::Start()
 	BackGround = CreateComponent<GameEngineSpriteRenderer>();
 	BackGround->SetScaleToTexture("CrossRoad.png");
 
+	MyMiniMap = GetLevel()->CreateActor<MiniMap>(static_cast<int>(RenderOrder::UI));
+	MyMiniMap->SetMap(MapName);
+
 	std::shared_ptr<Portal> Port1 = GetLevel()->CreateActor<Portal>(static_cast<int>(RenderOrder::UI));
 	Port1->SetLinkedMap("Level_BeginnersTown2");
 	Port1->SetPortalPos({ -1750, 45, -10 });
 
+	std::shared_ptr<GameEngineCollision> Rope1 = CreateComponent<GameEngineCollision>();
+	Rope1->SetColType(ColType::AABBBOX2D);
+	Rope1->SetOrder(static_cast<int>(CollisionOrder::RopeAndLadder));
+	Rope1->GetTransform()->SetLocalPosition({ 92.0f, -70.0f });
+	Rope1->GetTransform()->SetLocalScale({ 20.0f, 240.0f });
 
+	std::shared_ptr<GameEngineCollision> Rope2 = CreateComponent<GameEngineCollision>();
+	Rope2->SetColType(ColType::AABBBOX2D);
+	Rope2->SetOrder(static_cast<int>(CollisionOrder::RopeAndLadder));
+	Rope2->GetTransform()->SetLocalPosition({ 198.0f, 144.0f });
+	Rope2->GetTransform()->SetLocalScale({ 20.0f, 180.0f });
+
+	std::shared_ptr<GameEngineCollision> Rope3 = CreateComponent<GameEngineCollision>();
+	Rope3->SetColType(ColType::AABBBOX2D);
+	Rope3->SetOrder(static_cast<int>(CollisionOrder::RopeAndLadder));
+	Rope3->GetTransform()->SetLocalPosition({ 706.0f, 170.0f });
+	Rope3->GetTransform()->SetLocalScale({ 20.0f, 240.0f });
+
+	std::shared_ptr<GameEngineCollision> Rope4 = CreateComponent<GameEngineCollision>();
+	Rope4->SetColType(ColType::AABBBOX2D);
+	Rope4->SetOrder(static_cast<int>(CollisionOrder::RopeAndLadder));
+	Rope4->GetTransform()->SetLocalPosition({ 1453.0f, 122.0f });
+	Rope4->GetTransform()->SetLocalScale({ 20.0f, 100.0f });
+
+	std::shared_ptr<GameEngineCollision> Rope5 = CreateComponent<GameEngineCollision>();
+	Rope5->SetColType(ColType::AABBBOX2D);
+	Rope5->SetOrder(static_cast<int>(CollisionOrder::RopeAndLadder));
+	Rope5->GetTransform()->SetLocalPosition({ 1360.0f, -38.0f });
+	Rope5->GetTransform()->SetLocalScale({ 20.0f, 180.0f });
+	
+	std::shared_ptr<GameEngineCollision> Rope6 = CreateComponent<GameEngineCollision>();
+	Rope6->SetColType(ColType::AABBBOX2D);
+	Rope6->SetOrder(static_cast<int>(CollisionOrder::RopeAndLadder));
+	Rope6->GetTransform()->SetLocalPosition({ -803.0f, -60.0f });
+	Rope6->GetTransform()->SetLocalScale({ 20.0f, 220.0f });
+	
+	std::shared_ptr<GameEngineCollision> Radder1 = CreateComponent<GameEngineCollision>();
+	Radder1->SetColType(ColType::AABBBOX2D);
+	Radder1->SetOrder(static_cast<int>(CollisionOrder::RopeAndLadder));
+	Radder1->GetTransform()->SetLocalPosition({ -1226.0f, 30.0f });
+	Radder1->GetTransform()->SetLocalScale({ 40.0f, 160.0f });
+
+	std::shared_ptr<GameEngineCollision> Radder2 = CreateComponent<GameEngineCollision>();
+	Radder2->SetColType(ColType::AABBBOX2D);
+	Radder2->SetOrder(static_cast<int>(CollisionOrder::RopeAndLadder));
+	Radder2->GetTransform()->SetLocalPosition({ 790.0f, -75.0f });
+	Radder2->GetTransform()->SetLocalScale({ 40.0f, 130.0f });
+
+	std::shared_ptr<MonsterSpawnZone> Zone = GetLevel()->CreateActor<MonsterSpawnZone>();
+	Zone->SetColMap(ColMapName);
+	Zone->SetMonsterToZone(MonsterName::Spore, 5);
+	Zone->SetMonsterToZone(MonsterName::GreenSnail, 5);
+	Zone->SetZonePosAndScale({ 200, -130.0f }, 1000.0f);
+
+	std::shared_ptr<MonsterSpawnZone> Zone2 = GetLevel()->CreateActor<MonsterSpawnZone>();
+	Zone2->SetColMap(ColMapName);
+	Zone2->SetMonsterToZone(MonsterName::Spore, 5);
+	Zone2->SetMonsterToZone(MonsterName::BlueSnail, 5);
+	Zone->SetZonePosAndScale({ 600, 600.0f }, 1000.0f);
+
+
+	GetLevel()->IsDebugSwitch();
 }
 
 void CrossRoad::Update(float _DeltaTime)
@@ -64,9 +130,9 @@ void CrossRoad::LandScapeMove(float _DeltaTime)
 	float4 MapScale = GameEngineTexture::Find(MapName)->GetScale();
 	float4 CameraPosPerMapScaleRatio = { CameraPos.x / MapScale.x, CameraPos.y / MapScale.y };
 
-	LandScape0->GetTransform()->SetLocalPosition(float4{ (800.0f * CameraPosPerMapScaleRatio.x * 0.5f), (600.0f * CameraPosPerMapScaleRatio.y * 1.5f + 250.0f) });
+	LandScape0->GetTransform()->SetLocalPosition(float4{ (800.0f * CameraPosPerMapScaleRatio.x * 0.5f), (600.0f * CameraPosPerMapScaleRatio.y * 1.5f + 225.0f) });
 
-	LandScape1->GetTransform()->SetLocalPosition(float4{ (800.0f * CameraPosPerMapScaleRatio.x - 100.0f) , (600.0f * CameraPosPerMapScaleRatio.y * 1.5f + 200.0f) });
+	LandScape1->GetTransform()->SetLocalPosition(float4{ (800.0f * CameraPosPerMapScaleRatio.x - 100.0f) , (600.0f * CameraPosPerMapScaleRatio.y * 1.5f + 175.0f) });
 
-	LandScape2->GetTransform()->SetLocalPosition(float4{ (800.0f * CameraPosPerMapScaleRatio.x * 1.25f) - 100.0f, (600.0f * CameraPosPerMapScaleRatio.y * 1.5f  + 50.0f) });
+	LandScape2->GetTransform()->SetLocalPosition(float4{ (800.0f * CameraPosPerMapScaleRatio.x * 1.25f) - 100.0f, (600.0f * CameraPosPerMapScaleRatio.y * 1.5f  + 25.0f) });
 }

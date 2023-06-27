@@ -18,49 +18,43 @@ GreenSnail::~GreenSnail()
 
 void GreenSnail::Start()
 {
-	//TimeCounting();
-	//SetAnimationList();
+	TimeCounting();
 
-	//SetMoveSpeed(20.0f);
 
-	//BasicRender = CreateComponent<ContentRenderer>();
-	//BasicRender->SetScaleToTexture("GreenSnailStand0.png");
-	//BasicRender->SetMulColor({ 1, 1, 1, 0.0f });
-	//
-	//TransformData RenderData = BasicRender->GetTransform()->GetTransDataRef();
-	//BasicRender->GetTransform()->SetLocalPosition({ 0, RenderData.LocalScale.hy() });
+	BasicRender = CreateComponent<GameEngineSpriteRenderer>();
 
-	//BasicCollision = CreateComponent<GameEngineCollision>();
-	//BasicCollision->GetTransform()->SetLocalScale({ abs(RenderData.LocalScale.x), abs(RenderData.LocalScale.y) });
-	//BasicCollision->GetTransform()->SetLocalPosition(RenderData.LocalPosition);
-	//BasicCollision->SetOrder(static_cast<int>(CollisionOrder::Monster));
-	//BasicCollision->Off();
+	SetAnimation();
 
-	//SetDropItemList();
+	BasicRender->ChangeAnimation("MOVE");
+	BasicRender->ColorOptionValue.MulColor.a = 0.0f;
 
+	MoveType = "SPAWN";
+
+	BasicCollision = CreateComponent<GameEngineCollision>();
+	BasicCollision->GetTransform()->SetLocalScale({ 20, 60 });
+	BasicCollision->SetColType(ColType::AABBBOX2D);
+	BasicCollision->SetOrder(static_cast<int>(CollisionOrder::Monster));
+
+	GetTransform()->SetLocalPosition({ 0, 0, -6.0f });
+	SetMoveSpeed(20.0f);
+
+
+	if (GameEngineRandom::MainRandom.RandomInt(0, 1) == 1)
+	{
+		SetRight();
+	}
+
+	SetDropItemList();
 }
 
 void GreenSnail::Update(float _DeltaTime)
 {
-	//TransformData Data = GetTransform()->GetTransDataRef();
+	TimeCounting();
+	StatusUpdate(_DeltaTime);
 
-	//TimeCounting();
-	//Spawn(_DeltaTime);
-
-	//GravityUpdate(_DeltaTime);
-
-	//if(isSpawnAnimationEnd == true && isDeathStart == false)
-	//{
-	//	if(MoveType != "Hit" && MoveType != "Death")
-	//	{
-	//		DirUpdate();
-	//		Move(_DeltaTime);
-	//	}
-
-	//	TextureUpdate();
-	//}
-
-	//MonsterDeath(_DeltaTime);
+	float4 Scale = BasicRender->GetTransform()->GetLocalScale();
+	BasicRender->GetTransform()->SetLocalPosition({ 0, Scale.hy(), 0 });
+	BasicCollision->GetTransform()->SetLocalPosition({ 0, Scale.hy(), 0 });
 }
 
 void GreenSnail::Render(float _DeltaTime)
@@ -69,173 +63,104 @@ void GreenSnail::Render(float _DeltaTime)
 
 void GreenSnail::Spawn(float _DeltaTime)
 {
-	//if (isSpawnAnimationEnd == true || IsGround() == false)
-	//{
-	//	return;
-	//}
+	GravityUpdate(_DeltaTime);
 
-	//RenderAlpha += 2.5f * _DeltaTime;
+	if (IsGround() == true)
+	{
+		BasicRender->ColorOptionValue.MulColor.a += 1.0f * _DeltaTime;
 
-	//if (RenderAlpha >= 1.0f)
-	//{
-	//	RenderAlpha = 1.0f;
-	//	isSpawnAnimationEnd = true;
-	//	BasicCollision->On();
-	//}
-
-	//BasicRender->SetMulColor({ 1,1,1, RenderAlpha });
+		if (BasicRender->ColorOptionValue.MulColor.a >= 1.0f)
+		{
+			BasicRender->ColorOptionValue.MulColor.a = 1.0f;
+			BasicRender->ChangeAnimation("MOVE");
+			MoveType = "MOVE";
+		}
+	}
 }
 
-
-void GreenSnail::TextureUpdate()
-{
-	//AnimationCount += TimeCount;
-
-	//if (AnimationCount >= FrameList[MoveType][AniIndex])
-	//{
-	//	AnimationCount = 0.0f;
-
-	//	AniIndex++;
-
-	//	if (AniIndex >= FrameList[MoveType].size())
-	//	{
-	//		if (MoveType == "Hit")
-	//		{
-	//			MoveType = "Move";
-	//		}
-
-	//		AniIndex = 0;
-	//	}
-	//	
-	//	std::string TextureName = "GreenSnail" + MoveType + std::to_string(AniIndex) + ".png";
-	//	BasicRender->SetScaleToTexture(TextureName);
-
-	//	TransformData RenderData = BasicRender->GetTransform()->GetTransDataRef();
-	//	BasicRender->GetTransform()->SetLocalPosition({ 0, RenderData.LocalScale.hy() });
-
-	//	BasicCollision->GetTransform()->SetLocalScale({ abs(RenderData.LocalScale.x), abs(RenderData.LocalScale.y) });
-	//	BasicCollision->GetTransform()->SetLocalPosition(RenderData.LocalPosition);
-	//}
-}
 
 void GreenSnail::Hit(int _Damage, bool _isRealAttack)
 {
-	//MoveType = "Hit";
-	//AniIndex = 0;
+	if (_isRealAttack == true)
+	{
+		Hp -= _Damage;
+	}
 
-	//std::string TextureName = "GreenSnail" + MoveType + std::to_string(AniIndex) + ".png";
-	//BasicRender->SetScaleToTexture(TextureName);
+	if (Hp <= 0)
+	{
+		BasicRender->ChangeAnimation("DEATH");
+		MoveType = "DEATH";
 
-	//TransformData RenderData = BasicRender->GetTransform()->GetTransDataRef();
-	//BasicRender->GetTransform()->SetLocalPosition({ 0, RenderData.LocalScale.hy() });
+		if (LeftRightDir == "Left")
+		{
+			SetLeft();
+		}
+		else if (LeftRightDir == "Right")
+		{
+			SetRight();
+		}
 
-	//BasicCollision->GetTransform()->SetLocalScale({ abs(RenderData.LocalScale.x), abs(RenderData.LocalScale.y) });
-	//BasicCollision->GetTransform()->SetLocalPosition(RenderData.LocalPosition);
-	//
-	//if(_isRealAttack == true)
-	//{
-	//	Hp -= _Damage;
-	//}
+		BasicCollision->Off();
+		isDeathStart = true;
 
-	//if (Hp <= 0)
-	//{
-	//	MoveType = "Death";
-	//	AniIndex = 0;
-	//	BasicCollision->Off();
+		size_t Size = DropItemList.size();
+		std::vector<int> ItemVector;
+		ItemVector.reserve(Size);
 
-	//	size_t Size = DropItemList.size();
-	//	std::vector<int> ItemVector;
-	//	ItemVector.reserve(Size);
+		for (size_t i = 0; i < Size; i++)
+		{
+			int Num = GameEngineRandom::MainRandom.RandomInt(0, 99);
 
-	//	for (size_t i = 0; i < Size; i++)
-	//	{
-	//		int Num = GameEngineRandom::MainRandom.RandomInt(0, 99);
+			if (Num < DropItemList[i].second)
+			{
+				ItemVector.push_back(static_cast<int>(i));
+			}
+		}
 
-	//		if (Num < DropItemList[i].second)
-	//		{
-	//			ItemVector.push_back(static_cast<int>(i));
-	//		}
-	//	}
+		size_t DropItemSize = ItemVector.size();
 
-	//	size_t DropItemSize = ItemVector.size();
+		for (size_t i = 0; i < DropItemSize; i++)
+		{
+			std::shared_ptr<DropItem> NewItem = GetLevel()->CreateActor<DropItem>();
+			NewItem->SetQuadraticFunction((DropItemSize / -2.0f) * 15.0f + (15.0f * i) + 7.5f, GetTransform()->GetWorldPosition() + float4{ 0, 5.0f });
+			NewItem->SetDropItemInfo(DropItemList[ItemVector[i]].first);
+		}
 
-	//	for (size_t i = 0; i < DropItemSize; i++)
-	//	{
-	//		std::shared_ptr<DropItem> NewItem = GetLevel()->CreateActor<DropItem>();
-	//		NewItem->SetQuadraticFunction((DropItemSize / -2.0f) * 15.0f + (15.0f * i) + 7.5f, GetTransform()->GetWorldPosition() + float4{ 0, 5.0f });
-	//		NewItem->SetDropItemInfo(DropItemList[ItemVector[i]].first);
-	//	}
-
-	//	isDeathStart = true;
-	//}
+		return;
+	}
 }
 
 void GreenSnail::MonsterDeath(float _DeltaTime)
 {
-	//if (isDeathStart == false)
-	//{
-	//	return;
-	//}
+	if (BasicRender->GetCurrentFrame() < 8)
+	{
+		return;
+	}
 
-	//if (AniIndex < 8)
-	//{
-	//	TextureUpdate();
-	//	return;
-	//}
+	BasicRender->ColorOptionValue.MulColor.a -= 1.0f * _DeltaTime;
 
-	//float Alpha = BasicRender->ColorOptionValue.MulColor.a;
-
-	//if (Alpha <= 0)
-	//{	
-	//	GetMyZone()->NumOfMonsterDown(static_cast<int>(MonsterName::GreenSnail));
-	//	Death();
-	//}
-
-	//BasicRender->SetMulColor({ 1.0f, 1.0f, 1.0f, Alpha - (5.0f * _DeltaTime) });
+	if (BasicRender->ColorOptionValue.MulColor.a <= 0.0f)
+	{
+		Death();
+	}
 }
 
-void GreenSnail::SetAnimationList()
+void GreenSnail::SetAnimation()
 {
-	//{
-	//	FrameList["Stand"].push_back(0.0f);
-	//}
+	BasicRender->CreateAnimation({ .AnimationName = "MOVE",.SpriteName = "GreenSnailMove",.FrameInter = 0.18f ,.Loop = true,.ScaleToTexture = true });
+	BasicRender->CreateAnimation({ .AnimationName = "STAND",.SpriteName = "GreenSnailStand",.FrameInter = 1.0f ,.Loop = true,.ScaleToTexture = true });
+	BasicRender->CreateAnimation({ .AnimationName = "HIT",.SpriteName = "GreenSnailHit",.FrameInter = 0.6f ,.Loop = false,.ScaleToTexture = true });
+	BasicRender->CreateAnimation({ .AnimationName = "DEATH",.SpriteName = "GreenSnailDeath",.Loop = false,.ScaleToTexture = true,.FrameTime = {0.12f, 0.12f, 0.12f, 0.12f, 0.12f, 0.12f, 0.12f, 0.12f, 0.3f} });
 
-	//{
-	//	FrameList["Move"].reserve(8);
-
-	//	FrameList["Move"].push_back(0.18f);
-	//	FrameList["Move"].push_back(0.18f);
-	//	FrameList["Move"].push_back(0.18f);
-	//	FrameList["Move"].push_back(0.18f);
-	//	FrameList["Move"].push_back(0.18f);
-	//	FrameList["Move"].push_back(0.18f);
-	//	FrameList["Move"].push_back(0.18f);
-	//	FrameList["Move"].push_back(0.18f);
-	//}
-
-	//{
-	//	FrameList["Hit"].push_back(0.6f);
-	//}
-
-	//{
-	//	FrameList["Death"].push_back(0.09f);
-	//	FrameList["Death"].push_back(0.09f);
-	//	FrameList["Death"].push_back(0.09f);
-	//	FrameList["Death"].push_back(0.09f);
-	//	FrameList["Death"].push_back(0.09f);
-	//	FrameList["Death"].push_back(0.09f);
-	//	FrameList["Death"].push_back(0.09f);
-	//	FrameList["Death"].push_back(0.09f);
-	//	FrameList["Death"].push_back(0.09f);
-	//}
+	BasicRender->SetAnimationUpdateEvent("HIT", 0, [this] {if (BasicRender->IsAnimationEnd() == true) { DirUpdate(); }});
 }
 
 void GreenSnail::SetDropItemList()
 {
-	//DropItemList.reserve(4);
+	DropItemList.reserve(4);
 
-	//DropItemList.push_back({ "GreenShell", 75 });
-	//DropItemList.push_back({ "GreenShell", 75 });
-	//DropItemList.push_back({ "GreenShell", 75 });
-	//DropItemList.push_back({ "GreenShell", 75 });
+	DropItemList.push_back({ "GreenShell", 75 });
+	DropItemList.push_back({ "GreenShell", 75 });
+	DropItemList.push_back({ "GreenShell", 75 });
+	DropItemList.push_back({ "GreenShell", 75 });
 }
