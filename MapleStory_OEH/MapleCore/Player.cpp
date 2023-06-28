@@ -117,7 +117,6 @@ void Player::Update(float _DeltaTime)
 
 void Player::BasicUpdate(float _DeltaTime)
 {
-	
 	TextureAnimationUpdate();
 	TextureUpdate();
 	TexturePosUpdate();

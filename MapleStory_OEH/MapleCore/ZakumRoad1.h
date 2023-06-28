@@ -6,6 +6,11 @@ class ZakumRoad1 : public GameEngineActor
 
 public:
 
+	const std::string_view GetColMapName()
+	{
+		return ColMapName;
+	}
+
 	ZakumRoad1();
 	~ZakumRoad1();
 

@@ -202,6 +202,9 @@
     <ClInclude Include="ZakumRoad1.h">
       <Filter>Actor\Map</Filter>
     </ClInclude>
+    <ClInclude Include="KeyBox.h">
+      <Filter>Actor\Map\ZakumRoad1Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Level_Title.cpp">
@@ -432,6 +435,9 @@
     <ClCompile Include="ZakumResourcesUnLoad.cpp">
       <Filter>Actor\Monster\Boss\ZakumBody</Filter>
     </ClCompile>
+    <ClCompile Include="KeyBox.cpp">
+      <Filter>Actor\Map\ZakumRoad1Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -517,6 +523,9 @@
     </Filter>
     <Filter Include="Actor\Monster\Boss\ZakumBody">
       <UniqueIdentifier>{a948a709-c62b-44cf-9531-5a152e455bc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Map\ZakumRoad1Object">
+      <UniqueIdentifier>{cc052a87-61e8-4e0a-ba3d-425d39292766}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
