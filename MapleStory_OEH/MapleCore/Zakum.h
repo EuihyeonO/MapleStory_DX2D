@@ -145,5 +145,16 @@ private:
 	void FunctionUpdate();
 	std::list<std::function<bool()>> UpdateFuncList;
 
+
+	//UnLoad
+	void LArm_0_UnLoad();
+	void LArm_1_UnLoad();
+	void LArm_2_UnLoad();
+	void LArm_3_UnLoad();
+	void RArm_0_UnLoad();
+	void RArm_1_UnLoad();
+	void RArm_2_UnLoad();
+	void RArm_3_UnLoad();
+
 };
 

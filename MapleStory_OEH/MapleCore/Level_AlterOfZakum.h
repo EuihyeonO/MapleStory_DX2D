@@ -22,10 +22,23 @@ protected:
 	void LevelChangeStart() override;
 	void LevelChangeEnd() override;
 private:
-	void CreateSprite();
+	void LoadSprite();
+	void LoadResources();
+
+	void ReLoadSprite();
+	
+	void UnLoadSprite();
+	void UnLoadResources();
+
+	void ActorCreate();
+	void ActorDeath();
+
+
 	std::shared_ptr<class Player> MyPlayer = nullptr;
 	std::shared_ptr<class AlterOfZakum> Map = nullptr;
 	std::shared_ptr<class Mouse> MyMouse = nullptr;
 	std::shared_ptr<class UIWindowManager> MyUIWindowManager = nullptr;
+	std::shared_ptr<class QuickSlot> MyQuickSlot = nullptr;
+	std::shared_ptr<class BottomBar> MyBottomBar = nullptr;
 };
 

@@ -87,11 +87,12 @@ void Zakum::Update(float _DeltaTime)
 
 	if (GameEngineInput::IsDown("MyTest1") == true)
 	{
-		BodyRender->ChangeAnimation("Phase2Die");
+		//BodyRender->ChangeAnimation("Phase2Die");
 	}
 
 	FunctionUpdate();
 	Attack();
+
 }
 
 void Zakum::Attack()
@@ -195,7 +196,8 @@ void Zakum::SetAnimation()
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("MapleResources");
 		NewDir.Move("MapleResources");
-		NewDir.Move("Sprite");
+		NewDir.Move("AlterOfZakum");
+		NewDir.Move("AlterOfZakumSprite");
 		NewDir.Move("Monster");
 		NewDir.Move("Zakum");
 
@@ -403,7 +405,7 @@ void Zakum::ArmDeath(bool _isLeft, int _ArmIndex)
 		case 2:
 			if (RArm_2 != nullptr)
 			{
-				GetLevel()->TimeEvent.AddEvent(1.0f, [this](GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*) {RArm_2->Death(); RArm_2 = nullptr; });
+				GetLevel()->TimeEvent.AddEvent(1.0f, [this](GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*) {RArm_2->Death(); RArm_2 = nullptr;  });
 			}
 			break;
 		case 3:

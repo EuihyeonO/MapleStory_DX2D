@@ -429,6 +429,9 @@
     <ClCompile Include="ZakumRoad1.cpp">
       <Filter>Actor\Map</Filter>
     </ClCompile>
+    <ClCompile Include="ZakumResourcesUnLoad.cpp">
+      <Filter>Actor\Monster\Boss\ZakumBody</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">

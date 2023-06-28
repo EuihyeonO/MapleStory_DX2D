@@ -14,6 +14,7 @@ ZakumRArm_3::ZakumRArm_3()
 
 ZakumRArm_3::~ZakumRArm_3()
 {
+	Zakum::GetZakum()->RArm_3_UnLoad();
 }
 
 

@@ -15,7 +15,7 @@ public:
 	ZakumBasicFunction& operator=(ZakumBasicFunction&& _Other) noexcept = delete;
 
 	void Hit(int _Damage, bool _isRealAttack);
-
+	
 
 protected:
 	int ArmIndex = 0;
@@ -37,7 +37,6 @@ protected:
 	std::shared_ptr<class GameEngineCollision> ArmCollision = nullptr;
 
 	virtual void Attack(){}
-
 private:
 	
 	int Hp = 200;

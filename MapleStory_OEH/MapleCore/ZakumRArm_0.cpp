@@ -14,6 +14,7 @@ ZakumRArm_0::ZakumRArm_0()
 
 ZakumRArm_0::~ZakumRArm_0()
 {
+	Zakum::GetZakum()->RArm_0_UnLoad();
 }
 
 void ZakumRArm_0::Start()

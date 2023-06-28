@@ -703,6 +703,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="ZakumResourcesUnLoad.cpp" />
     <ClCompile Include="ZakumRoad1.cpp">
       <SubType>
       </SubType>
