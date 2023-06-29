@@ -332,16 +332,24 @@ void Player::CameraUpdate(float _DeltaTime)
 	float4 PlayerPos = GetTransform()->GetLocalPosition();
 	float4 CameraPos = GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition();
 
-	//float4 newPosition = PlayerPos;
-	// 플레이어와 카메라의 위치를 보간하여 새로운 위치 계산 
-	float4 newPosition = newPosition.Lerp(CameraPos, PlayerPos, 2.0f * _DeltaTime);
+	PlayerPos.z = 0.0f;
+	CameraPos.z = 0.0f;
+
+	float4 newPosition = newPosition.LerpClamp(CameraPos, PlayerPos, 5.0f * _DeltaTime);
 
 	float MaxY = 350.0f;
-
+	float MinY = 490.0f;
+	
 	if (GetLevel()->GetName() == "ALTEROFZAKUM")
 	{
 		MaxY = 425.0f;
 	}
+	else if (GetLevel()->GetName() == "ZAKUMROAD1")
+	{
+		MinY = 250.0f;
+	}
+
+
 
 	if (newPosition.x - 425 < -HalfWidth)
 	{
@@ -352,9 +360,9 @@ void Player::CameraUpdate(float _DeltaTime)
 		newPosition.x = HalfWidth - 425;
 	}
 
-	if (newPosition.y - 490 < -HalfHeight)
+	if (newPosition.y - MinY < -HalfHeight)
 	{
-		newPosition.y = -HalfHeight +490;
+		newPosition.y = -HalfHeight + MinY;
 	}
 	else if (newPosition.y + MaxY > HalfHeight)
 	{

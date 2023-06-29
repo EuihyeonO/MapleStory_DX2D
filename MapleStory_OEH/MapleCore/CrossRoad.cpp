@@ -110,8 +110,6 @@ void CrossRoad::Start()
 	Zone2->SetMonsterToZone(MonsterName::BlueSnail, 5);
 	Zone->SetZonePosAndScale({ 600, 600.0f }, 1000.0f);
 
-
-	GetLevel()->IsDebugSwitch();
 }
 
 void CrossRoad::Update(float _DeltaTime)

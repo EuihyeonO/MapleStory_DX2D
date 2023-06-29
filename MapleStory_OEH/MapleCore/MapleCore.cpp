@@ -77,7 +77,7 @@ void MapleCore::GameStart()
 	GameEngineCore::CreateLevel<Level_CrossRoad>();
 	GameEngineCore::CreateLevel<Level_ZakumRoad1>();
 	GameEngineCore::CreateLevel<Level_AlterOfZakum>();
-	GameEngineCore::ChangeLevel("Level_Title");
+	GameEngineCore::ChangeLevel("Level_ZakumRoad1");
 }
 
 void MapleCore::GameEnd()

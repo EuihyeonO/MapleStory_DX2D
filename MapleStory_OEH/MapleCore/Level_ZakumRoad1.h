@@ -27,6 +27,8 @@ private:
 	void LoadResources();
 	void UnLoadResources();
 
+	void SetKeyBox();
+
 	std::shared_ptr<class QuickSlot> MyQuickSlot = nullptr;
 	std::shared_ptr<class BottomBar> MyBottomBar = nullptr;
 	std::shared_ptr<class Player> MyPlayer = nullptr;

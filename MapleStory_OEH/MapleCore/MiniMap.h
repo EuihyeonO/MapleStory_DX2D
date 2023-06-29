@@ -16,6 +16,11 @@ public:
 	MiniMap& operator=(const MiniMap& _Other) = delete;
 	MiniMap& operator=(MiniMap&& _Other) noexcept = delete;
 
+	std::shared_ptr<class GameEngineUIRenderer> GetMap()
+	{
+		return Map;
+	}
+	
 protected:
 	void Start();
 	void Update(float _DeltaTime) override;

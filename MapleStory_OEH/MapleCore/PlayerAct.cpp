@@ -4,6 +4,7 @@
 #include "ContentEnums.h"
 #include "Star.h"
 #include "DamageRender.h"
+#include "KeyBox.h"
 
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
@@ -230,7 +231,7 @@ void Player::Move(float _DeltaTime)
 
 void Player::Swing()
 {
-	if (isMovable == false)
+	if (isMovable == false || isSwing == true)
 	{
 		return;
 	}
@@ -240,18 +241,38 @@ void Player::Swing()
 		return;
 	}
 
+	std::vector<std::shared_ptr<GameEngineCollision>> HitMonsterVector;
+	std::shared_ptr<GameEngineCollision> HitObject = RangeCheck->Collision(static_cast<int>(CollisionOrder::Object), ColType::AABBBOX2D, ColType::AABBBOX2D);
+	
+	if (HitObject != nullptr)
+	{
+		if (HitObject->GetTransform()->GetWorldPosition().XYDistance(GetTransform()->GetWorldPosition()) < 80.0f)
+		{
+			int StabType = GameEngineRandom::MainRandom.RandomInt(0,1);
+			HitObject->GetActor()->DynamicThis<KeyBox>()->Hit();
+
+			MoveType = "Stab" + std::to_string(StabType);
+			AniIndex = 0;
+			AnimationCount = 0.0f;
+			isSwing = true;
+
+			return;
+		}
+	}
+
+	RangeCheck->CollisionAll(static_cast<int>(CollisionOrder::Monster), HitMonsterVector, ColType::AABBBOX2D, ColType::AABBBOX2D);
+
 	int SwingType = GameEngineRandom::MainRandom.RandomInt(0, 2);
 
 	MoveType = "Swing" + std::to_string(SwingType);
+	AnimationCount = 0.0f;
 	AniIndex = 0;
 	isSwing = true;
-
+	
 	std::shared_ptr<Star> NewStar1 = GetLevel()->CreateActor<Star>(11);
 	NewStar1->SetStarName("Wednes");
 	NewStar1->SetTimingTime(0.25);
-	
-	std::vector<std::shared_ptr<GameEngineCollision>> HitMonsterVector;
-	RangeCheck->CollisionAll(static_cast<int>(CollisionOrder::Monster), HitMonsterVector, ColType::AABBBOX2D, ColType::AABBBOX2D);
+
 	float4 PlayerPos = GetTransform()->GetWorldPosition();
 
 	std::function<void(Star&, float)> UpdateFunction = &Star::Move;

@@ -33,6 +33,12 @@ void Player::SetAllTexturePosVector()
 	AniFrameList["Swing2"].push_back(0.15f);
 	AniFrameList["Swing2"].push_back(0.35f);
 
+	AniFrameList["Stab0"].push_back(0.35f);
+	AniFrameList["Stab0"].push_back(0.45f);
+	
+	AniFrameList["Stab1"].push_back(0.35f);
+	AniFrameList["Stab1"].push_back(0.45f);
+	
 	AniFrameList["Alert"].push_back(0.5f);
 	AniFrameList["Alert"].push_back(0.5f);
 	AniFrameList["Alert"].push_back(0.5f);
@@ -61,19 +67,29 @@ void Player::SetBodyTexturePosVector()
 	BodyOriginPos["Stand"].push_back({ -17, 31 });
 	BodyOriginPos["Stand"].push_back({ -18, 31 });
 	BodyOriginPos["Stand"].push_back({ -17, 31 });
+
 	BodyOriginPos["Walk"].push_back({ -19, 32 });
 	BodyOriginPos["Walk"].push_back({ -16, 32 });
 	BodyOriginPos["Walk"].push_back({ -19, 32 });
 	BodyOriginPos["Walk"].push_back({ -21, 31 });
+
 	BodyOriginPos["Swing0"].push_back({ -11, 27 });
 	BodyOriginPos["Swing0"].push_back({ -11, 31 });
 	BodyOriginPos["Swing0"].push_back({ -38, 27 });
+
 	BodyOriginPos["Swing1"].push_back({ -18, 31 });
 	BodyOriginPos["Swing1"].push_back({ -21, 31 });
 	BodyOriginPos["Swing1"].push_back({ -30, 29 });
+
 	BodyOriginPos["Swing2"].push_back({ -36, 27 });
 	BodyOriginPos["Swing2"].push_back({ -28, 30 });
 	BodyOriginPos["Swing2"].push_back({ -36, 27 });
+
+	BodyOriginPos["Stab0"].push_back({ -30, 29 });
+	BodyOriginPos["Stab0"].push_back({ -25, 27 });
+
+	BodyOriginPos["Stab1"].push_back({ -30, 33 });
+	BodyOriginPos["Stab1"].push_back({ -26, 27 });
 
 	BodyOriginPos["Alert"].push_back({ -16, 29 });
 	BodyOriginPos["Alert"].push_back({ -16, 30 });
@@ -90,75 +106,116 @@ void Player::SetBodyTexturePosVector()
 	BodyNavelPos["Stand"].push_back({ -7, 20 });
 	BodyNavelPos["Stand"].push_back({ -6, 21 });
 	BodyNavelPos["Stand"].push_back({ -7, 20 });
+
 	BodyNavelPos["Walk"].push_back({ -6, 20 });
 	BodyNavelPos["Walk"].push_back({ -6, 20 });
 	BodyNavelPos["Walk"].push_back({ -6, 20 });
 	BodyNavelPos["Walk"].push_back({ -6, 18 });
+
 	BodyNavelPos["Swing0"].push_back({ -1, 16 });
 	BodyNavelPos["Swing0"].push_back({ -8, 20 });
 	BodyNavelPos["Swing0"].push_back({ -29, 17 });
+
 	BodyNavelPos["Swing1"].push_back({ -6, 20 });
 	BodyNavelPos["Swing1"].push_back({ -8, 18 });
 	BodyNavelPos["Swing1"].push_back({ -11, 16 });
+
 	BodyNavelPos["Swing2"].push_back({ -8, 16 });
 	BodyNavelPos["Swing2"].push_back({ -24, 17 });
 	BodyNavelPos["Swing2"].push_back({ -30, 16 });
+
+	BodyNavelPos["Stab0"].push_back({ -5, 17 });
+	BodyNavelPos["Stab0"].push_back({ -14, 15 });
+
+	BodyNavelPos["Stab1"].push_back({ -5, 20 });
+	BodyNavelPos["Stab1"].push_back({ -16, 16 });
+
 	BodyNavelPos["Alert"].push_back({ -3, 18 });
 	BodyNavelPos["Alert"].push_back({ -3, 19 });
 	BodyNavelPos["Alert"].push_back({ -3, 20 });
+
 	BodyNavelPos["Ladder"].push_back({ 0, 21 });
 	BodyNavelPos["Ladder"].push_back({ 2, 19 });
+
 	BodyNavelPos["Jump"].push_back({ -5, 18 });
+
 	//
 	BodyNeckPos["Stand"].push_back({ -4, 32 });
 	BodyNeckPos["Stand"].push_back({ -4, 32 });
 	BodyNeckPos["Stand"].push_back({ -4, 32 });
 	BodyNeckPos["Stand"].push_back({ -4, 32 });
+
 	BodyNeckPos["Walk"].push_back({ -4, 32 });
 	BodyNeckPos["Walk"].push_back({ -4, 31 });
 	BodyNeckPos["Walk"].push_back({ -4, 32 });
 	BodyNeckPos["Walk"].push_back({ -4, 31 });
+
 	BodyNeckPos["Swing0"].push_back({ -9, 26 });
 	BodyNeckPos["Swing0"].push_back({ -10, 31 });
 	BodyNeckPos["Swing0"].push_back({ -37, 25 });
+
 	BodyNeckPos["Swing1"].push_back({ -4, 32 });
 	BodyNeckPos["Swing1"].push_back({ -13, 30 });
 	BodyNeckPos["Swing1"].push_back({ -17, 27 });
+
 	BodyNeckPos["Swing2"].push_back({ -11, 27 });
 	BodyNeckPos["Swing2"].push_back({ -31, 28 });
 	BodyNeckPos["Swing2"].push_back({ -34, 26 });
+
+	BodyNeckPos["Stab0"].push_back({ -4, 29 });
+	BodyNeckPos["Stab0"].push_back({ -23, 26 });
+
+	BodyNeckPos["Stab1"].push_back({ -4, 32 });
+	BodyNeckPos["Stab1"].push_back({ -26, 25 });
+
 	BodyNeckPos["Alert"].push_back({ -4, 29 });
 	BodyNeckPos["Alert"].push_back({ -4, 30 });
 	BodyNeckPos["Alert"].push_back({ -4, 31 });
+
 	BodyNeckPos["Ladder"].push_back({ -1, 30 });
 	BodyNeckPos["Ladder"].push_back({ 2, 28 });
+
 	BodyNeckPos["Jump"].push_back({ -4, 30 });
 
 	//
+
 	BodyHandPos["Ladder"].push_back({ -4, 39 });
 	BodyHandPos["Ladder"].push_back({ 7, 38 });
+
 	//Arm
 
 	ArmOriginPos["Stand"].push_back({ -5, 9 });
 	ArmOriginPos["Stand"].push_back({ -5, 9 });
 	ArmOriginPos["Stand"].push_back({ -6, 9 });
 	ArmOriginPos["Stand"].push_back({ -5, 9 });
+
 	ArmOriginPos["Walk"].push_back({ -6, 8 });
 	ArmOriginPos["Walk"].push_back({ -6, 9 });
 	ArmOriginPos["Walk"].push_back({ -6, 9 });
 	ArmOriginPos["Walk"].push_back({ -7, 7 });
+
 	ArmOriginPos["Swing0"].push_back({ -7, 7 });
 	ArmOriginPos["Swing0"].push_back({ -7, 7 });
 	ArmOriginPos["Swing0"].push_back({ -6, 7 });
+
 	ArmOriginPos["Swing1"].push_back({ -11, 7 });
 	ArmOriginPos["Swing1"].push_back({ -12, 6 });
 	ArmOriginPos["Swing1"].push_back({ -10, 8 });
+
 	ArmOriginPos["Swing2"].push_back({ -11, 7 });
 	ArmOriginPos["Swing2"].push_back({ -12, 6 });
 	ArmOriginPos["Swing2"].push_back({ -10, 8 });
+
+	ArmOriginPos["Stab0"].push_back({ -7, 7 });
+	ArmOriginPos["Stab0"].push_back({ -7, 7 });
+
+	ArmOriginPos["Stab1"].push_back({ -7, 7 });
+	ArmOriginPos["Stab1"].push_back({ -7, 7 });
+
 	ArmOriginPos["Alert"].push_back({ -6, 8 });
 	ArmOriginPos["Alert"].push_back({ -7, 8 });
 	ArmOriginPos["Alert"].push_back({ -6, 10 });
+
 	ArmOriginPos["Jump"].push_back({ -7,7 });
 
 	//X 반전, Y그대로
@@ -166,13 +223,16 @@ void Player::SetBodyTexturePosVector()
 	ArmToNavelPos["Stand"].push_back({ 13, 0 });
 	ArmToNavelPos["Stand"].push_back({ 13, -1 });
 	ArmToNavelPos["Stand"].push_back({ 13, 0 });
+
 	ArmToNavelPos["Walk"].push_back({ 12, 2 });
 	ArmToNavelPos["Walk"].push_back({ 6, -1 });
 	ArmToNavelPos["Walk"].push_back({ 12, 2 });
 	ArmToNavelPos["Walk"].push_back({ 13, 4 });
+
 	ArmToNavelPos["Swing0"].push_back({ -5, 2 });
 	ArmToNavelPos["Swing0"].push_back({ -5, 4 });
 	ArmToNavelPos["Swing0"].push_back({ 8, 18 });
+
 	ArmToNavelPos["Swing1"].push_back({ -11, 12 });
 	ArmToNavelPos["Swing1"].push_back({ -13, 9 });
 	ArmToNavelPos["Swing1"].push_back({ 14, 3 });
@@ -180,6 +240,12 @@ void Player::SetBodyTexturePosVector()
 	ArmToNavelPos["Swing2"].push_back({ 14, 10 });
 	ArmToNavelPos["Swing2"].push_back({ -11, 5 });
 	ArmToNavelPos["Swing2"].push_back({ 2, 1 });
+
+	ArmToNavelPos["Stab0"].push_back({ 12, 4 });
+	ArmToNavelPos["Stab0"].push_back({ -23, 5 });
+				   
+	ArmToNavelPos["Stab1"].push_back({ 13, 9 });
+	ArmToNavelPos["Stab1"].push_back({ -20, 4 });
 
 	ArmToNavelPos["Alert"].push_back({ 11,  1 });
 	ArmToNavelPos["Alert"].push_back({ 11,  1 });
@@ -210,11 +276,18 @@ void Player::SetBodyTexturePosVector()
 	ArmHandPos["Swing2"].push_back({ -9, -2 });
 	ArmHandPos["Swing2"].push_back({ -9, 0 });
 
+	ArmHandPos["Stab0"].push_back({ 2, -7 });
+	ArmHandPos["Stab0"].push_back({ -3, 2 });
+
+	ArmHandPos["Stab1"].push_back({ -2, 3 });
+	ArmHandPos["Stab1"].push_back({ -3, 3 });
+
 	ArmHandPos["Alert"].push_back({ -5, -5 });
 	ArmHandPos["Alert"].push_back({ -6, -6 });
 	ArmHandPos["Alert"].push_back({ -5, -5 });
 
 	ArmHandPos["Jump"].push_back({ -3, 3 });
+
 	//
 	HeadOriginPos["Front"] = float4{ -19, 17 };
 	HeadOriginPos["Back"] = float4{ -20, 17 };
@@ -250,6 +323,12 @@ void Player::SetCoatTexturePosVector()
 	CoatOriginPos["Swing2"]["WhiteTshirt"].push_back({ -10, 10 });
 	CoatOriginPos["Swing2"]["WhiteTshirt"].push_back({ -11, 9 });
 
+	CoatOriginPos["Stab0"]["WhiteTshirt"].push_back({ -10, 10 });
+	CoatOriginPos["Stab0"]["WhiteTshirt"].push_back({ -10, 10 });
+
+	CoatOriginPos["Stab1"]["WhiteTshirt"].push_back({ -10, 10 });
+	CoatOriginPos["Stab1"]["WhiteTshirt"].push_back({ -10, 10 });
+
 	CoatOriginPos["Alert"]["WhiteTshirt"].push_back({ -10, 10 });
 	CoatOriginPos["Alert"]["WhiteTshirt"].push_back({ -10, 10 });
 	CoatOriginPos["Alert"]["WhiteTshirt"].push_back({ -11, 9 });
@@ -282,6 +361,12 @@ void Player::SetCoatTexturePosVector()
 	CoatToNavelPos["Swing2"]["WhiteTshirt"].push_back({ 6, 3 });
 	CoatToNavelPos["Swing2"]["WhiteTshirt"].push_back({ 9, 2 });
 
+	CoatToNavelPos["Stab0"]["WhiteTshirt"].push_back({ 2, 2 });
+	CoatToNavelPos["Stab0"]["WhiteTshirt"].push_back({ 2, 2 });
+
+	CoatToNavelPos["Stab1"]["WhiteTshirt"].push_back({ 4, 3 });
+	CoatToNavelPos["Stab1"]["WhiteTshirt"].push_back({ 5, 1 });
+
 	CoatToNavelPos["Alert"]["WhiteTshirt"].push_back({ 3, 1 });
 	CoatToNavelPos["Alert"]["WhiteTshirt"].push_back({ 3, 1 });
 	CoatToNavelPos["Alert"]["WhiteTshirt"].push_back({ 5, 2 });
@@ -290,6 +375,8 @@ void Player::SetCoatTexturePosVector()
 	CoatToNavelPos["Ladder"]["WhiteTshirt"].push_back({ 2, -1 });
 
 	CoatToNavelPos["Jump"]["WhiteTshirt"].push_back({ 4, 2 });
+
+	//
 
 	CoatArmOriginPos["Stand"]["WhiteTshirt"].push_back({ -3, 4 });
 	CoatArmOriginPos["Stand"]["WhiteTshirt"].push_back({ -3, 4 });
@@ -313,11 +400,19 @@ void Player::SetCoatTexturePosVector()
 	CoatArmOriginPos["Swing2"]["WhiteTshirt"].push_back({ -3, 5 });
 	CoatArmOriginPos["Swing2"]["WhiteTshirt"].push_back({ -3, 5 });
 
+	CoatArmOriginPos["Stab0"]["WhiteTshirt"].push_back({ -4, 4 });
+	CoatArmOriginPos["Stab0"]["WhiteTshirt"].push_back({ -3, 5 });
+
+	CoatArmOriginPos["Stab1"]["WhiteTshirt"].push_back({ -4, 4 });
+	CoatArmOriginPos["Stab1"]["WhiteTshirt"].push_back({ -3, 5 });
+
 	CoatArmOriginPos["Alert"]["WhiteTshirt"].push_back({ -4, 4 });
 	CoatArmOriginPos["Alert"]["WhiteTshirt"].push_back({ -3, 5 });
 	CoatArmOriginPos["Alert"]["WhiteTshirt"].push_back({ -3, 5 });
 
 	CoatArmOriginPos["Jump"]["WhiteTshirt"].push_back({ -4, 4 });
+
+	//
 
 	CoatArmToNavelPos["Stand"]["WhiteTshirt"].push_back({ 12, 4 });
 	CoatArmToNavelPos["Stand"]["WhiteTshirt"].push_back({ 11, 5 });
@@ -340,6 +435,12 @@ void Player::SetCoatTexturePosVector()
 	CoatArmToNavelPos["Swing2"]["WhiteTshirt"].push_back({ 7, 6 });
 	CoatArmToNavelPos["Swing2"]["WhiteTshirt"].push_back({ -4, 6 });
 	CoatArmToNavelPos["Swing2"]["WhiteTshirt"].push_back({ -1, 4 });
+
+	CoatArmToNavelPos["Stab0"]["WhiteTshirt"].push_back({ 9, 7 });
+	CoatArmToNavelPos["Stab0"]["WhiteTshirt"].push_back({ -7, 6 });
+
+	CoatArmToNavelPos["Stab1"]["WhiteTshirt"].push_back({ 11, 5 });
+	CoatArmToNavelPos["Stab1"]["WhiteTshirt"].push_back({ -5, 5 });
 
 	CoatArmToNavelPos["Alert"]["WhiteTshirt"].push_back({ 9, 5 });
 	CoatArmToNavelPos["Alert"]["WhiteTshirt"].push_back({ 8, 4 });
@@ -373,6 +474,12 @@ void Player::SetPantsTexturePosVector()
 	PantsOriginPos["Swing2"]["BluePants"].push_back({ -10, 6 });
 	PantsOriginPos["Swing2"]["BluePants"].push_back({ -9, 6 });
 
+	PantsOriginPos["Stab0"]["BluePants"].push_back({ -10, 5 });
+	PantsOriginPos["Stab0"]["BluePants"].push_back({ -10, 6 });
+
+	PantsOriginPos["Stab1"]["BluePants"].push_back({ -10, 5 });
+	PantsOriginPos["Stab1"]["BluePants"].push_back({ -10, 6 });
+
 	PantsOriginPos["Alert"]["BluePants"].push_back({ -10, 5 });
 	PantsOriginPos["Alert"]["BluePants"].push_back({ -10, 6 });
 	PantsOriginPos["Alert"]["BluePants"].push_back({ -9, 6 });
@@ -405,6 +512,12 @@ void Player::SetPantsTexturePosVector()
 	PantsToNavelPos["Swing2"]["BluePants"].push_back({ 8, -2 });
 	PantsToNavelPos["Swing2"]["BluePants"].push_back({ 6, -3 });
 
+	PantsToNavelPos["Stab0"]["BluePants"].push_back({ 0, -4 });
+	PantsToNavelPos["Stab0"]["BluePants"].push_back({ -2, 0 });
+
+	PantsToNavelPos["Stab1"]["BluePants"].push_back({ 1, -4 });
+	PantsToNavelPos["Stab1"]["BluePants"].push_back({ 4, -3 });
+
 	PantsToNavelPos["Alert"]["BluePants"].push_back({ 0, -6 });
 	PantsToNavelPos["Alert"]["BluePants"].push_back({ -1, -7 });
 	PantsToNavelPos["Alert"]["BluePants"].push_back({ -1, -7 });
@@ -422,48 +535,67 @@ void Player::SetWeaponTexturePosVector()
 	WeaponOriginPos["Stand"]["BasicSword"].push_back({ -25, 7 });
 	WeaponOriginPos["Stand"]["BasicSword"].push_back({ -25, 7 });
 	WeaponOriginPos["Stand"]["BasicSword"].push_back({ -25, 7 });
+
 	WeaponOriginPos["Walk"]["BasicSword"].push_back({ -25, 7 });
 	WeaponOriginPos["Walk"]["BasicSword"].push_back({ -25, 7 });
 	WeaponOriginPos["Walk"]["BasicSword"].push_back({ -25, 7 });
 	WeaponOriginPos["Walk"]["BasicSword"].push_back({ -25, 7 });
+
 	WeaponOriginPos["Swing0"]["BasicSword"].push_back({ -11, 5 });
 	WeaponOriginPos["Swing0"]["BasicSword"].push_back({ -11, 5 });
 	WeaponOriginPos["Swing0"]["BasicSword"].push_back({ -11, 5 });
+
 	WeaponOriginPos["Swing1"]["BasicSword"].push_back({ -12, 5 });
 	WeaponOriginPos["Swing1"]["BasicSword"].push_back({ -12, 5 });
 	WeaponOriginPos["Swing1"]["BasicSword"].push_back({ -12, 5 });
+
 	WeaponOriginPos["Swing2"]["BasicSword"].push_back({ -12, 5 });
 	WeaponOriginPos["Swing2"]["BasicSword"].push_back({ -12, 5 });
 	WeaponOriginPos["Swing2"]["BasicSword"].push_back({ -12, 5 });
+
 	WeaponOriginPos["Jump"]["BasicSword"].push_back({ -13, 5 });
 
 	WeaponOriginPos["Stand"]["Ganier"].push_back({ -25, 7 });
 	WeaponOriginPos["Stand"]["Ganier"].push_back({ -25, 7 });
 	WeaponOriginPos["Stand"]["Ganier"].push_back({ -25, 7 });
 	WeaponOriginPos["Stand"]["Ganier"].push_back({ -25, 7 });
+
 	WeaponOriginPos["Walk"]["Ganier"].push_back({ -25, 7 });
 	WeaponOriginPos["Walk"]["Ganier"].push_back({ -25, 7 });
 	WeaponOriginPos["Walk"]["Ganier"].push_back({ -25, 7 });
 	WeaponOriginPos["Walk"]["Ganier"].push_back({ -25, 7 });
+
 	WeaponOriginPos["Swing0"]["Ganier"].push_back({ 10, 5 }); //사라짐
 	WeaponOriginPos["Swing0"]["Ganier"].push_back({ -11, 5 });
 	WeaponOriginPos["Swing0"]["Ganier"].push_back({ -11, 5 });
+
 	WeaponOriginPos["Swing1"]["Ganier"].push_back({ -12, 5 });
 	WeaponOriginPos["Swing1"]["Ganier"].push_back({ -12, 5 });
 	WeaponOriginPos["Swing1"]["Ganier"].push_back({ -12, 5 });
+
 	WeaponOriginPos["Swing2"]["Ganier"].push_back({ -12, 5 });
 	WeaponOriginPos["Swing2"]["Ganier"].push_back({ -12, 5 });
 	WeaponOriginPos["Swing2"]["Ganier"].push_back({ -12, 5 });//사라짐
+
+	WeaponOriginPos["Stab0"]["Ganier"].push_back({ -12, 5 });
+	WeaponOriginPos["Stab0"]["Ganier"].push_back({ -12, 5 });
+
+	WeaponOriginPos["Stab1"]["Ganier"].push_back({ -12, 5 });
+	WeaponOriginPos["Stab1"]["Ganier"].push_back({ -12, 5 });
+
 	WeaponOriginPos["Alert"]["Ganier"].push_back({ -23, 10 });
 	WeaponOriginPos["Alert"]["Ganier"].push_back({ -23, 10 });
 	WeaponOriginPos["Alert"]["Ganier"].push_back({ -23, 10 });
+
 	WeaponOriginPos["Jump"]["Ganier"].push_back({ -13, 5 });
 
 
+	//몽둥이
 	WeaponOriginPos["Stand"]["Club"].push_back({ -25, 7 });
 	WeaponOriginPos["Stand"]["Club"].push_back({ -25, 7 });
 	WeaponOriginPos["Stand"]["Club"].push_back({ -25, 7 });
 	WeaponOriginPos["Stand"]["Club"].push_back({ -25, 7 });
+
 	WeaponOriginPos["Walk"]["Club"].push_back({ -25, 7 });
 	WeaponOriginPos["Walk"]["Club"].push_back({ -25, 7 });
 	WeaponOriginPos["Walk"]["Club"].push_back({ -25, 7 });
@@ -474,6 +606,7 @@ void Player::SetWeaponTexturePosVector()
 	WeaponToHandPos["Stand"]["BasicSword"].push_back({ -6, -5 });
 	WeaponToHandPos["Stand"]["BasicSword"].push_back({ -6, -5 });
 	WeaponToHandPos["Stand"]["BasicSword"].push_back({ -6, -5 });
+
 	WeaponToHandPos["Walk"]["BasicSword"].push_back({ -8, -2 });
 	WeaponToHandPos["Walk"]["BasicSword"].push_back({ -6, 6 });
 	WeaponToHandPos["Walk"]["BasicSword"].push_back({ -8, -2 });
@@ -483,10 +616,12 @@ void Player::SetWeaponTexturePosVector()
 	WeaponToHandPos["Stand"]["Ganier"].push_back({ 20, -2 });
 	WeaponToHandPos["Stand"]["Ganier"].push_back({ 20, -2 });
 	WeaponToHandPos["Stand"]["Ganier"].push_back({ 20, -2 });
+
 	WeaponToHandPos["Walk"]["Ganier"].push_back({ 20, -2 });
 	WeaponToHandPos["Walk"]["Ganier"].push_back({ 20, 0 });
 	WeaponToHandPos["Walk"]["Ganier"].push_back({ 20, -2 });
 	WeaponToHandPos["Walk"]["Ganier"].push_back({ 20, -1 });
+
 	WeaponToHandPos["Alert"]["Ganier"].push_back({ 16, -4 });
 	WeaponToHandPos["Alert"]["Ganier"].push_back({ 17, -5 });
 	WeaponToHandPos["Alert"]["Ganier"].push_back({ 16, -6 });
@@ -495,6 +630,7 @@ void Player::SetWeaponTexturePosVector()
 	WeaponToHandPos["Stand"]["Club"].push_back({ -5, -4 });
 	WeaponToHandPos["Stand"]["Club"].push_back({ -5, -4 });
 	WeaponToHandPos["Stand"]["Club"].push_back({ -5, -4 });
+
 	WeaponToHandPos["Walk"]["Club"].push_back({ -7, -1 });
 	WeaponToHandPos["Walk"]["Club"].push_back({ -7,  6 });
 	WeaponToHandPos["Walk"]["Club"].push_back({ -7, -1 });
@@ -504,9 +640,11 @@ void Player::SetWeaponTexturePosVector()
 	WeaponToNavelPos["Swing0"]["BasicSword"].push_back({ 4, -1 });
 	WeaponToNavelPos["Swing0"]["BasicSword"].push_back({ -4, -2 });
 	WeaponToNavelPos["Swing0"]["BasicSword"].push_back({ 23, 41 });
+
 	WeaponToNavelPos["Swing1"]["BasicSword"].push_back({ -11, 34 });
 	WeaponToNavelPos["Swing1"]["BasicSword"].push_back({ -14, 35 });
 	WeaponToNavelPos["Swing1"]["BasicSword"].push_back({ 26, 1 });
+
 	WeaponToNavelPos["Swing2"]["BasicSword"].push_back({ 26, 33 });
 	WeaponToNavelPos["Swing2"]["BasicSword"].push_back({ -39, 2 });
 	WeaponToNavelPos["Swing2"]["BasicSword"].push_back({ 5, 1 });
@@ -514,12 +652,20 @@ void Player::SetWeaponTexturePosVector()
 	WeaponToNavelPos["Swing0"]["Ganier"].push_back({ -1, -1 });
 	WeaponToNavelPos["Swing0"]["Ganier"].push_back({ -1, -1 });
 	WeaponToNavelPos["Swing0"]["Ganier"].push_back({ 23, 20 });
+
 	WeaponToNavelPos["Swing1"]["Ganier"].push_back({ -10, 14 });
 	WeaponToNavelPos["Swing1"]["Ganier"].push_back({ -13, 10 });
 	WeaponToNavelPos["Swing1"]["Ganier"].push_back({ 24, -1 });
+
 	WeaponToNavelPos["Swing2"]["Ganier"].push_back({ 26, 12 });
 	WeaponToNavelPos["Swing2"]["Ganier"].push_back({ -14, 3 });
 	WeaponToNavelPos["Swing2"]["Ganier"].push_back({ -14, 3 });
+
+	WeaponToNavelPos["Stab0"]["Ganier"].push_back({ 21, -3 });
+	WeaponToNavelPos["Stab0"]["Ganier"].push_back({ -21, 7 });
+
+	WeaponToNavelPos["Stab1"]["Ganier"].push_back({ 18, 11 });
+	WeaponToNavelPos["Stab1"]["Ganier"].push_back({ -19, 7 });
 
 	WeaponToNavelPos["Jump"]["BasicSword"].push_back({ 11, 27 });
 	WeaponToNavelPos["Jump"]["Ganier"].push_back({ 12, 9 });
@@ -654,7 +800,7 @@ void Player::TextureAnimationUpdate()
 		}
 
 		//공격이 끝나면 자동으로 Stand로 변경
-		if (isSwing == true && AniIndex == 3)
+		if ((isSwing == true && AniIndex == 3) || (isSwing == true && (MoveType == "Stab0" || MoveType == "Stab1") && AniIndex == 2))
 		{
 			isSwing = false;
 			MoveType = "Stand";
@@ -734,8 +880,7 @@ void Player::TexturePosUpdate()
 		CoatArm->GetTransform()->AddLocalPosition(BodyNavelPos[MoveType][AniIndex] + CoatArmToNavelPos[MoveType][CoatName][AniIndex] + CoatArmOriginPos[MoveType][CoatName][AniIndex]);
 	}
 
-
-	if (MoveType == "Jump" || MoveType == "Swing0" || MoveType == "Swing1" || MoveType == "Swing2")
+	if (MoveType == "Jump" || MoveType == "Swing0" || MoveType == "Swing1" || MoveType == "Swing2" || MoveType == "Stab0" || MoveType == "Stab1")
 	{		
 		float4 WeaponScale = Weapon->GetTransform()->GetLocalScale();
 		Weapon->GetTransform()->SetLocalPosition({ WeaponScale.hx(), -WeaponScale.hy(), 0 });
