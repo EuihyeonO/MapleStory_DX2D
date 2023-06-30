@@ -47,7 +47,8 @@ void EquipItemList::LoadAllEquipItem()
 	if(LoadedItem != nullptr)
 	{
 		std::shared_ptr<Item> NewItem = GetLevel()->CreateActor<Item>();
-		NewItem->SetItemInfo(LoadedItem, static_cast<int>(EquipType::Cap));
+		NewItem->SetItemInfo(LoadedItem, static_cast<int>(ItemType::Equip));
+		NewItem->ItemRender->On();
 		NewItem->isEquip = true;
 
 		MyEquipItems[static_cast<int>(EquipType::Cap)] = NewItem;
@@ -58,7 +59,8 @@ void EquipItemList::LoadAllEquipItem()
 	if (LoadedItem != nullptr)
 	{
 		std::shared_ptr<Item> NewItem = GetLevel()->CreateActor<Item>();
-		NewItem->SetItemInfo(LoadedItem, static_cast<int>(EquipType::Weapon));
+		NewItem->SetItemInfo(LoadedItem, static_cast<int>(ItemType::Equip));
+		NewItem->ItemRender->On();
 		NewItem->isEquip = true;
 
 		MyEquipItems[static_cast<int>(EquipType::Weapon)] = NewItem;
@@ -69,7 +71,8 @@ void EquipItemList::LoadAllEquipItem()
 	if (LoadedItem != nullptr)
 	{
 		std::shared_ptr<Item> NewItem = GetLevel()->CreateActor<Item>();
-		NewItem->SetItemInfo(LoadedItem, static_cast<int>(EquipType::Shoes));
+		NewItem->SetItemInfo(LoadedItem, static_cast<int>(ItemType::Equip));
+		NewItem->ItemRender->On();
 		NewItem->isEquip = true;
 
 		MyEquipItems[static_cast<int>(EquipType::Shoes)] = NewItem;
@@ -80,7 +83,8 @@ void EquipItemList::LoadAllEquipItem()
 	if (LoadedItem != nullptr)
 	{
 		std::shared_ptr<Item> NewItem = GetLevel()->CreateActor<Item>();
-		NewItem->SetItemInfo(LoadedItem, static_cast<int>(EquipType::Coat));
+		NewItem->SetItemInfo(LoadedItem, static_cast<int>(ItemType::Equip));
+		NewItem->ItemRender->On();
 		NewItem->isEquip = true;
 
 		MyEquipItems[static_cast<int>(EquipType::Coat)] = NewItem;
@@ -91,7 +95,8 @@ void EquipItemList::LoadAllEquipItem()
 	if (LoadedItem != nullptr)
 	{
 		std::shared_ptr<Item> NewItem = GetLevel()->CreateActor<Item>();
-		NewItem->SetItemInfo(LoadedItem, static_cast<int>(EquipType::Pants));
+		NewItem->SetItemInfo(LoadedItem, static_cast<int>(ItemType::Equip));
+		NewItem->ItemRender->On();
 		NewItem->isEquip = true;
 
 		MyEquipItems[static_cast<int>(EquipType::Pants)] = NewItem;
@@ -123,6 +128,7 @@ void EquipItemList::LoadEquipItem(int _ItemType)
 		if (MyEquipItems[_ItemType] != nullptr)
 		{
 			MyEquipItems[_ItemType]->Death();
+			MyEquipItems[_ItemType] = nullptr;
 		}
 
 		std::shared_ptr<Item> NewItem = GetLevel()->CreateActor<Item>();

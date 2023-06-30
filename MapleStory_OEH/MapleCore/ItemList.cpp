@@ -19,19 +19,19 @@ ItemList::~ItemList()
 
 void ItemList::Start()
 {
-	MyItemList[(static_cast<int>(EquipType::Cap))].reserve(24);
-	MyItemList[(static_cast<int>(EquipType::Shoes))].reserve(24);
-	MyItemList[(static_cast<int>(EquipType::Weapon))].reserve(24);
-	MyItemList[(static_cast<int>(EquipType::Pants))].reserve(24);
-	MyItemList[(static_cast<int>(EquipType::Coat))].reserve(24);
+	MyItemList[(static_cast<int>(ItemType::Equip))].reserve(24);
+	MyItemList[(static_cast<int>(ItemType::Use))].reserve(24);
+	MyItemList[(static_cast<int>(ItemType::Etc))].reserve(24);
+	MyItemList[(static_cast<int>(ItemType::Setup))].reserve(24);
+	MyItemList[(static_cast<int>(ItemType::Cash))].reserve(24);
 
 	for (int i = 0; i < 24; i++)
 	{
-		MyItemList[(static_cast<int>(EquipType::Cap))].push_back(nullptr);
-		MyItemList[(static_cast<int>(EquipType::Shoes))].push_back(nullptr);
-		MyItemList[(static_cast<int>(EquipType::Weapon))].push_back(nullptr);
-		MyItemList[(static_cast<int>(EquipType::Pants))].push_back(nullptr);
-		MyItemList[(static_cast<int>(EquipType::Coat))].push_back(nullptr);
+		MyItemList[(static_cast<int>(ItemType::Equip))].push_back(nullptr);
+		MyItemList[(static_cast<int>(ItemType::Use))].push_back(nullptr);
+		MyItemList[(static_cast<int>(ItemType::Etc))].push_back(nullptr);
+		MyItemList[(static_cast<int>(ItemType::Setup))].push_back(nullptr);
+		MyItemList[(static_cast<int>(ItemType::Cash))].push_back(nullptr);
 	}
 }
 
@@ -52,8 +52,6 @@ void ItemList::CreateItem(const std::shared_ptr<ItemInfo> _ItemInfo, int _ItemTy
 		return;
 	}
 
-
-
 	//기존에 있던 아이템이라면
 	int Index = FindItem(_ItemInfo->ItemName, _ItemType);
 	
@@ -68,7 +66,6 @@ void ItemList::CreateItem(const std::shared_ptr<ItemInfo> _ItemInfo, int _ItemTy
 
 	NewItem->SetItemInfo(_ItemInfo, _ItemType);
 	NewItem->GetTransform()->SetParent(GetTransform());
-	NewItem->SetParentItemList(DynamicThis<ItemList>());
 
 	//빈공간을 채우지 않게 하기 위해
 	if (_Index != -1)
@@ -144,7 +141,6 @@ void ItemList::SortItemListToType(int _ItemType)
 	int count = 0;
 
 	size_t Size = MyItemList[_ItemType].size();
-	float4 Campos = GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition();
 
 	for (int i = 0; i < Size; i++)
 	{
@@ -334,11 +330,9 @@ void ItemList::EquipItem(std::shared_ptr<Item> _Item)
 	std::string ItemName = GameEngineString::ToUpper(_Item->ItemName);
 	int ItemType = _Item->ItemType;
 
-	std::shared_ptr<ItemInfo> CurItem = UIController::GetUIController()->GetEquipItem(ItemType);
-	
-	DeleteItem(_Item);
 
 	UIController::GetUIController()->AddToEquipItemList(_Item->MyInfo, ItemType);
+	DeleteItem(_Item);
 }
 
 void ItemList::DeleteItem(std::shared_ptr<Item> _Item)
@@ -357,9 +351,9 @@ void ItemList::DeleteItem(std::shared_ptr<Item> _Item)
 	{
 		if (MyItemList[ItemType][i] == _Item)
 		{
-			if (_Item->MyInfo->Num <= 0)
+			if (MyItemList[ItemType][i]->MyInfo->Num <= 0)
 			{
-				_Item->Death();
+				MyItemList[ItemType][i]->Death();
 				MyItemList[ItemType][i] = nullptr;
 			}
 		}

@@ -77,7 +77,8 @@ enum class EquipType
 {
 	Coat,
 	Pants,
+	Cap,
 	Shoes,
 	Weapon,
-	Cap,
+	OnePiece,
 };

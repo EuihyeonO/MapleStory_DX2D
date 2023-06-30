@@ -301,153 +301,295 @@ void Player::SetBodyTexturePosVector()
 
 void Player::SetCoatTexturePosVector()
 {
-	CoatOriginPos["Stand"]["WhiteTshirt"].push_back({ -11, 9 });
-	CoatOriginPos["Stand"]["WhiteTshirt"].push_back({ -10, 9 });
-	CoatOriginPos["Stand"]["WhiteTshirt"].push_back({ -10, 9 });
-	CoatOriginPos["Stand"]["WhiteTshirt"].push_back({ -10, 9 });
+	CoatOriginPos["Stand"]["WHITETSHIRT"].push_back({ -11, 9 });
+	CoatOriginPos["Stand"]["WHITETSHIRT"].push_back({ -10, 9 });
+	CoatOriginPos["Stand"]["WHITETSHIRT"].push_back({ -10, 9 });
+	CoatOriginPos["Stand"]["WHITETSHIRT"].push_back({ -10, 9 });
 
-	CoatOriginPos["Walk"]["WhiteTshirt"].push_back({ -11, 9 });
-	CoatOriginPos["Walk"]["WhiteTshirt"].push_back({ -11, 9 });
-	CoatOriginPos["Walk"]["WhiteTshirt"].push_back({ -11, 9 });
-	CoatOriginPos["Walk"]["WhiteTshirt"].push_back({ -11, 9 });
+	CoatOriginPos["Walk"]["WHITETSHIRT"].push_back({ -11, 9 });
+	CoatOriginPos["Walk"]["WHITETSHIRT"].push_back({ -11, 9 });
+	CoatOriginPos["Walk"]["WHITETSHIRT"].push_back({ -11, 9 });
+	CoatOriginPos["Walk"]["WHITETSHIRT"].push_back({ -11, 9 });
 
-	CoatOriginPos["Swing0"]["WhiteTshirt"].push_back({ -11, 9 });
-	CoatOriginPos["Swing0"]["WhiteTshirt"].push_back({ -10, 10 });
-	CoatOriginPos["Swing0"]["WhiteTshirt"].push_back({ -11, 9 });
+	CoatOriginPos["Swing0"]["WHITETSHIRT"].push_back({ -11, 9 });
+	CoatOriginPos["Swing0"]["WHITETSHIRT"].push_back({ -10, 10 });
+	CoatOriginPos["Swing0"]["WHITETSHIRT"].push_back({ -11, 9 });
 
-	CoatOriginPos["Swing1"]["WhiteTshirt"].push_back({ -10, 10 });
-	CoatOriginPos["Swing1"]["WhiteTshirt"].push_back({ -10, 10 });
-	CoatOriginPos["Swing1"]["WhiteTshirt"].push_back({ -11, 9 });
+	CoatOriginPos["Swing1"]["WHITETSHIRT"].push_back({ -10, 10 });
+	CoatOriginPos["Swing1"]["WHITETSHIRT"].push_back({ -10, 10 });
+	CoatOriginPos["Swing1"]["WHITETSHIRT"].push_back({ -11, 9 });
 	
-	CoatOriginPos["Swing2"]["WhiteTshirt"].push_back({ -10, 10 });
-	CoatOriginPos["Swing2"]["WhiteTshirt"].push_back({ -10, 10 });
-	CoatOriginPos["Swing2"]["WhiteTshirt"].push_back({ -11, 9 });
+	CoatOriginPos["Swing2"]["WHITETSHIRT"].push_back({ -10, 10 });
+	CoatOriginPos["Swing2"]["WHITETSHIRT"].push_back({ -10, 10 });
+	CoatOriginPos["Swing2"]["WHITETSHIRT"].push_back({ -11, 9 });
 
-	CoatOriginPos["Stab0"]["WhiteTshirt"].push_back({ -10, 10 });
-	CoatOriginPos["Stab0"]["WhiteTshirt"].push_back({ -10, 10 });
+	CoatOriginPos["Stab0"]["WHITETSHIRT"].push_back({ -10, 10 });
+	CoatOriginPos["Stab0"]["WHITETSHIRT"].push_back({ -10, 10 });
 
-	CoatOriginPos["Stab1"]["WhiteTshirt"].push_back({ -10, 10 });
-	CoatOriginPos["Stab1"]["WhiteTshirt"].push_back({ -10, 10 });
+	CoatOriginPos["Stab1"]["WHITETSHIRT"].push_back({ -10, 10 });
+	CoatOriginPos["Stab1"]["WHITETSHIRT"].push_back({ -10, 10 });
 
-	CoatOriginPos["Alert"]["WhiteTshirt"].push_back({ -10, 10 });
-	CoatOriginPos["Alert"]["WhiteTshirt"].push_back({ -10, 10 });
-	CoatOriginPos["Alert"]["WhiteTshirt"].push_back({ -11, 9 });
+	CoatOriginPos["Alert"]["WHITETSHIRT"].push_back({ -10, 10 });
+	CoatOriginPos["Alert"]["WHITETSHIRT"].push_back({ -10, 10 });
+	CoatOriginPos["Alert"]["WHITETSHIRT"].push_back({ -11, 9 });
 
-	CoatOriginPos["Ladder"]["WhiteTshirt"].push_back({ -10, 10 });
-	CoatOriginPos["Ladder"]["WhiteTshirt"].push_back({ -10, 10 });
+	CoatOriginPos["Ladder"]["WHITETSHIRT"].push_back({ -10, 10 });
+	CoatOriginPos["Ladder"]["WHITETSHIRT"].push_back({ -10, 10 });
 
-	CoatOriginPos["Jump"]["WhiteTshirt"].push_back({ -10, 10 });
+	CoatOriginPos["Jump"]["WHITETSHIRT"].push_back({ -10, 10 });
 
 	//
-	CoatToNavelPos["Stand"]["WhiteTshirt"].push_back({ 8, 1 });
-	CoatToNavelPos["Stand"]["WhiteTshirt"].push_back({ 6, 2 });
-	CoatToNavelPos["Stand"]["WhiteTshirt"].push_back({ 5, 1 });
-	CoatToNavelPos["Stand"]["WhiteTshirt"].push_back({ 6, 2 });
+	CoatOriginPos["Stand"]["GRAYTSHIRT"].push_back({ -11, 9 });
+	CoatOriginPos["Stand"]["GRAYTSHIRT"].push_back({ -10, 9 });
+	CoatOriginPos["Stand"]["GRAYTSHIRT"].push_back({ -10, 9 });
+	CoatOriginPos["Stand"]["GRAYTSHIRT"].push_back({ -10, 9 });
 
-	CoatToNavelPos["Walk"]["WhiteTshirt"].push_back({ 6, 3 });
-	CoatToNavelPos["Walk"]["WhiteTshirt"].push_back({ 6, 3 });
-	CoatToNavelPos["Walk"]["WhiteTshirt"].push_back({ 6, 3 });
-	CoatToNavelPos["Walk"]["WhiteTshirt"].push_back({ 6, 4 });
+	CoatOriginPos["Walk"]["GRAYTSHIRT"].push_back({ -11, 9 });
+	CoatOriginPos["Walk"]["GRAYTSHIRT"].push_back({ -11, 9 });
+	CoatOriginPos["Walk"]["GRAYTSHIRT"].push_back({ -11, 9 });
+	CoatOriginPos["Walk"]["GRAYTSHIRT"].push_back({ -11, 9 });
 
-	CoatToNavelPos["Swing0"]["WhiteTshirt"].push_back({ 5, 2 });
-	CoatToNavelPos["Swing0"]["WhiteTshirt"].push_back({ 7, 1 });
-	CoatToNavelPos["Swing0"]["WhiteTshirt"].push_back({ 6, 1 });
+	CoatOriginPos["Swing0"]["GRAYTSHIRT"].push_back({ -11, 9 });
+	CoatOriginPos["Swing0"]["GRAYTSHIRT"].push_back({ -10, 10 });
+	CoatOriginPos["Swing0"]["GRAYTSHIRT"].push_back({ -11, 9 });
 
-	CoatToNavelPos["Swing1"]["WhiteTshirt"].push_back({ 5, 1 });
-	CoatToNavelPos["Swing1"]["WhiteTshirt"].push_back({ 4, 3 });
-	CoatToNavelPos["Swing1"]["WhiteTshirt"].push_back({ 4, 3 });
+	CoatOriginPos["Swing1"]["GRAYTSHIRT"].push_back({ -10, 10 });
+	CoatOriginPos["Swing1"]["GRAYTSHIRT"].push_back({ -10, 10 });
+	CoatOriginPos["Swing1"]["GRAYTSHIRT"].push_back({ -11, 9 });
 
-	CoatToNavelPos["Swing2"]["WhiteTshirt"].push_back({ 0, 1 });
-	CoatToNavelPos["Swing2"]["WhiteTshirt"].push_back({ 6, 3 });
-	CoatToNavelPos["Swing2"]["WhiteTshirt"].push_back({ 9, 2 });
+	CoatOriginPos["Swing2"]["GRAYTSHIRT"].push_back({ -10, 10 });
+	CoatOriginPos["Swing2"]["GRAYTSHIRT"].push_back({ -10, 10 });
+	CoatOriginPos["Swing2"]["GRAYTSHIRT"].push_back({ -11, 9 });
 
-	CoatToNavelPos["Stab0"]["WhiteTshirt"].push_back({ 2, 2 });
-	CoatToNavelPos["Stab0"]["WhiteTshirt"].push_back({ 2, 2 });
+	CoatOriginPos["Stab0"]["GRAYTSHIRT"].push_back({ -10, 10 });
+	CoatOriginPos["Stab0"]["GRAYTSHIRT"].push_back({ -10, 10 });
 
-	CoatToNavelPos["Stab1"]["WhiteTshirt"].push_back({ 4, 3 });
-	CoatToNavelPos["Stab1"]["WhiteTshirt"].push_back({ 5, 1 });
+	CoatOriginPos["Stab1"]["GRAYTSHIRT"].push_back({ -10, 10 });
+	CoatOriginPos["Stab1"]["GRAYTSHIRT"].push_back({ -10, 10 });
 
-	CoatToNavelPos["Alert"]["WhiteTshirt"].push_back({ 3, 1 });
-	CoatToNavelPos["Alert"]["WhiteTshirt"].push_back({ 3, 1 });
-	CoatToNavelPos["Alert"]["WhiteTshirt"].push_back({ 5, 2 });
+	CoatOriginPos["Alert"]["GRAYTSHIRT"].push_back({ -10, 10 });
+	CoatOriginPos["Alert"]["GRAYTSHIRT"].push_back({ -10, 10 });
+	CoatOriginPos["Alert"]["GRAYTSHIRT"].push_back({ -11, 9 });
 
-	CoatToNavelPos["Ladder"]["WhiteTshirt"].push_back({ 0, -1 });
-	CoatToNavelPos["Ladder"]["WhiteTshirt"].push_back({ 2, -1 });
+	CoatOriginPos["Ladder"]["GRAYTSHIRT"].push_back({ -10, 10 });
+	CoatOriginPos["Ladder"]["GRAYTSHIRT"].push_back({ -10, 10 });
 
-	CoatToNavelPos["Jump"]["WhiteTshirt"].push_back({ 4, 2 });
+	CoatOriginPos["Jump"]["GRAYTSHIRT"].push_back({ -10, 10 });
+	//
+	CoatToNavelPos["Stand"]["WHITETSHIRT"].push_back({ 8, 1 });
+	CoatToNavelPos["Stand"]["WHITETSHIRT"].push_back({ 6, 2 });
+	CoatToNavelPos["Stand"]["WHITETSHIRT"].push_back({ 5, 1 });
+	CoatToNavelPos["Stand"]["WHITETSHIRT"].push_back({ 6, 2 });
 
+	CoatToNavelPos["Walk"]["WHITETSHIRT"].push_back({ 6, 3 });
+	CoatToNavelPos["Walk"]["WHITETSHIRT"].push_back({ 6, 3 });
+	CoatToNavelPos["Walk"]["WHITETSHIRT"].push_back({ 6, 3 });
+	CoatToNavelPos["Walk"]["WHITETSHIRT"].push_back({ 6, 4 });
+
+	CoatToNavelPos["Swing0"]["WHITETSHIRT"].push_back({ 5, 2 });
+	CoatToNavelPos["Swing0"]["WHITETSHIRT"].push_back({ 7, 1 });
+	CoatToNavelPos["Swing0"]["WHITETSHIRT"].push_back({ 6, 1 });
+
+	CoatToNavelPos["Swing1"]["WHITETSHIRT"].push_back({ 5, 1 });
+	CoatToNavelPos["Swing1"]["WHITETSHIRT"].push_back({ 4, 3 });
+	CoatToNavelPos["Swing1"]["WHITETSHIRT"].push_back({ 4, 3 });
+
+	CoatToNavelPos["Swing2"]["WHITETSHIRT"].push_back({ 0, 1 });
+	CoatToNavelPos["Swing2"]["WHITETSHIRT"].push_back({ 6, 3 });
+	CoatToNavelPos["Swing2"]["WHITETSHIRT"].push_back({ 9, 2 });
+
+	CoatToNavelPos["Stab0"]["WHITETSHIRT"].push_back({ 2, 2 });
+	CoatToNavelPos["Stab0"]["WHITETSHIRT"].push_back({ 2, 2 });
+
+	CoatToNavelPos["Stab1"]["WHITETSHIRT"].push_back({ 4, 3 });
+	CoatToNavelPos["Stab1"]["WHITETSHIRT"].push_back({ 5, 1 });
+
+	CoatToNavelPos["Alert"]["WHITETSHIRT"].push_back({ 3, 1 });
+	CoatToNavelPos["Alert"]["WHITETSHIRT"].push_back({ 3, 1 });
+	CoatToNavelPos["Alert"]["WHITETSHIRT"].push_back({ 5, 2 });
+
+	CoatToNavelPos["Ladder"]["WHITETSHIRT"].push_back({ 0, -1 });
+	CoatToNavelPos["Ladder"]["WHITETSHIRT"].push_back({ 2, -1 });
+
+	CoatToNavelPos["Jump"]["WHITETSHIRT"].push_back({ 4, 2 });
+	
+	//	
+	CoatToNavelPos["Stand"]["GRAYTSHIRT"].push_back({ 8, 1 });
+	CoatToNavelPos["Stand"]["GRAYTSHIRT"].push_back({ 6, 2 });
+	CoatToNavelPos["Stand"]["GRAYTSHIRT"].push_back({ 5, 1 });
+	CoatToNavelPos["Stand"]["GRAYTSHIRT"].push_back({ 6, 2 });
+
+	CoatToNavelPos["Walk"]["GRAYTSHIRT"].push_back({ 6, 3 });
+	CoatToNavelPos["Walk"]["GRAYTSHIRT"].push_back({ 6, 3 });
+	CoatToNavelPos["Walk"]["GRAYTSHIRT"].push_back({ 6, 3 });
+	CoatToNavelPos["Walk"]["GRAYTSHIRT"].push_back({ 6, 4 });
+
+	CoatToNavelPos["Swing0"]["GRAYTSHIRT"].push_back({ 5, 2 });
+	CoatToNavelPos["Swing0"]["GRAYTSHIRT"].push_back({ 7, 1 });
+	CoatToNavelPos["Swing0"]["GRAYTSHIRT"].push_back({ 6, 1 });
+
+	CoatToNavelPos["Swing1"]["GRAYTSHIRT"].push_back({ 5, 1 });
+	CoatToNavelPos["Swing1"]["GRAYTSHIRT"].push_back({ 4, 3 });
+	CoatToNavelPos["Swing1"]["GRAYTSHIRT"].push_back({ 4, 3 });
+
+	CoatToNavelPos["Swing2"]["GRAYTSHIRT"].push_back({ 0, 1 });
+	CoatToNavelPos["Swing2"]["GRAYTSHIRT"].push_back({ 6, 3 });
+	CoatToNavelPos["Swing2"]["GRAYTSHIRT"].push_back({ 9, 2 });
+
+	CoatToNavelPos["Stab0"]["GRAYTSHIRT"].push_back({ 2, 2 });
+	CoatToNavelPos["Stab0"]["GRAYTSHIRT"].push_back({ 2, 2 });
+
+	CoatToNavelPos["Stab1"]["GRAYTSHIRT"].push_back({ 4, 3 });
+	CoatToNavelPos["Stab1"]["GRAYTSHIRT"].push_back({ 5, 1 });
+
+	CoatToNavelPos["Alert"]["GRAYTSHIRT"].push_back({ 3, 1 });
+	CoatToNavelPos["Alert"]["GRAYTSHIRT"].push_back({ 3, 1 });
+	CoatToNavelPos["Alert"]["GRAYTSHIRT"].push_back({ 5, 2 });
+
+	CoatToNavelPos["Ladder"]["GRAYTSHIRT"].push_back({ 0, -1 });
+	CoatToNavelPos["Ladder"]["GRAYTSHIRT"].push_back({ 2, -1 });
+
+	CoatToNavelPos["Jump"]["GRAYTSHIRT"].push_back({ 4, 2 });
 	//
 
-	CoatArmOriginPos["Stand"]["WhiteTshirt"].push_back({ -3, 4 });
-	CoatArmOriginPos["Stand"]["WhiteTshirt"].push_back({ -3, 4 });
-	CoatArmOriginPos["Stand"]["WhiteTshirt"].push_back({ -4, 4 });
-	CoatArmOriginPos["Stand"]["WhiteTshirt"].push_back({ -3, 4 });
+	CoatArmOriginPos["Stand"]["WHITETSHIRT"].push_back({ -3, 4 });
+	CoatArmOriginPos["Stand"]["WHITETSHIRT"].push_back({ -3, 4 });
+	CoatArmOriginPos["Stand"]["WHITETSHIRT"].push_back({ -4, 4 });
+	CoatArmOriginPos["Stand"]["WHITETSHIRT"].push_back({ -3, 4 });
 
-	CoatArmOriginPos["Walk"]["WhiteTshirt"].push_back({ -4, 3 });
-	CoatArmOriginPos["Walk"]["WhiteTshirt"].push_back({ -3, 5 });
-	CoatArmOriginPos["Walk"]["WhiteTshirt"].push_back({ -4, 3 });
-	CoatArmOriginPos["Walk"]["WhiteTshirt"].push_back({ -4, 2 });
+	CoatArmOriginPos["Walk"]["WHITETSHIRT"].push_back({ -4, 3 });
+	CoatArmOriginPos["Walk"]["WHITETSHIRT"].push_back({ -3, 5 });
+	CoatArmOriginPos["Walk"]["WHITETSHIRT"].push_back({ -4, 3 });
+	CoatArmOriginPos["Walk"]["WHITETSHIRT"].push_back({ -4, 2 });
 
-	CoatArmOriginPos["Swing0"]["WhiteTshirt"].push_back({ -3, 5 });
-	CoatArmOriginPos["Swing0"]["WhiteTshirt"].push_back({ -3, 5 });
-	CoatArmOriginPos["Swing0"]["WhiteTshirt"].push_back({ -3, 5 });
+	CoatArmOriginPos["Swing0"]["WHITETSHIRT"].push_back({ -3, 5 });
+	CoatArmOriginPos["Swing0"]["WHITETSHIRT"].push_back({ -3, 5 });
+	CoatArmOriginPos["Swing0"]["WHITETSHIRT"].push_back({ -3, 5 });
 	
-	CoatArmOriginPos["Swing1"]["WhiteTshirt"].push_back({ -4, 4 });
-	CoatArmOriginPos["Swing1"]["WhiteTshirt"].push_back({ -3, 5 });
-	CoatArmOriginPos["Swing1"]["WhiteTshirt"].push_back({ -3, 5 });
+	CoatArmOriginPos["Swing1"]["WHITETSHIRT"].push_back({ -4, 4 });
+	CoatArmOriginPos["Swing1"]["WHITETSHIRT"].push_back({ -3, 5 });
+	CoatArmOriginPos["Swing1"]["WHITETSHIRT"].push_back({ -3, 5 });
 	
-	CoatArmOriginPos["Swing2"]["WhiteTshirt"].push_back({ -4, 4 });
-	CoatArmOriginPos["Swing2"]["WhiteTshirt"].push_back({ -3, 5 });
-	CoatArmOriginPos["Swing2"]["WhiteTshirt"].push_back({ -3, 5 });
+	CoatArmOriginPos["Swing2"]["WHITETSHIRT"].push_back({ -4, 4 });
+	CoatArmOriginPos["Swing2"]["WHITETSHIRT"].push_back({ -3, 5 });
+	CoatArmOriginPos["Swing2"]["WHITETSHIRT"].push_back({ -3, 5 });
 
-	CoatArmOriginPos["Stab0"]["WhiteTshirt"].push_back({ -4, 4 });
-	CoatArmOriginPos["Stab0"]["WhiteTshirt"].push_back({ -3, 5 });
+	CoatArmOriginPos["Stab0"]["WHITETSHIRT"].push_back({ -4, 4 });
+	CoatArmOriginPos["Stab0"]["WHITETSHIRT"].push_back({ -3, 5 });
 
-	CoatArmOriginPos["Stab1"]["WhiteTshirt"].push_back({ -4, 4 });
-	CoatArmOriginPos["Stab1"]["WhiteTshirt"].push_back({ -3, 5 });
+	CoatArmOriginPos["Stab1"]["WHITETSHIRT"].push_back({ -4, 4 });
+	CoatArmOriginPos["Stab1"]["WHITETSHIRT"].push_back({ -3, 5 });
 
-	CoatArmOriginPos["Alert"]["WhiteTshirt"].push_back({ -4, 4 });
-	CoatArmOriginPos["Alert"]["WhiteTshirt"].push_back({ -3, 5 });
-	CoatArmOriginPos["Alert"]["WhiteTshirt"].push_back({ -3, 5 });
+	CoatArmOriginPos["Alert"]["WHITETSHIRT"].push_back({ -4, 4 });
+	CoatArmOriginPos["Alert"]["WHITETSHIRT"].push_back({ -3, 5 });
+	CoatArmOriginPos["Alert"]["WHITETSHIRT"].push_back({ -3, 5 });
 
-	CoatArmOriginPos["Jump"]["WhiteTshirt"].push_back({ -4, 4 });
+	CoatArmOriginPos["Jump"]["WHITETSHIRT"].push_back({ -4, 4 });
 
 	//
+	CoatArmOriginPos["Stand"]["GRAYTSHIRT"].push_back({ -3, 4 });
+	CoatArmOriginPos["Stand"]["GRAYTSHIRT"].push_back({ -3, 4 });
+	CoatArmOriginPos["Stand"]["GRAYTSHIRT"].push_back({ -4, 4 });
+	CoatArmOriginPos["Stand"]["GRAYTSHIRT"].push_back({ -3, 4 });
 
-	CoatArmToNavelPos["Stand"]["WhiteTshirt"].push_back({ 12, 4 });
-	CoatArmToNavelPos["Stand"]["WhiteTshirt"].push_back({ 11, 5 });
-	CoatArmToNavelPos["Stand"]["WhiteTshirt"].push_back({ 11, 4 });
-	CoatArmToNavelPos["Stand"]["WhiteTshirt"].push_back({ 11, 5 });
+	CoatArmOriginPos["Walk"]["GRAYTSHIRT"].push_back({ -4, 3 });
+	CoatArmOriginPos["Walk"]["GRAYTSHIRT"].push_back({ -3, 5 });
+	CoatArmOriginPos["Walk"]["GRAYTSHIRT"].push_back({ -4, 3 });
+	CoatArmOriginPos["Walk"]["GRAYTSHIRT"].push_back({ -4, 2 });
 
-	CoatArmToNavelPos["Walk"]["WhiteTshirt"].push_back({ 10, 7 });
-	CoatArmToNavelPos["Walk"]["WhiteTshirt"].push_back({ 9, 3 });
-	CoatArmToNavelPos["Walk"]["WhiteTshirt"].push_back({ 10, 7 });
-	CoatArmToNavelPos["Walk"]["WhiteTshirt"].push_back({ 10, 9 });
+	CoatArmOriginPos["Swing0"]["GRAYTSHIRT"].push_back({ -3, 5 });
+	CoatArmOriginPos["Swing0"]["GRAYTSHIRT"].push_back({ -3, 5 });
+	CoatArmOriginPos["Swing0"]["GRAYTSHIRT"].push_back({ -3, 5 });
 
-	CoatArmToNavelPos["Swing0"]["WhiteTshirt"].push_back({ -5, 4 });
-	CoatArmToNavelPos["Swing0"]["WhiteTshirt"].push_back({ -1, 6 });
-	CoatArmToNavelPos["Swing0"]["WhiteTshirt"].push_back({ 5, 8 });
+	CoatArmOriginPos["Swing1"]["GRAYTSHIRT"].push_back({ -4, 4 });
+	CoatArmOriginPos["Swing1"]["GRAYTSHIRT"].push_back({ -3, 5 });
+	CoatArmOriginPos["Swing1"]["GRAYTSHIRT"].push_back({ -3, 5 });
+
+	CoatArmOriginPos["Swing2"]["GRAYTSHIRT"].push_back({ -4, 4 });
+	CoatArmOriginPos["Swing2"]["GRAYTSHIRT"].push_back({ -3, 5 });
+	CoatArmOriginPos["Swing2"]["GRAYTSHIRT"].push_back({ -3, 5 });
+
+	CoatArmOriginPos["Stab0"]["GRAYTSHIRT"].push_back({ -4, 4 });
+	CoatArmOriginPos["Stab0"]["GRAYTSHIRT"].push_back({ -3, 5 });
+
+	CoatArmOriginPos["Stab1"]["GRAYTSHIRT"].push_back({ -4, 4 });
+	CoatArmOriginPos["Stab1"]["GRAYTSHIRT"].push_back({ -3, 5 });
+
+	CoatArmOriginPos["Alert"]["GRAYTSHIRT"].push_back({ -4, 4 });
+	CoatArmOriginPos["Alert"]["GRAYTSHIRT"].push_back({ -3, 5 });
+	CoatArmOriginPos["Alert"]["GRAYTSHIRT"].push_back({ -3, 5 });
+
+	CoatArmOriginPos["Jump"]["GRAYTSHIRT"].push_back({ -4, 4 });
+
+	//
+	CoatArmToNavelPos["Stand"]["WHITETSHIRT"].push_back({ 12, 4 });
+	CoatArmToNavelPos["Stand"]["WHITETSHIRT"].push_back({ 11, 5 });
+	CoatArmToNavelPos["Stand"]["WHITETSHIRT"].push_back({ 11, 4 });
+	CoatArmToNavelPos["Stand"]["WHITETSHIRT"].push_back({ 11, 5 });
+
+	CoatArmToNavelPos["Walk"]["WHITETSHIRT"].push_back({ 10, 7 });
+	CoatArmToNavelPos["Walk"]["WHITETSHIRT"].push_back({ 9, 3 });
+	CoatArmToNavelPos["Walk"]["WHITETSHIRT"].push_back({ 10, 7 });
+	CoatArmToNavelPos["Walk"]["WHITETSHIRT"].push_back({ 10, 9 });
+
+	CoatArmToNavelPos["Swing0"]["WHITETSHIRT"].push_back({ -5, 4 });
+	CoatArmToNavelPos["Swing0"]["WHITETSHIRT"].push_back({ -1, 6 });
+	CoatArmToNavelPos["Swing0"]["WHITETSHIRT"].push_back({ 5, 8 });
 	
-	CoatArmToNavelPos["Swing1"]["WhiteTshirt"].push_back({ -2, 6 });
-	CoatArmToNavelPos["Swing1"]["WhiteTshirt"].push_back({ -6, 5 });
-	CoatArmToNavelPos["Swing1"]["WhiteTshirt"].push_back({ 7, 6 });
+	CoatArmToNavelPos["Swing1"]["WHITETSHIRT"].push_back({ -2, 6 });
+	CoatArmToNavelPos["Swing1"]["WHITETSHIRT"].push_back({ -6, 5 });
+	CoatArmToNavelPos["Swing1"]["WHITETSHIRT"].push_back({ 7, 6 });
 	
-	CoatArmToNavelPos["Swing2"]["WhiteTshirt"].push_back({ 7, 6 });
-	CoatArmToNavelPos["Swing2"]["WhiteTshirt"].push_back({ -4, 6 });
-	CoatArmToNavelPos["Swing2"]["WhiteTshirt"].push_back({ -1, 4 });
+	CoatArmToNavelPos["Swing2"]["WHITETSHIRT"].push_back({ 7, 6 });
+	CoatArmToNavelPos["Swing2"]["WHITETSHIRT"].push_back({ -4, 6 });
+	CoatArmToNavelPos["Swing2"]["WHITETSHIRT"].push_back({ -1, 4 });
 
-	CoatArmToNavelPos["Stab0"]["WhiteTshirt"].push_back({ 9, 7 });
-	CoatArmToNavelPos["Stab0"]["WhiteTshirt"].push_back({ -7, 6 });
+	CoatArmToNavelPos["Stab0"]["WHITETSHIRT"].push_back({ 9, 7 });
+	CoatArmToNavelPos["Stab0"]["WHITETSHIRT"].push_back({ -7, 6 });
 
-	CoatArmToNavelPos["Stab1"]["WhiteTshirt"].push_back({ 11, 5 });
-	CoatArmToNavelPos["Stab1"]["WhiteTshirt"].push_back({ -5, 5 });
+	CoatArmToNavelPos["Stab1"]["WHITETSHIRT"].push_back({ 11, 5 });
+	CoatArmToNavelPos["Stab1"]["WHITETSHIRT"].push_back({ -5, 5 });
 
-	CoatArmToNavelPos["Alert"]["WhiteTshirt"].push_back({ 9, 5 });
-	CoatArmToNavelPos["Alert"]["WhiteTshirt"].push_back({ 8, 4 });
-	CoatArmToNavelPos["Alert"]["WhiteTshirt"].push_back({ 8, 4 });
+	CoatArmToNavelPos["Alert"]["WHITETSHIRT"].push_back({ 9, 5 });
+	CoatArmToNavelPos["Alert"]["WHITETSHIRT"].push_back({ 8, 4 });
+	CoatArmToNavelPos["Alert"]["WHITETSHIRT"].push_back({ 8, 4 });
 
-	CoatArmToNavelPos["Jump"]["WhiteTshirt"].push_back({ 13, 5 });
+	CoatArmToNavelPos["Jump"]["WHITETSHIRT"].push_back({ 13, 5 });
 
+	//
+	CoatArmToNavelPos["Stand"]["GRAYTSHIRT"].push_back({ 12, 4 });
+	CoatArmToNavelPos["Stand"]["GRAYTSHIRT"].push_back({ 11, 5 });
+	CoatArmToNavelPos["Stand"]["GRAYTSHIRT"].push_back({ 11, 4 });
+	CoatArmToNavelPos["Stand"]["GRAYTSHIRT"].push_back({ 11, 5 });
+
+	CoatArmToNavelPos["Walk"]["GRAYTSHIRT"].push_back({ 10, 7 });
+	CoatArmToNavelPos["Walk"]["GRAYTSHIRT"].push_back({ 9, 3 });
+	CoatArmToNavelPos["Walk"]["GRAYTSHIRT"].push_back({ 10, 7 });
+	CoatArmToNavelPos["Walk"]["GRAYTSHIRT"].push_back({ 10, 9 });
+
+	CoatArmToNavelPos["Swing0"]["GRAYTSHIRT"].push_back({ -5, 4 });
+	CoatArmToNavelPos["Swing0"]["GRAYTSHIRT"].push_back({ -1, 6 });
+	CoatArmToNavelPos["Swing0"]["GRAYTSHIRT"].push_back({ 5, 8 });
+
+	CoatArmToNavelPos["Swing1"]["GRAYTSHIRT"].push_back({ -2, 6 });
+	CoatArmToNavelPos["Swing1"]["GRAYTSHIRT"].push_back({ -6, 5 });
+	CoatArmToNavelPos["Swing1"]["GRAYTSHIRT"].push_back({ 7, 6 });
+
+	CoatArmToNavelPos["Swing2"]["GRAYTSHIRT"].push_back({ 7, 6 });
+	CoatArmToNavelPos["Swing2"]["GRAYTSHIRT"].push_back({ -4, 6 });
+	CoatArmToNavelPos["Swing2"]["GRAYTSHIRT"].push_back({ -1, 4 });
+
+	CoatArmToNavelPos["Stab0"]["GRAYTSHIRT"].push_back({ 9, 7 });
+	CoatArmToNavelPos["Stab0"]["GRAYTSHIRT"].push_back({ -7, 6 });
+
+	CoatArmToNavelPos["Stab1"]["GRAYTSHIRT"].push_back({ 11, 5 });
+	CoatArmToNavelPos["Stab1"]["GRAYTSHIRT"].push_back({ -5, 5 });
+
+	CoatArmToNavelPos["Alert"]["GRAYTSHIRT"].push_back({ 9, 5 });
+	CoatArmToNavelPos["Alert"]["GRAYTSHIRT"].push_back({ 8, 4 });
+	CoatArmToNavelPos["Alert"]["GRAYTSHIRT"].push_back({ 8, 4 });
+
+	CoatArmToNavelPos["Jump"]["GRAYTSHIRT"].push_back({ 13, 5 });
 }
 
 void Player::SetPantsTexturePosVector()
@@ -555,6 +697,7 @@ void Player::SetWeaponTexturePosVector()
 
 	WeaponOriginPos["Jump"]["BasicSword"].push_back({ -13, 5 });
 
+	//가니어
 	WeaponOriginPos["Stand"]["Ganier"].push_back({ -25, 7 });
 	WeaponOriginPos["Stand"]["Ganier"].push_back({ -25, 7 });
 	WeaponOriginPos["Stand"]["Ganier"].push_back({ -25, 7 });
@@ -589,6 +732,40 @@ void Player::SetWeaponTexturePosVector()
 
 	WeaponOriginPos["Jump"]["Ganier"].push_back({ -13, 5 });
 
+	//메이플 스론즈
+	WeaponOriginPos["Stand"]["MapleThroned"].push_back({ -25, 7 });
+	WeaponOriginPos["Stand"]["MapleThroned"].push_back({ -25, 7 });
+	WeaponOriginPos["Stand"]["MapleThroned"].push_back({ -25, 7 });
+	WeaponOriginPos["Stand"]["MapleThroned"].push_back({ -25, 7 });
+
+	WeaponOriginPos["Walk"]["MapleThroned"].push_back({ -25, 7 });
+	WeaponOriginPos["Walk"]["MapleThroned"].push_back({ -25, 7 });
+	WeaponOriginPos["Walk"]["MapleThroned"].push_back({ -25, 7 });
+	WeaponOriginPos["Walk"]["MapleThroned"].push_back({ -25, 7 });
+
+	WeaponOriginPos["Swing0"]["MapleThroned"].push_back({ 10, 5 }); //사라짐
+	WeaponOriginPos["Swing0"]["MapleThroned"].push_back({ -11, 5 });
+	WeaponOriginPos["Swing0"]["MapleThroned"].push_back({ -11, 5 });
+
+	WeaponOriginPos["Swing1"]["MapleThroned"].push_back({ -12, 5 });
+	WeaponOriginPos["Swing1"]["MapleThroned"].push_back({ -12, 5 });
+	WeaponOriginPos["Swing1"]["MapleThroned"].push_back({ -12, 5 });
+
+	WeaponOriginPos["Swing2"]["MapleThroned"].push_back({ -12, 5 });
+	WeaponOriginPos["Swing2"]["MapleThroned"].push_back({ -12, 5 });
+	WeaponOriginPos["Swing2"]["MapleThroned"].push_back({ -12, 5 });//사라짐
+
+	WeaponOriginPos["Stab0"]["MapleThroned"].push_back({ -12, 5 });
+	WeaponOriginPos["Stab0"]["MapleThroned"].push_back({ -12, 5 });
+
+	WeaponOriginPos["Stab1"]["MapleThroned"].push_back({ -12, 5 });
+	WeaponOriginPos["Stab1"]["MapleThroned"].push_back({ -12, 5 });
+
+	WeaponOriginPos["Alert"]["MapleThroned"].push_back({ -23, 10 });
+	WeaponOriginPos["Alert"]["MapleThroned"].push_back({ -23, 10 });
+	WeaponOriginPos["Alert"]["MapleThroned"].push_back({ -23, 10 });
+
+	WeaponOriginPos["Jump"]["MapleThroned"].push_back({ -13, 5 });
 
 	//몽둥이
 	WeaponOriginPos["Stand"]["Club"].push_back({ -25, 7 });
@@ -625,6 +802,20 @@ void Player::SetWeaponTexturePosVector()
 	WeaponToHandPos["Alert"]["Ganier"].push_back({ 16, -4 });
 	WeaponToHandPos["Alert"]["Ganier"].push_back({ 17, -5 });
 	WeaponToHandPos["Alert"]["Ganier"].push_back({ 16, -6 });
+
+	WeaponToHandPos["Stand"]["MapleThroned"].push_back({ 18, 7 });
+	WeaponToHandPos["Stand"]["MapleThroned"].push_back({ 18, 7 });
+	WeaponToHandPos["Stand"]["MapleThroned"].push_back({ 18, 7 });
+	WeaponToHandPos["Stand"]["MapleThroned"].push_back({ 18, 7 });
+
+	WeaponToHandPos["Walk"]["MapleThroned"].push_back({ 18, 8 });
+	WeaponToHandPos["Walk"]["MapleThroned"].push_back({ 19, 8 });
+	WeaponToHandPos["Walk"]["MapleThroned"].push_back({ 17, 9 });
+	WeaponToHandPos["Walk"]["MapleThroned"].push_back({ 19, 8 });
+
+	WeaponToHandPos["Alert"]["MapleThroned"].push_back({ 15, 5 });
+	WeaponToHandPos["Alert"]["MapleThroned"].push_back({ 15, 4 });
+	WeaponToHandPos["Alert"]["MapleThroned"].push_back({ 14, 3 });
 
 	WeaponToHandPos["Stand"]["Club"].push_back({ -5, -4 });
 	WeaponToHandPos["Stand"]["Club"].push_back({ -5, -4 });
@@ -667,8 +858,27 @@ void Player::SetWeaponTexturePosVector()
 	WeaponToNavelPos["Stab1"]["Ganier"].push_back({ 18, 11 });
 	WeaponToNavelPos["Stab1"]["Ganier"].push_back({ -19, 7 });
 
+	WeaponToNavelPos["Swing0"]["MapleThroned"].push_back({ -3, 7 });
+	WeaponToNavelPos["Swing0"]["MapleThroned"].push_back({ -3, 7 });
+	WeaponToNavelPos["Swing0"]["MapleThroned"].push_back({ 18, 23 });
+
+	WeaponToNavelPos["Swing1"]["MapleThroned"].push_back({ -11, 17 });
+	WeaponToNavelPos["Swing1"]["MapleThroned"].push_back({ -15, 14 });
+	WeaponToNavelPos["Swing1"]["MapleThroned"].push_back({ 19, 6 });
+
+	WeaponToNavelPos["Swing2"]["MapleThroned"].push_back({ 19, 15 });
+	WeaponToNavelPos["Swing2"]["MapleThroned"].push_back({ -13, 8 });
+	WeaponToNavelPos["Swing2"]["MapleThroned"].push_back({ -13, 8 });
+
+	WeaponToNavelPos["Stab0"]["MapleThroned"].push_back({ 19, 7 });
+	WeaponToNavelPos["Stab0"]["MapleThroned"].push_back({ -20, 8 });
+
+	WeaponToNavelPos["Stab1"]["MapleThroned"].push_back({ 13, 13 });
+	WeaponToNavelPos["Stab1"]["MapleThroned"].push_back({ -17, 7 });
+
 	WeaponToNavelPos["Jump"]["BasicSword"].push_back({ 11, 27 });
 	WeaponToNavelPos["Jump"]["Ganier"].push_back({ 12, 9 });
+	WeaponToNavelPos["Jump"]["MapleThroned"].push_back({ 11, 9 });
 
 }
 
@@ -687,6 +897,12 @@ void Player::SetHairAndFaceTexturePosVector()
 	FaceOriginPos["Face1"]["Default"] = float4{ -13, 8 };
 	//x,y 둘다반전
 	FaceToBrowPos["Face1"]["Default"] = float4{ 1, -12 };
+
+	CapOriginPos["RiceHat"]["Front"] = float4{ -15, 25 };
+	CapOriginPos["RiceHat"]["Back"] = float4{ -15, 25 };
+
+	CapToBrowPos["RiceHat"]["Front"] = float4{ -13, -8 };
+	CapToBrowPos["RiceHat"]["Back"] = float4{ -11, -7 };
 }
 
 void Player::TextureUpdate()
@@ -742,6 +958,12 @@ void Player::TextureUpdate()
 
 	std::string PantsTexture = PantsName + MoveType + std::to_string(AniIndex) + ".png";
 	Pants->SetScaleToTexture(PantsTexture);
+
+	if(CapName != "")
+	{
+		std::string CapTexture = CapName + FrontBackDir + ".png";
+		Cap->SetScaleToTexture(CapTexture);
+	}
 
 	if (isHit == true || isKnockBack == true)
 	{
@@ -896,6 +1118,13 @@ void Player::TexturePosUpdate()
 		float4 WeaponScale = Weapon->GetTransform()->GetLocalScale();
 		Weapon->GetTransform()->SetLocalPosition({ WeaponScale.hx(), -WeaponScale.hy(), 0 });
 		Weapon->GetTransform()->AddLocalPosition(HandPos + WeaponToHandPos[MoveType][WeaponName][AniIndex] + WeaponOriginPos[MoveType][WeaponName][AniIndex]);
+	}
+
+	if (Cap->IsUpdate() == true)
+	{
+		float4 CapScale = Cap->GetTransform()->GetLocalScale();
+		Cap->GetTransform()->SetLocalPosition({ CapScale.hx(), -CapScale.hy(), -1 });
+		Cap->GetTransform()->AddLocalPosition(BrowPos + CapOriginPos[CapName][FrontBackDir] + CapToBrowPos[CapName][FrontBackDir]);
 	}
 }
 

@@ -13,7 +13,7 @@
 struct ItemInfo {
 	int Num = 1;
 	int Level = 0;
-	int EquipType = 0;
+	int EquipType = 0;	
 
 	float4 Stat = { 0, 0, 0, 0 };
 	std::string ItemName = "";
@@ -47,6 +47,11 @@ public:
 	void SetCurItemList(std::shared_ptr<ItemList> _ItemList)
 	{
 		CurItemList = _ItemList;
+	}
+
+	std::shared_ptr<ItemList> GetCurItemList()
+	{
+		return CurItemList;
 	}
 
 	void SetCurEquipItemList(std::shared_ptr<class EquipItemList> _EquipItemList)
@@ -86,9 +91,9 @@ public:
 
 	void AddToItemList(const std::shared_ptr<ItemInfo> _ItemInfo, int _ItemType)
 	{
-		int Index = -1;
+		int Index = ItemFind(_ItemInfo->ItemName, _ItemType);
 
-		if (Index = ItemFind(_ItemInfo->ItemName, _ItemType), Index != -1)
+		if (Index != -1)
 		{
 			if (MyItemList[_ItemType][Index] != nullptr && _ItemType != static_cast<int>(ItemType::Equip))
 			{
@@ -119,7 +124,9 @@ public:
 		}
 		else if(Index == -1)
 		{
-			for (int i = 0; i < MyItemList[_ItemType].size(); i++)
+			int i = 0;
+
+			for (i = 0; i < MyItemList[_ItemType].size(); i++)
 			{
 				if (MyItemList[_ItemType][i] == nullptr)
 				{
@@ -160,22 +167,56 @@ public:
 		}
 	}
 
-	void AddToEquipItemList(const std::shared_ptr<ItemInfo> _EquipItemName, int _EquipType)
-	{		
-		if(EquipItemList[_EquipType] == nullptr)
+	void AddToEquipItemList(const std::shared_ptr<ItemInfo> _EquipItem, int _ItemType)
+	{	
+		int EquipType = _EquipItem->EquipType;
+		
+		if (EquipType == static_cast<int>(EquipType::OnePiece))
 		{
-			EquipItemList[_EquipType] = _EquipItemName;
+			EquipType = static_cast<int>(EquipType::Coat);
+		}
+
+		//같은 부위를 착용하고 있다면, 끼고 있던 아이템을 벗음
+		if(EquipItemList[EquipType] == nullptr)
+		{
+			EquipItemList[EquipType] = _EquipItem;
 		}
 		else
 		{
-			AddToItemList(EquipItemList[_EquipType], _EquipType);
-			EquipItemList[_EquipType] = _EquipItemName;
+			AddToItemList(EquipItemList[EquipType], _ItemType);
+			EquipItemList[EquipType] = _EquipItem;
 		}
 
+		//한벌옷을 착용했을 때, 바지를 입고 있다면 바지도 벗음
+		if (_EquipItem->EquipType == static_cast<int>(EquipType::OnePiece) && EquipItemList[static_cast<int>(EquipType::Pants)] != nullptr)
+		{
+			AddToItemList(EquipItemList[static_cast<int>(EquipType::Pants)], _ItemType);
+			EquipItemList[static_cast<int>(EquipType::Pants)] = _EquipItem;
+		}
+
+		//아이템창이 켜있으면, 렌더러를 만들어준다.
 		if (CurEquipItemList != nullptr)
 		{
-			CurEquipItemList->LoadEquipItem(_EquipType);
+			CurEquipItemList->LoadEquipItem(EquipType);
 		}
+
+		//캐릭터의 텍스쳐도 바꿔줌
+		switch (EquipType)
+		{
+		case static_cast<int>(EquipType::Weapon):
+			Player::GetCurPlayer()->SetWeaponName(_EquipItem->ItemName);
+			break;
+		case static_cast<int>(EquipType::Cap):
+			Player::GetCurPlayer()->SetCapName(_EquipItem->ItemName);
+			break;
+		case static_cast<int>(EquipType::Coat):
+			Player::GetCurPlayer()->SetCoatName(_EquipItem->ItemName);
+			break;
+		case static_cast<int>(EquipType::Pants):
+			Player::GetCurPlayer()->SetPantsName(_EquipItem->ItemName);
+			break;
+		}
+
 	}
 
 	const std::shared_ptr<ItemInfo> GetEquipItem(int _EquipType)

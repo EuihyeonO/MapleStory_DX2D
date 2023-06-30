@@ -37,7 +37,12 @@ void KeyBox::Start()
 
 	BoxRender->CreateAnimation({ .AnimationName = "Stand3" ,.SpriteName = "KeyBox3Stand" ,.FrameInter = 0.1f ,.Loop = false,.ScaleToTexture = true });
 	BoxRender->CreateAnimation({ .AnimationName = "Hit3" ,.SpriteName = "KeyBox3Hit" ,.FrameInter = 0.15f ,.Loop = false,.ScaleToTexture = true });
-	BoxRender->SetAnimationUpdateEvent("Hit3", 2, [this] {if (BoxRender->IsAnimationEnd() == true) { BoxRender->Death(); }});
+	BoxRender->SetAnimationUpdateEvent("Hit3", 2, [this] {
+		if 
+		(BoxRender->IsAnimationEnd() == true) 
+		{
+			Death(); 
+		}});
 
 	BoxRender->GetTransform()->SetLocalPosition({ 0, 47 });
 

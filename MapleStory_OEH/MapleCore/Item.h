@@ -31,11 +31,6 @@ public:
 
 	void SetItemInfo(std::shared_ptr<struct ItemInfo> _ItemName, int _ItemType);
 
-	void SetParentItemList(std::shared_ptr<class ItemList> _ParentItemList)
-	{
-		ParentItemList = _ParentItemList;
-	}
-
 	void Clicked();
 	void EquipThis();
 
@@ -62,8 +57,6 @@ private:
 	std::shared_ptr<struct ItemInfo> MyInfo = nullptr;
 
 	int ItemIndex = 0;
-
-	std::shared_ptr<class ItemList> ParentItemList = nullptr;
 
 	std::shared_ptr<GameEngineUIRenderer> ItemRender = nullptr;
 	std::shared_ptr<GameEngineCollision> ItemCollision = nullptr;

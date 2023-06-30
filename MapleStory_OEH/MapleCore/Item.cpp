@@ -32,10 +32,11 @@ void Item::Start()
 void Item::Update(float _DeltaTime) 
 {
 	Clicked();
-	EquipThis();
-
+	
 	float4 CamPos = GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition();
 	ItemCollision->GetTransform()->SetLocalPosition(CamPos);
+	
+	EquipThis();
 
 }
 
@@ -101,9 +102,10 @@ void Item::EquipThis()
 	if (Mouse::GetMouse()->IsDoubleClick() == true)
 	{
 		std::shared_ptr<GameEngineCollision> MyCollision = ItemCollision->Collision(static_cast<int>(CollisionOrder::Mouse), ColType::AABBBOX2D, ColType::AABBBOX2D);
+		
 		if (MyCollision != nullptr)
 		{
-			ParentItemList->EquipItem(DynamicThis<Item>());
+			UIController::GetUIController()->GetCurItemList()->EquipItem(DynamicThis<Item>());
 		}	
 	}
 }

@@ -246,6 +246,8 @@ void Player::Swing()
 	
 	if (HitObject != nullptr)
 	{
+		float aa = HitObject->GetTransform()->GetWorldPosition().XYDistance(GetTransform()->GetWorldPosition());
+
 		if (HitObject->GetTransform()->GetWorldPosition().XYDistance(GetTransform()->GetWorldPosition()) < 80.0f)
 		{
 			int StabType = GameEngineRandom::MainRandom.RandomInt(0,1);

@@ -30,6 +30,8 @@ void Level_ZakumRoad1::Start()
 
 	GetMainCamera()->SetSortType(0, SortType::ZSort);
 	GetCamera(100)->SetSortType(0, SortType::ZSort);
+
+	IsDebugSwitch();
 }
 
 void Level_ZakumRoad1::Update(float _DeltaTime)
@@ -66,7 +68,6 @@ void Level_ZakumRoad1::ActorCreate()
 		MyPlayer = CreateActor<Player>();
 		MyPlayer->SetCurPlayer(MyPlayer);
 		MyPlayer->SetColMap(Map->GetColMapName());
-		MyPlayer->SetCurPlayer(MyPlayer);
 	}
 
 	if (MyMouse == nullptr)

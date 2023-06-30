@@ -132,6 +132,26 @@ public:
 
 	void SetMulColorAllTexture(float _MulColor);
 
+	void SetWeaponName(const std::string_view& _Name)
+	{
+		WeaponName = _Name;
+	}
+
+	void SetCapName(const std::string_view& _Name)
+	{
+		CapName = _Name;
+	}
+
+	void SetCoatName(const std::string_view& _Name)
+	{
+		CoatName = _Name;
+	}
+
+	void SetPantsName(const std::string_view& _Name)
+	{
+		PantsName = _Name;
+	}
+
 	void SetLeft();
 	void SetRight();
 	void KnockBack(float4 _Dir, float _Distance, int _Damage, float _Speed = 750.0f, float _MinTime = 10.0f);
@@ -313,6 +333,7 @@ private:
 	std::string PantsName = "";
 
 	std::string WeaponName = "";
+	std::string CapName = "";
 
 	std::map <std::string, std::vector<float>> AniFrameList;
 
@@ -330,6 +351,9 @@ private:
 
 	std::map<std::string, std::map<std::string, float4>> HairOriginPos;
 	std::map<std::string, std::map<std::string, float4>> HairToBrowPos;
+
+	std::map<std::string, std::map<std::string, float4>> CapOriginPos;
+	std::map<std::string, std::map<std::string, float4>> CapToBrowPos;
 
 	std::map<std::string, std::map<std::string, float4>> FaceOriginPos;
 	std::map<std::string, std::map<std::string, float4>> FaceToBrowPos;
@@ -356,6 +380,7 @@ private:
 	std::shared_ptr<GameEngineSpriteRenderer> Weapon;
 	std::shared_ptr<GameEngineSpriteRenderer> Hair;
 	std::shared_ptr<GameEngineSpriteRenderer> Face;
+	std::shared_ptr<GameEngineSpriteRenderer> Cap;
 
 };
 
