@@ -325,6 +325,21 @@ public: //local
 	PlayerValue& operator=(const PlayerValue& _Other) = delete;
 	PlayerValue& operator=(PlayerValue&& _Other) noexcept = delete;
 
+	const std::string_view GetSkin()
+	{
+		return Skin;
+	}
+
+	const std::string_view GetHair()
+	{
+		return Hair;
+	}
+
+	const std::string_view GetFace()
+	{
+		return Face;
+	}
+
 protected:
 
 private:
@@ -383,9 +398,9 @@ private:
 	float AttackSpeed = 1.0f;
 	float BasicAttackSpeed = 1.0f;
 
-	std::string Hair;
-	std::string Skin;
-	std::string Face;
+	std::string Hair = "Toven";
+	std::string Skin = "Basic";
+	std::string Face = "Face1";
 	
 	//스킬 관련
 public:

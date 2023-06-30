@@ -122,9 +122,9 @@ void Level_Title::Start()
 
 
 
-	MyPlayer = CreateActor<Player>();
-	MyPlayer->GetTransform()->SetLocalPosition({ -20, 1768, -1 });
-	MyPlayer->SetRight();
+	//MyPlayer = CreateActor<Player>();
+	//MyPlayer->GetTransform()->SetLocalPosition({ -20, 1768, -1 });
+	//MyPlayer->SetRight();
 
 	MyMouse = CreateActor<Mouse>(static_cast<int>(RenderOrder::UI));
 	MyMouse->SetCurMouse(MyMouse);

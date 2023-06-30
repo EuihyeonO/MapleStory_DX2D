@@ -9,6 +9,7 @@
 #include "BottomBar.h"
 #include "UIWindowManager.h"
 #include "KeyBox.h"
+#include "UIController.h"
 
 #include <GameEngineBase/GameEngineRandom.h>
 
@@ -65,6 +66,23 @@ void Level_ZakumRoad1::ActorCreate()
 
 	if (MyPlayer == nullptr)
 	{
+		//test
+		std::shared_ptr<ItemInfo> NewItem1 = std::make_shared<ItemInfo>();
+		NewItem1->EquipType = static_cast<int>(EquipType::Weapon);
+		NewItem1->ItemName = "Ganier";
+
+		std::shared_ptr<ItemInfo> NewItem2 = std::make_shared<ItemInfo>();
+		NewItem2->EquipType = static_cast<int>(EquipType::Pants);
+		NewItem2->ItemName = "BLUEPANTS";
+
+		std::shared_ptr<ItemInfo> NewItem3 = std::make_shared<ItemInfo>();
+		NewItem3->EquipType = static_cast<int>(EquipType::Coat);
+		NewItem3->ItemName = "BLUEGOWN";
+
+		UIController::GetUIController()->AddToEquipItemList(NewItem1, static_cast<int>(ItemType::Equip));
+		UIController::GetUIController()->AddToEquipItemList(NewItem2, static_cast<int>(ItemType::Equip));
+		UIController::GetUIController()->AddToEquipItemList(NewItem3, static_cast<int>(ItemType::Equip));
+		
 		MyPlayer = CreateActor<Player>();
 		MyPlayer->SetCurPlayer(MyPlayer);
 		MyPlayer->SetColMap(Map->GetColMapName());

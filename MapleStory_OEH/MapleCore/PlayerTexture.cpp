@@ -337,45 +337,8 @@ void Player::SetCoatTexturePosVector()
 	CoatOriginPos["Ladder"]["WHITETSHIRT"].push_back({ -10, 10 });
 
 	CoatOriginPos["Jump"]["WHITETSHIRT"].push_back({ -10, 10 });
-
-	//
-	CoatOriginPos["Stand"]["GRAYTSHIRT"].push_back({ -11, 9 });
-	CoatOriginPos["Stand"]["GRAYTSHIRT"].push_back({ -10, 9 });
-	CoatOriginPos["Stand"]["GRAYTSHIRT"].push_back({ -10, 9 });
-	CoatOriginPos["Stand"]["GRAYTSHIRT"].push_back({ -10, 9 });
-
-	CoatOriginPos["Walk"]["GRAYTSHIRT"].push_back({ -11, 9 });
-	CoatOriginPos["Walk"]["GRAYTSHIRT"].push_back({ -11, 9 });
-	CoatOriginPos["Walk"]["GRAYTSHIRT"].push_back({ -11, 9 });
-	CoatOriginPos["Walk"]["GRAYTSHIRT"].push_back({ -11, 9 });
-
-	CoatOriginPos["Swing0"]["GRAYTSHIRT"].push_back({ -11, 9 });
-	CoatOriginPos["Swing0"]["GRAYTSHIRT"].push_back({ -10, 10 });
-	CoatOriginPos["Swing0"]["GRAYTSHIRT"].push_back({ -11, 9 });
-
-	CoatOriginPos["Swing1"]["GRAYTSHIRT"].push_back({ -10, 10 });
-	CoatOriginPos["Swing1"]["GRAYTSHIRT"].push_back({ -10, 10 });
-	CoatOriginPos["Swing1"]["GRAYTSHIRT"].push_back({ -11, 9 });
-
-	CoatOriginPos["Swing2"]["GRAYTSHIRT"].push_back({ -10, 10 });
-	CoatOriginPos["Swing2"]["GRAYTSHIRT"].push_back({ -10, 10 });
-	CoatOriginPos["Swing2"]["GRAYTSHIRT"].push_back({ -11, 9 });
-
-	CoatOriginPos["Stab0"]["GRAYTSHIRT"].push_back({ -10, 10 });
-	CoatOriginPos["Stab0"]["GRAYTSHIRT"].push_back({ -10, 10 });
-
-	CoatOriginPos["Stab1"]["GRAYTSHIRT"].push_back({ -10, 10 });
-	CoatOriginPos["Stab1"]["GRAYTSHIRT"].push_back({ -10, 10 });
-
-	CoatOriginPos["Alert"]["GRAYTSHIRT"].push_back({ -10, 10 });
-	CoatOriginPos["Alert"]["GRAYTSHIRT"].push_back({ -10, 10 });
-	CoatOriginPos["Alert"]["GRAYTSHIRT"].push_back({ -11, 9 });
-
-	CoatOriginPos["Ladder"]["GRAYTSHIRT"].push_back({ -10, 10 });
-	CoatOriginPos["Ladder"]["GRAYTSHIRT"].push_back({ -10, 10 });
-
-	CoatOriginPos["Jump"]["GRAYTSHIRT"].push_back({ -10, 10 });
-	//
+	
+	//NavelPos
 	CoatToNavelPos["Stand"]["WHITETSHIRT"].push_back({ 8, 1 });
 	CoatToNavelPos["Stand"]["WHITETSHIRT"].push_back({ 6, 2 });
 	CoatToNavelPos["Stand"]["WHITETSHIRT"].push_back({ 5, 1 });
@@ -412,7 +375,114 @@ void Player::SetCoatTexturePosVector()
 	CoatToNavelPos["Ladder"]["WHITETSHIRT"].push_back({ 2, -1 });
 
 	CoatToNavelPos["Jump"]["WHITETSHIRT"].push_back({ 4, 2 });
+
+	//
+	CoatArmOriginPos["Stand"]["WHITETSHIRT"].push_back({ -3, 4 });
+	CoatArmOriginPos["Stand"]["WHITETSHIRT"].push_back({ -3, 4 });
+	CoatArmOriginPos["Stand"]["WHITETSHIRT"].push_back({ -4, 4 });
+	CoatArmOriginPos["Stand"]["WHITETSHIRT"].push_back({ -3, 4 });
+
+	CoatArmOriginPos["Walk"]["WHITETSHIRT"].push_back({ -4, 3 });
+	CoatArmOriginPos["Walk"]["WHITETSHIRT"].push_back({ -3, 5 });
+	CoatArmOriginPos["Walk"]["WHITETSHIRT"].push_back({ -4, 3 });
+	CoatArmOriginPos["Walk"]["WHITETSHIRT"].push_back({ -4, 2 });
+
+	CoatArmOriginPos["Swing0"]["WHITETSHIRT"].push_back({ -3, 5 });
+	CoatArmOriginPos["Swing0"]["WHITETSHIRT"].push_back({ -3, 5 });
+	CoatArmOriginPos["Swing0"]["WHITETSHIRT"].push_back({ -3, 5 });
+
+	CoatArmOriginPos["Swing1"]["WHITETSHIRT"].push_back({ -4, 4 });
+	CoatArmOriginPos["Swing1"]["WHITETSHIRT"].push_back({ -3, 5 });
+	CoatArmOriginPos["Swing1"]["WHITETSHIRT"].push_back({ -3, 5 });
+
+	CoatArmOriginPos["Swing2"]["WHITETSHIRT"].push_back({ -4, 4 });
+	CoatArmOriginPos["Swing2"]["WHITETSHIRT"].push_back({ -3, 5 });
+	CoatArmOriginPos["Swing2"]["WHITETSHIRT"].push_back({ -3, 5 });
+
+	CoatArmOriginPos["Stab0"]["WHITETSHIRT"].push_back({ -4, 4 });
+	CoatArmOriginPos["Stab0"]["WHITETSHIRT"].push_back({ -3, 5 });
+
+	CoatArmOriginPos["Stab1"]["WHITETSHIRT"].push_back({ -4, 4 });
+	CoatArmOriginPos["Stab1"]["WHITETSHIRT"].push_back({ -3, 5 });
+
+	CoatArmOriginPos["Alert"]["WHITETSHIRT"].push_back({ -4, 4 });
+	CoatArmOriginPos["Alert"]["WHITETSHIRT"].push_back({ -3, 5 });
+	CoatArmOriginPos["Alert"]["WHITETSHIRT"].push_back({ -3, 5 });
+
+	CoatArmOriginPos["Jump"]["WHITETSHIRT"].push_back({ -4, 4 });
 	
+	//
+	CoatArmToNavelPos["Stand"]["WHITETSHIRT"].push_back({ 12, 4 });
+	CoatArmToNavelPos["Stand"]["WHITETSHIRT"].push_back({ 11, 5 });
+	CoatArmToNavelPos["Stand"]["WHITETSHIRT"].push_back({ 11, 4 });
+	CoatArmToNavelPos["Stand"]["WHITETSHIRT"].push_back({ 11, 5 });
+
+	CoatArmToNavelPos["Walk"]["WHITETSHIRT"].push_back({ 10, 7 });
+	CoatArmToNavelPos["Walk"]["WHITETSHIRT"].push_back({ 9, 3 });
+	CoatArmToNavelPos["Walk"]["WHITETSHIRT"].push_back({ 10, 7 });
+	CoatArmToNavelPos["Walk"]["WHITETSHIRT"].push_back({ 10, 9 });
+
+	CoatArmToNavelPos["Swing0"]["WHITETSHIRT"].push_back({ -5, 4 });
+	CoatArmToNavelPos["Swing0"]["WHITETSHIRT"].push_back({ -1, 6 });
+	CoatArmToNavelPos["Swing0"]["WHITETSHIRT"].push_back({ 5, 8 });
+
+	CoatArmToNavelPos["Swing1"]["WHITETSHIRT"].push_back({ -2, 6 });
+	CoatArmToNavelPos["Swing1"]["WHITETSHIRT"].push_back({ -6, 5 });
+	CoatArmToNavelPos["Swing1"]["WHITETSHIRT"].push_back({ 7, 6 });
+
+	CoatArmToNavelPos["Swing2"]["WHITETSHIRT"].push_back({ 7, 6 });
+	CoatArmToNavelPos["Swing2"]["WHITETSHIRT"].push_back({ -4, 6 });
+	CoatArmToNavelPos["Swing2"]["WHITETSHIRT"].push_back({ -1, 4 });
+
+	CoatArmToNavelPos["Stab0"]["WHITETSHIRT"].push_back({ 9, 7 });
+	CoatArmToNavelPos["Stab0"]["WHITETSHIRT"].push_back({ -7, 6 });
+
+	CoatArmToNavelPos["Stab1"]["WHITETSHIRT"].push_back({ 11, 5 });
+	CoatArmToNavelPos["Stab1"]["WHITETSHIRT"].push_back({ -5, 5 });
+
+	CoatArmToNavelPos["Alert"]["WHITETSHIRT"].push_back({ 9, 5 });
+	CoatArmToNavelPos["Alert"]["WHITETSHIRT"].push_back({ 8, 4 });
+	CoatArmToNavelPos["Alert"]["WHITETSHIRT"].push_back({ 8, 4 });
+
+	CoatArmToNavelPos["Jump"]["WHITETSHIRT"].push_back({ 13, 5 });
+
+	//GRAYTSHIRT
+	CoatOriginPos["Stand"]["GRAYTSHIRT"].push_back({ -11, 9 });
+	CoatOriginPos["Stand"]["GRAYTSHIRT"].push_back({ -10, 9 });
+	CoatOriginPos["Stand"]["GRAYTSHIRT"].push_back({ -10, 9 });
+	CoatOriginPos["Stand"]["GRAYTSHIRT"].push_back({ -10, 9 });
+
+	CoatOriginPos["Walk"]["GRAYTSHIRT"].push_back({ -11, 9 });
+	CoatOriginPos["Walk"]["GRAYTSHIRT"].push_back({ -11, 9 });
+	CoatOriginPos["Walk"]["GRAYTSHIRT"].push_back({ -11, 9 });
+	CoatOriginPos["Walk"]["GRAYTSHIRT"].push_back({ -11, 9 });
+
+	CoatOriginPos["Swing0"]["GRAYTSHIRT"].push_back({ -11, 9 });
+	CoatOriginPos["Swing0"]["GRAYTSHIRT"].push_back({ -10, 10 });
+	CoatOriginPos["Swing0"]["GRAYTSHIRT"].push_back({ -11, 9 });
+
+	CoatOriginPos["Swing1"]["GRAYTSHIRT"].push_back({ -10, 10 });
+	CoatOriginPos["Swing1"]["GRAYTSHIRT"].push_back({ -10, 10 });
+	CoatOriginPos["Swing1"]["GRAYTSHIRT"].push_back({ -11, 9 });
+
+	CoatOriginPos["Swing2"]["GRAYTSHIRT"].push_back({ -10, 10 });
+	CoatOriginPos["Swing2"]["GRAYTSHIRT"].push_back({ -10, 10 });
+	CoatOriginPos["Swing2"]["GRAYTSHIRT"].push_back({ -11, 9 });
+
+	CoatOriginPos["Stab0"]["GRAYTSHIRT"].push_back({ -10, 10 });
+	CoatOriginPos["Stab0"]["GRAYTSHIRT"].push_back({ -10, 10 });
+
+	CoatOriginPos["Stab1"]["GRAYTSHIRT"].push_back({ -10, 10 });
+	CoatOriginPos["Stab1"]["GRAYTSHIRT"].push_back({ -10, 10 });
+
+	CoatOriginPos["Alert"]["GRAYTSHIRT"].push_back({ -10, 10 });
+	CoatOriginPos["Alert"]["GRAYTSHIRT"].push_back({ -10, 10 });
+	CoatOriginPos["Alert"]["GRAYTSHIRT"].push_back({ -11, 9 });
+
+	CoatOriginPos["Ladder"]["GRAYTSHIRT"].push_back({ -10, 10 });
+	CoatOriginPos["Ladder"]["GRAYTSHIRT"].push_back({ -10, 10 });
+
+	CoatOriginPos["Jump"]["GRAYTSHIRT"].push_back({ -10, 10 });
 	//	
 	CoatToNavelPos["Stand"]["GRAYTSHIRT"].push_back({ 8, 1 });
 	CoatToNavelPos["Stand"]["GRAYTSHIRT"].push_back({ 6, 2 });
@@ -450,41 +520,6 @@ void Player::SetCoatTexturePosVector()
 	CoatToNavelPos["Ladder"]["GRAYTSHIRT"].push_back({ 2, -1 });
 
 	CoatToNavelPos["Jump"]["GRAYTSHIRT"].push_back({ 4, 2 });
-	//
-
-	CoatArmOriginPos["Stand"]["WHITETSHIRT"].push_back({ -3, 4 });
-	CoatArmOriginPos["Stand"]["WHITETSHIRT"].push_back({ -3, 4 });
-	CoatArmOriginPos["Stand"]["WHITETSHIRT"].push_back({ -4, 4 });
-	CoatArmOriginPos["Stand"]["WHITETSHIRT"].push_back({ -3, 4 });
-
-	CoatArmOriginPos["Walk"]["WHITETSHIRT"].push_back({ -4, 3 });
-	CoatArmOriginPos["Walk"]["WHITETSHIRT"].push_back({ -3, 5 });
-	CoatArmOriginPos["Walk"]["WHITETSHIRT"].push_back({ -4, 3 });
-	CoatArmOriginPos["Walk"]["WHITETSHIRT"].push_back({ -4, 2 });
-
-	CoatArmOriginPos["Swing0"]["WHITETSHIRT"].push_back({ -3, 5 });
-	CoatArmOriginPos["Swing0"]["WHITETSHIRT"].push_back({ -3, 5 });
-	CoatArmOriginPos["Swing0"]["WHITETSHIRT"].push_back({ -3, 5 });
-	
-	CoatArmOriginPos["Swing1"]["WHITETSHIRT"].push_back({ -4, 4 });
-	CoatArmOriginPos["Swing1"]["WHITETSHIRT"].push_back({ -3, 5 });
-	CoatArmOriginPos["Swing1"]["WHITETSHIRT"].push_back({ -3, 5 });
-	
-	CoatArmOriginPos["Swing2"]["WHITETSHIRT"].push_back({ -4, 4 });
-	CoatArmOriginPos["Swing2"]["WHITETSHIRT"].push_back({ -3, 5 });
-	CoatArmOriginPos["Swing2"]["WHITETSHIRT"].push_back({ -3, 5 });
-
-	CoatArmOriginPos["Stab0"]["WHITETSHIRT"].push_back({ -4, 4 });
-	CoatArmOriginPos["Stab0"]["WHITETSHIRT"].push_back({ -3, 5 });
-
-	CoatArmOriginPos["Stab1"]["WHITETSHIRT"].push_back({ -4, 4 });
-	CoatArmOriginPos["Stab1"]["WHITETSHIRT"].push_back({ -3, 5 });
-
-	CoatArmOriginPos["Alert"]["WHITETSHIRT"].push_back({ -4, 4 });
-	CoatArmOriginPos["Alert"]["WHITETSHIRT"].push_back({ -3, 5 });
-	CoatArmOriginPos["Alert"]["WHITETSHIRT"].push_back({ -3, 5 });
-
-	CoatArmOriginPos["Jump"]["WHITETSHIRT"].push_back({ -4, 4 });
 
 	//
 	CoatArmOriginPos["Stand"]["GRAYTSHIRT"].push_back({ -3, 4 });
@@ -521,40 +556,7 @@ void Player::SetCoatTexturePosVector()
 
 	CoatArmOriginPos["Jump"]["GRAYTSHIRT"].push_back({ -4, 4 });
 
-	//
-	CoatArmToNavelPos["Stand"]["WHITETSHIRT"].push_back({ 12, 4 });
-	CoatArmToNavelPos["Stand"]["WHITETSHIRT"].push_back({ 11, 5 });
-	CoatArmToNavelPos["Stand"]["WHITETSHIRT"].push_back({ 11, 4 });
-	CoatArmToNavelPos["Stand"]["WHITETSHIRT"].push_back({ 11, 5 });
 
-	CoatArmToNavelPos["Walk"]["WHITETSHIRT"].push_back({ 10, 7 });
-	CoatArmToNavelPos["Walk"]["WHITETSHIRT"].push_back({ 9, 3 });
-	CoatArmToNavelPos["Walk"]["WHITETSHIRT"].push_back({ 10, 7 });
-	CoatArmToNavelPos["Walk"]["WHITETSHIRT"].push_back({ 10, 9 });
-
-	CoatArmToNavelPos["Swing0"]["WHITETSHIRT"].push_back({ -5, 4 });
-	CoatArmToNavelPos["Swing0"]["WHITETSHIRT"].push_back({ -1, 6 });
-	CoatArmToNavelPos["Swing0"]["WHITETSHIRT"].push_back({ 5, 8 });
-	
-	CoatArmToNavelPos["Swing1"]["WHITETSHIRT"].push_back({ -2, 6 });
-	CoatArmToNavelPos["Swing1"]["WHITETSHIRT"].push_back({ -6, 5 });
-	CoatArmToNavelPos["Swing1"]["WHITETSHIRT"].push_back({ 7, 6 });
-	
-	CoatArmToNavelPos["Swing2"]["WHITETSHIRT"].push_back({ 7, 6 });
-	CoatArmToNavelPos["Swing2"]["WHITETSHIRT"].push_back({ -4, 6 });
-	CoatArmToNavelPos["Swing2"]["WHITETSHIRT"].push_back({ -1, 4 });
-
-	CoatArmToNavelPos["Stab0"]["WHITETSHIRT"].push_back({ 9, 7 });
-	CoatArmToNavelPos["Stab0"]["WHITETSHIRT"].push_back({ -7, 6 });
-
-	CoatArmToNavelPos["Stab1"]["WHITETSHIRT"].push_back({ 11, 5 });
-	CoatArmToNavelPos["Stab1"]["WHITETSHIRT"].push_back({ -5, 5 });
-
-	CoatArmToNavelPos["Alert"]["WHITETSHIRT"].push_back({ 9, 5 });
-	CoatArmToNavelPos["Alert"]["WHITETSHIRT"].push_back({ 8, 4 });
-	CoatArmToNavelPos["Alert"]["WHITETSHIRT"].push_back({ 8, 4 });
-
-	CoatArmToNavelPos["Jump"]["WHITETSHIRT"].push_back({ 13, 5 });
 
 	//
 	CoatArmToNavelPos["Stand"]["GRAYTSHIRT"].push_back({ 12, 4 });
@@ -590,84 +592,231 @@ void Player::SetCoatTexturePosVector()
 	CoatArmToNavelPos["Alert"]["GRAYTSHIRT"].push_back({ 8, 4 });
 
 	CoatArmToNavelPos["Jump"]["GRAYTSHIRT"].push_back({ 13, 5 });
+
+	//BLUEGOWN
+	CoatOriginPos["Stand"]["BLUEGOWN"].push_back({ -11, 9 });
+	CoatOriginPos["Stand"]["BLUEGOWN"].push_back({ -10, 9 });
+	CoatOriginPos["Stand"]["BLUEGOWN"].push_back({ -10, 9 });
+	CoatOriginPos["Stand"]["BLUEGOWN"].push_back({ -10, 9 });
+
+	CoatOriginPos["Walk"]["BLUEGOWN"].push_back({ -11, 9 });
+	CoatOriginPos["Walk"]["BLUEGOWN"].push_back({ -11, 9 });
+	CoatOriginPos["Walk"]["BLUEGOWN"].push_back({ -11, 9 });
+	CoatOriginPos["Walk"]["BLUEGOWN"].push_back({ -11, 9 });
+
+	CoatOriginPos["Swing0"]["BLUEGOWN"].push_back({ -11, 9 });
+	CoatOriginPos["Swing0"]["BLUEGOWN"].push_back({ -10, 10 });
+	CoatOriginPos["Swing0"]["BLUEGOWN"].push_back({ -11, 9 });
+
+	CoatOriginPos["Swing1"]["BLUEGOWN"].push_back({ -10, 10 });
+	CoatOriginPos["Swing1"]["BLUEGOWN"].push_back({ -10, 10 });
+	CoatOriginPos["Swing1"]["BLUEGOWN"].push_back({ -11, 9 });
+
+	CoatOriginPos["Swing2"]["BLUEGOWN"].push_back({ -10, 10 });
+	CoatOriginPos["Swing2"]["BLUEGOWN"].push_back({ -10, 10 });
+	CoatOriginPos["Swing2"]["BLUEGOWN"].push_back({ -11, 9 });
+
+	CoatOriginPos["Stab0"]["BLUEGOWN"].push_back({ -10, 10 });
+	CoatOriginPos["Stab0"]["BLUEGOWN"].push_back({ -10, 10 });
+
+	CoatOriginPos["Stab1"]["BLUEGOWN"].push_back({ -10, 10 });
+	CoatOriginPos["Stab1"]["BLUEGOWN"].push_back({ -10, 10 });
+
+	CoatOriginPos["Alert"]["BLUEGOWN"].push_back({ -10, 10 });
+	CoatOriginPos["Alert"]["BLUEGOWN"].push_back({ -10, 10 });
+	CoatOriginPos["Alert"]["BLUEGOWN"].push_back({ -11, 9 });
+
+	CoatOriginPos["Ladder"]["BLUEGOWN"].push_back({ -10, 10 });
+	CoatOriginPos["Ladder"]["BLUEGOWN"].push_back({ -10, 10 });
+
+	CoatOriginPos["Jump"]["BLUEGOWN"].push_back({ -10, 10 });
+	//	
+	CoatToNavelPos["Stand"]["BLUEGOWN"].push_back({ 8, 0 });
+	CoatToNavelPos["Stand"]["BLUEGOWN"].push_back({ 4, 1 });
+	CoatToNavelPos["Stand"]["BLUEGOWN"].push_back({ 3, 0 });
+	CoatToNavelPos["Stand"]["BLUEGOWN"].push_back({ 4, 1 });
+
+	CoatToNavelPos["Walk"]["BLUEGOWN"].push_back({ 5, 1 });
+	CoatToNavelPos["Walk"]["BLUEGOWN"].push_back({ 5, 0 });
+	CoatToNavelPos["Walk"]["BLUEGOWN"].push_back({ 5, 1 });
+	CoatToNavelPos["Walk"]["BLUEGOWN"].push_back({ 0, 2 });
+
+	CoatToNavelPos["Swing0"]["BLUEGOWN"].push_back({ 5, 2 });
+	CoatToNavelPos["Swing0"]["BLUEGOWN"].push_back({ 7, 0 });
+	CoatToNavelPos["Swing0"]["BLUEGOWN"].push_back({ 5, 0 });
+
+	CoatToNavelPos["Swing1"]["BLUEGOWN"].push_back({ 4, 0 });
+	CoatToNavelPos["Swing1"]["BLUEGOWN"].push_back({ 3, 2 });
+	CoatToNavelPos["Swing1"]["BLUEGOWN"].push_back({ 4, 3 });
+
+	CoatToNavelPos["Swing2"]["BLUEGOWN"].push_back({ -9, 0 });
+	CoatToNavelPos["Swing2"]["BLUEGOWN"].push_back({ 6, 2 });
+	CoatToNavelPos["Swing2"]["BLUEGOWN"].push_back({ 8, 2 });
+
+	CoatToNavelPos["Stab0"]["BLUEGOWN"].push_back({ -6, 0 });
+	CoatToNavelPos["Stab0"]["BLUEGOWN"].push_back({ 2, 1 });
+
+	CoatToNavelPos["Stab1"]["BLUEGOWN"].push_back({ -6, 1 });
+	CoatToNavelPos["Stab1"]["BLUEGOWN"].push_back({ 5, 1 });
+
+	CoatToNavelPos["Alert"]["BLUEGOWN"].push_back({ 1, 0 });
+	CoatToNavelPos["Alert"]["BLUEGOWN"].push_back({ 2, 0 });
+	CoatToNavelPos["Alert"]["BLUEGOWN"].push_back({ 3, 1 });
+
+	CoatToNavelPos["Ladder"]["BLUEGOWN"].push_back({ -1, -1 });
+	CoatToNavelPos["Ladder"]["BLUEGOWN"].push_back({ -1, -1 });
+
+	CoatToNavelPos["Jump"]["BLUEGOWN"].push_back({ 3, -1 });
+
+	//
+	CoatArmOriginPos["Stand"]["BLUEGOWN"].push_back({ -3, 4 });
+	CoatArmOriginPos["Stand"]["BLUEGOWN"].push_back({ -3, 4 });
+	CoatArmOriginPos["Stand"]["BLUEGOWN"].push_back({ -4, 4 });
+	CoatArmOriginPos["Stand"]["BLUEGOWN"].push_back({ -3, 4 });
+
+	CoatArmOriginPos["Walk"]["BLUEGOWN"].push_back({ -4, 3 });
+	CoatArmOriginPos["Walk"]["BLUEGOWN"].push_back({ -3, 5 });
+	CoatArmOriginPos["Walk"]["BLUEGOWN"].push_back({ -4, 3 });
+	CoatArmOriginPos["Walk"]["BLUEGOWN"].push_back({ -4, 2 });
+
+	CoatArmOriginPos["Swing0"]["BLUEGOWN"].push_back({ -3, 5 });
+	CoatArmOriginPos["Swing0"]["BLUEGOWN"].push_back({ -3, 5 });
+	CoatArmOriginPos["Swing0"]["BLUEGOWN"].push_back({ -3, 5 });
+
+	CoatArmOriginPos["Swing1"]["BLUEGOWN"].push_back({ -4, 4 });
+	CoatArmOriginPos["Swing1"]["BLUEGOWN"].push_back({ -3, 5 });
+	CoatArmOriginPos["Swing1"]["BLUEGOWN"].push_back({ -3, 5 });
+
+	CoatArmOriginPos["Swing2"]["BLUEGOWN"].push_back({ -4, 4 });
+	CoatArmOriginPos["Swing2"]["BLUEGOWN"].push_back({ -3, 5 });
+	CoatArmOriginPos["Swing2"]["BLUEGOWN"].push_back({ -3, 5 });
+
+	CoatArmOriginPos["Stab0"]["BLUEGOWN"].push_back({ -4, 4 });
+	CoatArmOriginPos["Stab0"]["BLUEGOWN"].push_back({ -3, 5 });
+
+	CoatArmOriginPos["Stab1"]["BLUEGOWN"].push_back({ -4, 4 });
+	CoatArmOriginPos["Stab1"]["BLUEGOWN"].push_back({ -3, 5 });
+
+	CoatArmOriginPos["Alert"]["BLUEGOWN"].push_back({ -4, 4 });
+	CoatArmOriginPos["Alert"]["BLUEGOWN"].push_back({ -3, 5 });
+	CoatArmOriginPos["Alert"]["BLUEGOWN"].push_back({ -3, 5 });
+
+	CoatArmOriginPos["Jump"]["BLUEGOWN"].push_back({ -4, 4 });
+
+
+
+	//
+	CoatArmToNavelPos["Stand"]["BLUEGOWN"].push_back({ 12, 4 });
+	CoatArmToNavelPos["Stand"]["BLUEGOWN"].push_back({ 11, 6 });
+	CoatArmToNavelPos["Stand"]["BLUEGOWN"].push_back({ 11, 4 });
+	CoatArmToNavelPos["Stand"]["BLUEGOWN"].push_back({ 11, 6 });
+
+	CoatArmToNavelPos["Walk"]["BLUEGOWN"].push_back({ 10, 7 });
+	CoatArmToNavelPos["Walk"]["BLUEGOWN"].push_back({ 9, 3 });
+	CoatArmToNavelPos["Walk"]["BLUEGOWN"].push_back({ 10, 7 });
+	CoatArmToNavelPos["Walk"]["BLUEGOWN"].push_back({ 10, 9 });
+
+	CoatArmToNavelPos["Swing0"]["BLUEGOWN"].push_back({ -9, 3 });
+	CoatArmToNavelPos["Swing0"]["BLUEGOWN"].push_back({ -7, 6 });
+	CoatArmToNavelPos["Swing0"]["BLUEGOWN"].push_back({ 5, 15 });
+
+	CoatArmToNavelPos["Swing1"]["BLUEGOWN"].push_back({ -13, 9 });
+	CoatArmToNavelPos["Swing1"]["BLUEGOWN"].push_back({ -15, 5 });
+	CoatArmToNavelPos["Swing1"]["BLUEGOWN"].push_back({ 7, 6 });
+
+	CoatArmToNavelPos["Swing2"]["BLUEGOWN"].push_back({ 7, 9 });
+	CoatArmToNavelPos["Swing2"]["BLUEGOWN"].push_back({ -12, 6 });
+	CoatArmToNavelPos["Swing2"]["BLUEGOWN"].push_back({ -5, 4 });
+
+	CoatArmToNavelPos["Stab0"]["BLUEGOWN"].push_back({ 9, 7 });
+	CoatArmToNavelPos["Stab0"]["BLUEGOWN"].push_back({ -18, 6 });
+
+	CoatArmToNavelPos["Stab1"]["BLUEGOWN"].push_back({ 11, 7 });
+	CoatArmToNavelPos["Stab1"]["BLUEGOWN"].push_back({ -16, 5 });
+
+	CoatArmToNavelPos["Alert"]["BLUEGOWN"].push_back({ 9, 5 });
+	CoatArmToNavelPos["Alert"]["BLUEGOWN"].push_back({ 8, 4 });
+	CoatArmToNavelPos["Alert"]["BLUEGOWN"].push_back({ 8, 4 });
+
+	CoatArmToNavelPos["Jump"]["BLUEGOWN"].push_back({ 11, 5 });
 }
 
 void Player::SetPantsTexturePosVector()
 {
-	PantsOriginPos["Stand"]["BluePants"].push_back({ -9, 6 });
-	PantsOriginPos["Stand"]["BluePants"].push_back({ -9, 6 });
-	PantsOriginPos["Stand"]["BluePants"].push_back({ -9, 6 });
-	PantsOriginPos["Stand"]["BluePants"].push_back({ -9, 6 });
+	PantsOriginPos["Stand"]["BLUEPANTS"].push_back({ -9, 6 });
+	PantsOriginPos["Stand"]["BLUEPANTS"].push_back({ -9, 6 });
+	PantsOriginPos["Stand"]["BLUEPANTS"].push_back({ -9, 6 });
+	PantsOriginPos["Stand"]["BLUEPANTS"].push_back({ -9, 6 });
 
-	PantsOriginPos["Walk"]["BluePants"].push_back({ -9, 7 });
-	PantsOriginPos["Walk"]["BluePants"].push_back({ -9, 6 });
-	PantsOriginPos["Walk"]["BluePants"].push_back({ -9, 7 });
-	PantsOriginPos["Walk"]["BluePants"].push_back({ -9, 6 });
+	PantsOriginPos["Walk"]["BLUEPANTS"].push_back({ -9, 7 });
+	PantsOriginPos["Walk"]["BLUEPANTS"].push_back({ -9, 6 });
+	PantsOriginPos["Walk"]["BLUEPANTS"].push_back({ -9, 7 });
+	PantsOriginPos["Walk"]["BLUEPANTS"].push_back({ -9, 6 });
 
-	PantsOriginPos["Swing0"]["BluePants"].push_back({ -9, 6 });
-	PantsOriginPos["Swing0"]["BluePants"].push_back({ -10, 6 });
-	PantsOriginPos["Swing0"]["BluePants"].push_back({ -9, 6 });
+	PantsOriginPos["Swing0"]["BLUEPANTS"].push_back({ -9, 6 });
+	PantsOriginPos["Swing0"]["BLUEPANTS"].push_back({ -10, 6 });
+	PantsOriginPos["Swing0"]["BLUEPANTS"].push_back({ -9, 6 });
 
-	PantsOriginPos["Swing1"]["BluePants"].push_back({ -10, 5 });
-	PantsOriginPos["Swing1"]["BluePants"].push_back({ -10, 6 });
-	PantsOriginPos["Swing1"]["BluePants"].push_back({ -9, 6 });
+	PantsOriginPos["Swing1"]["BLUEPANTS"].push_back({ -10, 5 });
+	PantsOriginPos["Swing1"]["BLUEPANTS"].push_back({ -10, 6 });
+	PantsOriginPos["Swing1"]["BLUEPANTS"].push_back({ -9, 6 });
 	
-	PantsOriginPos["Swing2"]["BluePants"].push_back({ -10, 5 });
-	PantsOriginPos["Swing2"]["BluePants"].push_back({ -10, 6 });
-	PantsOriginPos["Swing2"]["BluePants"].push_back({ -9, 6 });
+	PantsOriginPos["Swing2"]["BLUEPANTS"].push_back({ -10, 5 });
+	PantsOriginPos["Swing2"]["BLUEPANTS"].push_back({ -10, 6 });
+	PantsOriginPos["Swing2"]["BLUEPANTS"].push_back({ -9, 6 });
 
-	PantsOriginPos["Stab0"]["BluePants"].push_back({ -10, 5 });
-	PantsOriginPos["Stab0"]["BluePants"].push_back({ -10, 6 });
+	PantsOriginPos["Stab0"]["BLUEPANTS"].push_back({ -10, 5 });
+	PantsOriginPos["Stab0"]["BLUEPANTS"].push_back({ -10, 6 });
 
-	PantsOriginPos["Stab1"]["BluePants"].push_back({ -10, 5 });
-	PantsOriginPos["Stab1"]["BluePants"].push_back({ -10, 6 });
+	PantsOriginPos["Stab1"]["BLUEPANTS"].push_back({ -10, 5 });
+	PantsOriginPos["Stab1"]["BLUEPANTS"].push_back({ -10, 6 });
 
-	PantsOriginPos["Alert"]["BluePants"].push_back({ -10, 5 });
-	PantsOriginPos["Alert"]["BluePants"].push_back({ -10, 6 });
-	PantsOriginPos["Alert"]["BluePants"].push_back({ -9, 6 });
+	PantsOriginPos["Alert"]["BLUEPANTS"].push_back({ -10, 5 });
+	PantsOriginPos["Alert"]["BLUEPANTS"].push_back({ -10, 6 });
+	PantsOriginPos["Alert"]["BLUEPANTS"].push_back({ -9, 6 });
 
-	PantsOriginPos["Ladder"]["BluePants"].push_back({ -10, 5 });
-	PantsOriginPos["Ladder"]["BluePants"].push_back({ -10, 5 });
+	PantsOriginPos["Ladder"]["BLUEPANTS"].push_back({ -10, 5 });
+	PantsOriginPos["Ladder"]["BLUEPANTS"].push_back({ -10, 5 });
 
-	PantsOriginPos["Jump"]["BluePants"].push_back({ -10, 5 });
+	PantsOriginPos["Jump"]["BLUEPANTS"].push_back({ -10, 5 });
 
 	//X¸¸ ¹ÝÀü
-	PantsToNavelPos["Stand"]["BluePants"].push_back({ 5, -6 });
-	PantsToNavelPos["Stand"]["BluePants"].push_back({ 4, -5 });
-	PantsToNavelPos["Stand"]["BluePants"].push_back({ 3, -6 });
-	PantsToNavelPos["Stand"]["BluePants"].push_back({ 4, -5 });
+	PantsToNavelPos["Stand"]["BLUEPANTS"].push_back({ 5, -6 });
+	PantsToNavelPos["Stand"]["BLUEPANTS"].push_back({ 4, -5 });
+	PantsToNavelPos["Stand"]["BLUEPANTS"].push_back({ 3, -6 });
+	PantsToNavelPos["Stand"]["BLUEPANTS"].push_back({ 4, -5 });
 
-	PantsToNavelPos["Walk"]["BluePants"].push_back({ 5, -7 });
-	PantsToNavelPos["Walk"]["BluePants"].push_back({ 3, -7 });
-	PantsToNavelPos["Walk"]["BluePants"].push_back({ 5, -7 });
-	PantsToNavelPos["Walk"]["BluePants"].push_back({ 5, -5 });
+	PantsToNavelPos["Walk"]["BLUEPANTS"].push_back({ 5, -7 });
+	PantsToNavelPos["Walk"]["BLUEPANTS"].push_back({ 3, -7 });
+	PantsToNavelPos["Walk"]["BLUEPANTS"].push_back({ 5, -7 });
+	PantsToNavelPos["Walk"]["BLUEPANTS"].push_back({ 5, -5 });
 
-	PantsToNavelPos["Swing0"]["BluePants"].push_back({ 2, -3 });
-	PantsToNavelPos["Swing0"]["BluePants"].push_back({ 8, -3 });
-	PantsToNavelPos["Swing0"]["BluePants"].push_back({ 2, -3 });
+	PantsToNavelPos["Swing0"]["BLUEPANTS"].push_back({ 2, -3 });
+	PantsToNavelPos["Swing0"]["BLUEPANTS"].push_back({ 8, -3 });
+	PantsToNavelPos["Swing0"]["BLUEPANTS"].push_back({ 2, -3 });
 
-	PantsToNavelPos["Swing1"]["BluePants"].push_back({ 4, -4 });
-	PantsToNavelPos["Swing1"]["BluePants"].push_back({ 2, -3 });
-	PantsToNavelPos["Swing1"]["BluePants"].push_back({ 2, -3 });
+	PantsToNavelPos["Swing1"]["BLUEPANTS"].push_back({ 4, -4 });
+	PantsToNavelPos["Swing1"]["BLUEPANTS"].push_back({ 2, -3 });
+	PantsToNavelPos["Swing1"]["BLUEPANTS"].push_back({ 2, -3 });
 
-	PantsToNavelPos["Swing2"]["BluePants"].push_back({ 3, -4 });
-	PantsToNavelPos["Swing2"]["BluePants"].push_back({ 8, -2 });
-	PantsToNavelPos["Swing2"]["BluePants"].push_back({ 6, -3 });
+	PantsToNavelPos["Swing2"]["BLUEPANTS"].push_back({ 3, -4 });
+	PantsToNavelPos["Swing2"]["BLUEPANTS"].push_back({ 8, -2 });
+	PantsToNavelPos["Swing2"]["BLUEPANTS"].push_back({ 6, -3 });
 
-	PantsToNavelPos["Stab0"]["BluePants"].push_back({ 0, -4 });
-	PantsToNavelPos["Stab0"]["BluePants"].push_back({ -2, 0 });
+	PantsToNavelPos["Stab0"]["BLUEPANTS"].push_back({ 0, -4 });
+	PantsToNavelPos["Stab0"]["BLUEPANTS"].push_back({ -2, 0 });
 
-	PantsToNavelPos["Stab1"]["BluePants"].push_back({ 1, -4 });
-	PantsToNavelPos["Stab1"]["BluePants"].push_back({ 4, -3 });
+	PantsToNavelPos["Stab1"]["BLUEPANTS"].push_back({ 1, -4 });
+	PantsToNavelPos["Stab1"]["BLUEPANTS"].push_back({ 4, -3 });
 
-	PantsToNavelPos["Alert"]["BluePants"].push_back({ 0, -6 });
-	PantsToNavelPos["Alert"]["BluePants"].push_back({ -1, -7 });
-	PantsToNavelPos["Alert"]["BluePants"].push_back({ -1, -7 });
+	PantsToNavelPos["Alert"]["BLUEPANTS"].push_back({ 0, -6 });
+	PantsToNavelPos["Alert"]["BLUEPANTS"].push_back({ -1, -7 });
+	PantsToNavelPos["Alert"]["BLUEPANTS"].push_back({ -1, -7 });
 
-	PantsToNavelPos["Ladder"]["BluePants"].push_back({ 2, -6 });
-	PantsToNavelPos["Ladder"]["BluePants"].push_back({ 2, -6 });
+	PantsToNavelPos["Ladder"]["BLUEPANTS"].push_back({ 2, -6 });
+	PantsToNavelPos["Ladder"]["BLUEPANTS"].push_back({ 2, -6 });
 
-	PantsToNavelPos["Jump"]["BluePants"].push_back({ 2, -5 });
+	PantsToNavelPos["Jump"]["BLUEPANTS"].push_back({ 2, -5 });
 
 }
 

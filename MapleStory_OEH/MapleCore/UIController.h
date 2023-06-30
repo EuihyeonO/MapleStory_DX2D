@@ -200,21 +200,26 @@ public:
 			CurEquipItemList->LoadEquipItem(EquipType);
 		}
 
+		std::shared_ptr<Player> Newpa = Player::GetCurPlayer();
+
 		//캐릭터의 텍스쳐도 바꿔줌
-		switch (EquipType)
+		if(Player::GetCurPlayer() != nullptr)
 		{
-		case static_cast<int>(EquipType::Weapon):
-			Player::GetCurPlayer()->SetWeaponName(_EquipItem->ItemName);
-			break;
-		case static_cast<int>(EquipType::Cap):
-			Player::GetCurPlayer()->SetCapName(_EquipItem->ItemName);
-			break;
-		case static_cast<int>(EquipType::Coat):
-			Player::GetCurPlayer()->SetCoatName(_EquipItem->ItemName);
-			break;
-		case static_cast<int>(EquipType::Pants):
-			Player::GetCurPlayer()->SetPantsName(_EquipItem->ItemName);
-			break;
+			switch (EquipType)
+			{
+			case static_cast<int>(EquipType::Weapon):
+				Player::GetCurPlayer()->SetWeaponName(_EquipItem->ItemName);
+				break;
+			case static_cast<int>(EquipType::Cap):
+				Player::GetCurPlayer()->SetCapName(_EquipItem->ItemName);
+				break;
+			case static_cast<int>(EquipType::Coat):
+				Player::GetCurPlayer()->SetCoatName(_EquipItem->ItemName);
+				break;
+			case static_cast<int>(EquipType::Pants):
+				Player::GetCurPlayer()->SetPantsName(_EquipItem->ItemName);
+				break;
+			}
 		}
 
 	}

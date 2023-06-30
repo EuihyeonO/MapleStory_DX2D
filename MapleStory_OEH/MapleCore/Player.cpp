@@ -32,8 +32,7 @@ Player::~Player()
 
 void Player::Start()
 {
-	PlayerValue::Value.AddToPlayerToPlayerList(DynamicThis<Player>());
-
+	CurPlayer = DynamicThis<Player>();
 	TimeCounting();
 
 	GetTransform()->SetLocalPosition({ 0, 0, -5.0f});
@@ -77,13 +76,16 @@ void Player::Start()
 	float4 RangeScale = RangeCheck->GetTransform()->GetLocalScale();
 	RangeCheck->GetTransform()->SetLocalPosition({ -RangeScale.hx(), RangeScale.hy()});
 
+	HairName = PlayerValue::Value.Hair;
+	FaceName = PlayerValue::Value.Face;
+	SkinType = PlayerValue::Value.Skin;
+
+	CoatName = UIController::GetUIController()->GetEquipItem(static_cast<int>(EquipType::Coat))->ItemName;
+	WeaponName = UIController::GetUIController()->GetEquipItem(static_cast<int>(EquipType::Weapon))->ItemName;
+	PantsName = UIController::GetUIController()->GetEquipItem(static_cast<int>(EquipType::Pants))->ItemName;
+	
 	//초기애니메이션
-	SkinType = "Basic";
 	MoveType = "Stand";
-	CoatName = "WHITETSHIRT";
-	PantsName = "BluePants";
-	WeaponName = "Ganier";
-	CapName = "";
 
 	WeaponType = static_cast<int>(WeaponType::Claw);
 
@@ -137,8 +139,8 @@ void Player::Update(float _DeltaTime)
 		UIController::GetUIController()->AddToItemList(NewItem1, static_cast<int>(ItemType::Equip));
 
 		std::shared_ptr<ItemInfo> NewItem2 = std::make_shared<ItemInfo>();
-		NewItem2->ItemName = "WHITETSHIRT";
-		NewItem2->EquipType = static_cast<int>(EquipType::Coat);
+		NewItem2->ItemName = "BLUEPANTS";
+		NewItem2->EquipType = static_cast<int>(EquipType::Pants);
 		UIController::GetUIController()->AddToItemList(NewItem2, static_cast<int>(ItemType::Equip));
 	}
 }
