@@ -19,68 +19,50 @@ public: //static
 public: //local
 	void SetShiftSkillAllPlayer(std::function<void(std::shared_ptr<class Player>)> _Skill)
 	{
-		for (int i = 0; i < PlayerList.size(); i++)
-		{
-			PlayerList[i]->SetShiftSkill(_Skill);
-		}
+		Player::GetCurPlayer()->SetShiftSkill(_Skill);
+
 	}
 
 	void SetInsSkillAllPlayer(std::function<void(std::shared_ptr<class Player>)> _Skill)
 	{
-		for (int i = 0; i < PlayerList.size(); i++)
-		{
-			PlayerList[i]->SetInsSkill(_Skill);
-		}
+		Player::GetCurPlayer()->SetInsSkill(_Skill);
+
 	}
 
 	void SetHomeSkillAllPlayer(std::function<void(std::shared_ptr<class Player>)> _Skill)
 	{
-		for (int i = 0; i < PlayerList.size(); i++)
-		{
-			PlayerList[i]->SetHomeSkill(_Skill);
-		}
+		Player::GetCurPlayer()->SetHomeSkill(_Skill);
+
 	}
 
 	void SetPgUpSkillAllPlayer(std::function<void(std::shared_ptr<class Player>)> _Skill)
 	{
-		for (int i = 0; i < PlayerList.size(); i++)
-		{
-			PlayerList[i]->SetPgUpSkill(_Skill);
-		}
+		Player::GetCurPlayer()->SetPgUpSkill(_Skill);
+
 	}
 
 	void SetCtrlSkillAllPlayer(std::function<void(std::shared_ptr<class Player>)> _Skill)
 	{
-		for (int i = 0; i < PlayerList.size(); i++)
-		{
-			PlayerList[i]->SetCtrlSkill(_Skill);
-		}
+		Player::GetCurPlayer()->SetCtrlSkill(_Skill);
+
 	}
 
 
 	void SetDelSkillAllPlayer(std::function<void(std::shared_ptr<class Player>)> _Skill)
 	{
-		for (int i = 0; i < PlayerList.size(); i++)
-		{
-			PlayerList[i]->SetDelSkill(_Skill);
-		}
+		Player::GetCurPlayer()->SetDelSkill(_Skill);
+
 	}
 
 	void SetEndSkillAllPlayer(std::function<void(std::shared_ptr<class Player>)> _Skill)
 	{
-		for (int i = 0; i < PlayerList.size(); i++)
-		{
-			PlayerList[i]->SetEndSkill(_Skill);
-		}
+		Player::GetCurPlayer()->SetEndSkill(_Skill);
 	}
 
 
 	void SetPgDnSkillAllPlayer(std::function<void(std::shared_ptr<class Player>)> _Skill)
 	{
-		for (int i = 0; i < PlayerList.size(); i++)
-		{
-			PlayerList[i]->SetPgDnSkill(_Skill);
-		}
+			Player::GetCurPlayer()->SetPgDnSkill(_Skill);
 	}
 
 	void SetMp(int _Mp)
@@ -348,9 +330,7 @@ private:
 	~PlayerValue();
 
 	static PlayerValue Value;
-	void AddToPlayerToPlayerList( std::shared_ptr<class Player> _Player);
 
-	std::vector<std::shared_ptr<class Player>> PlayerList;
 	std::string PrevLevelName;
 
 //인게임 정보

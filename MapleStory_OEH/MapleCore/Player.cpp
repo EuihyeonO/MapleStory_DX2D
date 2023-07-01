@@ -353,6 +353,7 @@ int Player::GetStateByKeyInput() const
 	}
 }
 
+float Num = 0.0f;
 
 void Player::CameraUpdate(float _DeltaTime)
 {
@@ -365,7 +366,13 @@ void Player::CameraUpdate(float _DeltaTime)
 	PlayerPos.z = 0.0f;
 	CameraPos.z = 0.0f;
 
-	float4 newPosition = newPosition.LerpClamp(CameraPos, PlayerPos, 5.0f * _DeltaTime);
+	float4 newPosition = CameraPos;
+
+	if (PlayerPos.XYDistance(CameraPos) > 5.0f)
+	{
+		newPosition = newPosition.LerpClamp(CameraPos, PlayerPos, 3.0f * _DeltaTime);
+	}
+
 
 	float MaxY = 350.0f;
 	float MinY = 490.0f;

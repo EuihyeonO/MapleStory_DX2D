@@ -31,8 +31,6 @@ void Level_ZakumRoad1::Start()
 
 	GetMainCamera()->SetSortType(0, SortType::ZSort);
 	GetCamera(100)->SetSortType(0, SortType::ZSort);
-
-	IsDebugSwitch();
 }
 
 void Level_ZakumRoad1::Update(float _DeltaTime)

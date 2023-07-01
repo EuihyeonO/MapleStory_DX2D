@@ -13,8 +13,3 @@ PlayerValue::~PlayerValue()
 {
 
 }
-
-void PlayerValue::AddToPlayerToPlayerList(std::shared_ptr<Player> _Player)
-{
-	Value.PlayerList.push_back(_Player);
-}
