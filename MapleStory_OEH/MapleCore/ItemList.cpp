@@ -57,7 +57,6 @@ void ItemList::CreateItem(const std::shared_ptr<ItemInfo> _ItemInfo, int _ItemTy
 	
 	if (Index != -1 && _ItemType != static_cast<int>(ItemType::Equip))
 	{
-		MyItemList[_ItemType][Index]->MyInfo->Num++;
 		SortItemListToType(_ItemType);
 		return;
 	}
@@ -139,7 +138,6 @@ void ItemList::LoadAllItem()
 void ItemList::SortItemListToType(int _ItemType)
 {
 	int count = 0;
-
 	size_t Size = MyItemList[_ItemType].size();
 
 	for (int i = 0; i < Size; i++)
@@ -282,7 +280,11 @@ void ItemList::InventoryItemOn(int _CurItemType)
 		{
 			MyItemList[_CurItemType][i]->GetItemRender()->On();
 			MyItemList[_CurItemType][i]->GetItemCollision()->On();
-			MyItemList[_CurItemType][i]->NumRenderOn();
+			
+			if(MyItemList[_CurItemType][i]->isClicked == false)
+			{
+				MyItemList[_CurItemType][i]->NumRenderOn();
+			}
 		}
 	}
 }

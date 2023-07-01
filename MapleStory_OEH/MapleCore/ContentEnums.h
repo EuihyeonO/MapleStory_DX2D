@@ -53,6 +53,7 @@ enum class CollisionOrder
 	foothold,
 	Channel,
 	Object,
+	Inventory,
 };
 
 enum class MonsterName

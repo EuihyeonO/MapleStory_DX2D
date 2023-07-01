@@ -123,7 +123,7 @@ void Spore::Hit(int _Damage, bool _isRealAttack)
 		{
 			std::shared_ptr<DropItem> NewItem = GetLevel()->CreateActor<DropItem>();
 			NewItem->SetQuadraticFunction((DropItemSize / -2.0f) * 15.0f + (15.0f * i) + 7.5f, GetTransform()->GetWorldPosition() + float4{ 0, 5.0f });
-			NewItem->SetDropItemInfo(DropItemList[ItemVector[i]].first);
+			NewItem->SetDropItemInfo(DropItemList[ItemVector[i]].first, static_cast<int>(ItemType::Etc));
 		}
 
 		return;

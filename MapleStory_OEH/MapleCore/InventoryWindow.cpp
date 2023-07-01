@@ -39,6 +39,11 @@ void InventoryWindow::Start()
 	Cash->GetTransform()->SetLocalPosition({ 69, 110 });
 	Cash->GetTransform()->SetLocalScale({ 31, 18 });
 
+	InventoryBoxCollision = CreateComponent<GameEngineCollision>();
+	InventoryBoxCollision->GetTransform()->SetLocalScale(InventoryRender->GetTransform()->GetLocalScale());
+	InventoryBoxCollision->SetColType(ColType::AABBBOX2D);
+	InventoryBoxCollision->SetOrder(static_cast<int>(CollisionOrder::Inventory));
+
 	Inventory = GetLevel()->CreateActor<ItemList>();
 	Inventory->GetTransform()->SetParent(GetTransform());
 	
@@ -50,6 +55,8 @@ void InventoryWindow::Start()
 
 	SetInventoryType(static_cast<int>(ItemType::Equip));
 	Inventory->ChangeRenderItem(static_cast<int>(ItemType::Equip), static_cast<int>(ItemType::Equip));
+
+	GetLevel()->IsDebugSwitch();
 }
 
 void InventoryWindow::Update(float _DeltaTime)
@@ -159,4 +166,6 @@ void InventoryWindow::ColPosUpdate()
 	Etc->GetTransform()->SetLocalPosition(CamPos + float4{ 3, 110 });
 	Setup->GetTransform()->SetLocalPosition(CamPos + float4{ 36 , 110 });
 	Cash->GetTransform()->SetLocalPosition(CamPos + float4{ 69, 110 });
+
+	InventoryBoxCollision->GetTransform()->SetLocalPosition(CamPos);
 }

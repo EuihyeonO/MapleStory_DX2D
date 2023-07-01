@@ -70,7 +70,7 @@ void DropItem::MoveDropItem(float _DeltaTime)
 			std::shared_ptr<ItemInfo> NewItem = std::make_shared<ItemInfo>();
 			NewItem->ItemName = ItemName;
 
-			UIController::GetUIController()->AddToItemList(NewItem, static_cast<int>(ItemType::Etc));
+			UIController::GetUIController()->AddToItemList(NewItem, ItemType);
 			Death();
 			return;
 		}
@@ -159,9 +159,11 @@ void DropItem::MoveDropItem(float _DeltaTime)
 	DropItemRender->GetTransform()->AddLocalRotation({ 0.0f, 0.0f, -Dir * 1440.0f * _DeltaTime });
 }
 
-void DropItem::SetDropItemInfo(const std::string_view& _ItemName)
+void DropItem::SetDropItemInfo(const std::string_view& _ItemName, int _ItemType)
 {
 	ItemName = _ItemName.data();
+	ItemType = _ItemType;
+
 	DropItemRender->SetScaleToTexture(ItemName + "Icon.png");
 
 	TransformData RenderData = DropItemRender->GetTransform()->GetTransDataRef();

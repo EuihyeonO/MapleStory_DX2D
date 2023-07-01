@@ -41,11 +41,13 @@ private:
 
 	std::shared_ptr<class ItemList> Inventory = nullptr;
 
-	std::shared_ptr<GameEngineCollision> Equip = nullptr;
-	std::shared_ptr<GameEngineCollision> Use = nullptr;
-	std::shared_ptr<GameEngineCollision> Setup = nullptr;
-	std::shared_ptr<GameEngineCollision> Etc = nullptr;
-	std::shared_ptr<GameEngineCollision> Cash = nullptr;
+	std::shared_ptr<class GameEngineCollision> Equip = nullptr;
+	std::shared_ptr<class GameEngineCollision> Use = nullptr;
+	std::shared_ptr<class GameEngineCollision> Setup = nullptr;
+	std::shared_ptr<class GameEngineCollision> Etc = nullptr;
+	std::shared_ptr<class GameEngineCollision> Cash = nullptr;
+
+	std::shared_ptr<class GameEngineCollision> InventoryBoxCollision = nullptr;
 
 	int InventoryType = 0;
 };

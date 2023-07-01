@@ -1,5 +1,6 @@
 #include "PrecompileHeader.h"
 #include "KeyBox.h"
+#include "DropItem.h"
 
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineLevel.h>
@@ -41,6 +42,10 @@ void KeyBox::Start()
 		if 
 		(BoxRender->IsAnimationEnd() == true) 
 		{
+			std::shared_ptr<DropItem> NewItem = GetLevel()->CreateActor<DropItem>();
+			NewItem->SetQuadraticFunction(1.0f, GetTransform()->GetWorldPosition() + float4{0, 5});
+			NewItem->SetDropItemInfo("BoxKey", static_cast<int>(ItemType::Etc));
+
 			Death(); 
 		}});
 

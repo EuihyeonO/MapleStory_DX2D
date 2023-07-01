@@ -4,6 +4,7 @@
 #include "ItemList.h"
 #include "UIController.h"
 #include "ContentFontRenderer.h"
+#include "DropItem.h"
 
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineLevel.h>
@@ -63,11 +64,25 @@ void Item::Clicked()
 {
 	if (isClicked == true && GameEngineInput::IsDown("LClick") == true)
 	{
+		if (ItemCollision->Collision(static_cast<int>(CollisionOrder::Inventory), ColType::AABBBOX2D, ColType::AABBBOX2D) == nullptr)
+		{
+			std::shared_ptr<DropItem> NewItem = GetLevel()->CreateActor<DropItem>();
+			NewItem->SetQuadraticFunction(1.0f, Player::GetCurPlayer()->GetTransform()->GetWorldPosition() + float4{ 0, 5 });
+			NewItem->SetDropItemInfo(MyInfo->ItemName, ItemType);
+
+			UIController::GetUIController()->GetCurItemList()->DeleteItem(DynamicThis<Item>());
+			ItemRender->GetTransform()->SetParent(GetTransform());
+			ItemCollision->GetTransform()->SetParent(GetTransform());
+			return;
+		}
+
 		ItemRender->GetTransform()->SetParent(GetTransform());
 		ItemCollision->GetTransform()->SetParent(GetTransform());
 
 		ItemRender->GetTransform()->SetLocalPosition({ 0, 0 });
 		ItemCollision->GetTransform()->SetLocalPosition({ 0, 0 });
+
+		NumRenderOn();
 
 		isClicked = false;
 	}
@@ -81,6 +96,8 @@ void Item::Clicked()
 
 			ItemRender->GetTransform()->SetLocalPosition({ -10, 15 });
 			ItemCollision->GetTransform()->SetLocalPosition({ -10, 15 });
+
+			NumRenderOff();
 
 			isClicked = true;
 		}
@@ -113,7 +130,7 @@ void Item::EquipThis()
 void Item::NumRenderUpdate()
 {
 	int CopyNum = MyInfo->Num;
-	int Digit = 0;
+	Digit = 0;
 
 	for (int i = 0; CopyNum > 0; i++)
 	{
@@ -139,7 +156,7 @@ void Item::NumRenderUpdate()
 
 void Item::NumRenderOn()
 {
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < Digit; i++)
 	{
 		if (NumRender[i] != nullptr)
 		{
@@ -150,7 +167,7 @@ void Item::NumRenderOn()
 
 void Item::NumRenderOff()
 {
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < Digit; i++)
 	{
 		if (NumRender[i] != nullptr)
 		{

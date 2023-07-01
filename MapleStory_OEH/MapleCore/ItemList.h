@@ -7,6 +7,7 @@ class GameEngineUIRenderer;
 class ItemList : public GameEngineActor
 {
 	friend class InventoryWindow;
+	friend class UIController;
 
 public:
 

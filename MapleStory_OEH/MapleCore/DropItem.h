@@ -47,7 +47,7 @@ public:
 		isFuncSet = true;
 	}
 
-	void SetDropItemInfo(const std::string_view& _ItemName);
+	void SetDropItemInfo(const std::string_view& _ItemName, int _ItemType);
 	void GetItem();
 
 protected:
@@ -68,6 +68,7 @@ private:
 	bool isGet = false;
 
 	std::string ItemName = "";
+	int ItemType = 0;
 
 	float MaxY = 60.0f;
 
