@@ -366,12 +366,12 @@ void Player::CameraUpdate(float _DeltaTime)
 	PlayerPos.z = 0.0f;
 	CameraPos.z = 0.0f;
 
-	float4 newPosition = CameraPos;
+	float4 newPosition = PlayerPos;
 
-	if (PlayerPos.XYDistance(CameraPos) > 5.0f)
-	{
-		newPosition = newPosition.LerpClamp(CameraPos, PlayerPos, 3.0f * _DeltaTime);
-	}
+	//if (PlayerPos.XYDistance(CameraPos) > 5.0f)
+	//{
+	//	//newPosition = newPosition.Lerp(CameraPos, PlayerPos, 1.5f * _DeltaTime);
+	//}
 
 
 	float MaxY = 350.0f;
