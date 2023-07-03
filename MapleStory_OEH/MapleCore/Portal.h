@@ -31,9 +31,14 @@ protected:
 	void Render(float _DeltaTime) override;
 private:
 
+	void FadeOut(float _DeltaTime);
+	std::function<void(Portal&, float)> FadeOutUpdate = nullptr;
+
 	std::string LinkedMap = "";
 
 	std::shared_ptr<GameEngineSpriteRenderer> PortalRender = nullptr;
 	std::shared_ptr<class GameEngineCollision> PortalCollision = nullptr;
+
+	std::shared_ptr<class GameEngineUIRenderer> BlackOut = nullptr;
 };
 

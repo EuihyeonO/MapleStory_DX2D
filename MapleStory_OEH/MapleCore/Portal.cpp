@@ -26,6 +26,11 @@ void Portal::Start()
 
 	PortalCollision->GetTransform()->SetLocalPosition({ 0, -80 });
 	PortalCollision->GetTransform()->SetLocalScale({ 70, 80 });
+
+	BlackOut = CreateComponent<GameEngineUIRenderer>();
+	BlackOut->GetTransform()->SetWorldScale({ 800, 600 });
+	BlackOut->GetTransform()->SetWorldPosition({ 0, 0 });
+	BlackOut->ColorOptionValue.MulColor = { 0.0f, 0.0f, 0.0f, 0.0f };
 }
 
 void Portal::Update(float _DeltaTime)
@@ -36,11 +41,35 @@ void Portal::Update(float _DeltaTime)
 	{
 		if (GameEngineInput::IsDown("UpKey") == true)
 		{
-			GameEngineCore::ChangeLevel(LinkedMap);
+			FadeOutUpdate = &Portal::FadeOut;
 		}
+	}
+
+	if (FadeOutUpdate != nullptr)
+	{
+		FadeOutUpdate(*this, _DeltaTime);
 	}
 }
 
 void Portal::Render(float _DeltaTime)
 {
+}
+
+void Portal::FadeOut(float _DeltaTime)
+{
+	if (BlackOut == nullptr)
+	{
+		return;
+	}
+
+	BlackOut->ColorOptionValue.MulColor.a += 1.0f * _DeltaTime;
+
+	if (BlackOut->ColorOptionValue.MulColor.a >= 1.0f)
+	{
+		BlackOut->Death();
+		BlackOut = nullptr;
+
+		FadeOutUpdate = nullptr;
+		GameEngineCore::ChangeLevel(LinkedMap);
+	}
 }

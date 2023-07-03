@@ -366,13 +366,7 @@ void Player::CameraUpdate(float _DeltaTime)
 	PlayerPos.z = 0.0f;
 	CameraPos.z = 0.0f;
 
-	float4 newPosition = PlayerPos;
-
-	//if (PlayerPos.XYDistance(CameraPos) > 5.0f)
-	//{
-	//	//newPosition = newPosition.Lerp(CameraPos, PlayerPos, 1.5f * _DeltaTime);
-	//}
-
+	float4 newPosition = newPosition.Lerp(CameraPos, PlayerPos, 4.0f * _DeltaTime);
 
 	float MaxY = 350.0f;
 	float MinY = 490.0f;
@@ -381,12 +375,10 @@ void Player::CameraUpdate(float _DeltaTime)
 	{
 		MaxY = 425.0f;
 	}
-	else if (GetLevel()->GetName() == "ZAKUMROAD1")
+	else if (GetLevel()->GetName() == "ZAKUMROAD1" || GetLevel()->GetName() == "JAZZBAR")
 	{
 		MinY = 250.0f;
 	}
-
-
 
 	if (newPosition.x - 425 < -HalfWidth)
 	{
@@ -404,6 +396,12 @@ void Player::CameraUpdate(float _DeltaTime)
 	else if (newPosition.y + MaxY > HalfHeight)
 	{
 		newPosition.y = HalfHeight - MaxY;
+	}
+
+
+	if (GetLevel()->GetName() == "JAZZBAR")
+	{
+		newPosition.x = 0.0f;
 	}
 
 	GetLevel()->GetMainCamera()->GetTransform()->SetLocalPosition(newPosition);
@@ -475,8 +473,15 @@ void Player::FallingDown(float _DeltaTime)
 	}
 
 	float4 NextPos = GetTransform()->GetLocalPosition() + float4{ FallingXMove * _DeltaTime , -Gravity * _DeltaTime };
+	
+	if (abs(NextPos.y - CurPos.y) > 15)
+	{
+		NextPos.y += 5.0f;
+	}
+
 	float4 NextColorPos = MapHalfScale + float4{ NextPos.x, -NextPos.y };
 	GameEnginePixelColor NextColor = ColMap->GetPixel(static_cast<int>(NextColorPos.x), static_cast<int>(NextColorPos.y));
+
 
 	if (CurColor == White && NextColor == White)
 	{

@@ -50,11 +50,23 @@ void BeginnersTown2::Start()
 
 	MyMiniMap = GetLevel()->CreateActor<MiniMap>(static_cast<int>(RenderOrder::UI));
 	MyMiniMap->SetMap(MapName);
+
+	Black = CreateComponent<GameEngineUIRenderer>();
+	Black->GetTransform()->SetWorldScale({ 800, 600 });
+	Black->GetTransform()->SetWorldPosition({ 0, 0 });
+	Black->ColorOptionValue.MulColor = { 0.0f, 0.0f, 0.0f, 1.0f };
+
+	FadeInUpdate = &BeginnersTown2::FadeIn;
 }
 
 void BeginnersTown2::Update(float _DeltaTime)
 {
 	BackGroundMove(_DeltaTime);
+
+	if (FadeInUpdate != nullptr)
+	{
+		FadeInUpdate(*this, _DeltaTime);
+	}
 }
 
 void BeginnersTown2::Render(float _DeltaTime) 
@@ -84,4 +96,19 @@ void BeginnersTown2::ActorDeath()
 
 	MyPortal2->Death();
 	MyPortal2 = nullptr;
+
+	MyMiniMap->Death();
+	MyMiniMap = nullptr;
+}
+
+void BeginnersTown2::FadeIn(float _DeltaTime)
+{
+	Black->ColorOptionValue.MulColor.a -= 1.0F * _DeltaTime;
+
+	if (Black->ColorOptionValue.MulColor.a <= 0)
+	{
+		Black->Death();
+		Black = nullptr;
+		FadeInUpdate = nullptr;
+	}
 }

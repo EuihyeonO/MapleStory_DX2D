@@ -46,5 +46,11 @@ private:
 	std::shared_ptr<class Portal> MyPortal2 = nullptr;
 
 	std::shared_ptr<class ContentRenderer> Cloud = nullptr;
+
+	void FadeIn(float _DeltaTime);
+
+	std::function<void(BeginnersTown2&, float)> FadeInUpdate;
+	std::shared_ptr<class GameEngineUIRenderer> Black = nullptr;
+
 };
 

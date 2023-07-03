@@ -1,6 +1,5 @@
 #include "PrecompileHeader.h"
-#include "Level_BeginnersTown2.h"
-#include "BeginnersTown2.h"
+#include "Level_KerningCity.h"
 #include "Player.h"
 #include "BottomBar.h"
 #include "StatusWindow.h"
@@ -9,41 +8,21 @@
 #include "UIWindowManager.h"
 #include "QuickSlot.h"
 #include "GlobalFunction.h"
+#include "KerningCity.h"
+#include "UIController.h"
 
-#include <GameEngineCore/GameEngineCamera.h>
-
-Level_BeginnersTown2::Level_BeginnersTown2()
+Level_KerningCity::Level_KerningCity()
 {
 }
 
-Level_BeginnersTown2::~Level_BeginnersTown2()
+Level_KerningCity::~Level_KerningCity()
 {
 }
 
-void Level_BeginnersTown2::LevelChangeStart()
+void Level_KerningCity::Start()
 {
-	LoadResources();
-	ActorCreate();
+	SetName("KERNINGCITY");
 
-	if (PlayerValue::GetValue()->GetPrevLevelName() == "Level_BeginnersTown1")
-	{
-		MyPlayer->SetRight();
-		MyPlayer->SetMoveType("Jump");
-		MyPlayer->GetTransform()->SetLocalPosition({ -460, 45 });
-	}
-	else if (PlayerValue::GetValue()->GetPrevLevelName() == "Level_CrossRoad")
-	{
-		MyPlayer->SetLeft();
-		MyPlayer->SetMoveType("Jump");
-		MyPlayer->GetTransform()->SetLocalPosition({ 470, 100 });
-	}
-}
-
-void Level_BeginnersTown2::Start()
-{
-
-	SetName("BEGINNERSTOWN2");
-	
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetCamera(100)->SetProjectionType(CameraType::Orthogonal);
 
@@ -51,24 +30,28 @@ void Level_BeginnersTown2::Start()
 	GetCamera(100)->SetSortType(0, SortType::ZSort);
 }
 
-void Level_BeginnersTown2::LevelChangeEnd()
+void Level_KerningCity::Update(float _DeltaTime)
 {
-	PlayerValue::GetValue()->SetPrevLevelName("Level_BeginnersTown2");
 
+}
+
+void Level_KerningCity::LevelChangeStart()
+{
+	LoadResources();
+	ActorCreate();
+}
+
+void Level_KerningCity::LevelChangeEnd()
+{
 	ActorDeath();
 	UnLoadResources();
-
-}
-void Level_BeginnersTown2::Update(float _DeltaTime)
-{
-
 }
 
-void Level_BeginnersTown2::ActorCreate() 
+void Level_KerningCity::ActorCreate()
 {
 	if (Map == nullptr)
 	{
-		Map = CreateActor<BeginnersTown2>();
+		Map = CreateActor<KerningCity>();
 		std::string ColMapName = Map->GetColMapName().data();
 		std::shared_ptr<GameEngineTexture> ColMap = GameEngineTexture::Find(ColMapName);
 		GlobalFunction::GetValue()->SetColMap(ColMap);
@@ -104,9 +87,21 @@ void Level_BeginnersTown2::ActorCreate()
 	}
 
 
+	if (PlayerValue::GetValue()->GetPrevLevelName() == "123")
+	{
+		MyPlayer->SetRight();
+		MyPlayer->SetMoveType("Jump");
+		MyPlayer->GetTransform()->SetLocalPosition({ -500, 200 });
+	}
+	else if (PlayerValue::GetValue()->GetPrevLevelName() == "123")
+	{
+		MyPlayer->SetLeft();
+		MyPlayer->SetMoveType("Jump");
+		MyPlayer->GetTransform()->SetLocalPosition({ 625, -10 });
+	}
 }
 
-void Level_BeginnersTown2::ActorDeath()
+void Level_KerningCity::ActorDeath()
 {
 	if (MyPlayer != nullptr)
 	{
@@ -139,21 +134,20 @@ void Level_BeginnersTown2::ActorDeath()
 
 	if (Map != nullptr)
 	{
-		Map->ActorDeath();
 		Map->Death();
 		Map = nullptr;
 	}
 }
 
-void Level_BeginnersTown2::LoadResources()
+void Level_KerningCity::LoadResources()
 {
-	if (nullptr == GameEngineTexture::Find("RozarStand0.png"))
+	if (nullptr == GameEngineTexture::Find("KerningCity.png"))
 	{
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("MapleResources");
 		NewDir.Move("MapleResources");
-		NewDir.Move("BeginnersTown2");
-		NewDir.Move("BeginnersTown2NotSprite");
+		NewDir.Move("KerningCity");
+		NewDir.Move("KerningCityNotSprite");
 
 		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
 		for (size_t i = 0; i < File.size(); i++)
@@ -166,8 +160,8 @@ void Level_BeginnersTown2::LoadResources()
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("MapleResources");
 		NewDir.Move("MapleResources");
-		NewDir.Move("BeginnersTown2");
-		NewDir.Move("BeginnersTown2NotSprite");
+		NewDir.Move("KerningCity");
+		NewDir.Move("KerningCityNotSprite");
 
 		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
 		for (size_t i = 0; i < File.size(); i++)
@@ -177,15 +171,15 @@ void Level_BeginnersTown2::LoadResources()
 	}
 }
 
-void Level_BeginnersTown2::UnLoadResources()
+void Level_KerningCity::UnLoadResources()
 {
-	if (nullptr != GameEngineTexture::Find("RozarStand0.png"))
+	if (nullptr != GameEngineTexture::Find("KerningCity.png"))
 	{
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("MapleResources");
 		NewDir.Move("MapleResources");
-		NewDir.Move("BeginnersTown2");
-		NewDir.Move("BeginnersTown2NotSprite");
+		NewDir.Move("KerningCity");
+		NewDir.Move("KerningCityNotSprite");
 
 		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
 		for (size_t i = 0; i < File.size(); i++)
@@ -213,3 +207,4 @@ void Level_BeginnersTown2::UnLoadResources()
 		}
 	}
 }
+

@@ -71,9 +71,6 @@ void Item::Clicked()
 			NewItem->SetDropItemInfo(MyInfo->ItemName, ItemType);
 
 			UIController::GetUIController()->GetCurItemList()->DeleteItem(DynamicThis<Item>());
-			ItemRender->GetTransform()->SetParent(GetTransform());
-			ItemCollision->GetTransform()->SetParent(GetTransform());
-			return;
 		}
 
 		ItemRender->GetTransform()->SetParent(GetTransform());

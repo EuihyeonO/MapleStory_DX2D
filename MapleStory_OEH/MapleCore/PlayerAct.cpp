@@ -26,7 +26,7 @@ void Player::Jump(float _DeltaTime)
 		return;
 	}
 
-	if (MoveType == "Walk" && isFlashJump == false)
+	if ((GameEngineInput::IsPress("LMove") == true || GameEngineInput::IsPress("RMove")) && isFlashJump == false)
 	{
 		if (LeftRightDir == "Right")
 		{
@@ -83,7 +83,7 @@ void Player::JumpUpdate(float _DeltaTime)
 
 		Gravity = 200.0f;
 
-		if(isSwing == false)
+		if (isSwing == false)
 		{
 			MoveType = "Stand";
 		}
@@ -96,9 +96,100 @@ void Player::JumpUpdate(float _DeltaTime)
 		GetTransform()->SetLocalPosition(RealNextPos);
 		return;
 	}
+	else if (NextPos.y - CurPos.y >= 0.0f && CurColor == White && NextColor == Magenta)
+	{
+		float4 CopyNextPos = NextPos;
+		float4 CopyNextColorPos = NextColorPos;
+		GameEnginePixelColor CopyNextColor = NextColor;
 
-	float4 RealNextPos = { NextColorPos.x - MapHalfScale.x, MapHalfScale.y - NextColorPos.y, -5.0f };
-	GetTransform()->SetLocalPosition(RealNextPos);
+		int Count = 0;
+
+		while (CopyNextColor == Magenta)
+		{
+			CopyNextColorPos.y--;
+			CopyNextColor = ColMap->GetPixel(static_cast<int>(CopyNextColorPos.x), static_cast<int>(CopyNextColorPos.y));
+			Count++;
+
+			if (Count >= 20)
+			{
+				break;
+			}
+		}
+
+		CopyNextColorPos = NextColorPos;
+		CopyNextColor = NextColor;
+
+		while (CopyNextColor == Magenta)
+		{
+			if (Count >= 20)
+			{
+				break;
+			}
+
+			CopyNextColorPos.y++;
+			CopyNextColor = ColMap->GetPixel(static_cast<int>(CopyNextColorPos.x), static_cast<int>(CopyNextColorPos.y));
+			Count++;
+		}
+
+		float4 RealNextPos = { NextColorPos.x - MapHalfScale.x, MapHalfScale.y - NextColorPos.y, -5.0f };
+		
+		if (Count >= 20)
+		{
+			RealNextPos.x = CurPos.x;
+		}
+
+		GetTransform()->SetLocalPosition(RealNextPos);
+		return;
+	}
+	else if(CurColor == Magenta && NextColor == Magenta)
+	{
+		float4 CopyNextPos = NextPos;
+		float4 CopyNextColorPos = NextColorPos;
+		GameEnginePixelColor CopyNextColor = NextColor;
+
+		int Count = 0;
+
+		while (CopyNextColor == Magenta)
+		{
+			CopyNextColorPos.y--;
+			CopyNextColor = ColMap->GetPixel(static_cast<int>(CopyNextColorPos.x), static_cast<int>(CopyNextColorPos.y));
+			Count++;
+
+			if (Count >= 20)
+			{
+				break;
+			}
+		}
+
+		CopyNextColorPos = NextColorPos;
+		CopyNextColor = NextColor;
+
+		while (CopyNextColor == Magenta)
+		{
+			if (Count >= 20)
+			{
+				break;
+			}
+
+			CopyNextColorPos.y++;
+			CopyNextColor = ColMap->GetPixel(static_cast<int>(CopyNextColorPos.x), static_cast<int>(CopyNextColorPos.y));
+			Count++;
+		}
+
+		float4 RealNextPos = { NextColorPos.x - MapHalfScale.x, MapHalfScale.y - NextColorPos.y, -5.0f };
+
+		if (Count >= 20)
+		{
+			RealNextPos.x = CurPos.x;
+		}
+
+		GetTransform()->SetLocalPosition(RealNextPos);
+		return;
+	}
+	else
+	{
+	 GetTransform()->SetLocalPosition(NextPos);
+	}
 }
 
 void Player::Move(float _DeltaTime)
@@ -242,13 +333,29 @@ void Player::Swing()
 	}
 
 	std::vector<std::shared_ptr<GameEngineCollision>> HitMonsterVector;
-	std::shared_ptr<GameEngineCollision> HitObject = RangeCheck->Collision(static_cast<int>(CollisionOrder::Object), ColType::AABBBOX2D, ColType::AABBBOX2D);
-	
-	if (HitObject != nullptr)
-	{
-		float aa = HitObject->GetTransform()->GetWorldPosition().XYDistance(GetTransform()->GetWorldPosition());
+	std::vector<std::shared_ptr<GameEngineCollision>> HitObjVector;
 
-		if (HitObject->GetTransform()->GetWorldPosition().XYDistance(GetTransform()->GetWorldPosition()) < 80.0f)
+	std::shared_ptr<GameEngineCollision> HitObject; //= RangeCheck->Collision(static_cast<int>(CollisionOrder::Object), ColType::AABBBOX2D, ColType::AABBBOX2D);
+	RangeCheck->CollisionAll(static_cast<int>(CollisionOrder::Object), HitObjVector, ColType::AABBBOX2D, ColType::AABBBOX2D);
+
+	size_t Size = HitObjVector.size();
+
+	if (Size != 0)
+	{
+		HitObject = HitObjVector[0];
+		float Distance = HitObject->GetTransform()->GetWorldPosition().XYDistance(GetTransform()->GetWorldPosition());
+
+		for (int i = 0; i < Size; i++)
+		{
+			float NewDistance = HitObjVector[i]->GetTransform()->GetWorldPosition().XYDistance(GetTransform()->GetWorldPosition());
+			
+			if (Distance > NewDistance)
+			{
+				Distance = NewDistance;
+			}
+		}
+
+		if (Distance < 80.0f)
 		{
 			int StabType = GameEngineRandom::MainRandom.RandomInt(0,1);
 			HitObject->GetActor()->DynamicThis<KeyBox>()->Hit();

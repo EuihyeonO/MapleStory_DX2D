@@ -258,8 +258,8 @@ private:
 	float JumpPower = 600.0f;
 	float JumpXMove = 0.0f;
 
-	float BasicMoveSpeed = 100.0f;
-	float MoveSpeed = 100.0f;
+	float BasicMoveSpeed = 150.0f;
+	float MoveSpeed = 150.0f;
 
 	//스킬관련
 

@@ -1,6 +1,5 @@
 #include "PrecompileHeader.h"
-#include "Level_BeginnersTown2.h"
-#include "BeginnersTown2.h"
+#include "Level_SouthFerry.h"
 #include "Player.h"
 #include "BottomBar.h"
 #include "StatusWindow.h"
@@ -9,66 +8,67 @@
 #include "UIWindowManager.h"
 #include "QuickSlot.h"
 #include "GlobalFunction.h"
+#include "SouthFerry.h"
+#include "UIController.h"
 
-#include <GameEngineCore/GameEngineCamera.h>
-
-Level_BeginnersTown2::Level_BeginnersTown2()
+Level_SouthFerry::Level_SouthFerry()
 {
 }
 
-Level_BeginnersTown2::~Level_BeginnersTown2()
+Level_SouthFerry::~Level_SouthFerry()
 {
 }
 
-void Level_BeginnersTown2::LevelChangeStart()
+void Level_SouthFerry::Start()
 {
-	LoadResources();
-	ActorCreate();
+	SetName("SOUTHFERRY");
 
-	if (PlayerValue::GetValue()->GetPrevLevelName() == "Level_BeginnersTown1")
-	{
-		MyPlayer->SetRight();
-		MyPlayer->SetMoveType("Jump");
-		MyPlayer->GetTransform()->SetLocalPosition({ -460, 45 });
-	}
-	else if (PlayerValue::GetValue()->GetPrevLevelName() == "Level_CrossRoad")
-	{
-		MyPlayer->SetLeft();
-		MyPlayer->SetMoveType("Jump");
-		MyPlayer->GetTransform()->SetLocalPosition({ 470, 100 });
-	}
-}
-
-void Level_BeginnersTown2::Start()
-{
-
-	SetName("BEGINNERSTOWN2");
-	
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetCamera(100)->SetProjectionType(CameraType::Orthogonal);
 
 	GetMainCamera()->SetSortType(0, SortType::ZSort);
 	GetCamera(100)->SetSortType(0, SortType::ZSort);
+
+	//test
+	std::shared_ptr<ItemInfo> NewItem1 = std::make_shared<ItemInfo>();
+	NewItem1->EquipType = static_cast<int>(EquipType::Weapon);
+	NewItem1->ItemName = "Ganier";
+
+	std::shared_ptr<ItemInfo> NewItem2 = std::make_shared<ItemInfo>();
+	NewItem2->EquipType = static_cast<int>(EquipType::Pants);
+	NewItem2->ItemName = "BLUEPANTS";
+
+	std::shared_ptr<ItemInfo> NewItem3 = std::make_shared<ItemInfo>();
+	NewItem3->EquipType = static_cast<int>(EquipType::Coat);
+	NewItem3->ItemName = "BLUEGOWN";
+
+	UIController::GetUIController()->AddToEquipItemList(NewItem1, static_cast<int>(ItemType::Equip));
+	UIController::GetUIController()->AddToEquipItemList(NewItem2, static_cast<int>(ItemType::Equip));
+	UIController::GetUIController()->AddToEquipItemList(NewItem3, static_cast<int>(ItemType::Equip));
 }
 
-void Level_BeginnersTown2::LevelChangeEnd()
+void Level_SouthFerry::Update(float _DeltaTime)
 {
-	PlayerValue::GetValue()->SetPrevLevelName("Level_BeginnersTown2");
 
+}
+
+void Level_SouthFerry::LevelChangeStart()
+{
+	LoadResources();
+	ActorCreate();
+}
+
+void Level_SouthFerry::LevelChangeEnd()
+{
 	ActorDeath();
 	UnLoadResources();
-
-}
-void Level_BeginnersTown2::Update(float _DeltaTime)
-{
-
 }
 
-void Level_BeginnersTown2::ActorCreate() 
+void Level_SouthFerry::ActorCreate()
 {
 	if (Map == nullptr)
 	{
-		Map = CreateActor<BeginnersTown2>();
+		Map = CreateActor<SouthFerry>();
 		std::string ColMapName = Map->GetColMapName().data();
 		std::shared_ptr<GameEngineTexture> ColMap = GameEngineTexture::Find(ColMapName);
 		GlobalFunction::GetValue()->SetColMap(ColMap);
@@ -104,9 +104,21 @@ void Level_BeginnersTown2::ActorCreate()
 	}
 
 
+	if (PlayerValue::GetValue()->GetPrevLevelName() == "123")
+	{
+		MyPlayer->SetRight();
+		MyPlayer->SetMoveType("Jump");
+		MyPlayer->GetTransform()->SetLocalPosition({ -500, 200 });
+	}
+	else if (PlayerValue::GetValue()->GetPrevLevelName() == "123")
+	{
+		MyPlayer->SetLeft();
+		MyPlayer->SetMoveType("Jump");
+		MyPlayer->GetTransform()->SetLocalPosition({ 625, -10 });
+	}
 }
 
-void Level_BeginnersTown2::ActorDeath()
+void Level_SouthFerry::ActorDeath()
 {
 	if (MyPlayer != nullptr)
 	{
@@ -139,21 +151,20 @@ void Level_BeginnersTown2::ActorDeath()
 
 	if (Map != nullptr)
 	{
-		Map->ActorDeath();
 		Map->Death();
 		Map = nullptr;
 	}
 }
 
-void Level_BeginnersTown2::LoadResources()
+void Level_SouthFerry::LoadResources()
 {
-	if (nullptr == GameEngineTexture::Find("RozarStand0.png"))
+	if (nullptr == GameEngineTexture::Find("SouthFerry.png"))
 	{
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("MapleResources");
 		NewDir.Move("MapleResources");
-		NewDir.Move("BeginnersTown2");
-		NewDir.Move("BeginnersTown2NotSprite");
+		NewDir.Move("SouthFerry");
+		NewDir.Move("SouthFerryNotSprite");
 
 		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
 		for (size_t i = 0; i < File.size(); i++)
@@ -166,8 +177,8 @@ void Level_BeginnersTown2::LoadResources()
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("MapleResources");
 		NewDir.Move("MapleResources");
-		NewDir.Move("BeginnersTown2");
-		NewDir.Move("BeginnersTown2NotSprite");
+		NewDir.Move("SouthFerry");
+		NewDir.Move("SouthFerryNotSprite");
 
 		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
 		for (size_t i = 0; i < File.size(); i++)
@@ -177,15 +188,15 @@ void Level_BeginnersTown2::LoadResources()
 	}
 }
 
-void Level_BeginnersTown2::UnLoadResources()
+void Level_SouthFerry::UnLoadResources()
 {
-	if (nullptr != GameEngineTexture::Find("RozarStand0.png"))
+	if (nullptr != GameEngineTexture::Find("SouthFerry.png"))
 	{
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("MapleResources");
 		NewDir.Move("MapleResources");
-		NewDir.Move("BeginnersTown2");
-		NewDir.Move("BeginnersTown2NotSprite");
+		NewDir.Move("SouthFerry");
+		NewDir.Move("SouthFerryNotSprite");
 
 		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
 		for (size_t i = 0; i < File.size(); i++)
@@ -213,3 +224,4 @@ void Level_BeginnersTown2::UnLoadResources()
 		}
 	}
 }
+

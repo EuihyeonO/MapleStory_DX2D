@@ -102,6 +102,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>PrecompileHeader.h</PrecompiledHeaderFile>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalIncludeDirectories>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -138,6 +139,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>PrecompileHeader.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -276,7 +278,15 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="JazzBar.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="KeyBox.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="KerningCity.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -293,6 +303,18 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Level_CrossRoad.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Level_JazzBar.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Level_KerningCity.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Level_SouthFerry.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -373,6 +395,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="SmallZakum2.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="SouthFerry.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -548,7 +574,15 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="JazzBar.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="KeyBox.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="KerningCity.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -565,6 +599,18 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Level_CrossRoad.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Level_JazzBar.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Level_KerningCity.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Level_SouthFerry.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -655,6 +701,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="SmallZakum2.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="SouthFerry.cpp">
       <SubType>
       </SubType>
     </ClCompile>

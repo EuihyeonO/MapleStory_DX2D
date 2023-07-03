@@ -120,8 +120,6 @@ void Level_Title::Start()
 	GameLogo = CreateActor<Logo>();
 	//std::shared_ptr<TitleObjects> NewTitleObjects1 = CreateActor<TitleObjects>();
 
-
-
 	//MyPlayer = CreateActor<Player>();
 	//MyPlayer->GetTransform()->SetLocalPosition({ -20, 1768, -1 });
 	//MyPlayer->SetRight();

@@ -144,6 +144,7 @@ void Level_CrossRoad::ActorDeath()
 
 	if (Map != nullptr)
 	{
+		Map->ActorDeath();
 		Map->Death();
 		Map = nullptr;
 	}

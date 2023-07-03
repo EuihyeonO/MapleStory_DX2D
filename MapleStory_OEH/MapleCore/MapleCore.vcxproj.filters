@@ -205,6 +205,24 @@
     <ClInclude Include="KeyBox.h">
       <Filter>Actor\Map\ZakumRoad1Object</Filter>
     </ClInclude>
+    <ClInclude Include="Level_SouthFerry.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="SouthFerry.h">
+      <Filter>Actor\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Level_KerningCity.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="KerningCity.h">
+      <Filter>Actor\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="JazzBar.h">
+      <Filter>Actor\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Level_JazzBar.h">
+      <Filter>Level</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Level_Title.cpp">
@@ -437,6 +455,24 @@
     </ClCompile>
     <ClCompile Include="KeyBox.cpp">
       <Filter>Actor\Map\ZakumRoad1Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Level_SouthFerry.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="SouthFerry.cpp">
+      <Filter>Actor\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Level_KerningCity.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="KerningCity.cpp">
+      <Filter>Actor\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="JazzBar.cpp">
+      <Filter>Actor\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Level_JazzBar.cpp">
+      <Filter>Level</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

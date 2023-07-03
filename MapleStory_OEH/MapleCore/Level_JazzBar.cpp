@@ -1,6 +1,5 @@
 #include "PrecompileHeader.h"
-#include "Level_BeginnersTown2.h"
-#include "BeginnersTown2.h"
+#include "Level_JazzBar.h"
 #include "Player.h"
 #include "BottomBar.h"
 #include "StatusWindow.h"
@@ -9,41 +8,21 @@
 #include "UIWindowManager.h"
 #include "QuickSlot.h"
 #include "GlobalFunction.h"
+#include "JazzBar.h"
+#include "UIController.h"
 
-#include <GameEngineCore/GameEngineCamera.h>
-
-Level_BeginnersTown2::Level_BeginnersTown2()
+Level_JazzBar::Level_JazzBar()
 {
 }
 
-Level_BeginnersTown2::~Level_BeginnersTown2()
+Level_JazzBar::~Level_JazzBar()
 {
 }
 
-void Level_BeginnersTown2::LevelChangeStart()
+void Level_JazzBar::Start()
 {
-	LoadResources();
-	ActorCreate();
+	SetName("JAZZBAR");
 
-	if (PlayerValue::GetValue()->GetPrevLevelName() == "Level_BeginnersTown1")
-	{
-		MyPlayer->SetRight();
-		MyPlayer->SetMoveType("Jump");
-		MyPlayer->GetTransform()->SetLocalPosition({ -460, 45 });
-	}
-	else if (PlayerValue::GetValue()->GetPrevLevelName() == "Level_CrossRoad")
-	{
-		MyPlayer->SetLeft();
-		MyPlayer->SetMoveType("Jump");
-		MyPlayer->GetTransform()->SetLocalPosition({ 470, 100 });
-	}
-}
-
-void Level_BeginnersTown2::Start()
-{
-
-	SetName("BEGINNERSTOWN2");
-	
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetCamera(100)->SetProjectionType(CameraType::Orthogonal);
 
@@ -51,24 +30,28 @@ void Level_BeginnersTown2::Start()
 	GetCamera(100)->SetSortType(0, SortType::ZSort);
 }
 
-void Level_BeginnersTown2::LevelChangeEnd()
+void Level_JazzBar::Update(float _DeltaTime)
 {
-	PlayerValue::GetValue()->SetPrevLevelName("Level_BeginnersTown2");
 
+}
+
+void Level_JazzBar::LevelChangeStart()
+{
+	LoadResources();
+	ActorCreate();
+}
+
+void Level_JazzBar::LevelChangeEnd()
+{
 	ActorDeath();
 	UnLoadResources();
-
-}
-void Level_BeginnersTown2::Update(float _DeltaTime)
-{
-
 }
 
-void Level_BeginnersTown2::ActorCreate() 
+void Level_JazzBar::ActorCreate()
 {
 	if (Map == nullptr)
 	{
-		Map = CreateActor<BeginnersTown2>();
+		Map = CreateActor<JazzBar>();
 		std::string ColMapName = Map->GetColMapName().data();
 		std::shared_ptr<GameEngineTexture> ColMap = GameEngineTexture::Find(ColMapName);
 		GlobalFunction::GetValue()->SetColMap(ColMap);
@@ -104,9 +87,21 @@ void Level_BeginnersTown2::ActorCreate()
 	}
 
 
+	if (PlayerValue::GetValue()->GetPrevLevelName() == "123")
+	{
+		MyPlayer->SetRight();
+		MyPlayer->SetMoveType("Jump");
+		MyPlayer->GetTransform()->SetLocalPosition({ -500, 200 });
+	}
+	else if (PlayerValue::GetValue()->GetPrevLevelName() == "123")
+	{
+		MyPlayer->SetLeft();
+		MyPlayer->SetMoveType("Jump");
+		MyPlayer->GetTransform()->SetLocalPosition({ 625, -10 });
+	}
 }
 
-void Level_BeginnersTown2::ActorDeath()
+void Level_JazzBar::ActorDeath()
 {
 	if (MyPlayer != nullptr)
 	{
@@ -139,21 +134,20 @@ void Level_BeginnersTown2::ActorDeath()
 
 	if (Map != nullptr)
 	{
-		Map->ActorDeath();
 		Map->Death();
 		Map = nullptr;
 	}
 }
 
-void Level_BeginnersTown2::LoadResources()
+void Level_JazzBar::LoadResources()
 {
-	if (nullptr == GameEngineTexture::Find("RozarStand0.png"))
+	if (nullptr == GameEngineTexture::Find("JazzBar.png"))
 	{
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("MapleResources");
 		NewDir.Move("MapleResources");
-		NewDir.Move("BeginnersTown2");
-		NewDir.Move("BeginnersTown2NotSprite");
+		NewDir.Move("JazzBar");
+		NewDir.Move("JazzBarNotSprite");
 
 		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
 		for (size_t i = 0; i < File.size(); i++)
@@ -166,8 +160,8 @@ void Level_BeginnersTown2::LoadResources()
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("MapleResources");
 		NewDir.Move("MapleResources");
-		NewDir.Move("BeginnersTown2");
-		NewDir.Move("BeginnersTown2NotSprite");
+		NewDir.Move("JazzBar");
+		NewDir.Move("JazzBarNotSprite");
 
 		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
 		for (size_t i = 0; i < File.size(); i++)
@@ -177,15 +171,15 @@ void Level_BeginnersTown2::LoadResources()
 	}
 }
 
-void Level_BeginnersTown2::UnLoadResources()
+void Level_JazzBar::UnLoadResources()
 {
-	if (nullptr != GameEngineTexture::Find("RozarStand0.png"))
+	if (nullptr != GameEngineTexture::Find("JazzBar.png"))
 	{
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("MapleResources");
 		NewDir.Move("MapleResources");
-		NewDir.Move("BeginnersTown2");
-		NewDir.Move("BeginnersTown2NotSprite");
+		NewDir.Move("JazzBar");
+		NewDir.Move("JazzBarNotSprite");
 
 		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
 		for (size_t i = 0; i < File.size(); i++)
@@ -213,3 +207,4 @@ void Level_BeginnersTown2::UnLoadResources()
 		}
 	}
 }
+

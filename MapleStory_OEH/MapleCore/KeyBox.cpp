@@ -42,9 +42,14 @@ void KeyBox::Start()
 		if 
 		(BoxRender->IsAnimationEnd() == true) 
 		{
-			std::shared_ptr<DropItem> NewItem = GetLevel()->CreateActor<DropItem>();
-			NewItem->SetQuadraticFunction(1.0f, GetTransform()->GetWorldPosition() + float4{0, 5});
-			NewItem->SetDropItemInfo("BoxKey", static_cast<int>(ItemType::Etc));
+			int Num = GameEngineRandom::MainRandom.RandomInt(0, 5);
+			
+			if(Num == 0)
+			{
+				std::shared_ptr<DropItem> NewItem = GetLevel()->CreateActor<DropItem>();
+				NewItem->SetQuadraticFunction(1.0f, GetTransform()->GetWorldPosition() + float4{ 0, 5 });
+				NewItem->SetDropItemInfo("BoxKey", static_cast<int>(ItemType::Etc));
+			}
 
 			Death(); 
 		}});

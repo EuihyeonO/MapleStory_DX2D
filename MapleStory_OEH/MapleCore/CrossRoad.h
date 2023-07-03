@@ -21,6 +21,8 @@ public:
 	CrossRoad(CrossRoad&& _Other) noexcept = delete;
 	CrossRoad& operator=(const CrossRoad& _Other) = delete;
 	CrossRoad& operator=(CrossRoad&& _Other) noexcept = delete;
+	
+	void ActorDeath();
 
 protected:
 	void Start();
@@ -33,6 +35,10 @@ private:
 	void LandScapeMove(float _DeltaTime);
 
 	std::shared_ptr<GameEngineSpriteRenderer> BackGround = nullptr;
+
+	std::shared_ptr<GameEngineSpriteRenderer> Portal1 = nullptr;
+	std::shared_ptr<class MonsterSpawnZone> Zone1 = nullptr;
+	std::shared_ptr<class MonsterSpawnZone> Zone2 = nullptr;
 
 	std::shared_ptr<class MiniMap> MyMiniMap = nullptr;
 

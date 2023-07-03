@@ -46,9 +46,9 @@ void CrossRoad::Start()
 	MyMiniMap = GetLevel()->CreateActor<MiniMap>(static_cast<int>(RenderOrder::UI));
 	MyMiniMap->SetMap(MapName);
 
-	std::shared_ptr<Portal> Port1 = GetLevel()->CreateActor<Portal>(static_cast<int>(RenderOrder::UI));
-	Port1->SetLinkedMap("Level_BeginnersTown2");
-	Port1->SetPortalPos({ -1750, 45, -10 });
+	std::shared_ptr<Portal> Portal1 = GetLevel()->CreateActor<Portal>(static_cast<int>(RenderOrder::UI));
+	Portal1->SetLinkedMap("Level_BeginnersTown2");
+	Portal1->SetPortalPos({ -1750, 45, -10 });
 
 	std::shared_ptr<GameEngineCollision> Rope1 = CreateComponent<GameEngineCollision>();
 	Rope1->SetColType(ColType::AABBBOX2D);
@@ -98,17 +98,17 @@ void CrossRoad::Start()
 	Radder2->GetTransform()->SetLocalPosition({ 790.0f, -75.0f });
 	Radder2->GetTransform()->SetLocalScale({ 40.0f, 130.0f });
 
-	std::shared_ptr<MonsterSpawnZone> Zone = GetLevel()->CreateActor<MonsterSpawnZone>();
-	Zone->SetColMap(ColMapName);
-	Zone->SetMonsterToZone(MonsterName::Spore, 5);
-	Zone->SetMonsterToZone(MonsterName::GreenSnail, 5);
-	Zone->SetZonePosAndScale({ 200, -130.0f }, 1000.0f);
+	Zone1 = GetLevel()->CreateActor<MonsterSpawnZone>();
+	Zone1->SetColMap(ColMapName);
+	Zone1->SetMonsterToZone(MonsterName::Spore, 5);
+	Zone1->SetMonsterToZone(MonsterName::GreenSnail, 5);
+	Zone1->SetZonePosAndScale({ 200, -130.0f }, 1000.0f);
 
-	std::shared_ptr<MonsterSpawnZone> Zone2 = GetLevel()->CreateActor<MonsterSpawnZone>();
+	Zone2 = GetLevel()->CreateActor<MonsterSpawnZone>();
 	Zone2->SetColMap(ColMapName);
 	Zone2->SetMonsterToZone(MonsterName::Spore, 5);
 	Zone2->SetMonsterToZone(MonsterName::BlueSnail, 5);
-	Zone->SetZonePosAndScale({ 600, 600.0f }, 1000.0f);
+	Zone2->SetZonePosAndScale({ 600, 600.0f }, 1000.0f);
 
 }
 
@@ -133,4 +133,31 @@ void CrossRoad::LandScapeMove(float _DeltaTime)
 	LandScape1->GetTransform()->SetLocalPosition(float4{ (800.0f * CameraPosPerMapScaleRatio.x - 100.0f) , (600.0f * CameraPosPerMapScaleRatio.y * 1.5f + 175.0f) });
 
 	LandScape2->GetTransform()->SetLocalPosition(float4{ (800.0f * CameraPosPerMapScaleRatio.x * 1.25f) - 100.0f, (600.0f * CameraPosPerMapScaleRatio.y * 1.5f  + 25.0f) });
+}
+
+void CrossRoad::ActorDeath()
+{
+	if(MyMiniMap != nullptr)
+	{
+		MyMiniMap->Death();
+		MyMiniMap = nullptr;
+	}
+
+	if (Portal1 != nullptr)
+	{
+		Portal1->Death();
+		Portal1 = nullptr;
+	}
+
+	if (Zone1 != nullptr)
+	{
+		Zone1->Death();
+		Zone1 = nullptr;
+	}
+
+	if (Zone2 != nullptr)
+	{
+		Zone2->Death();
+		Zone2 = nullptr;
+	}
 }
