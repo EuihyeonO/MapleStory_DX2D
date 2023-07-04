@@ -126,22 +126,6 @@ void Player::Update(float _DeltaTime)
 
 	if (GameEngineInput::IsDown("MyTest") == true)
 	{
-		std::shared_ptr<ItemInfo> NewItem = std::make_shared<ItemInfo>();
-		NewItem->ItemName = "MapleThroned";
-		NewItem->EquipType = static_cast<int>(EquipType::Weapon);
-
-		UIController::GetUIController()->AddToItemList(NewItem, static_cast<int>(ItemType::Equip));
-
-		std::shared_ptr<ItemInfo> NewItem1 = std::make_shared<ItemInfo>();
-		NewItem1->ItemName = "GRAYTSHIRT";
-		NewItem1->EquipType = static_cast<int>(EquipType::Coat);
-
-		UIController::GetUIController()->AddToItemList(NewItem1, static_cast<int>(ItemType::Equip));
-
-		std::shared_ptr<ItemInfo> NewItem2 = std::make_shared<ItemInfo>();
-		NewItem2->ItemName = "BLUEPANTS";
-		NewItem2->EquipType = static_cast<int>(EquipType::Pants);
-		UIController::GetUIController()->AddToItemList(NewItem2, static_cast<int>(ItemType::Equip));
 	}
 }
 

@@ -9,6 +9,7 @@
 #include "BottomBar.h"
 #include "UIWindowManager.h"
 #include "KeyBox.h"
+#include "BigBox.h"
 #include "UIController.h"
 
 #include <GameEngineBase/GameEngineRandom.h>
@@ -112,6 +113,7 @@ void Level_ZakumRoad1::ActorCreate()
 	
 	//std::shared_ptr<KeyBox> NewBox5 = CreateActor<KeyBox>();
 	//NewBox5->GetTransform()->SetLocalPosition({ 700,  -150 });
+	std::shared_ptr<BigBox> NewBox5 = CreateActor<BigBox>();
 
 	SetKeyBox();
 }
@@ -150,6 +152,8 @@ void Level_ZakumRoad1::ActorDeath()
 	if (Map != nullptr)
 	{
 		Map->Death();
+		Map->ActorDeath();
+
 		Map = nullptr;
 	}
 }
@@ -215,6 +219,17 @@ void Level_ZakumRoad1::LoadResources()
 
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("KeyBox3Hit").GetFullPath());
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("KeyBox3Stand").GetFullPath());
+
+		NewDir.MoveParent();
+		NewDir.MoveParent();
+		NewDir.Move("BigBox");
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("BigBoxStand").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("BigBoxDeath").GetFullPath());
+
+		NewDir.MoveParent();
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Aura").GetFullPath());
 	}
 	else
 	{
@@ -246,6 +261,19 @@ void Level_ZakumRoad1::LoadResources()
 
 		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("KeyBox3Hit").GetFullPath());
 		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("KeyBox3Stand").GetFullPath());
+
+
+		NewDir.MoveParent();
+		NewDir.MoveParent();
+		NewDir.Move("BigBox");
+
+		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("BigBoxStand").GetFullPath());
+		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("BigBoxDeath").GetFullPath());
+
+		NewDir.MoveParent();
+
+		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("Aura").GetFullPath());
+
 	}
 }
 
@@ -315,6 +343,18 @@ void Level_ZakumRoad1::UnLoadResources()
 
 		GameEngineSprite::UnLoad(NewDir.GetPlusFileName("KeyBox3Hit").GetFullPath());
 		GameEngineSprite::UnLoad(NewDir.GetPlusFileName("KeyBox3Stand").GetFullPath());
+
+		NewDir.MoveParent();
+		NewDir.MoveParent();
+		NewDir.Move("BigBox");
+
+		GameEngineSprite::UnLoad(NewDir.GetPlusFileName("BigBoxStand").GetFullPath());
+		GameEngineSprite::UnLoad(NewDir.GetPlusFileName("BigBoxDeath").GetFullPath());
+
+		NewDir.MoveParent();
+
+		GameEngineSprite::UnLoad(NewDir.GetPlusFileName("Aura").GetFullPath());
+
 	}
 }
 
@@ -427,10 +467,10 @@ void Level_ZakumRoad1::SetKeyBox()
 			StartPos = { -730 , 400 };
 			break;
 		case 25:
-			StartPos = { 630 , 700 };
-			break;
-		case 26:
-			StartPos = { 780 , 700 };
+			StartPos = { 630 , 1000 };
+			break;			  
+		case 26:			   
+			StartPos = { 780 , 1000 };
 			break;
 		case 27:
 			StartPos = { 480 , 700 };

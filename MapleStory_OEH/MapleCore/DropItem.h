@@ -17,6 +17,16 @@ public:
 	DropItem& operator=(DropItem&& _Other) noexcept = delete;
 
 	void MoveDropItem(float _DeltaTime);
+	
+	const std::string_view GetItemName()
+	{
+		return ItemName;
+	}
+
+	std::shared_ptr<GameEngineSpriteRenderer> GetRender()
+	{
+		return DropItemRender;
+	}
 
 	void SetQuadraticFunction(float _XDistance, float4 _StartPos)
 	{

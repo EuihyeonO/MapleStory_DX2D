@@ -182,6 +182,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Aura.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="BasicFunction.h">
       <SubType>
       </SubType>
@@ -191,6 +195,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="BeginnersTown2.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="BigBox.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -342,6 +350,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="NPCWindow.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Player.h">
       <SubType>
       </SubType>
@@ -367,6 +379,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="QuickSlot.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="RingPortal.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -482,6 +498,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Aura.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="BasicFunction.cpp">
       <SubType>
       </SubType>
@@ -491,6 +511,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="BeginnersTown2.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="BigBox.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -638,6 +662,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="NPCWindow.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Player.cpp">
       <SubType>
       </SubType>
@@ -673,6 +701,10 @@
     </ClCompile>
     <ClCompile Include="Passive.cpp" />
     <ClCompile Include="QuickSlot.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="RingPortal.cpp">
       <SubType>
       </SubType>
     </ClCompile>

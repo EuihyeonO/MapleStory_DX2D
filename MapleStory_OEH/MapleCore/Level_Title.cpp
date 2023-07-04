@@ -41,6 +41,7 @@ void Level_Title::Start()
 		NewDir.MoveParent();
 		NewDir.Move("CommonSprite");
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Portal").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RingPortal").GetFullPath());
 	}
 
 

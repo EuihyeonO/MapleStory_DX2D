@@ -1,6 +1,9 @@
 #include "PrecompileHeader.h"
 #include "ZakumRoad1.h"
 #include "MiniMap.h"
+#include "RingPortal.h"
+#include "Player.h"
+#include "Aura.h"
 
 #include <GameEngineCore/GameEngineLevel.h>
 
@@ -60,7 +63,16 @@ void ZakumRoad1::Start()
 	Rope6->GetTransform()->SetLocalPosition({ -410.0f, 122.0f });
 	Rope6->GetTransform()->SetLocalScale({ 20.0f, 144.0f });
 
-	//GetLevel()->IsDebugSwitch();
+	Port1 = GetLevel()->CreateActor<RingPortal>();
+	Port1->SetPortalPos({ 540, -890, -10.0f});
+	Port1->SetLinkedPos({ -700, 500 });
+	
+	Port2 = GetLevel()->CreateActor<RingPortal>();
+	Port2->SetPortalPos({ -700, 490, -10.0f });
+	Port2->SetLinkedPos({ 540, -800 });
+
+	MyAura = GetLevel()->CreateActor<Aura>();
+	MyAura->GetTransform()->SetWorldPosition({ -550, 470 });
 }
 
 void ZakumRoad1::Update(float _DeltaTime) 
@@ -71,4 +83,26 @@ void ZakumRoad1::Update(float _DeltaTime)
 void ZakumRoad1::Render(float _DeltaTime) 
 {
 
+}
+
+
+void ZakumRoad1::ActorDeath()
+{
+	if (Port1 != nullptr)
+	{
+		Port1->Death();
+		Port1 = nullptr;
+	}
+
+	if (Port2 != nullptr)
+	{
+		Port2->Death();
+		Port2 = nullptr;
+	}
+
+	if (MyAura != nullptr)
+	{
+		MyAura->Death();
+		MyAura = nullptr;
+	}
 }

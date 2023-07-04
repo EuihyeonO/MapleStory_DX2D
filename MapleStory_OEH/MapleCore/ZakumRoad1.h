@@ -18,6 +18,8 @@ public:
 	ZakumRoad1(ZakumRoad1&& _Other) noexcept = delete;
 	ZakumRoad1& operator=(const ZakumRoad1& _Other) = delete;
 	ZakumRoad1& operator=(ZakumRoad1&& _Other) noexcept = delete;
+	
+	void ActorDeath();
 
 protected:
 	void Start();
@@ -34,6 +36,11 @@ private:
 	std::shared_ptr<class GameEngineSpriteRenderer> BackGround = nullptr;
 
 	std::shared_ptr<class MiniMap> MyMiniMap = nullptr;
+
+	std::shared_ptr<class RingPortal> Port1 = nullptr;
+	std::shared_ptr<class RingPortal> Port2 = nullptr;
+
+	std::shared_ptr<class Aura> MyAura = nullptr;
 
 };
 

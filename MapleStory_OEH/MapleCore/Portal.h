@@ -32,6 +32,7 @@ protected:
 private:
 
 	void FadeOut(float _DeltaTime);
+
 	std::function<void(Portal&, float)> FadeOutUpdate = nullptr;
 
 	std::string LinkedMap = "";

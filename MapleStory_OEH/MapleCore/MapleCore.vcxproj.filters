@@ -223,6 +223,18 @@
     <ClInclude Include="Level_JazzBar.h">
       <Filter>Level</Filter>
     </ClInclude>
+    <ClInclude Include="BigBox.h">
+      <Filter>Actor\Map\ZakumRoad1Object</Filter>
+    </ClInclude>
+    <ClInclude Include="RingPortal.h">
+      <Filter>Actor\Map\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Aura.h">
+      <Filter>Actor\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="NPCWindow.h">
+      <Filter>Actor\UI\Window\NPCWindow</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Level_Title.cpp">
@@ -474,6 +486,18 @@
     <ClCompile Include="Level_JazzBar.cpp">
       <Filter>Level</Filter>
     </ClCompile>
+    <ClCompile Include="BigBox.cpp">
+      <Filter>Actor\Map\ZakumRoad1Object</Filter>
+    </ClCompile>
+    <ClCompile Include="RingPortal.cpp">
+      <Filter>Actor\Map\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Aura.cpp">
+      <Filter>Actor\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="NPCWindow.cpp">
+      <Filter>Actor\UI\Window\NPCWindow</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -562,6 +586,9 @@
     </Filter>
     <Filter Include="Actor\Map\ZakumRoad1Object">
       <UniqueIdentifier>{cc052a87-61e8-4e0a-ba3d-425d39292766}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\UI\Window\NPCWindow">
+      <UniqueIdentifier>{8b005594-9586-4bfc-938a-67e8749f5db9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -42,7 +42,7 @@ void KeyBox::Start()
 		if 
 		(BoxRender->IsAnimationEnd() == true) 
 		{
-			int Num = GameEngineRandom::MainRandom.RandomInt(0, 5);
+			int Num = GameEngineRandom::MainRandom.RandomInt(0, 0);
 			
 			if(Num == 0)
 			{
@@ -96,7 +96,7 @@ void KeyBox::Render(float _DeltaTime)
 
 void KeyBox::GravityUpdate(float _DeltaTime)
 {
-	float Gravity = 2000.0f;
+	float Gravity = 200.0f;
 
 	float4 PlayerPos = GetTransform()->GetLocalPosition();
 

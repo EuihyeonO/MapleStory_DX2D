@@ -37,6 +37,8 @@ void Level_BeginnersTown2::LevelChangeStart()
 		MyPlayer->SetMoveType("Jump");
 		MyPlayer->GetTransform()->SetLocalPosition({ 470, 100 });
 	}
+
+	GetMainCamera()->GetTransform()->SetWorldPosition(MyPlayer->GetTransform()->GetWorldPosition());
 }
 
 void Level_BeginnersTown2::Start()
