@@ -235,6 +235,12 @@
     <ClInclude Include="NPCWindow.h">
       <Filter>Actor\UI\Window\NPCWindow</Filter>
     </ClInclude>
+    <ClInclude Include="Level_AlterOfZakumEnt.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="AlterOfZakumEnt.h">
+      <Filter>Actor\Map</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Level_Title.cpp">
@@ -497,6 +503,12 @@
     </ClCompile>
     <ClCompile Include="NPCWindow.cpp">
       <Filter>Actor\UI\Window\NPCWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="Level_AlterOfZakumEnt.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="AlterOfZakumEnt.cpp">
+      <Filter>Actor\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

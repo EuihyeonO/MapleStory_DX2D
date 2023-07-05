@@ -10,6 +10,9 @@
 #include "GlobalFunction.h"
 #include "KerningCity.h"
 #include "UIController.h"
+#include "MapleCore.h"
+
+#include <GameEnginePlatform/GameEngineSound.h>
 
 Level_KerningCity::Level_KerningCity()
 {
@@ -39,6 +42,8 @@ void Level_KerningCity::LevelChangeStart()
 {
 	LoadResources();
 	ActorCreate();
+
+	MapleCore::BGMPlayer = GameEngineSound::Play("KerningCity.mp3");
 }
 
 void Level_KerningCity::LevelChangeEnd()

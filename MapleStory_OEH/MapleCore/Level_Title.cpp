@@ -4,6 +4,8 @@
 #include "Player.h"
 #include "Mouse.h"
 #include "TitleObjects.h"
+#include "MapleCore.h"
+
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineTexture.h>
 #include <GameEngineCore/GameEngineShader.h>
@@ -121,10 +123,6 @@ void Level_Title::Start()
 	GameLogo = CreateActor<Logo>();
 	//std::shared_ptr<TitleObjects> NewTitleObjects1 = CreateActor<TitleObjects>();
 
-	//MyPlayer = CreateActor<Player>();
-	//MyPlayer->GetTransform()->SetLocalPosition({ -20, 1768, -1 });
-	//MyPlayer->SetRight();
-
 	MyMouse = CreateActor<Mouse>(static_cast<int>(RenderOrder::UI));
 	MyMouse->SetCurMouse(MyMouse);
 
@@ -152,9 +150,9 @@ void Level_Title::Update(float _DeltaTime)
 	if (GameLogo != nullptr && GameLogo->GetIsCreateObject() == true)
 	{
 		//콜백형식으로 바꿔서 Logo에서 알아서 처리하도록 설정, nullptr을 넣어줄 필요 없게 아예 start에 선언된 지역변수에서 처리
-		TitlePlayer = GameEngineSound::Play("Title.mp3");
-		TitlePlayer.SetLoop(-1);
-		TitlePlayer.SetVolume(0.3f);
+		MapleCore::BGMPlayer = GameEngineSound::Play("Title.mp3");
+		MapleCore::BGMPlayer.SetLoop(-1);
+		MapleCore::BGMPlayer.SetVolume(0.3f);
 
 		NewTitleObjects = CreateActor<TitleObjects>();
 		NewTitleObjects->SetLoginBtEvent([this]
@@ -302,6 +300,11 @@ void Level_Title::LevelChangeStart()
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("TitleLight4").GetFullPath());
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("TitleLight5").GetFullPath());
 	}
+
+
+	MyPlayer = CreateActor<Player>();
+	MyPlayer->GetTransform()->SetLocalPosition({ -20, 1768, -1 });
+	MyPlayer->SetRight();
 }
 
 void Level_Title::LevelChangeEnd()
@@ -378,8 +381,4 @@ void Level_Title::LevelChangeEnd()
 	MyPlayer->Death();
 	//NewTitleObjects->Death();
 	MyMouse->Death();
-
-	TitlePlayer.Stop();
-	//캐릭터 데스해버리기
-	//PlayerList에서도 erase해야함
 }

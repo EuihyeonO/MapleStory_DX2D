@@ -5,6 +5,7 @@
 #include "Level_BeginnersTown1.h"
 #include "Level_BeginnersTown2.h"
 #include "Level_CrossRoad.h"
+#include "Level_AlterOfZakumEnt.h"
 #include "Level_AlterOfZakum.h"
 #include "Level_ZakumRoad1.h"
 #include "Level_SouthFerry.h"
@@ -18,6 +19,8 @@
 #include <GameEngineCore/GameEnginePixelShader.h>
 #include <GameEngineCore/GameEngineRenderingPipeLine.h>
 #include <GameEngineCore/GameEngineRenderTarget.h>
+
+GameEngineSoundPlayer MapleCore::MapleCore::BGMPlayer;
 
 MapleCore::MapleCore()
 {
@@ -80,6 +83,7 @@ void MapleCore::GameStart()
 	GameEngineCore::CreateLevel<Level_CrossRoad>();
 	GameEngineCore::CreateLevel<Level_ZakumRoad1>();
 	GameEngineCore::CreateLevel<Level_AlterOfZakum>();
+	GameEngineCore::CreateLevel<Level_AlterOfZakumEnt>();
 	GameEngineCore::CreateLevel<Level_SouthFerry>();
 	GameEngineCore::CreateLevel<Level_KerningCity>();
 	GameEngineCore::CreateLevel<Level_JazzBar>();

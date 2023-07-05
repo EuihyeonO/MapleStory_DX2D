@@ -18,6 +18,8 @@ public:
 	static void GameStart();
 	static void GameEnd();
 
+	static class GameEngineSoundPlayer BGMPlayer;
+
 protected:
 
 private:

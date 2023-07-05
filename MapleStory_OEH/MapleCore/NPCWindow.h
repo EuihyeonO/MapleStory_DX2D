@@ -20,6 +20,14 @@ public:
 	void ChangeDialog(const std::string_view& _NewText);
 	void AddToTextButton(const std::string_view& _Text, int Index, std::function<void()> _Function = nullptr);
 
+	void SetCloseButton(int _Index, std::function<void()> _Event);
+	void SetNextButton(int _Index);
+	void SetPrevButton(int _Index);
+	void SetOKButton(int _Index, std::function<void()> _Event);
+
+	void CreateUIButtonList(int _Index);
+
+	void ButtonsDeath();
 protected:
 	void Start();
 	void Update(float _DeltaTime) override;
@@ -28,6 +36,8 @@ private:
 
 	void TextUpdate();
 
+	void UIButtonsOn();
+	void UIButtonsOff();
 	std::shared_ptr<class GameEngineUIRenderer> BackGround = nullptr;
 
 	std::shared_ptr<class GameEngineUIRenderer> NPCRender = nullptr;
@@ -48,7 +58,17 @@ private:
 		std::function<void()> Event = nullptr;
 	};
 
+	struct UIButtons
+	{
+		std::shared_ptr<class GameEngineButton> Close = nullptr;
+		std::shared_ptr<class GameEngineButton> Next = nullptr;
+		std::shared_ptr<class GameEngineButton> Prev = nullptr;
+		std::shared_ptr<class GameEngineButton> OK = nullptr;
+	};
+
 	int DialogIndex = 0;
+
 	std::map<int, std::list<std::shared_ptr<TextButton>>> TextButtonList;
+	std::map<int, std::shared_ptr<UIButtons>> UIButtonList;
 };
 

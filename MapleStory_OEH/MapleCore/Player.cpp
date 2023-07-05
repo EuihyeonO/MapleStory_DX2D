@@ -364,6 +364,7 @@ void Player::CameraUpdate(float _DeltaTime)
 		MinY = 250.0f;
 	}
 
+
 	if (newPosition.x - 425 < -HalfWidth)
 	{
 		newPosition.x = -HalfWidth + 425;
@@ -382,10 +383,14 @@ void Player::CameraUpdate(float _DeltaTime)
 		newPosition.y = HalfHeight - MaxY;
 	}
 
-
 	if (GetLevel()->GetName() == "JAZZBAR")
 	{
 		newPosition.x = 0.0f;
+	}
+
+	if (GetLevel()->GetName() == "ALTEROFZAKUMENT")
+	{
+		newPosition.y = -30.0f;
 	}
 
 	GetLevel()->GetMainCamera()->GetTransform()->SetLocalPosition(newPosition);

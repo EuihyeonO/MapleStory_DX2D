@@ -2,6 +2,7 @@
 #include "Aura.h"
 #include "NPCWindow.h"
 #include "Mouse.h"
+#include "UIController.h"
 
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineLevel.h>
@@ -74,18 +75,19 @@ void Aura::OpenWindow()
 
 	MyWindow->SetNPC("AURA.PNG", "아우라");
 	MyWindow->SetDialogText(" 시련을 통과하고 싶다면, 이곳 어딘가에 있는 불의 원석을 \n 저에게 가져오시면 됩니다. \n 곳곳에 있는 상자들이 수상하던데, 가서 살펴보는건 어떤가요?");
-
-	std::function<void()> ButtonFunc = std::bind(&NPCWindow::ChangeDialog, MyWindow, "가져오셨군요. 다시 제단 입구로 보내드리겠습니다.");
+	
+	std::function<void()> ButtonFunc = std::bind(&Aura::ItemCheck, DynamicThis<Aura>());
 	MyWindow->AddToTextButton(" ☞불의 원석을 가져왔습니다.", 0, ButtonFunc);
 
-	MyWindow->AddToTextButton(" ☞포기하겠습니다.", 0, std::bind(&Aura::ChangeLevel, DynamicThis<Aura>(),"Level_BeginnersTown1"));
+	MyWindow->AddToTextButton(" ☞포기하겠습니다.", 0, std::bind(&Aura::ChangeLevel, DynamicThis<Aura>(),"Level_AlterOfZakumEnt"));
 
-	std::function<void()> ButtonFunc1 = std::bind(&Aura::ChangeLevel, DynamicThis<Aura>(), "Level_BeginnersTown1");
-	MyWindow->AddToTextButton(" ☞보내주세요.", 1, ButtonFunc1);
+	MyWindow->CreateUIButtonList(0);
+	MyWindow->SetCloseButton(0, [this] {MyWindow->ButtonsDeath(); MyWindow->Death(); MyWindow = nullptr; });
 }
 
 void Aura::ChangeLevel(const std::string_view& _LevelName)
 {
+	MyWindow->ButtonsDeath();
 	MyWindow->Death();
 	MyWindow = nullptr;
 
@@ -104,4 +106,38 @@ void Aura::ChangeLevel(const std::string_view& _LevelName)
 				GameEngineCore::ChangeLevel(_LevelName);
 			}	
 	}, std::placeholders::_1);
+}
+
+void Aura::ItemCheck()
+{
+	int Index = UIController::GetUIController()->ItemFind("FireStone", static_cast<int>(ItemType::Etc));
+
+	if (Index == -1)
+	{
+		std::function<void()> Func = std::bind(&NPCWindow::ChangeDialog, MyWindow, " 불의 원석을 가져오신게 맞나요?\n 이 지역 어딘가에 숨겨져 있다고 합니다.");
+		
+		MyWindow->CreateUIButtonList(1);
+		
+		std::function<void()> ButtonFunc1 = [this]
+		{
+			MyWindow->ButtonsDeath();
+			MyWindow->Death();
+			MyWindow = nullptr;
+		};
+
+		MyWindow->AddToTextButton(" ☞다시 찾아보겠습니다.", 1, ButtonFunc1);
+
+		Func();
+	}
+	else
+	{
+		std::function<void()> Func = std::bind(&NPCWindow::ChangeDialog, MyWindow, " 불의 원석을 가져오셨군요.\n 다시 제단 입구로 보내드리겠습니다.");
+
+		MyWindow->CreateUIButtonList(1);
+
+		std::function<void()> ButtonFunc1 = std::bind(&Aura::ChangeLevel, DynamicThis<Aura>(), "Level_AlterOfZakumEnt");
+		MyWindow->AddToTextButton(" ☞보내주세요.", 1, ButtonFunc1);
+
+		Func();
+	}
 }

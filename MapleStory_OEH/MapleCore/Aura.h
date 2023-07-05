@@ -26,6 +26,7 @@ private:
 	std::shared_ptr<class GameEngineCollision> AuraCollision = nullptr;
 
 	void ChangeLevel(const std::string_view& _LevelName);
+	void ItemCheck();
 
 	std::function<void(float)> UpdateFunc = nullptr;
 	std::shared_ptr<class NPCWindow> MyWindow = nullptr;

@@ -1,83 +1,56 @@
 #include "PrecompileHeader.h"
-#include "Level_BeginnersTown1.h"
-#include "BeginnersTown1.h"
+#include "Level_AlterOfZakumEnt.h"
+#include "AlterOfZakumEnt.h"
 #include "Player.h"
-#include "BottomBar.h"
-#include "StatusWindow.h"
-#include "Mouse.h"
-#include "SkillWindow.h"
-#include "UIWindowManager.h"
-#include "QuickSlot.h"
 #include "PlayerValue.h"
+#include "Mouse.h"
+#include "QuickSlot.h"
+#include "BottomBar.h"
 #include "GlobalFunction.h"
-#include "MapleCore.h"
+#include "UIWindowManager.h"
 
-#include <GameEngineCore/GameEngineCamera.h>
-#include <GameEnginePlatform/GameEngineSound.h>
-
-Level_BeginnersTown1::Level_BeginnersTown1()
+Level_AlterOfZakumEnt::Level_AlterOfZakumEnt()
 {
-
 }
 
-Level_BeginnersTown1::~Level_BeginnersTown1()
+Level_AlterOfZakumEnt::~Level_AlterOfZakumEnt()
 {
-	
 }
 
-void Level_BeginnersTown1::LevelChangeStart()
+void Level_AlterOfZakumEnt::Start() 
 {
-	LoadResources();
-	ActorCreate();
-
-	if (PlayerValue::GetValue()->GetPrevLevelName() == "Level_Title")
-	{
-		MyPlayer->SetRight();
-		MyPlayer->SetMoveType("Jump");
-		MyPlayer->GetTransform()->SetLocalPosition({ -500, 200 });
-		MapleCore::BGMPlayer.Stop();
-	}
-	else if (PlayerValue::GetValue()->GetPrevLevelName() == "Level_BeginnersTown2")
-	{
-		MyPlayer->SetLeft();
-		MyPlayer->SetMoveType("Jump");
-		MyPlayer->GetTransform()->SetLocalPosition({ 625, -10 });
-	}
-}
-
-void Level_BeginnersTown1::LevelChangeEnd()
-{
-	if (MyMouse != nullptr)
-	{
-		PlayerValue::GetValue()->SetPrevLevelName("Level_BeginnersTown1");
-	}
-
-	ActorDeath();
-	UnLoadResources();
-}
-
-void Level_BeginnersTown1::Start()
-{
-	SetName("BEGINNERSTOWN1");
+	SetName("ALTEROFZAKUMENT");
 
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
 	GetCamera(100)->SetProjectionType(CameraType::Orthogonal);
 
-	GetMainCamera()->SetSortType(0 , SortType::ZSort);
-	GetCamera(100)->SetSortType(0 , SortType::ZSort);
+	GetMainCamera()->SetSortType(0, SortType::ZSort);
+	GetCamera(100)->SetSortType(0, SortType::ZSort);
 }
 
-void Level_BeginnersTown1::Update(float _DeltaTime)
+void Level_AlterOfZakumEnt::Update(float _DeltaTime) 
 {
 
 }
 
-void Level_BeginnersTown1::ActorCreate()
+void Level_AlterOfZakumEnt::LevelChangeStart() 
 {
+	LoadResources();
+	ActorCreate();
+}
 
+void Level_AlterOfZakumEnt::LevelChangeEnd() 
+{
+	UnLoadResources();
+	ActorDeath();
+}
+
+
+void Level_AlterOfZakumEnt::ActorCreate()
+{
 	if (Map == nullptr)
 	{
-		Map = CreateActor<BeginnersTown1>();
+		Map = CreateActor<AlterOfZakumEnt>();
 		std::string ColMapName = Map->GetColMapName().data();
 		std::shared_ptr<GameEngineTexture> ColMap = GameEngineTexture::Find(ColMapName);
 		GlobalFunction::GetValue()->SetColMap(ColMap);
@@ -111,11 +84,9 @@ void Level_BeginnersTown1::ActorCreate()
 	{
 		MyUIWindowManager = CreateActor<UIWindowManager>();
 	}
-
-
 }
 
-void Level_BeginnersTown1::ActorDeath()
+void Level_AlterOfZakumEnt::ActorDeath()
 {
 	if (MyPlayer != nullptr)
 	{
@@ -148,22 +119,20 @@ void Level_BeginnersTown1::ActorDeath()
 
 	if (Map != nullptr)
 	{
-		Map->ActorDeath();
 		Map->Death();
 		Map = nullptr;
 	}
-
 }
 
-void Level_BeginnersTown1::LoadResources()
+void Level_AlterOfZakumEnt::LoadResources()
 {
-	if (nullptr == GameEngineTexture::Find("HinaNormal0.png"))
+	if (nullptr == GameEngineTexture::Find("AlterOfZakumEnt.png"))
 	{
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("MapleResources");
 		NewDir.Move("MapleResources");
-		NewDir.Move("BeginnersTown1");
-		NewDir.Move("BeginnersTown1NotSprite");
+		NewDir.Move("AlterOfZakumEnt");
+		NewDir.Move("AlterOfZakumEntNotSprite");
 
 		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
 		for (size_t i = 0; i < File.size(); i++)
@@ -176,8 +145,8 @@ void Level_BeginnersTown1::LoadResources()
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("MapleResources");
 		NewDir.Move("MapleResources");
-		NewDir.Move("BeginnersTown1");
-		NewDir.Move("BeginnersTown1NotSprite");
+		NewDir.Move("AlterOfZakumEnt");
+		NewDir.Move("AlterOfZakumEntNotSprite");
 
 		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
 		for (size_t i = 0; i < File.size(); i++)
@@ -185,17 +154,40 @@ void Level_BeginnersTown1::LoadResources()
 			GameEngineTexture::ReLoad(File[i].GetFullPath());
 		}
 	}
-}
 
-void Level_BeginnersTown1::UnLoadResources()
-{
-	if (nullptr != GameEngineTexture::Find("HinaNormal0.png"))
+
+	if (nullptr == GameEngineSprite::Find("FireDewDrop"))
 	{
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("MapleResources");
 		NewDir.Move("MapleResources");
-		NewDir.Move("BeginnersTown1");
-		NewDir.Move("BeginnersTown1NotSprite");
+		NewDir.Move("AlterOfZakumEnt");
+		NewDir.Move("AlterOfZakumEntSprite");
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("FireDewDrop").GetFullPath());
+	}
+	else
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("MapleResources");
+		NewDir.Move("MapleResources");
+		NewDir.Move("AlterOfZakumEnt");
+		NewDir.Move("AlterOfZakumEntSprite");
+
+		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("FireDewDrop").GetFullPath());
+	}
+
+}
+
+void Level_AlterOfZakumEnt::UnLoadResources()
+{
+	if (nullptr != GameEngineTexture::Find("AlterOfZakumEnt.png"))
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("MapleResources");
+		NewDir.Move("MapleResources");
+		NewDir.Move("AlterOfZakumEnt");
+		NewDir.Move("AlterOfZakumEntNotSprite");
 
 		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
 
@@ -222,4 +214,9 @@ void Level_BeginnersTown1::UnLoadResources()
 			GameEngineTexture::UnLoad(FileName);
 		}
 	}
+
+	{
+		GameEngineSprite::UnLoad("FireDewDrop");
+	}
 }
+

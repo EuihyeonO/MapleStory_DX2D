@@ -440,6 +440,7 @@ void TitleObjects::Create_CharCreateObject()
 	InfoScroll->GetTransform()->SetLocalPosition({ -170, 1842 });
 
 	float4 CharInfoPos = CharInfo->GetTransform()->GetLocalPosition();
+	float4 InfoScrollPos = InfoScroll->GetTransform()->GetLocalPosition();
 
 	Dice = CreateComponent<GameEngineSpriteRenderer>();
 	Dice->SetTexture("Dice0.png");
@@ -496,6 +497,21 @@ void TitleObjects::Create_CharCreateObject()
 	LukRender->SetScale(12.0f);
 	LukRender->SetText("4");
 	LukRender->GetTransform()->SetLocalPosition(CharInfoPos + float4{ -31, -51 });
+
+	Coat = CreateComponent<GameEngineFontRenderer>();
+	Pants = CreateComponent<GameEngineFontRenderer>();
+	
+	Coat->SetFont("±¼¸²");
+	Coat->SetColor({ 0, 0, 0, 1 });
+	Coat->SetScale(12.0f);
+	Coat->SetText("ÇÏ¾á ¹ÝÆÈ ¸éÆ¼");
+	Coat->GetTransform()->SetLocalPosition(InfoScrollPos + float4{ -20, 14 });
+	
+	Pants->SetFont("±¼¸²");
+	Pants->SetColor({ 0, 0, 0, 1 });
+	Pants->SetScale(12.0f);
+	Pants->SetText("ÆÄ¶õ Ã» ¹Ý¹ÙÁö");
+	Pants->GetTransform()->SetLocalPosition(InfoScrollPos + float4{ -20, -7 });
 }
 
 void TitleObjects::RollStatDice()

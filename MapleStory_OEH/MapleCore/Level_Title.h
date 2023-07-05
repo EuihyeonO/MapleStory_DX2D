@@ -27,7 +27,6 @@ private:
 	void LoadResources();
 	void UnLoadResources();
 
-	GameEngineSoundPlayer TitlePlayer;
 
 	void CameraMove(float _DeltaTime);
 

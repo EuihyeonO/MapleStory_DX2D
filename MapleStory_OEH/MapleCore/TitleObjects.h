@@ -46,6 +46,7 @@ private:
 	void RollStatDice();
 	void StatChange();
 
+
 	std::shared_ptr<class GameEngineUIRenderer> Frame;
 	std::shared_ptr<GameEngineSpriteRenderer> BackGround;
 	std::shared_ptr<GameEngineSpriteRenderer> Logo;
@@ -138,6 +139,9 @@ private:
 	std::shared_ptr<class GameEngineFontRenderer> DexRender;
 	std::shared_ptr<class GameEngineFontRenderer> IntRender;
 	std::shared_ptr<class GameEngineFontRenderer> LukRender;
+
+	std::shared_ptr<class GameEngineFontRenderer> Coat;
+	std::shared_ptr<class GameEngineFontRenderer> Pants;
 
 	float Counting = 0.0f;
 

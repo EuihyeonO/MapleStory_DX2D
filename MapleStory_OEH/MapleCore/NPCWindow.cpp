@@ -4,6 +4,7 @@
 
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEngineCore/GameEngineButton.h>
 
 NPCWindow::NPCWindow()
 {
@@ -32,8 +33,8 @@ void NPCWindow::Start()
 	DialogTextFont = CreateComponent<ContentFontRenderer>();
 	DialogTextFont->SetFont("±¼¸²");
 	DialogTextFont->SetScale(12.0f);
-	DialogTextFont->GetTransform()->SetLocalPosition({ -105, 90 });
-	DialogTextFont->SetColor({ 0.0f, 0.0f, 0.0f, 1.0f });
+	DialogTextFont->GetTransform()->SetLocalPosition({ -105, 85 });
+	DialogTextFont->SetColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 }
 
 void NPCWindow::Update(float _DeltaTime)
@@ -160,6 +161,8 @@ void NPCWindow::ChangeDialog(const std::string_view& _NewText)
 			(*IterStart)->Text->Off();
 		}
 	}
+	
+	UIButtonsOff();
 
 	DialogIndex++;
 
@@ -173,5 +176,126 @@ void NPCWindow::ChangeDialog(const std::string_view& _NewText)
 			(*IterStart)->Col->On();
 			(*IterStart)->Text->On();
 		}
+	}
+
+	UIButtonsOn();
+}
+
+void NPCWindow::CreateUIButtonList(int _Index)
+{
+	UIButtonList[_Index] = std::make_shared<UIButtons>();
+}
+
+void NPCWindow::SetCloseButton(int _Index, std::function<void()> _Event)
+{
+	UIButtonList[_Index]->Close = GetLevel()->CreateActor<GameEngineButton>();
+	UIButtonList[_Index]->Close->SetReleaseTexture("NPCWindowCloseRelease.png");
+	UIButtonList[_Index]->Close->SetHoverTexture("NPCWindowCloseHover.png");
+	UIButtonList[_Index]->Close->SetPressTexture("NPCWindowClosePress.png");
+	UIButtonList[_Index]->Close->SetEvent(_Event);
+
+	UIButtonList[_Index]->Close->GetTransform()->SetLocalPosition({ -210, -109, -3 });
+	UIButtonList[_Index]->Close->GetTransform()->SetLocalScale({ 85, 18, -3 });
+
+	if(DialogIndex != _Index)
+	{
+		UIButtonList[_Index]->Close->Off();
+	}
+}
+
+void NPCWindow::SetNextButton(int _Index)
+{
+
+}
+
+void NPCWindow::SetPrevButton(int _Index)
+{
+
+}
+
+void NPCWindow::SetOKButton(int _Index, std::function<void()> _Event)
+{
+
+}
+
+void NPCWindow::UIButtonsOn()
+{
+	if(UIButtonList[DialogIndex]->Close != nullptr)
+	{
+		UIButtonList[DialogIndex]->Close->On();
+	}
+	
+	if (UIButtonList[DialogIndex]->Next != nullptr)
+	{
+		UIButtonList[DialogIndex]->Next->On();
+	}	
+	
+	if (UIButtonList[DialogIndex]->Prev != nullptr)
+	{
+		UIButtonList[DialogIndex]->Prev->On();
+	}	
+	
+	if (UIButtonList[DialogIndex]->OK != nullptr)
+	{
+		UIButtonList[DialogIndex]->OK->On();
+	}
+}
+
+void NPCWindow::UIButtonsOff() 
+{
+	if (UIButtonList[DialogIndex]->Close != nullptr)
+	{
+		UIButtonList[DialogIndex]->Close->Off();
+	}
+
+	if (UIButtonList[DialogIndex]->Next != nullptr)
+	{
+		UIButtonList[DialogIndex]->Next->Off();
+	}
+
+	if (UIButtonList[DialogIndex]->Prev != nullptr)
+	{
+		UIButtonList[DialogIndex]->Prev->Off();
+	}
+
+	if (UIButtonList[DialogIndex]->OK != nullptr)
+	{
+		UIButtonList[DialogIndex]->OK->Off();
+	}
+}
+
+
+void NPCWindow::ButtonsDeath()
+{
+	std::map<int, std::shared_ptr<UIButtons>>::iterator StartIter = UIButtonList.begin();
+	std::map<int, std::shared_ptr<UIButtons>>::iterator EndIter = UIButtonList.end();
+
+	for (; StartIter != EndIter;)
+	{
+		if (StartIter->second->Close != nullptr)
+		{
+			StartIter->second->Close->Death();
+			StartIter->second->Close = nullptr;
+		}
+
+		if (StartIter->second->Next != nullptr)
+		{
+			StartIter->second->Next->Death();
+			StartIter->second->Next = nullptr;
+		}
+
+		if (StartIter->second->Prev != nullptr)
+		{
+			StartIter->second->Prev->Death();
+			StartIter->second->Prev = nullptr;
+		}
+
+		if (StartIter->second->OK != nullptr)
+		{
+			StartIter->second->OK->Death();
+			StartIter->second->OK = nullptr;
+		}
+
+		StartIter = UIButtonList.erase(StartIter);
 	}
 }
