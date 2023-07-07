@@ -7,9 +7,12 @@
 #include "PlayerValue.h"
 #include "UIWindowManager.h"
 #include "QuickSlot.h"
+#include "MapleCore.h"
 #include "GlobalFunction.h"
 #include "JazzBar.h"
 #include "UIController.h"
+
+#include <GameEnginePlatform/GameEngineSound.h>
 
 Level_JazzBar::Level_JazzBar()
 {
@@ -39,6 +42,12 @@ void Level_JazzBar::LevelChangeStart()
 {
 	LoadResources();
 	ActorCreate();
+
+	if (PlayerValue::GetValue()->GetPrevLevelName() != "Level_KerningCity")
+	{
+		MapleCore::BGMPlayer.Stop();
+		MapleCore::BGMPlayer = GameEngineSound::Play("KerningCity.mp3");
+	}
 }
 
 void Level_JazzBar::LevelChangeEnd()

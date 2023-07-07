@@ -56,8 +56,6 @@ void InventoryWindow::Start()
 
 	SetInventoryType(static_cast<int>(ItemType::Equip));
 	Inventory->ChangeRenderItem(static_cast<int>(ItemType::Equip), static_cast<int>(ItemType::Equip));
-
-	GetLevel()->IsDebugSwitch();
 }
 
 void InventoryWindow::Update(float _DeltaTime)

@@ -38,13 +38,19 @@ void StatusWindow::Start()
 	SubWindow->GetTransform()->SetLocalPosition(float4{ 75, -67 });
 
 	MainWindowClickBar->GetTransform()->SetLocalPosition({ Data.LocalPosition.x, Data.LocalPosition.y + Data.LocalScale.hy() - 22.0f });
-
+	
+	Class = CreateComponent<ContentFontRenderer>();
+	Class->SetFont("±¼¸²");
+	Class->SetScale(11.0f);
+	Class->SetColor({ 0, 0, 0, 1 });
+	Class->GetTransform()->SetLocalPosition({ -128, 118 });
+	
 	Level = CreateComponent<ContentFontRenderer>();
 	Level->SetFont("±¼¸²");
 	Level->SetScale(11.0f);
 	Level->SetColor({ 0, 0, 0, 1 });
 	Level->GetTransform()->SetLocalPosition({ -128, 100 });
-	
+
 	Hp = CreateComponent<ContentFontRenderer>();
 	Hp->SetFont("±¼¸²");
 	Hp->SetScale(11.0f);
@@ -143,6 +149,7 @@ void StatusWindow::StatUpdate()
 {
 	PlayerValue* Value = PlayerValue::GetValue();	
 
+	Class->SetText(PlayerValue::GetValue()->GetClassKr());
 	Hp->SetText(std::to_string(Value->GetHp()));
 	Mp->SetText(std::to_string(Value->GetMp()));
 	Level->SetText(std::to_string(Value->GetLevel()));

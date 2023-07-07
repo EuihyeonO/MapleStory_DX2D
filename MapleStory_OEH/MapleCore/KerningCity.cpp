@@ -36,8 +36,6 @@ void KerningCity::Start()
 	Rope2->SetOrder(static_cast<int>(CollisionOrder::RopeAndLadder));
 	Rope2->GetTransform()->SetLocalPosition({ 6.0f, -462.0f });
 	Rope2->GetTransform()->SetLocalScale({ 10.0f, 124.0f });
-	
-	GetLevel()->IsDebugSwitch();
 }
 
 void KerningCity::Update(float _DeltaTime)

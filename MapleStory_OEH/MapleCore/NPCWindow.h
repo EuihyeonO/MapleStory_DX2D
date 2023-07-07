@@ -67,6 +67,8 @@ private:
 		std::shared_ptr<class ContentFontRenderer> Text = nullptr;
 		std::shared_ptr<class GameEngineCollision> Col = nullptr;
 		std::function<void()> Event = nullptr;
+		std::shared_ptr<GameEngineUIRenderer> UnderLine = nullptr;
+		std::shared_ptr<GameEngineUIRenderer> Arrow = nullptr;
 	};
 
 	struct UIButtons
@@ -79,7 +81,7 @@ private:
 
 	int DialogIndex = 0;
 
-	std::map<int, std::list<std::shared_ptr<TextButton>>> TextButtonList;
+	std::map<int,std::list<std::shared_ptr<TextButton>>> TextButtonList;
 	std::map<int, std::shared_ptr<UIButtons>> UIButtonList;
 };
 

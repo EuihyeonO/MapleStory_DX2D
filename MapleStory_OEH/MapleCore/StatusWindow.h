@@ -31,6 +31,7 @@ private:
 	std::shared_ptr<class GameEngineCollision> MainWindowClickBar;
 	std::shared_ptr<class GameEngineUIRenderer> SubWindow;
 
+	std::shared_ptr<class ContentFontRenderer> Class;
 	std::shared_ptr<class ContentFontRenderer> Hp;
 	std::shared_ptr<class ContentFontRenderer> Mp;
 	std::shared_ptr<class ContentFontRenderer> Level;

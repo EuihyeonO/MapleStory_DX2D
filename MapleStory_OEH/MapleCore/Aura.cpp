@@ -37,8 +37,6 @@ void Aura::Start()
 	AuraCollision = CreateComponent<GameEngineCollision>();
 	AuraCollision->SetColType(ColType::AABBBOX2D);
 	AuraCollision->GetTransform()->SetLocalScale({60, 80});
-	
-	GetLevel()->IsDebugSwitch();
 }
 
 void Aura::Update(float _DeltaTime)

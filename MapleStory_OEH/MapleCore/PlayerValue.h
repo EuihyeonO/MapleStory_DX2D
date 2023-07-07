@@ -355,6 +355,66 @@ public: //local
 		return Face;
 	}
 
+	const std::string_view GetClass()
+	{
+		return Class;
+	}
+
+	const std::string_view GetClassKr()
+	{
+		if (Class == "BEGINNER")
+		{
+			return "초보자";
+		}
+		else if (Class == "LOG")
+		{
+			return "로그";
+		}
+		else if (Class == "ASSASSIN")
+		{
+			return "어쌔신";
+		}
+		else if (Class == "HERMIT")
+		{
+			return "허밋";
+		}
+		else if (Class == "NIGHTLORD")
+		{
+			return "나이트로드";
+		}
+		else
+		{
+			return "";
+		}
+	}
+
+	void UpGradeClass()
+	{
+		if (Grade == 4)
+		{
+			return;
+		}
+
+		if (Class == "BEGINNER" && Level >= 10)
+		{
+			Class = "LOG";
+		}
+		else if (Class == "LOG" && Level >= 30)
+		{
+			Class = "ASSASSIN";
+		}
+		else if (Class == "ASSASSIN" && Level >=70)
+		{
+			Class = "HERMIT";
+		}
+		else if (Class == "HERMIT" && Level >= 120)
+		{
+			Class = "NIGHTLORD";
+		}
+
+		Grade++;
+	}
+
 protected:
 
 private:
@@ -370,9 +430,9 @@ private:
 private:
 
 	std::string Name = "";
-	std::string Class = "";
+	std::string Class = "BEGINNER";
 	std::string GuildName = "";
-
+	int Grade = 0;
 	int Level = 1;
 
 	int popularity = 0;

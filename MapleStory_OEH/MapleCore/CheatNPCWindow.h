@@ -23,6 +23,9 @@ protected:
 private:
 
 	void GetEXP();
+	void SelectLevel();
+	void ColSwitch();
+
 	std::shared_ptr<class NPCWindow> MyWindow = nullptr;
 };
 

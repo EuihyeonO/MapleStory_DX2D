@@ -52,13 +52,16 @@ void NPCWindow::Update(float _DeltaTime)
 		int count = 0;
 		for (; Start != End; Start++)
 		{
-			
-			(*Start)->Text->GetTransform()->SetLocalPosition({-106, -17.0f * count});
+			(*Start)->Text->GetTransform()->SetLocalPosition({-85, -17.0f * count});
 			(*Start)->Col->GetTransform()->SetLocalPosition(GetLevel()->GetMainCamera()->GetTransform()->GetWorldPosition() + float4{ (*Start)->Text->GetTransform()->GetLocalPosition() } + float4{ (*Start)->Col->GetTransform()->GetLocalScale().hx(), -12.0f});
+			(*Start)->Arrow->GetTransform()->SetLocalPosition(float4{ (*Start)->Text->GetTransform()->GetLocalPosition() } + float4{ -10.0f , -6.0f, -1.0f });
 
 			if ((*Start)->Col->Collision(static_cast<int>(CollisionOrder::Mouse), ColType::AABBBOX2D, ColType::AABBBOX2D) != nullptr)
 			{
-				(*Start)->Text->SetColor({ 0.0f, 0.0f, 1.0f, 1.0f });
+				//(*Start).first->Text->SetColor({ 0.0f, 0.0f, 1.0f, 1.0f });
+				(*Start)->UnderLine->GetTransform()->SetLocalPosition((*Start)->Text->GetTransform()->GetLocalPosition() + float4{ (*Start)->UnderLine->GetTransform()->GetLocalScale().hx() , -14.0f,  -1.0f });
+				(*Start)->UnderLine->On();
+				(*Start)->Arrow->ColorOptionValue.MulColor = { 1.0f, 1.0f, 1.0f, 1.0f };
 
 				if (GameEngineInput::IsDown("LClick") == true && (*Start)->Event != nullptr)
 				{
@@ -67,7 +70,9 @@ void NPCWindow::Update(float _DeltaTime)
 			}
 			else
 			{
-				(*Start)->Text->SetColor({ 0.0f, 0.0f, 0.0f, 1.0f });
+				//(*Start).first->Text->SetColor({ 0.0f, 0.0f, 0.0f, 1.0f });
+				(*Start)->Arrow->ColorOptionValue.MulColor = { 0.0f, 0.0f, 0.0f, 1.0f };
+				(*Start)->UnderLine->Off();
 			}
 
 			count++;
@@ -126,10 +131,20 @@ void NPCWindow::AddToTextButton(const std::string_view& _Text, int Index, std::f
 	NewFontCollision->GetTransform()->SetLocalScale({ _Text.size() * 6.0f, 12.0f });
 	NewFontCollision->GetTransform()->SetLocalPosition(GetLevel()->GetMainCamera()->GetTransform()->GetWorldPosition() + float4{NewFont->GetTransform()->GetLocalPosition()} + float4{ _Text.size() * 6.0f / 2, -12.0f });
 
+	std::shared_ptr<GameEngineUIRenderer> NewUnderLine = CreateComponent<GameEngineUIRenderer>();
+	NewUnderLine->SetTexture("UnderLine.png");
+	NewUnderLine->GetTransform()->SetLocalScale({ _Text.size() * 5.7f, 1.0f });
+	NewUnderLine->Off();
+	
+	std::shared_ptr<GameEngineUIRenderer> NewArrow = CreateComponent<GameEngineUIRenderer>();
+	NewArrow->SetScaleToTexture("TextArrow.png");
+
 	std::shared_ptr<TextButton> NewButton = std::make_shared<TextButton>();
 	NewButton->Text = NewFont;
 	NewButton->Col = NewFontCollision;
 	NewButton->Event = _Event;
+	NewButton->UnderLine = NewUnderLine;
+	NewButton->Arrow = NewArrow;
 
 	if (DialogIndex != Index)
 	{
@@ -159,6 +174,8 @@ void NPCWindow::ChangeDialog(const std::string_view& _NewText)
 		{
 			(*IterStart)->Col->Off();
 			(*IterStart)->Text->Off();
+			(*IterStart)->UnderLine->Off();
+			(*IterStart)->Arrow->Off();
 		}
 	}
 	
@@ -175,6 +192,7 @@ void NPCWindow::ChangeDialog(const std::string_view& _NewText)
 		{
 			(*IterStart)->Col->On();
 			(*IterStart)->Text->On();
+			(*IterStart)->Arrow->On();
 		}
 	}
 
