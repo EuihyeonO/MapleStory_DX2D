@@ -9,7 +9,10 @@
 #include "QuickSlot.h"
 #include "GlobalFunction.h"
 #include "SouthFerry.h"
+#include "MapleCore.h"
 #include "UIController.h"
+
+#include <GameEnginePlatform/GameEngineSound.h>
 
 Level_SouthFerry::Level_SouthFerry()
 {
@@ -28,23 +31,6 @@ void Level_SouthFerry::Start()
 
 	GetMainCamera()->SetSortType(0, SortType::ZSort);
 	GetCamera(100)->SetSortType(0, SortType::ZSort);
-
-	//test
-	std::shared_ptr<ItemInfo> NewItem1 = std::make_shared<ItemInfo>();
-	NewItem1->EquipType = static_cast<int>(EquipType::Weapon);
-	NewItem1->ItemName = "Ganier";
-
-	std::shared_ptr<ItemInfo> NewItem2 = std::make_shared<ItemInfo>();
-	NewItem2->EquipType = static_cast<int>(EquipType::Pants);
-	NewItem2->ItemName = "BLUEPANTS";
-
-	std::shared_ptr<ItemInfo> NewItem3 = std::make_shared<ItemInfo>();
-	NewItem3->EquipType = static_cast<int>(EquipType::Coat);
-	NewItem3->ItemName = "BLUEGOWN";
-
-	UIController::GetUIController()->AddToEquipItemList(NewItem1, static_cast<int>(ItemType::Equip));
-	UIController::GetUIController()->AddToEquipItemList(NewItem2, static_cast<int>(ItemType::Equip));
-	UIController::GetUIController()->AddToEquipItemList(NewItem3, static_cast<int>(ItemType::Equip));
 }
 
 void Level_SouthFerry::Update(float _DeltaTime)
@@ -54,12 +40,16 @@ void Level_SouthFerry::Update(float _DeltaTime)
 
 void Level_SouthFerry::LevelChangeStart()
 {
+	MapleCore::BGMPlayer.Stop();
+	MapleCore::BGMPlayer = GameEngineSound::Play("SouthFerry.mp3");
 	LoadResources();
 	ActorCreate();
 }
 
 void Level_SouthFerry::LevelChangeEnd()
 {
+	PlayerValue::GetValue()->SetPrevLevelName("Level_SouthFerry");
+
 	ActorDeath();
 	UnLoadResources();
 }
@@ -104,18 +94,13 @@ void Level_SouthFerry::ActorCreate()
 	}
 
 
-	if (PlayerValue::GetValue()->GetPrevLevelName() == "123")
+	if (PlayerValue::GetValue()->GetPrevLevelName() == "Level_CrossRoad")
 	{
 		MyPlayer->SetRight();
 		MyPlayer->SetMoveType("Jump");
-		MyPlayer->GetTransform()->SetLocalPosition({ -500, 200 });
+		MyPlayer->GetTransform()->SetLocalPosition({ -2250, -430 });
 	}
-	else if (PlayerValue::GetValue()->GetPrevLevelName() == "123")
-	{
-		MyPlayer->SetLeft();
-		MyPlayer->SetMoveType("Jump");
-		MyPlayer->GetTransform()->SetLocalPosition({ 625, -10 });
-	}
+
 }
 
 void Level_SouthFerry::ActorDeath()

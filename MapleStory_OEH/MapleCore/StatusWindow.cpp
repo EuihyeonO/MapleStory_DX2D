@@ -61,7 +61,7 @@ void StatusWindow::Start()
 	Exp->SetFont("±¼¸²");
 	Exp->SetScale(11.0f);
 	Exp->SetColor({ 0, 0, 0, 1 });
-	Exp->GetTransform()->SetLocalPosition({ -128, 26 });
+	Exp->GetTransform()->SetLocalPosition({ -128, 27 });
 
 	Str = CreateComponent<ContentFontRenderer>();
 	Str->SetFont("±¼¸²");
@@ -91,7 +91,7 @@ void StatusWindow::Start()
 	StatPoint->SetFont("±¼¸²");
 	StatPoint->SetScale(11.0f);
 	StatPoint->SetColor({ 0, 0, 0, 1 });
-	StatPoint->GetTransform()->SetLocalPosition({ -123, -36 });
+	StatPoint->GetTransform()->SetLocalPosition({ -123, -37 });
 	
 	StrBt = GetLevel()->CreateActor<ContentButton>();
 	StrBt->SetReleaseTexture("StatUpRelease.png");
@@ -121,6 +121,11 @@ void StatusWindow::Start()
 	LukBt->GetTransform()->SetLocalScale({ 12, 12 });
 	LukBt->GetTransform()->SetLocalPosition({ -30, -128 });
 
+	AttRender = CreateComponent<ContentFontRenderer>();
+	AttRender->SetFont("±¼¸²");
+	AttRender->SetScale(11.0f);
+	AttRender->SetColor({ 0, 0, 0, 1 });
+	AttRender->GetTransform()->SetLocalPosition({ 62, 26 });
 }
 
 void StatusWindow::Update(float _DeltaTime)
@@ -136,15 +141,20 @@ void StatusWindow::Render(float _DeltaTime)
 
 void StatusWindow::StatUpdate()
 {
-	Hp->SetText(std::to_string(PlayerValue::GetValue()->GetHp()));
-	Mp->SetText(std::to_string(PlayerValue::GetValue()->GetMp()));
-	Level->SetText(std::to_string(PlayerValue::GetValue()->GetLevel()));
-	Exp->SetText(std::to_string(PlayerValue::GetValue()->GetExp()));
-	Str->SetText(std::to_string(PlayerValue::GetValue()->GetStr()));
-	Dex->SetText(std::to_string(PlayerValue::GetValue()->GetDex()));
-	Luk->SetText(std::to_string(PlayerValue::GetValue()->GetLuk()));
-	Int->SetText(std::to_string(PlayerValue::GetValue()->GetInt()));
-	StatPoint->SetText(std::to_string(PlayerValue::GetValue()->GetStatPoint()));
+	PlayerValue* Value = PlayerValue::GetValue();	
+
+	Hp->SetText(std::to_string(Value->GetHp()));
+	Mp->SetText(std::to_string(Value->GetMp()));
+	Level->SetText(std::to_string(Value->GetLevel()));
+	Exp->SetText(std::to_string(Value->GetExp()));
+	Str->SetText(std::to_string(Value->GetStr()));
+	Dex->SetText(std::to_string(Value->GetDex()));
+	Luk->SetText(std::to_string(Value->GetLuk()));
+	Int->SetText(std::to_string(Value->GetInt()));
+	StatPoint->SetText(std::to_string(Value->GetStatPoint()));
+
+	std::string Text = std::to_string(static_cast<int>(Value->GetMinAtt()))+ " ~ " + std::to_string(static_cast<int>(Value->GetMaxAtt()));
+	AttRender->SetText(Text);
 }
 
 
@@ -157,24 +167,28 @@ void StatusWindow::ButtonUpdate()
 		StrBt->SetPressTexture("StatUpDisable.png");
 
 		StrBt->SetEvent(nullptr);
+		StrBt->SetPressEvent(nullptr);
 
 		DexBt->SetReleaseTexture("StatUpDisable.png");
 		DexBt->SetHoverTexture("StatUpDisable.png");
 		DexBt->SetPressTexture("StatUpDisable.png");
 		
 		DexBt->SetEvent(nullptr);
+		DexBt->SetPressEvent(nullptr);
 
 		IntBt->SetReleaseTexture("StatUpDisable.png");
 		IntBt->SetHoverTexture("StatUpDisable.png");
 		IntBt->SetPressTexture("StatUpDisable.png");
 		
 		IntBt->SetEvent(nullptr);
+		IntBt->SetPressEvent(nullptr);
 
 		LukBt->SetReleaseTexture("StatUpDisable.png");
 		LukBt->SetHoverTexture("StatUpDisable.png");
 		LukBt->SetPressTexture("StatUpDisable.png");
 		
 		LukBt->SetEvent(nullptr);
+		LukBt->SetPressEvent(nullptr);
 	}
 	else
 	{
@@ -186,7 +200,16 @@ void StatusWindow::ButtonUpdate()
 			{
 				PlayerValue::GetValue()->AddStatPoint(-1);
 				PlayerValue::GetValue()->AddStr(1);
+				PlayerValue::GetValue()->AttUpdate();
 			});
+		StrBt->SetPressEvent([this]
+			{
+				PlayerValue::GetValue()->AddStatPoint(-1);
+				PlayerValue::GetValue()->AddStr(1);
+				PlayerValue::GetValue()->AttUpdate();
+			});
+		StrBt->SetPressInter(0.01f);
+		StrBt->SetPressStartTime(1.0f);
 
 		DexBt->SetReleaseTexture("StatUpRelease.png");
 		DexBt->SetHoverTexture("StatUpHover.png");
@@ -196,7 +219,16 @@ void StatusWindow::ButtonUpdate()
 			{
 				PlayerValue::GetValue()->AddStatPoint(-1);
 				PlayerValue::GetValue()->AddDex(1);
+				PlayerValue::GetValue()->AttUpdate();
 			});
+		DexBt->SetPressEvent([this]
+			{
+				PlayerValue::GetValue()->AddStatPoint(-1);
+				PlayerValue::GetValue()->AddDex(1);
+				PlayerValue::GetValue()->AttUpdate();
+			});
+		DexBt->SetPressInter(0.01f);
+		DexBt->SetPressStartTime(1.0f);
 
 		IntBt->SetReleaseTexture("StatUpRelease.png");
 		IntBt->SetHoverTexture("StatUpHover.png");
@@ -206,7 +238,16 @@ void StatusWindow::ButtonUpdate()
 			{
 				PlayerValue::GetValue()->AddStatPoint(-1);
 				PlayerValue::GetValue()->AddInt(1);
+				PlayerValue::GetValue()->AttUpdate();
 			});
+		IntBt->SetPressEvent([this]
+			{
+				PlayerValue::GetValue()->AddStatPoint(-1);
+				PlayerValue::GetValue()->AddInt(1);
+				PlayerValue::GetValue()->AttUpdate();
+			});
+		IntBt->SetPressInter(0.01f);
+		IntBt->SetPressStartTime(1.0f);
 
 		LukBt->SetReleaseTexture("StatUpRelease.png");
 		LukBt->SetHoverTexture("StatUpHover.png");
@@ -216,7 +257,17 @@ void StatusWindow::ButtonUpdate()
 			{
 				PlayerValue::GetValue()->AddStatPoint(-1);
 				PlayerValue::GetValue()->AddLuk(1);
+				PlayerValue::GetValue()->AttUpdate();
 			});
+		LukBt->SetPressEvent([this]
+			{
+				PlayerValue::GetValue()->AddStatPoint(-1);
+				PlayerValue::GetValue()->AddLuk(1);
+				PlayerValue::GetValue()->AttUpdate();
+			});
+		LukBt->SetPressInter(0.01f);
+		LukBt->SetPressStartTime(1.0f);
+
 	}
 
 

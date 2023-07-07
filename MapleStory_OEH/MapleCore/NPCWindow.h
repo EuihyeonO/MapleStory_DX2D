@@ -1,5 +1,6 @@
 #pragma once
 #include "BasicFunction.h"
+#include "ContentFontRenderer.h"
 
 class NPCWindow : public BasicFunction
 {
@@ -24,6 +25,16 @@ public:
 	void SetNextButton(int _Index);
 	void SetPrevButton(int _Index);
 	void SetOKButton(int _Index, std::function<void()> _Event);
+
+	void SetNpcPos(float4 _Pos)
+	{
+		NPCRender->GetTransform()->SetLocalPosition(_Pos);
+	}
+
+	void SetNamePos(float4 _Pos)
+	{
+		NPCNameFont->GetTransform()->SetLocalPosition(_Pos);
+	}
 
 	void CreateUIButtonList(int _Index);
 

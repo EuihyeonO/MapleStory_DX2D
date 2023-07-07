@@ -8,6 +8,7 @@
 
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCollision.h>
+#include <GameEngineBase/GameEngineRandom.h>
 #include <ctime>
 
 Star::Star()
@@ -134,7 +135,7 @@ void Star::Move(float _DeltaTime)
 
 		GetTransform()->AddLocalPosition(MoveDis);
 
-		StarRender->GetTransform()->SetLocalRotation({ 0, 0, (180.0f - Dir.GetAnagleDegZ())});
+		StarRender->GetTransform()->SetLocalRotation({ 180, 0, (180.0f - Dir.GetAnagleDegZ())});
 		float4 Pos = GetTransform()->GetLocalPosition();
 
 		AttackDistance -= abs(MoveDis.x);
@@ -189,7 +190,7 @@ void Star::Damage()
 	std::shared_ptr<GameEngineCollision> _Collision;
 	if (_Collision = StarCollision->Collision(static_cast<int>(CollisionOrder::Monster), ColType::AABBBOX2D, ColType::AABBBOX2D), _Collision != nullptr)
 	{
-		int Damage = 150;
+		int Damage = GameEngineRandom::MainRandom.RandomInt(PlayerValue::GetValue()->GetMinAtt(), PlayerValue::GetValue()->GetMaxAtt());
 	
 		std::shared_ptr<DamageRender> NewDR = GetLevel()->CreateActor<DamageRender>();
 		NewDR->PushDamageToQueue(Damage);

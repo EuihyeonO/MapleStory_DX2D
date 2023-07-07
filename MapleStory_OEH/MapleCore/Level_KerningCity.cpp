@@ -43,7 +43,6 @@ void Level_KerningCity::LevelChangeStart()
 	LoadResources();
 	ActorCreate();
 
-	MapleCore::BGMPlayer = GameEngineSound::Play("KerningCity.mp3");
 }
 
 void Level_KerningCity::LevelChangeEnd()
@@ -92,11 +91,15 @@ void Level_KerningCity::ActorCreate()
 	}
 
 
-	if (PlayerValue::GetValue()->GetPrevLevelName() == "123")
+	if (PlayerValue::GetValue()->GetPrevLevelName() == "Level_SouthFerry")
 	{
 		MyPlayer->SetRight();
 		MyPlayer->SetMoveType("Jump");
-		MyPlayer->GetTransform()->SetLocalPosition({ -500, 200 });
+		MyPlayer->GetTransform()->SetLocalPosition({ -1000, 200 });
+
+		MapleCore::BGMPlayer.Stop();
+		MapleCore::BGMPlayer = GameEngineSound::Play("KerningCity.mp3");
+		MapleCore::BGMPlayer.SetVolume(0.3f);
 	}
 	else if (PlayerValue::GetValue()->GetPrevLevelName() == "123")
 	{

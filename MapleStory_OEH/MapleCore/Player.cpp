@@ -13,6 +13,7 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineCoreWindow.h>
 #include <GameEngineBase/GameEngineRandom.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 
 #include <ctime>
 
@@ -76,13 +77,27 @@ void Player::Start()
 	float4 RangeScale = RangeCheck->GetTransform()->GetLocalScale();
 	RangeCheck->GetTransform()->SetLocalPosition({ -RangeScale.hx(), RangeScale.hy()});
 
-	HairName = PlayerValue::Value.Hair;
-	FaceName = PlayerValue::Value.Face;
-	SkinType = PlayerValue::Value.Skin;
 
-	CoatName = UIController::GetUIController()->GetEquipItem(static_cast<int>(EquipType::Coat))->ItemName;
-	WeaponName = UIController::GetUIController()->GetEquipItem(static_cast<int>(EquipType::Weapon))->ItemName;
-	PantsName = UIController::GetUIController()->GetEquipItem(static_cast<int>(EquipType::Pants))->ItemName;
+	if (GetLevel()->GetName() == "TITLE")
+	{
+		HairName = "Toven";
+		FaceName = "Face1";
+		SkinType = "Basic";
+
+		CoatName = "WHITETSHIRT";
+		WeaponName = "Ganier";
+		PantsName = "BLUEPANTS";
+	}
+	else
+	{
+		HairName = PlayerValue::Value.Hair;
+		FaceName = PlayerValue::Value.Face;
+		SkinType = PlayerValue::Value.Skin;
+		
+		CoatName = UIController::GetUIController()->GetEquipItem(static_cast<int>(EquipType::Coat))->ItemName;
+		WeaponName = UIController::GetUIController()->GetEquipItem(static_cast<int>(EquipType::Weapon))->ItemName;
+		PantsName = UIController::GetUIController()->GetEquipItem(static_cast<int>(EquipType::Pants))->ItemName;
+	}
 	
 	//초기애니메이션
 	MoveType = "Stand";
@@ -98,6 +113,7 @@ void Player::Start()
 	
 	CtrlSkill = &Player::Swing;
 
+	PlayerValue::Value.AttUpdate();
 }
 
 void Player::Update(float _DeltaTime)
@@ -126,6 +142,7 @@ void Player::Update(float _DeltaTime)
 
 	if (GameEngineInput::IsDown("MyTest") == true)
 	{
+		PlayerValue::Value.AddExp(30000);
 	}
 }
 
@@ -208,6 +225,11 @@ void Player::ActingUpdate(float _DeltaTime)
 	if (isRopeOrLadder == true)
 	{
 		RopeAndLadder(_DeltaTime);
+		return;
+	}
+
+	if (isMovable == false)
+	{
 		return;
 	}
 
@@ -350,7 +372,8 @@ void Player::CameraUpdate(float _DeltaTime)
 	PlayerPos.z = 0.0f;
 	CameraPos.z = 0.0f;
 
-	float4 newPosition = newPosition.Lerp(CameraPos, PlayerPos, 4.0f * _DeltaTime);
+	//float4 newPosition = newPosition.Lerp(CameraPos, PlayerPos, 2.0f * _DeltaTime);
+	float4 newPosition = PlayerPos;
 
 	float MaxY = 350.0f;
 	float MinY = 490.0f;
@@ -392,6 +415,14 @@ void Player::CameraUpdate(float _DeltaTime)
 	{
 		newPosition.y = -30.0f;
 	}
+
+	std::string CopyX = std::to_string(newPosition.x);
+	CopyX = CopyX.substr(0, 6);
+	float A = std::stof(CopyX);
+
+	std::string CopyY = std::to_string(newPosition.y);
+	CopyY = CopyY.substr(0, 6);
+	float B = std::stof(CopyY);
 
 	GetLevel()->GetMainCamera()->GetTransform()->SetLocalPosition(newPosition);
 }
@@ -506,4 +537,49 @@ void Player::FallingDown(float _DeltaTime)
 		GetTransform()->SetLocalPosition(RealNextPos);
 		return;
 	}
+}
+
+
+void Player::Level_Up()
+{
+	GameEngineSound::Play("LevelUp.mp3");
+
+	std::weak_ptr<GameEngineSpriteRenderer> LevelUp = CreateComponent<GameEngineSpriteRenderer>();
+	
+	LevelUp.lock()->CreateAnimation({ .AnimationName = "LevelUp",.SpriteName = "LevelUP",.FrameInter = 0.08f ,.Loop = false,.ScaleToTexture = false });
+	
+	for (int i = 0; i < 20; i++)
+	{
+		LevelUp.lock()->SetAnimationUpdateEvent("LevelUp", i, [this, LevelUp]
+			{
+				if (LeftRightDir == "Left")
+				{
+					LevelUp.lock()->GetTransform()->SetLocalScale({ 301, 362 });
+				}
+				else if(LeftRightDir == "Right")
+				{
+					LevelUp.lock()->GetTransform()->SetLocalScale({ -301, 362 });
+				}
+			});
+	}
+
+	LevelUp.lock()->SetAnimationUpdateEvent("LevelUp", 20, [this, LevelUp]
+		{
+			if (LeftRightDir == "Left")
+			{
+				LevelUp.lock()->GetTransform()->SetLocalScale({ 301, 362 });
+			}
+			else if (LeftRightDir == "Right")
+			{
+				LevelUp.lock()->GetTransform()->SetLocalScale({ -301, 362 });
+			}
+
+			if (LevelUp.lock()->IsAnimationEnd() == true)
+			{ 
+				LevelUp.lock()->Death(); 
+			}
+		});
+
+	LevelUp.lock()->ChangeAnimation("LevelUp");
+	LevelUp.lock()->GetTransform()->SetLocalPosition({ 0, 150 });
 }

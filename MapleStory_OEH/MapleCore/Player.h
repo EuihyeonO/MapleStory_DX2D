@@ -19,6 +19,7 @@ class Player : public BasicFunction
 	friend BuffList;
 	friend class SkillActor;
 	friend class SkillList;
+	friend class PlayerValue;
 public:
 	void Poison(float _Duration);
 	void SkillLock(float _Duration);
@@ -213,6 +214,8 @@ private:
 	float DamagedDoubleDuration = 0.0f;
 
 	float CannotJumpDuration = 0.0f;
+
+	void Level_Up();
 
 	//Å° °ü·Ã
 	int GetStateByKeyInput() const;

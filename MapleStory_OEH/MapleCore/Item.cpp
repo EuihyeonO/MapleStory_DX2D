@@ -64,7 +64,7 @@ void Item::Clicked()
 {
 	if (isClicked == true && GameEngineInput::IsDown("LClick") == true)
 	{
-		if (ItemCollision->Collision(static_cast<int>(CollisionOrder::Inventory), ColType::AABBBOX2D, ColType::AABBBOX2D) == nullptr)
+		if (ItemCollision->Collision(static_cast<int>(CollisionOrder::Inventory), ColType::AABBBOX2D, ColType::AABBBOX2D) == nullptr && isEquip == false)
 		{
 			std::shared_ptr<DropItem> NewItem = GetLevel()->CreateActor<DropItem>();
 			NewItem->SetQuadraticFunction(1.0f, Player::GetCurPlayer()->GetTransform()->GetWorldPosition() + float4{ 0, 5 });

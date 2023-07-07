@@ -3,6 +3,7 @@
 #include "SkillList.h"
 
 #include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 #include <GameEngineCore/GameEngineLevel.h>
 
 SkillWindow::SkillWindow()
@@ -61,6 +62,8 @@ void SkillWindow::ChangeWindowIndex()
 
 		if (Collision != nullptr)
 		{
+			GameEngineSound::Play("ButtonClick.mp3");
+
 			if (Index == 0)
 			{
 				return;
@@ -78,6 +81,8 @@ void SkillWindow::ChangeWindowIndex()
 
 		if (Collision != nullptr)
 		{
+			GameEngineSound::Play("ButtonClick.mp3");
+
 			if (Index == 1)
 			{
 				return;
@@ -95,6 +100,8 @@ void SkillWindow::ChangeWindowIndex()
 
 		if (Collision != nullptr)
 		{
+			GameEngineSound::Play("ButtonClick.mp3");
+
 			if (Index == 2)
 			{
 				return;
@@ -112,6 +119,8 @@ void SkillWindow::ChangeWindowIndex()
 
 		if (Collision != nullptr)
 		{
+			GameEngineSound::Play("ButtonClick.mp3");
+
 			if (Index == 3)
 			{
 				return;
@@ -129,6 +138,8 @@ void SkillWindow::ChangeWindowIndex()
 
 		if (Collision != nullptr)
 		{
+			GameEngineSound::Play("ButtonClick.mp3");
+
 			if (Index == 4)
 			{
 				return;

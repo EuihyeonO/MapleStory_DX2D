@@ -818,6 +818,82 @@ void Player::SetPantsTexturePosVector()
 
 	PantsToNavelPos["Jump"]["BLUEPANTS"].push_back({ 2, -5 });
 
+	//Brown
+	PantsOriginPos["Stand"]["BROWNPANTS"].push_back({ -9, 6 });
+	PantsOriginPos["Stand"]["BROWNPANTS"].push_back({ -9, 6 });
+	PantsOriginPos["Stand"]["BROWNPANTS"].push_back({ -9, 6 });
+	PantsOriginPos["Stand"]["BROWNPANTS"].push_back({ -9, 6 });
+
+	PantsOriginPos["Walk"]["BROWNPANTS"].push_back({ -9, 7 });
+	PantsOriginPos["Walk"]["BROWNPANTS"].push_back({ -9, 6 });
+	PantsOriginPos["Walk"]["BROWNPANTS"].push_back({ -9, 7 });
+	PantsOriginPos["Walk"]["BROWNPANTS"].push_back({ -9, 6 });
+
+	PantsOriginPos["Swing0"]["BROWNPANTS"].push_back({ -9, 6 });
+	PantsOriginPos["Swing0"]["BROWNPANTS"].push_back({ -10, 6 });
+	PantsOriginPos["Swing0"]["BROWNPANTS"].push_back({ -9, 6 });
+
+	PantsOriginPos["Swing1"]["BROWNPANTS"].push_back({ -10, 5 });
+	PantsOriginPos["Swing1"]["BROWNPANTS"].push_back({ -10, 6 });
+	PantsOriginPos["Swing1"]["BROWNPANTS"].push_back({ -9, 6 });
+
+	PantsOriginPos["Swing2"]["BROWNPANTS"].push_back({ -10, 5 });
+	PantsOriginPos["Swing2"]["BROWNPANTS"].push_back({ -10, 6 });
+	PantsOriginPos["Swing2"]["BROWNPANTS"].push_back({ -9, 6 });
+
+	PantsOriginPos["Stab0"]["BROWNPANTS"].push_back({ -10, 5 });
+	PantsOriginPos["Stab0"]["BROWNPANTS"].push_back({ -10, 6 });
+
+	PantsOriginPos["Stab1"]["BROWNPANTS"].push_back({ -10, 5 });
+	PantsOriginPos["Stab1"]["BROWNPANTS"].push_back({ -10, 6 });
+
+	PantsOriginPos["Alert"]["BROWNPANTS"].push_back({ -10, 5 });
+	PantsOriginPos["Alert"]["BROWNPANTS"].push_back({ -10, 6 });
+	PantsOriginPos["Alert"]["BROWNPANTS"].push_back({ -9, 6 });
+
+	PantsOriginPos["Ladder"]["BROWNPANTS"].push_back({ -10, 5 });
+	PantsOriginPos["Ladder"]["BROWNPANTS"].push_back({ -10, 5 });
+
+	PantsOriginPos["Jump"]["BROWNPANTS"].push_back({ -10, 5 });
+
+	//X만 반전
+	PantsToNavelPos["Stand"]["BROWNPANTS"].push_back({ 5, -6 });
+	PantsToNavelPos["Stand"]["BROWNPANTS"].push_back({ 4, -5 });
+	PantsToNavelPos["Stand"]["BROWNPANTS"].push_back({ 3, -6 });
+	PantsToNavelPos["Stand"]["BROWNPANTS"].push_back({ 4, -5 });
+
+	PantsToNavelPos["Walk"]["BROWNPANTS"].push_back({ 5, -7 });
+	PantsToNavelPos["Walk"]["BROWNPANTS"].push_back({ 3, -7 });
+	PantsToNavelPos["Walk"]["BROWNPANTS"].push_back({ 5, -7 });
+	PantsToNavelPos["Walk"]["BROWNPANTS"].push_back({ 5, -5 });
+
+	PantsToNavelPos["Swing0"]["BROWNPANTS"].push_back({ 2, -3 });
+	PantsToNavelPos["Swing0"]["BROWNPANTS"].push_back({ 8, -3 });
+	PantsToNavelPos["Swing0"]["BROWNPANTS"].push_back({ 2, -3 });
+
+	PantsToNavelPos["Swing1"]["BROWNPANTS"].push_back({ 4, -4 });
+	PantsToNavelPos["Swing1"]["BROWNPANTS"].push_back({ 2, -3 });
+	PantsToNavelPos["Swing1"]["BROWNPANTS"].push_back({ 2, -3 });
+
+	PantsToNavelPos["Swing2"]["BROWNPANTS"].push_back({ 3, -4 });
+	PantsToNavelPos["Swing2"]["BROWNPANTS"].push_back({ 8, -2 });
+	PantsToNavelPos["Swing2"]["BROWNPANTS"].push_back({ 6, -3 });
+
+	PantsToNavelPos["Stab0"]["BROWNPANTS"].push_back({ 0, -4 });
+	PantsToNavelPos["Stab0"]["BROWNPANTS"].push_back({ -2, 0 });
+
+	PantsToNavelPos["Stab1"]["BROWNPANTS"].push_back({ 1, -4 });
+	PantsToNavelPos["Stab1"]["BROWNPANTS"].push_back({ 4, -3 });
+
+	PantsToNavelPos["Alert"]["BROWNPANTS"].push_back({ 0, -6 });
+	PantsToNavelPos["Alert"]["BROWNPANTS"].push_back({ -1, -7 });
+	PantsToNavelPos["Alert"]["BROWNPANTS"].push_back({ -1, -7 });
+
+	PantsToNavelPos["Ladder"]["BROWNPANTS"].push_back({ 2, -6 });
+	PantsToNavelPos["Ladder"]["BROWNPANTS"].push_back({ 2, -6 });
+
+	PantsToNavelPos["Jump"]["BROWNPANTS"].push_back({ 2, -5 });
+
 }
 
 void Player::SetWeaponTexturePosVector()
@@ -1041,6 +1117,12 @@ void Player::SetHairAndFaceTexturePosVector()
 	//x만 반전
 	HairToBrowPos["Toven"]["Back"] = float4{ 3, -3 };
 
+	HairOriginPos["SHORTCUT"]["Front"] = float4{ -17, 11 };
+	HairOriginPos["SHORTCUT"]["Back"] = float4{ -17, 16 };
+	//x,y 둘다반전
+	HairToBrowPos["SHORTCUT"]["Front"] = float4{ 2, 1 };
+	//x만 반전
+	HairToBrowPos["SHORTCUT"]["Back"] = float4{ 4, -4 };
 	//Face
 
 	FaceOriginPos["Face1"]["Default"] = float4{ -13, 8 };

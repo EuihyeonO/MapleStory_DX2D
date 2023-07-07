@@ -47,6 +47,8 @@ private:
 	std::shared_ptr<class ContentFontRenderer> Luk;
 	std::shared_ptr<class ContentButton> LukBt;
 
+	std::shared_ptr<class ContentFontRenderer> AttRender;
+
 
 };
 

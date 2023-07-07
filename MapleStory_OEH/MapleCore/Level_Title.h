@@ -32,7 +32,7 @@ private:
 
 	bool isCamUp = false;
 	bool isCamDown = false;
-
+	bool isPlayerCamMoveSound = false;
 	int CameraIndex = 0;
 
 	float4 DestiPos;

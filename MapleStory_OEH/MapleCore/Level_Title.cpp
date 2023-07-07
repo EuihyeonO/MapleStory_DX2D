@@ -5,6 +5,7 @@
 #include "Mouse.h"
 #include "TitleObjects.h"
 #include "MapleCore.h"
+#include "UIController.h"
 
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineTexture.h>
@@ -44,6 +45,7 @@ void Level_Title::Start()
 		NewDir.Move("CommonSprite");
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Portal").GetFullPath());
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RingPortal").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LevelUP").GetFullPath());
 	}
 
 
@@ -155,13 +157,31 @@ void Level_Title::Update(float _DeltaTime)
 		MapleCore::BGMPlayer.SetVolume(0.3f);
 
 		NewTitleObjects = CreateActor<TitleObjects>();
-		NewTitleObjects->SetLoginBtEvent([this]
-			{
-				isCamUp = true;
-			});
-
+		NewTitleObjects->SetLoginBtEvent([this]{isCamUp = true;});
 		NewTitleObjects->SetChannelClickFunc([this] {isCamUp = true; });
+		NewTitleObjects->SetCharCreateEvent([this] {isCamUp = true; });
+		NewTitleObjects->SetCharCreateOKButtonEvent([this]
+			{
+				std::shared_ptr<ItemInfo> NewItem1 = std::make_shared<ItemInfo>();
+				NewItem1->EquipType = static_cast<int>(EquipType::Coat);
+				NewItem1->ItemName = NewTitleObjects->ClothesVec[static_cast<int>(EquipType::Coat)][NewTitleObjects->CoatIndex].second;
 
+				std::shared_ptr<ItemInfo> NewItem2 = std::make_shared<ItemInfo>();
+				NewItem2->EquipType = static_cast<int>(EquipType::Pants);
+				NewItem2->ItemName = NewTitleObjects->ClothesVec[static_cast<int>(EquipType::Pants)][NewTitleObjects->PantsIndex].second;
+
+				std::shared_ptr<ItemInfo> NewItem3 = std::make_shared<ItemInfo>();
+				NewItem3->EquipType = static_cast<int>(EquipType::Weapon);
+				NewItem3->ItemName = "Ganier";
+
+				UIController::GetUIController()->AddToEquipItemList(NewItem1, static_cast<int>(ItemType::Equip));
+				UIController::GetUIController()->AddToEquipItemList(NewItem2, static_cast<int>(ItemType::Equip));
+				UIController::GetUIController()->AddToEquipItemList(NewItem3, static_cast<int>(ItemType::Equip));
+
+				Player::GetCurPlayer()->GetTransform()->SetLocalPosition({ -162, 1138, -1 });
+
+				isCamDown = true;
+			});
 		GameLogo->Death();
 		GameLogo = nullptr;
 	}
@@ -215,6 +235,12 @@ void Level_Title::CameraMove(float _DeltaTime)
 
 	if (isCamUp == true)
 	{
+		if (isPlayerCamMoveSound == false)
+		{
+			GameEngineSound::Play("TitleCamMove.mp3");
+			isPlayerCamMoveSound = true;
+		}
+
 		DestiPos = { 0,(CameraIndex + 1) * 600.0f };
 		CamPos = GetMainCamera()->GetTransform()->GetLocalPosition();
 
@@ -227,11 +253,18 @@ void Level_Title::CameraMove(float _DeltaTime)
 			GetMainCamera()->GetTransform()->SetLocalPosition({ 0,(CameraIndex + 1) * 600.0f });
 			CameraIndex++;
 			LerpRatio = 0.0f;
+			isPlayerCamMoveSound = false;
 		}
 	}
 
 	if (isCamDown == true)
 	{
+		if (isPlayerCamMoveSound == false)
+		{
+			GameEngineSound::Play("TitleCamMove.mp3");
+			isPlayerCamMoveSound = true;
+		}
+
 		DestiPos = { 0,(CameraIndex - 1) * 600.0f };
 		CamPos = GetMainCamera()->GetTransform()->GetLocalPosition();
 
@@ -244,6 +277,7 @@ void Level_Title::CameraMove(float _DeltaTime)
 			GetMainCamera()->GetTransform()->SetLocalPosition({ 0,(CameraIndex - 1) * 600.0f });
 			CameraIndex--;
 			LerpRatio = 0.0f;
+			isPlayerCamMoveSound = false;
 		}
 	}
 }
@@ -300,7 +334,6 @@ void Level_Title::LevelChangeStart()
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("TitleLight4").GetFullPath());
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("TitleLight5").GetFullPath());
 	}
-
 
 	MyPlayer = CreateActor<Player>();
 	MyPlayer->GetTransform()->SetLocalPosition({ -20, 1768, -1 });
@@ -378,7 +411,9 @@ void Level_Title::LevelChangeEnd()
 		GameEngineSprite::UnLoad("TitleLight5");
 	}
 	
+	PlayerValue::GetValue()->SetPrevLevelName("Level_Title");
+	
 	MyPlayer->Death();
-	//NewTitleObjects->Death();
+	NewTitleObjects->Death();
 	MyMouse->Death();
 }

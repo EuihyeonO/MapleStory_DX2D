@@ -49,7 +49,6 @@ void Aura::Update(float _DeltaTime)
 	{
 		UpdateFunc(_DeltaTime);
 	}
-
 }
 
 void Aura::Render(float _DeltaTime)

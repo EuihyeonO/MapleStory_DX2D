@@ -5,6 +5,7 @@
 
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 
 InventoryWindow::InventoryWindow()
 {
@@ -74,10 +75,13 @@ void InventoryWindow::ChangeInventory()
 {
 	if (GameEngineInput::IsDown("LClick") == true)
 	{
+
 		std::shared_ptr<GameEngineCollision> Collision = Equip->Collision(static_cast<int>(CollisionOrder::Mouse), ColType::AABBBOX2D, ColType::AABBBOX2D);
 
 		if (Collision != nullptr)
 		{
+			GameEngineSound::Play("ButtonClick.mp3");
+
 			if (InventoryType == static_cast<int>(ItemType::Equip))
 			{
 				return;
@@ -92,6 +96,8 @@ void InventoryWindow::ChangeInventory()
 
 		if (Collision != nullptr)
 		{
+			GameEngineSound::Play("ButtonClick.mp3");
+
 			if (InventoryType == static_cast<int>(ItemType::Use))
 			{
 				return;
@@ -106,6 +112,8 @@ void InventoryWindow::ChangeInventory()
 
 		if (Collision != nullptr)
 		{
+			GameEngineSound::Play("ButtonClick.mp3");
+
 			if (InventoryType == static_cast<int>(ItemType::Etc))
 			{
 				return;
@@ -120,6 +128,8 @@ void InventoryWindow::ChangeInventory()
 
 		if (Collision != nullptr)
 		{
+			GameEngineSound::Play("ButtonClick.mp3");
+
 			if (InventoryType == static_cast<int>(ItemType::Setup))
 			{
 				return;
@@ -134,6 +144,8 @@ void InventoryWindow::ChangeInventory()
 
 		if (Collision != nullptr)
 		{
+			GameEngineSound::Play("ButtonClick.mp3");
+
 			if (InventoryType == static_cast<int>(ItemType::Cash))
 			{
 				return;

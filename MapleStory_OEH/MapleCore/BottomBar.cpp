@@ -184,6 +184,8 @@ void BottomBar::HPAndMPUpdate()
 	std::string Mp = "[" + std::to_string(PlayerValue::GetValue()->GetMp()) + " / " + std::to_string(PlayerValue::GetValue()->GetMaxMp()) + " ]";
 	MpFont->SetText(Mp);
 
-	std::string Exp = std::to_string(PlayerValue::GetValue()->GetExp()) + " [" + std::to_string(PlayerValue::GetValue()->GetExpRate()) + " %]";
+	std::string ExpRate = std::to_string(PlayerValue::GetValue()->GetExpRate() * 100.0f);
+
+	std::string Exp = std::to_string(PlayerValue::GetValue()->GetExp()) + " [" + ExpRate.substr(0, 5) + " %]";
 	ExpFont->SetText(Exp);
 }

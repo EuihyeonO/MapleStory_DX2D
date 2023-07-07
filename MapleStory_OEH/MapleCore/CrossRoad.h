@@ -36,7 +36,8 @@ private:
 
 	std::shared_ptr<GameEngineSpriteRenderer> BackGround = nullptr;
 
-	std::shared_ptr<GameEngineSpriteRenderer> Portal1 = nullptr;
+	std::shared_ptr<class Portal> Portal1 = nullptr;
+	std::shared_ptr<class Portal> Portal2 = nullptr;
 	std::shared_ptr<class MonsterSpawnZone> Zone1 = nullptr;
 	std::shared_ptr<class MonsterSpawnZone> Zone2 = nullptr;
 

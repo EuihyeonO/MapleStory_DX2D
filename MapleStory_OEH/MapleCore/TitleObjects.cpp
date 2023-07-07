@@ -2,6 +2,9 @@
 #include "Mouse.h"
 #include "TitleObjects.h"
 #include "ContentButton.h"
+#include "PlayerValue.h"
+#include "UIController.h"
+#include "Player.h"
 
 #include <GameEngineCore/GameEngineButton.h>
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
@@ -9,6 +12,7 @@
 #include <gameengineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineTexture.h>
 #include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 #include <GameEngineBase/GameEngineRandom.h>
 #include <ctime>
 
@@ -109,11 +113,6 @@ void TitleObjects::Update(float _DeltaTime)
 	//Frame 고정
 	float4 CamPos = GetLevel()->GetMainCamera()->GetTransform()->GetWorldPosition();
 
-	//LoginBt->GetTransform()->SetWorldPosition(-CamPos + LoginBoardPos + float4{ 128, 70 });
-	SignUp->GetTransform()->SetLocalPosition(-CamPos + LoginBoardPos + float4{ -68, -44 });
-	Exit->GetTransform()->SetLocalPosition(-CamPos + LoginBoardPos + float4{ 127, -42 });
-	HomePage->GetTransform()->SetLocalPosition(-CamPos + LoginBoardPos + float4{ 33, -44 });
-
 	if (isChScrollOpen == true)
 	{
 		if(ChScroll->GetCurrentFrame() == 0) 
@@ -122,6 +121,11 @@ void TitleObjects::Update(float _DeltaTime)
 		}
 
 		ChannelChecking();
+	}
+
+	if (FadeOut != nullptr)
+	{
+		FadeOut(_DeltaTime);
 	}
 }
 
@@ -139,26 +143,35 @@ void TitleObjects::Create_LoginBox()
 
 	float4 LoginBoardPos = LoginBoard->GetTransform()->GetLocalPosition();
 
-	SignUp = GetLevel()->CreateActor<GameEngineButton>();
+	SignUp = GetLevel()->CreateActor<ContentButton>();
 	SignUp->SetReleaseTexture("SignUpRelease.png");
 	SignUp->SetHoverTexture("SignUpHover.png");
 	SignUp->SetPressTexture("SignUpPress.png");
-	SignUp->GetTransform()->SetLocalScale({ 92, 43 });
-	SignUp->GetTransform()->SetLocalPosition(LoginBoardPos + float4{ -68, -44 });
+	SignUp->SetAllScale({ 92, 43 });
+	SignUp->SetAllPos(LoginBoardPos + float4{ -68, -44 });
+	SignUp->SetisUIRenderer(false);
+	SignUp->SetHoverSound("ButtonHover.mp3");
+	SignUp->SetPressSound("ButtonClick.mp3");
 
-	HomePage = GetLevel()->CreateActor<GameEngineButton>();
+	HomePage = GetLevel()->CreateActor<ContentButton>();
 	HomePage->SetReleaseTexture("HomePageRelease.png");
 	HomePage->SetHoverTexture("HomePageHover.png");
 	HomePage->SetPressTexture("HomePagePress.png");
-	HomePage->GetTransform()->SetLocalScale({ 93, 43 });
-	HomePage->GetTransform()->SetLocalPosition(LoginBoardPos + float4{ 33, -44 });
+	HomePage->SetAllScale({ 93, 43 });
+	HomePage->SetAllPos(LoginBoardPos + float4{ 33, -44 });
+	HomePage->SetisUIRenderer(false);
+	HomePage->SetHoverSound("ButtonHover.mp3");
+	HomePage->SetPressSound("ButtonClick.mp3");
 
-	Exit = GetLevel()->CreateActor<GameEngineButton>();
+	Exit = GetLevel()->CreateActor<ContentButton>();
 	Exit->SetReleaseTexture("ExitRelease.png");
 	Exit->SetHoverTexture("ExitHover.png");
 	Exit->SetPressTexture("ExitPress.png");
-	Exit->GetTransform()->SetLocalScale({ 84, 43 });
-	Exit->GetTransform()->SetLocalPosition(LoginBoardPos + float4{ 127, -42 });
+	Exit->SetAllScale({ 84, 43 });
+	Exit->SetAllPos(LoginBoardPos + float4{ 127, -42 });
+	Exit->SetisUIRenderer(false);
+	Exit->SetHoverSound("ButtonHover.mp3");
+	Exit->SetPressSound("ButtonClick.mp3");
 
 	LoginBt = GetLevel()->CreateActor<ContentButton>();
 	LoginBt->SetReleaseTexture("LoginRelease.png");
@@ -167,6 +180,8 @@ void TitleObjects::Create_LoginBox()
 	LoginBt->SetAllPos(LoginBoardPos + float4{ 128, 70 });
 	LoginBt->SetAllScale({ 95, 48 });
 	LoginBt->SetisUIRenderer(false);
+	LoginBt->SetHoverSound("ButtonHover.mp3");
+	LoginBt->SetPressSound("ButtonClick.mp3");
 
 	SaveEmail = CreateComponent<GameEngineSpriteRenderer>();
 	SaveEmail->SetTexture("SaveEmailRelease.png");
@@ -203,6 +218,8 @@ void TitleObjects::Create_ChannelButton()
 	Zenis->SetAllPos({ -182, 752 });
 	Zenis->SetisUIRenderer(false);
 	Zenis->SetEvent([this] {ChScroll->ChangeAnimation("Zenis");});
+	Zenis->SetHoverSound("ButtonHover.mp3");
+	Zenis->SetHoverSound("WorldSelect.mp3");
 
 	Kastia = GetLevel()->CreateActor<ContentButton>();
 	Kastia->SetReleaseTexture("KastiaRelease.png");
@@ -214,6 +231,8 @@ void TitleObjects::Create_ChannelButton()
 	Kastia->SetAllPos({ -152, 752 });
 	Kastia->SetisUIRenderer(false);
 	Kastia->SetEvent([this] {ChScroll->ChangeAnimation("Kastia"); });
+	Kastia->SetHoverSound("ButtonHover.mp3");
+	Kastia->SetPressSound("WorldSelect.mp3");
 
 	Kiny = GetLevel()->CreateActor<ContentButton>();
 	Kiny->SetReleaseTexture("KinyRelease.png");
@@ -225,6 +244,8 @@ void TitleObjects::Create_ChannelButton()
 	Kiny->SetAllPos({ -122, 752 });
 	Kiny->SetisUIRenderer(false);
 	Kiny->SetEvent([this] {ChScroll->ChangeAnimation("Khaini"); });
+	Kiny->SetHoverSound("ButtonHover.mp3");
+	Kiny->SetPressSound("WorldSelect.mp3");
 
 	Croa = GetLevel()->CreateActor<ContentButton>();
 	Croa->SetReleaseTexture("CroaRelease.png");
@@ -236,6 +257,8 @@ void TitleObjects::Create_ChannelButton()
 	Croa->SetAllPos({ -92, 752 });
 	Croa->SetisUIRenderer(false);
 	Croa->SetEvent([this] {ChScroll->ChangeAnimation("Croa"); });
+	Croa->SetHoverSound("ButtonHover.mp3");
+	Croa->SetPressSound("WorldSelect.mp3");
 
 	Yellond = GetLevel()->CreateActor<ContentButton>();
 	Yellond->SetReleaseTexture("YellondRelease.png");
@@ -247,6 +270,8 @@ void TitleObjects::Create_ChannelButton()
 	Yellond->SetAllPos({ -62, 752 });
 	Yellond->SetisUIRenderer(false);
 	Yellond->SetEvent([this] {ChScroll->ChangeAnimation("Yellond"); });
+	Yellond->SetHoverSound("ButtonHover.mp3");
+	Yellond->SetPressSound("WorldSelect.mp3");
 
 	Plana = GetLevel()->CreateActor<ContentButton>();
 	Plana->SetReleaseTexture("PlanaRelease.png");
@@ -258,6 +283,8 @@ void TitleObjects::Create_ChannelButton()
 	Plana->SetAllPos({ -32, 752 });
 	Plana->SetisUIRenderer(false);
 	Plana->SetEvent([this] {ChScroll->ChangeAnimation("Plana"); });
+	Plana->SetHoverSound("ButtonHover.mp3");
+	Plana->SetPressSound("WorldSelect.mp3");
 
 	Demetos = GetLevel()->CreateActor<ContentButton>();
 	Demetos->SetReleaseTexture("DemetosRelease.png");
@@ -269,7 +296,9 @@ void TitleObjects::Create_ChannelButton()
 	Demetos->SetAllPos({ -2, 752 });
 	Demetos->SetisUIRenderer(false);
 	Demetos->SetEvent([this] {ChScroll->ChangeAnimation("Demetos"); });
-
+	Demetos->SetHoverSound("ButtonHover.mp3");
+	Demetos->SetPressSound("WorldSelect.mp3");
+	
 	Akenia = GetLevel()->CreateActor<ContentButton>();
 	Akenia->SetReleaseTexture("AkeniaRelease.png");
 	Akenia->SetHoverTexture("AkeniaHover.png");
@@ -280,6 +309,8 @@ void TitleObjects::Create_ChannelButton()
 	Akenia->SetAllPos({ 28, 752 });
 	Akenia->SetisUIRenderer(false);
 	Akenia->SetEvent([this] {ChScroll->ChangeAnimation("Akenia"); });
+	Akenia->SetHoverSound("ButtonHover.mp3");
+	Akenia->SetPressSound("WorldSelect.mp3");
 
 	Bera = GetLevel()->CreateActor<ContentButton>();
 	Bera->SetReleaseTexture("BeraRelease.png");
@@ -291,6 +322,8 @@ void TitleObjects::Create_ChannelButton()
 	Bera->SetAllPos({ 58, 752 });
 	Bera->SetisUIRenderer(false);
 	Bera->SetEvent([this] {ChScroll->ChangeAnimation("Bera"); });
+	Bera->SetHoverSound("ButtonHover.mp3");
+	Bera->SetPressSound("WorldSelect.mp3");
 
 	Broa = GetLevel()->CreateActor<ContentButton>();
 	Broa->SetReleaseTexture("BroaRelease.png");
@@ -302,6 +335,8 @@ void TitleObjects::Create_ChannelButton()
 	Broa->SetAllPos({ 88, 752 });
 	Broa->SetisUIRenderer(false);
 	Broa->SetEvent([this] {ChScroll->ChangeAnimation("Broa"); });
+	Broa->SetHoverSound("ButtonHover.mp3");
+	Broa->SetPressSound("WorldSelect.mp3");
 
 	Mardia = GetLevel()->CreateActor<ContentButton>();
 	Mardia->SetReleaseTexture("MardiaRelease.png");
@@ -313,6 +348,8 @@ void TitleObjects::Create_ChannelButton()
 	Mardia->SetAllPos({ 118, 752 });
 	Mardia->SetisUIRenderer(false);
 	Mardia->SetEvent([this] {ChScroll->ChangeAnimation("Mardia"); });
+	Mardia->SetHoverSound("ButtonHover.mp3");
+	Mardia->SetPressSound("WorldSelect.mp3");
 
 	Skania = GetLevel()->CreateActor<ContentButton>();
 	Skania->SetReleaseTexture("SkaniaRelease.png");
@@ -324,6 +361,8 @@ void TitleObjects::Create_ChannelButton()
 	Skania->SetAllPos({ 148, 752 });
 	Skania->SetisUIRenderer(false);
 	Skania->SetEvent([this] {ChScroll->ChangeAnimation("Skania"); });
+	Skania->SetHoverSound("ButtonHover.mp3");
+	Skania->SetPressSound("WorldSelect.mp3");
 
 	Stierce = GetLevel()->CreateActor<ContentButton>();
 	Stierce->SetReleaseTexture("StierceRelease.png");
@@ -335,6 +374,8 @@ void TitleObjects::Create_ChannelButton()
 	Stierce->SetAllPos({ 178, 752 });
 	Stierce->SetisUIRenderer(false);
 	Stierce->SetEvent([this] {ChScroll->ChangeAnimation("Stierce"); });
+	Stierce->SetHoverSound("ButtonHover.mp3");
+	Stierce->SetPressSound("WorldSelect.mp3");
 
 }
 
@@ -347,20 +388,48 @@ void TitleObjects::Create_CharSelectButton()
 
 	float4 BoxPos = CharSelectBox->GetTransform()->GetLocalPosition();
 
-	CharCreate = CreateComponent<GameEngineSpriteRenderer>();
-	CharCreate->SetTexture("CreateRelease.png");
-	CharCreate->GetTransform()->SetLocalScale({ 101, 35 });
-	CharCreate->GetTransform()->SetLocalPosition(BoxPos + float4{1, 48});
+	CharCreate = GetLevel()->CreateActor<ContentButton>();
+	CharCreate->SetReleaseTexture("CreateRelease.png");
+	CharCreate->SetHoverTexture("CreateHover.png");
+	CharCreate->SetPressTexture("CreatePress.png");
+	CharCreate->SetAllScale({ 101, 35 });
+	CharCreate->SetisUIRenderer(false);
+	CharCreate->SetAllPos(BoxPos + float4{1, 48, -1});
 
-	CharSelect = CreateComponent<GameEngineSpriteRenderer>();
-	CharSelect->SetTexture("SelectRelease.png");
-	CharSelect->GetTransform()->SetLocalScale({ 101, 30 });
-	CharSelect->GetTransform()->SetLocalPosition(BoxPos + float4{ 1, 86 });
+	CharSelect = GetLevel()->CreateActor<ContentButton>();
+	CharSelect->SetReleaseTexture("SelectRelease.png");
+	CharSelect->SetHoverTexture("SelectHover.png");
+	CharSelect->SetPressTexture("SelectPress.png");
+	CharSelect->SetAllScale({ 101, 30 });
+	CharSelect->SetisUIRenderer(false);
+	CharSelect->SetAllPos(BoxPos + float4{ 1, 86 });
+	CharSelect->SetEvent([this]
+		{
+			GameEngineSound::Play("CharSelect.mp3");
 
-	CharDelete = CreateComponent<GameEngineSpriteRenderer>();
-	CharDelete->SetTexture("DeleteRelease.png");
-	CharDelete->GetTransform()->SetLocalScale({ 101, 43 });
-	CharDelete->GetTransform()->SetLocalPosition(BoxPos + float4{ 1, -8 });
+			std::weak_ptr<GameEngineUIRenderer> Black = CreateComponent<GameEngineUIRenderer>();
+			Black.lock()->ColorOptionValue.MulColor = { 0.0f, 0.0f, 0.0f, 0.0f };
+			Black.lock()->GetTransform()->SetLocalScale({ 800, 600 });
+
+			FadeOut = [Black](float _DeltaTime)
+			{
+				Black.lock()->ColorOptionValue.MulColor.a += 0.25f * _DeltaTime;
+				if (Black.lock()->ColorOptionValue.MulColor.a >= 1.0f)
+				{
+					Black.lock()->ColorOptionValue.MulColor.a = 1.0f;
+					Black.lock()->Death();
+					GameEngineCore::ChangeLevel("Level_BeginnersTown1");
+				}
+			};
+		});
+
+	CharDelete = GetLevel()->CreateActor<ContentButton>();
+	CharDelete->SetReleaseTexture("DeleteRelease.png");
+	CharDelete->SetHoverTexture("DeleteHover.png");
+	CharDelete->SetPressTexture("DeletePress.png");
+	CharDelete->SetAllScale({ 101, 43 });
+	CharDelete->SetisUIRenderer(false);
+	CharDelete->SetAllPos(BoxPos + float4{ 1, -8 });
 }
 
 void TitleObjects::Create_CharacterObject()
@@ -371,7 +440,6 @@ void TitleObjects::Create_CharacterObject()
 	EmptySlot1->SetTexture("EmptyChar.png");
 	EmptySlot1->GetTransform()->SetLocalScale({ 51, 71 });
 	EmptySlot1->GetTransform()->SetLocalPosition({-160, 1174});
-
 
 	EmptySlot2 = CreateComponent<GameEngineSpriteRenderer>();
 	EmptySlot2->SetTexture("EmptyChar.png");
@@ -459,10 +527,13 @@ void TitleObjects::Create_CharCreateObject()
 	DiceCol->GetTransform()->SetLocalScale({ 25, 28 });
 	DiceCol->GetTransform()->SetLocalPosition(CharInfoPos + float4{ 44, -54 });
 
-	OkButton = CreateComponent<GameEngineSpriteRenderer>();
-	OkButton->SetTexture("OkRelease.png");
-	OkButton->GetTransform()->SetLocalScale({ 76, 41 });
-	OkButton->GetTransform()->SetLocalPosition(CharInfoPos + float4{ -34, -140 });
+	OkButton = GetLevel()->CreateActor<ContentButton>();
+	OkButton->SetReleaseTexture("OKRelease.png");
+	OkButton->SetHoverTexture("OKHover.png");
+	OkButton->SetPressTexture("OKPress.png");
+	OkButton->SetAllScale({ 76, 41 });
+	OkButton->SetisUIRenderer(false);
+	OkButton->SetAllPos(CharInfoPos + float4{ -34, -140 });
 
 	NoButton = CreateComponent<GameEngineSpriteRenderer>();
 	NoButton->SetTexture("NoRelease.png");
@@ -500,7 +571,18 @@ void TitleObjects::Create_CharCreateObject()
 
 	Coat = CreateComponent<GameEngineFontRenderer>();
 	Pants = CreateComponent<GameEngineFontRenderer>();
+	Weapon = CreateComponent<GameEngineFontRenderer>();
 	
+	ClothesVec[static_cast<int>(EquipType::Coat)].reserve(4);
+	ClothesVec[static_cast<int>(EquipType::Cap)].reserve(4);
+	ClothesVec[static_cast<int>(EquipType::Weapon)].reserve(4);
+
+	ClothesVec[static_cast<int>(EquipType::Coat)].push_back({ "하얀 반팔 면티", "WHITETSHIRT" });
+	ClothesVec[static_cast<int>(EquipType::Coat)].push_back({ "회색 반팔 면티", "GRAYTSHIRT" });
+
+	ClothesVec[static_cast<int>(EquipType::Pants)].push_back({ "파랑 청 반바지", "BLUEPANTS" });
+	ClothesVec[static_cast<int>(EquipType::Pants)].push_back({ "주황 청 반바지", "BROWNPANTS" });
+
 	Coat->SetFont("굴림");
 	Coat->SetColor({ 0, 0, 0, 1 });
 	Coat->SetScale(12.0f);
@@ -512,14 +594,113 @@ void TitleObjects::Create_CharCreateObject()
 	Pants->SetScale(12.0f);
 	Pants->SetText("파란 청 반바지");
 	Pants->GetTransform()->SetLocalPosition(InfoScrollPos + float4{ -20, -7 });
+	
+	Weapon->SetFont("굴림");
+	Weapon->SetColor({ 0, 0, 0, 1 });
+	Weapon->SetScale(12.0f);
+	Weapon->SetText("     가니어");
+	Weapon->GetTransform()->SetLocalPosition(InfoScrollPos + float4{ -20, -49 });
+
+	LChangeCoat = GetLevel()->CreateActor<ContentButton>();
+	LChangeCoat->SetReleaseTexture("LeftButtonRelease.png");
+	LChangeCoat->SetHoverTexture("LeftButtonHover.png");
+	LChangeCoat->SetPressTexture("LeftButtonPress.png");
+	LChangeCoat->SetAllScale({ 15, 16 });
+	LChangeCoat->SetisUIRenderer(false);
+	LChangeCoat->SetAllPos(InfoScrollPos + float4{ -35, 6 });
+	LChangeCoat->SetEvent([this]
+		{
+			CoatIndex--;
+			if (CoatIndex < 0)
+			{
+				CoatIndex = ClothesVec[static_cast<int>(EquipType::Coat)].size() - 1;
+			}
+			Coat->SetText(ClothesVec[static_cast<int>(EquipType::Coat)][CoatIndex].first);
+
+			std::shared_ptr<ItemInfo> NewItem = std::make_shared<ItemInfo>();
+			NewItem->EquipType = static_cast<int>(EquipType::Coat);
+			NewItem->ItemName = ClothesVec[static_cast<int>(EquipType::Coat)][CoatIndex].second;
+
+			Player::GetCurPlayer()->SetCoatName(ClothesVec[static_cast<int>(EquipType::Coat)][CoatIndex].second);
+		});
+
+	RChangeCoat = GetLevel()->CreateActor<ContentButton>();
+	RChangeCoat->SetReleaseTexture("RightButtonRelease.png");
+	RChangeCoat->SetHoverTexture("RightButtonHover.png");
+	RChangeCoat->SetPressTexture("RightButtonPress.png");
+	RChangeCoat->SetAllScale({ 15, 16 });
+	RChangeCoat->SetisUIRenderer(false);
+	RChangeCoat->SetAllPos(InfoScrollPos + float4{ 78, 6 });
+	RChangeCoat->SetEvent([this]
+		{
+			CoatIndex++;
+			if (CoatIndex >= ClothesVec[static_cast<int>(EquipType::Coat)].size())
+			{
+				CoatIndex = 0;
+			}
+			Coat->SetText(ClothesVec[static_cast<int>(EquipType::Coat)][CoatIndex].first);
+
+			std::shared_ptr<ItemInfo> NewItem = std::make_shared<ItemInfo>();
+			NewItem->EquipType = static_cast<int>(EquipType::Coat);
+			NewItem->ItemName = ClothesVec[static_cast<int>(EquipType::Coat)][CoatIndex].second;
+			
+			Player::GetCurPlayer()->SetCoatName(ClothesVec[static_cast<int>(EquipType::Coat)][CoatIndex].second);
+		});
+
+	LChangePants = GetLevel()->CreateActor<ContentButton>();
+	LChangePants->SetReleaseTexture("LeftButtonRelease.png");
+	LChangePants->SetHoverTexture("LeftButtonHover.png");
+	LChangePants->SetPressTexture("LeftButtonPress.png");
+	LChangePants->SetAllScale({ 15, 16 });
+	LChangePants->SetisUIRenderer(false);
+	LChangePants->SetAllPos(InfoScrollPos + float4{ -35, -14 });
+	LChangePants->SetEvent([this]
+		{
+			PantsIndex--;
+			if (PantsIndex < 0)
+			{
+				PantsIndex = ClothesVec[static_cast<int>(EquipType::Pants)].size() - 1;
+			}
+			Pants->SetText(ClothesVec[static_cast<int>(EquipType::Pants)][PantsIndex].first);
+
+			std::shared_ptr<ItemInfo> NewItem = std::make_shared<ItemInfo>();
+			NewItem->EquipType = static_cast<int>(EquipType::Pants);
+			NewItem->ItemName = ClothesVec[static_cast<int>(EquipType::Pants)][CoatIndex].second;
+
+			Player::GetCurPlayer()->SetPantsName(ClothesVec[static_cast<int>(EquipType::Pants)][PantsIndex].second);
+		});
+
+	RChangePants = GetLevel()->CreateActor<ContentButton>();
+	RChangePants->SetReleaseTexture("RightButtonRelease.png");
+	RChangePants->SetHoverTexture("RightButtonHover.png");
+	RChangePants->SetPressTexture("RightButtonPress.png");
+	RChangePants->SetAllScale({ 15, 16 });
+	RChangePants->SetisUIRenderer(false);
+	RChangePants->SetAllPos(InfoScrollPos + float4{ 78, -14 });
+	RChangePants->SetEvent([this]
+		{
+			PantsIndex++;
+			if (PantsIndex >= ClothesVec[static_cast<int>(EquipType::Pants)].size())
+			{
+				PantsIndex = 0;
+			}
+			Pants->SetText(ClothesVec[static_cast<int>(EquipType::Pants)][PantsIndex].first);
+
+			std::shared_ptr<ItemInfo> NewItem = std::make_shared<ItemInfo>();
+			NewItem->EquipType = static_cast<int>(EquipType::Pants);
+			NewItem->ItemName = ClothesVec[static_cast<int>(EquipType::Pants)][PantsIndex].second;
+
+			Player::GetCurPlayer()->SetPantsName(ClothesVec[static_cast<int>(EquipType::Pants)][PantsIndex].second);
+		});
 }
 
 void TitleObjects::RollStatDice()
 {
-	if (Mouse::GetMouse()->IsClick() == true)
+	if (GameEngineInput::IsDown("LClick") == true)
 	{
 		if (DiceCol->Collision(static_cast<int>(CollisionOrder::Mouse), ColType::AABBBOX2D, ColType::AABBBOX2D) != nullptr)
 		{
+			GameEngineSound::Play("ButtonClick.mp3");
 			Dice->ChangeAnimation("Rolling");
 			DiceCol->Off();
 		}
@@ -529,16 +710,17 @@ void TitleObjects::RollStatDice()
 void TitleObjects::StatChange()
 {
 	Counting += TimeCount;
-	if(Counting >=0.03f)
+
+	int StrStat = 0;
+	int DexStat = 0;
+	int IntStat = 0;
+	int LukStat = 0;
+
+	if (Counting >= 0.03f)
 	{
 		Counting = 0.0f;
 
 		int MaxSumStat = 28;
-
-		int StrStat = 0;
-		int DexStat = 0;
-		int IntStat = 0;
-		int LukStat = 0;
 
 		StrStat = GameEngineRandom::MainRandom.RandomInt(4, 10);
 		MaxSumStat -= StrStat;
@@ -564,6 +746,11 @@ void TitleObjects::StatChange()
 		DexRender->SetText(std::to_string(DexStat));
 		IntRender->SetText(std::to_string(IntStat));
 		LukRender->SetText(std::to_string(LukStat));
+
+		PlayerValue::GetValue()->SetStr(StrStat);
+		PlayerValue::GetValue()->SetDex(DexStat);
+		PlayerValue::GetValue()->SetInt(IntStat);
+		PlayerValue::GetValue()->SetLuk(LukStat);
 	}
 }
 
@@ -704,7 +891,6 @@ void TitleObjects::SetChCollision()
 		NewCol->Off();
 
 		ChColVec.push_back(NewCol);
-
 	}
 
 	ChannelCheck->On();
@@ -742,6 +928,7 @@ void TitleObjects::ChannelChecking()
 			ChannelCheck->ChangeAnimation("Check");
 			ChannelCheck->GetTransform()->SetWorldPosition(Col->GetTransform()->GetWorldPosition() + float4{ -22.0f, 7.0f });
 			SelectedChannel = Col;
+			GameEngineSound::Play("ChannelCheck.mp3");
 		}
 		else if(Col == SelectedChannel && MyMouse->IsDoubleClick() == true)
 		{

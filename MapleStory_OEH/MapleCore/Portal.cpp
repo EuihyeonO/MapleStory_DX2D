@@ -1,11 +1,13 @@
 #include "PrecompileHeader.h"
 #include "Portal.h"
 #include "ContentEnums.h"
+#include "Player.h"
 
 #include <GameEngineCore/GameEngineSpriteRenderer.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineCore/GameEngineCore.h>
 #include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 
 Portal::Portal()
 {
@@ -41,6 +43,8 @@ void Portal::Update(float _DeltaTime)
 	{
 		if (GameEngineInput::IsDown("UpKey") == true)
 		{
+			GameEngineSound::Play("Portal.mp3");
+			Player::GetCurPlayer()->SetMovable(false);
 			FadeOutUpdate = &Portal::FadeOut;
 		}
 	}

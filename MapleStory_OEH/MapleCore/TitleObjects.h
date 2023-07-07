@@ -6,7 +6,7 @@ class GameEngineSpriteRenderer;
 
 class TitleObjects : public BasicFunction
 {
-
+	friend class Level_Title;
 public:
 
 	TitleObjects();
@@ -25,6 +25,17 @@ public:
 	void SetChannelClickFunc(std::function<void()> _Event)
 	{
 		ChannelClickFunc = _Event;
+	}
+
+
+	void SetCharCreateEvent(std::function<void()> _Event)
+	{
+		CharCreate->SetEvent(_Event);
+	}
+
+	void SetCharCreateOKButtonEvent(std::function<void()> _Event)
+	{
+		OkButton->SetEvent(_Event);
 	}
 
 protected:
@@ -75,10 +86,10 @@ private:
 
 	//로그인창
 	std::shared_ptr<GameEngineSpriteRenderer> LoginBoard;
-	std::shared_ptr<class GameEngineButton> SignUp;
+	std::shared_ptr<class ContentButton> SignUp;
 	std::shared_ptr<class ContentButton> LoginBt;
-	std::shared_ptr<class GameEngineButton> HomePage;
-	std::shared_ptr<class GameEngineButton> Exit;
+	std::shared_ptr<class ContentButton> HomePage;
+	std::shared_ptr<class ContentButton> Exit;
 	std::shared_ptr<GameEngineSpriteRenderer> SaveEmail;
 	std::shared_ptr<GameEngineSpriteRenderer> FindEmail;
 	std::shared_ptr<GameEngineSpriteRenderer> FindPass;
@@ -102,10 +113,9 @@ private:
 
 	//캐릭터선택창
 	std::shared_ptr<GameEngineSpriteRenderer> CharSelectBox;
-	std::shared_ptr<GameEngineSpriteRenderer> CharCreate;
-	std::shared_ptr<GameEngineSpriteRenderer> CharSelect;
-	std::shared_ptr<GameEngineSpriteRenderer> CharDelete;
-
+	std::shared_ptr<class ContentButton> CharCreate;
+	std::shared_ptr<class ContentButton> CharSelect;
+	std::shared_ptr<class ContentButton> CharDelete;
 	//캐릭터 관련 오브젝트
 	std::shared_ptr<GameEngineSpriteRenderer> EmptySlot1;
 	std::shared_ptr<GameEngineSpriteRenderer> EmptySlot2;
@@ -118,11 +128,26 @@ private:
 	//캐릭터 생성창 오브젝트
 	std::shared_ptr<GameEngineSpriteRenderer> CharInfo;
 	std::shared_ptr<GameEngineSpriteRenderer> InfoScroll;
+
+	std::shared_ptr<class GameEngineFontRenderer> Coat;
+	std::shared_ptr<class GameEngineFontRenderer> Pants;
+	std::shared_ptr<class GameEngineFontRenderer> Weapon;
+
+	std::shared_ptr<class ContentButton> LChangeCoat;
+	std::shared_ptr<class ContentButton> RChangeCoat;
+	std::shared_ptr<class ContentButton> LChangePants;
+	std::shared_ptr<class ContentButton> RChangePants;
+
 	std::shared_ptr<GameEngineSpriteRenderer> InfoScrollLayer;
 	std::shared_ptr<class GameEngineSpriteRenderer> Dice;
 	std::shared_ptr<class GameEngineCollision> DiceCol;
-	std::shared_ptr<GameEngineSpriteRenderer> OkButton;
+	std::shared_ptr<class ContentButton> OkButton;
 	std::shared_ptr<GameEngineSpriteRenderer> NoButton;
+
+	std::map<int, std::vector<std::pair<std::string, std::string>>> ClothesVec;
+
+	int CoatIndex = 0;
+	int PantsIndex = 0;
 
 	//프레임에 달려있는 버튼
 	std::shared_ptr<GameEngineSpriteRenderer> ToLogin;
@@ -140,8 +165,6 @@ private:
 	std::shared_ptr<class GameEngineFontRenderer> IntRender;
 	std::shared_ptr<class GameEngineFontRenderer> LukRender;
 
-	std::shared_ptr<class GameEngineFontRenderer> Coat;
-	std::shared_ptr<class GameEngineFontRenderer> Pants;
 
 	float Counting = 0.0f;
 
@@ -157,5 +180,6 @@ private:
 	std::shared_ptr<GameEngineCollision> SelectedChannel = nullptr;
 	void ChannelChecking();
 	std::function<void()> ChannelClickFunc = nullptr;
+	std::function<void(float)> FadeOut = nullptr;
 };
 

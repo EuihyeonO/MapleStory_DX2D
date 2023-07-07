@@ -52,6 +52,7 @@ void Level_CrossRoad::LevelChangeStart()
 void Level_CrossRoad::LevelChangeEnd()
 {
 	PlayerValue::GetValue()->SetPrevLevelName("Level_CrossRoad");
+
 	ActorDeath();
 	UnLoadResources();
 }

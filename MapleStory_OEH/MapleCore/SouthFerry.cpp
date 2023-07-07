@@ -1,5 +1,7 @@
 #include "PrecompileHeader.h"
+#include "Portal.h"
 #include "SouthFerry.h"
+#include "Shanks.h"
 
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineBase/GameEngineRandom.h>
@@ -47,6 +49,13 @@ void SouthFerry::Start()
 	Rope2->SetOrder(static_cast<int>(CollisionOrder::RopeAndLadder));
 	Rope2->GetTransform()->SetLocalPosition({ -1346.0f, -630.0f });
 	Rope2->GetTransform()->SetLocalScale({ 10.0f, 220.0f });
+
+	MyShanks = GetLevel()->CreateActor<Shanks>();
+	MyShanks->GetTransform()->SetLocalPosition({ 1575, -185 });
+
+	Portal1 = GetLevel()->CreateActor<Portal>();
+	Portal1->SetLinkedMap("Level_CrossRoad");
+	Portal1->SetPortalPos({ -2250, -400, -10 });
 
 	CloudList.reserve(20);
 
@@ -96,5 +105,16 @@ void SouthFerry::BackGroundUpdate(float _DeltaTime)
 			CloudList[i].first->GetTransform()->SetLocalPosition({ -3000, Ypos, 1 });
 			CloudList[i].second = GameEngineRandom::MainRandom.RandomFloat(25, 100);
 		}
+	}
+}void SouthFerry::ActorDeath()
+{
+	if (Portal1 != nullptr)
+	{
+		Portal1->Death();
+	}
+
+	if (MyShanks != nullptr)
+	{
+		MyShanks->Death();
 	}
 }

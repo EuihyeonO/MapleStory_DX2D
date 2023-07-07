@@ -2,6 +2,7 @@
 #include "ContentButton.h"
 
 #include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 
 ContentButton::ContentButton()
 {
@@ -68,13 +69,41 @@ void ContentButton::Update(float _Delta)
 				GetRender()->SetTexture(ContentHoverImage);
 			}
 
+			if (ContentHoverSound != "" && isPlayHoverSound == false)
+			{
+				GameEngineSound::Play(ContentHoverSound);
+				isPlayHoverSound = true;
+			}
+
 			if (true == GameEngineInput::IsPress("EngineMouseLeft"))
 			{
+				if (PressStartTimeCount < PressStartTime)
+				{
+					PressStartTimeCount += _Delta;
+				}
+				else
+				{
+					PressTime += _Delta;
+
+					if (PressTime >= PressInter)
+					{
+						PressTime = 0.0f;
+
+						if (PressEvent != nullptr)
+						{
+							PressEvent();
+						}
+					}
+				}
+
 				if (ContentPressImage != "")
 				{
 					GetRender()->SetTexture(ContentPressImage);
 				}
-				
+			}
+			else
+			{
+				PressStartTimeCount = 0.0f;
 			}
 
 			if (true == GameEngineInput::IsUp("EngineMouseLeft"))
@@ -82,6 +111,11 @@ void ContentButton::Update(float _Delta)
 				if (nullptr != Click)
 				{
 					Click();
+				}
+
+				if (ContentPressSound != "")
+				{
+					GameEngineSound::Play(ContentPressSound);
 				}
 			}
 		}
@@ -91,6 +125,7 @@ void ContentButton::Update(float _Delta)
 			{
 				GetRender()->SetTexture(ContentReleaseImage);
 			}
+			isPlayHoverSound = false;
 		}
 	}
 	else
@@ -104,8 +139,34 @@ void ContentButton::Update(float _Delta)
 				GetTransform()->SetLocalPosition(HoverPos);
 			}
 
+			if (ContentHoverSound != "" && isPlayHoverSound == false)
+			{
+				GameEngineSound::Play(ContentHoverSound);
+				isPlayHoverSound = true;
+			}
+
 			if (true == GameEngineInput::IsPress("EngineMouseLeft"))
 			{
+
+				if (PressStartTimeCount < PressStartTime)
+				{
+					PressStartTimeCount += _Delta;
+				}
+				else
+				{
+					PressTime += _Delta;
+
+					if (PressTime >= PressInter)
+					{
+						PressTime = 0.0f;
+
+						if (PressEvent != nullptr)
+						{
+							PressEvent();
+						}
+					}
+				}
+
 				if (ContentPressImage != "")
 				{
 					MyRender->SetTexture(ContentPressImage);
@@ -113,12 +174,21 @@ void ContentButton::Update(float _Delta)
 					GetTransform()->SetLocalPosition(PressPos);
 				}
 			}
+			else
+			{
+				PressStartTimeCount = 0.0f;
+			}
 
 			if (true == GameEngineInput::IsUp("EngineMouseLeft"))
 			{
 				if (nullptr != Click)
 				{
 					Click();
+				}
+
+				if (ContentPressSound != "")
+				{
+					GameEngineSound::Play(ContentPressSound);
 				}
 			}
 		}
@@ -130,6 +200,8 @@ void ContentButton::Update(float _Delta)
 				GetTransform()->SetLocalScale(ReleaseScale);
 				GetTransform()->SetLocalPosition(ReleasePos);
 			}
+
+			isPlayHoverSound = false;
 		}
 	}
 }

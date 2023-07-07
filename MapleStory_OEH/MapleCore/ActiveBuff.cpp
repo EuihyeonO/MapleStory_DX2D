@@ -9,6 +9,7 @@
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 #include <GameEngineBase/GameEngineRandom.h>
 #include <ctime>
 #include <functional>
@@ -25,6 +26,7 @@ void Player::Haste()
 	if(isSwing == false && isFalling == false && isKeyJump == false)
 	{
 		PlayerValue::Value.SetMp(CurMp - 10);
+		GameEngineSound::Play("Haste.mp3");
 
 		if (MyBuffList->IsBuffOn("Haste") == false)
 		{
@@ -67,6 +69,7 @@ void Player::JavelinBooster()
 	if (isSwing == false && isMovable == true && isFalling == false && isKeyJump == false)
 	{
 		PlayerValue::Value.SetMp(CurMp - 10);
+		GameEngineSound::Play("JavelinBooster.mp3");
 
 		if (MyBuffList->IsBuffOn("JavelinBooster") == false)
 		{
@@ -104,9 +107,11 @@ void Player::ShadowPartner()
 		return;
 	}
 
+
 	if (isSwing == false && isMovable == true && isFalling == false && isKeyJump == false)
 	{
 		PlayerValue::Value.SetMp(CurMp - 10);
+		GameEngineSound::Play("ShadowPartner.mp3");
 
 		if (MyBuffList->IsBuffOn("ShadowPartner") == false)
 		{

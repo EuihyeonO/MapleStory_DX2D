@@ -87,7 +87,7 @@ void MapleCore::GameStart()
 	GameEngineCore::CreateLevel<Level_SouthFerry>();
 	GameEngineCore::CreateLevel<Level_KerningCity>();
 	GameEngineCore::CreateLevel<Level_JazzBar>();
-	GameEngineCore::ChangeLevel("Level_ZakumRoad1");
+	GameEngineCore::ChangeLevel("Level_Title");
 }
 
 void MapleCore::GameEnd()

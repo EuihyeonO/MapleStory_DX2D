@@ -34,8 +34,11 @@ void Level_BeginnersTown1::LevelChangeStart()
 	{
 		MyPlayer->SetRight();
 		MyPlayer->SetMoveType("Jump");
-		MyPlayer->GetTransform()->SetLocalPosition({ -500, 200 });
+		MyPlayer->GetTransform()->SetLocalPosition({ -650, 200 });
+		GetMainCamera()->GetTransform()->SetLocalPosition(MyPlayer->GetTransform()->GetWorldPosition());
 		MapleCore::BGMPlayer.Stop();
+		MapleCore::BGMPlayer = GameEngineSound::Play("BeginnersTown.mp3");
+		MapleCore::BGMPlayer.SetVolume(0.3f);
 	}
 	else if (PlayerValue::GetValue()->GetPrevLevelName() == "Level_BeginnersTown2")
 	{
@@ -47,11 +50,9 @@ void Level_BeginnersTown1::LevelChangeStart()
 
 void Level_BeginnersTown1::LevelChangeEnd()
 {
-	if (MyMouse != nullptr)
-	{
-		PlayerValue::GetValue()->SetPrevLevelName("Level_BeginnersTown1");
-	}
 
+	PlayerValue::GetValue()->SetPrevLevelName("Level_BeginnersTown1");
+	
 	ActorDeath();
 	UnLoadResources();
 }
@@ -88,7 +89,6 @@ void Level_BeginnersTown1::ActorCreate()
 		MyPlayer = CreateActor<Player>();
 		MyPlayer->SetCurPlayer(MyPlayer);
 		MyPlayer->SetColMap(Map->GetColMapName());
-		MyPlayer->SetCurPlayer(MyPlayer);
 	}
 
 	if (MyMouse == nullptr)

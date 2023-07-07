@@ -6,6 +6,7 @@
 #include "InventoryWindow.h"
 #include "UIController.h"
 #include "EquipItemList.h"
+#include "CheatNPCWindow.h"
 
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineLevel.h>
@@ -42,11 +43,26 @@ void UIWindowManager::CreateUIKey()
 		GameEngineInput::CreateKey("SkillWindowOpen", 'K');
 		GameEngineInput::CreateKey("InventoryWindowOpen", 'I');
 		GameEngineInput::CreateKey("EquipWindowOpen", 'E');
+		GameEngineInput::CreateKey("Cheat", 'T');
 	}
 }
 
 void UIWindowManager::UIOnOff()
 {
+	if (GameEngineInput::IsDown("Cheat") == true)
+	{
+		if (MyCheatNPC == nullptr)
+		{
+			MyCheatNPC = GetLevel()->CreateActor<CheatNPCWindow>();
+		}
+		else
+		{
+			MyCheatNPC->WindowDeath();
+			MyCheatNPC->Death();
+			MyCheatNPC = nullptr;
+		}
+	}
+
 	if (GameEngineInput::IsDown("StatWindowOpen") == true)
 	{
 		if (MyStatusWindow == nullptr)

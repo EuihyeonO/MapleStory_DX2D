@@ -10,6 +10,7 @@
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineBase/GameEngineRandom.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 #include <ctime>
 #include <functional>
 
@@ -95,6 +96,8 @@ void Player::Avenger()
 		return;
 	}
 
+	GameEngineSound::Play("Avenger.mp3");
+	
 	PlayerValue::Value.SetMp(CurMp - 10);
 
 	std::shared_ptr<SkillActor> NewSkillActor = GetLevel()->CreateActor<SkillActor>(RenderOrder::Skill);
@@ -119,6 +122,8 @@ void Player::FlashJump()
 	{
 		return;
 	}
+
+	GameEngineSound::Play("FlashJump.mp3");
 
 	//PlayerValue::Value.SetMp(CurMp - 10);
 	std::shared_ptr<SkillActor> FlashJumpActor = GetLevel()->CreateActor<SkillActor>();

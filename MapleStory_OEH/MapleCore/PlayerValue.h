@@ -83,6 +83,16 @@ public: //local
 	void LevelUp()
 	{
 		++Level;
+		Exp -= MaxExp;
+		MaxExp = static_cast<int>(MaxExp * 1.08f);
+		StatPoint += 5;
+		MaxHp = static_cast<int>(Hp * 1.035f);
+		MaxMp = static_cast<int>(Mp * 1.02f);
+		Hp = MaxHp;
+		Mp = MaxMp;
+
+		Player::GetCurPlayer()->Level_Up();
+		PlayerValue::Value.AttUpdate();
 	}
 
 	void AddLevel(int _Value)
@@ -180,6 +190,11 @@ public: //local
 	void AddExp(int _Exp)
 	{
 		Exp += _Exp;
+
+		while (Exp >= MaxExp)
+		{
+			LevelUp();
+		}
 	}
 
 	int GetHp()
@@ -297,6 +312,24 @@ public: //local
 		PrevLevelName = _LevelName;
 	}
 
+	void AttUpdate()
+	{ 
+		Att = Luk * 5.0f + EquipAtt * 12.5f + Level * 2.5f;
+
+		MaxAttack = Att * 1.2f;
+		MinAttack = Att * 0.8f;
+	}
+
+	float GetMaxAtt()
+	{
+		return MaxAttack;
+	}
+
+	float GetMinAtt()
+	{
+		return MinAttack;
+	}
+
 	const std::string_view GetPrevLevelName()
 	{
 		return PrevLevelName;
@@ -357,8 +390,10 @@ private:
 
 	int StatPoint = 0;
 
-	float PAtt = 0.0f;
-	float MAtt = 0.0f;
+	float Att = 0.0f;
+	float EquipAtt = 0.0f;
+	float MaxAttack = 0.0f;
+	float MinAttack = 0.0f;
 
 	float PDef = 0.0f;
 	float MDef = 0.0f;

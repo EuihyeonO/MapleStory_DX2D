@@ -46,9 +46,13 @@ void CrossRoad::Start()
 	MyMiniMap = GetLevel()->CreateActor<MiniMap>(static_cast<int>(RenderOrder::UI));
 	MyMiniMap->SetMap(MapName);
 
-	std::shared_ptr<Portal> Portal1 = GetLevel()->CreateActor<Portal>(static_cast<int>(RenderOrder::UI));
+	Portal1 = GetLevel()->CreateActor<Portal>(static_cast<int>(RenderOrder::UI));
 	Portal1->SetLinkedMap("Level_BeginnersTown2");
 	Portal1->SetPortalPos({ -1750, 45, -10 });
+
+	Portal2 = GetLevel()->CreateActor<Portal>(static_cast<int>(RenderOrder::UI));
+	Portal2->SetLinkedMap("Level_SouthFerry");
+	Portal2->SetPortalPos({ 1760, -70, -10 });
 
 	std::shared_ptr<GameEngineCollision> Rope1 = CreateComponent<GameEngineCollision>();
 	Rope1->SetColType(ColType::AABBBOX2D);
@@ -147,6 +151,12 @@ void CrossRoad::ActorDeath()
 	{
 		Portal1->Death();
 		Portal1 = nullptr;
+	}
+
+	if (Portal2 != nullptr)
+	{
+		Portal2->Death();
+		Portal2 = nullptr;
 	}
 
 	if (Zone1 != nullptr)

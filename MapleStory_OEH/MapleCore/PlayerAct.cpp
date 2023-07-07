@@ -11,6 +11,7 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineBase/GameEngineTimeEvent.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 
 #include <ctime>
 
@@ -42,6 +43,7 @@ void Player::Jump(float _DeltaTime)
 		JumpXMove = 0;
 	}
 
+	GameEngineSound::Play("Jump.mp3");
 	MoveType = "Jump";
 	isKeyJump = true;
 }

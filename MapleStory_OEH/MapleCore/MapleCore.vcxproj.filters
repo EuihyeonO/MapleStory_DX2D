@@ -241,6 +241,12 @@
     <ClInclude Include="AlterOfZakumEnt.h">
       <Filter>Actor\Map</Filter>
     </ClInclude>
+    <ClInclude Include="Shanks.h">
+      <Filter>Actor\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="CheatNPCWindow.h">
+      <Filter>Actor\UI\Window\NPCWindow</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Level_Title.cpp">
@@ -509,6 +515,12 @@
     </ClCompile>
     <ClCompile Include="AlterOfZakumEnt.cpp">
       <Filter>Actor\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Shanks.cpp">
+      <Filter>Actor\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="CheatNPCWindow.cpp">
+      <Filter>Actor\UI\Window\NPCWindow</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

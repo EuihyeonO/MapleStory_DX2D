@@ -19,6 +19,8 @@ public:
 		return ColMapName;
 	}
 
+	void ActorDeath();
+
 protected:
 	void Start();
 	void Update(float _DeltaTime) override;
@@ -35,6 +37,9 @@ private:
 	std::shared_ptr<class GameEngineSpriteRenderer> BackColor = nullptr;
 
 	std::vector<std::pair<std::shared_ptr<class GameEngineSpriteRenderer>, float>> CloudList;
+
+	std::shared_ptr<class Portal> Portal1 = nullptr;
+	std::shared_ptr<class Shanks> MyShanks = nullptr;
 
 };
 

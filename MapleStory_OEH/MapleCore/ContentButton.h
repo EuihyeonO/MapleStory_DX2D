@@ -29,6 +29,11 @@ public:
 		Click = _Click;
 	}
 
+	void SetPressEvent(std::function<void()> _Event)
+	{
+		
+		PressEvent = _Event;
+	}
 	void SetReleaseTexture(const std::string_view& _ImageName)
 	{
 		ContentReleaseImage = _ImageName;
@@ -74,6 +79,16 @@ public:
 		PressPos = _Pos;
 	}
 
+	void SetHoverSound(const std::string_view& _SoundName)
+	{
+		ContentHoverSound = _SoundName;
+	}
+
+	void SetPressSound(const std::string_view& _SoundName)
+	{
+		ContentPressSound = _SoundName;
+	}
+
 	void SetAllScale(float4 _Scale)
 	{
 		ReleaseScale = _Scale;
@@ -88,6 +103,16 @@ public:
 		PressPos = _Pos;
 	}
 
+	void SetPressInter(float _Inter)
+	{
+		PressInter = _Inter;
+	}
+
+	void SetPressStartTime(float _Time)
+	{
+		PressStartTime = _Time;
+	}
+
 protected:
 	void Start() override;
 	void Update(float _Delta) override;
@@ -96,6 +121,10 @@ private:
 	std::string_view ContentReleaseImage = "";
 	std::string_view ContentHoverImage = "";
 	std::string_view ContentPressImage = "";
+
+	std::string_view ContentHoverSound = "";
+	bool isPlayHoverSound = false;
+	std::string_view ContentPressSound = "";
 
 	std::shared_ptr<GameEngineSpriteRenderer> MyRender = nullptr;
 	std::shared_ptr<GameEngineCollision> MyCollision = nullptr;
@@ -108,6 +137,11 @@ private:
 	float4 PressScale;
 	float4 PressPos;
 
+	float PressTime = 0.0f;
+	float PressStartTime = 0.0f;
+	float PressStartTimeCount = 0.0f;
+	float PressInter = 0.0f;
 	std::function<void()> Click;
+	std::function<void()> PressEvent;
 };
 
