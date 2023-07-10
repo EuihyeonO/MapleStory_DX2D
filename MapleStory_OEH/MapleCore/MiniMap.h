@@ -20,6 +20,9 @@ public:
 	{
 		return Map;
 	}
+
+	void SetNPCToMiniMap(float4 _Pos);
+	void SetPortalToMiniMap(float4 _Pos);
 	
 protected:
 	void Start();
@@ -48,6 +51,9 @@ private:
 
 	float4 DownSizeRatio = {0,0};
 
-
+	std::list<std::shared_ptr<GameEngineUIRenderer>> NPCMarkList;
+	std::list<std::shared_ptr<GameEngineUIRenderer>> PortalMarkList;
+	void MarkOn();
+	void MarkOff();
 };
 

@@ -27,13 +27,12 @@ void MiniMap::Start()
 	MiniMapBox->SetScaleToTexture("MiniMapBox.png");
 
 	UserMark = CreateComponent<GameEngineUIRenderer>();
-	UserMark->SetScaleToTexture("user.png");
+	UserMark->SetScaleToTexture("userposPoint.png");
 
 	MiniMapOff();
 
-	float4 CameraPos = GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition();
 
-	MiniMapBox->GetTransform()->SetLocalPosition(CameraPos + float4{ -400, 300 } + float4{ 100, -100 });
+	MiniMapBox->GetTransform()->SetLocalPosition(float4{ -400, 300 } + float4{ 100, -100 });
 	float4 MapBoxPos = MiniMapBox->GetTransform()->GetLocalPosition();
 
 	Map->GetTransform()->SetLocalPosition(MapBoxPos + float4{ 0, -45 });
@@ -66,6 +65,7 @@ void MiniMap::MiniMapOn()
 	Map->On();
 	MiniMapBox->On();
 	UserMark->On();
+	MarkOn();
 }
 
 void MiniMap::MiniMapOff()
@@ -74,6 +74,7 @@ void MiniMap::MiniMapOff()
 	Map->Off();
 	MiniMapBox->Off();
 	UserMark->Off();
+	MarkOff();
 }
 
 bool MiniMap::MiniMapOnOff()
@@ -93,13 +94,6 @@ bool MiniMap::MiniMapOnOff()
 
 bool MiniMap::PosUpdate()
 {
-	//float4 CameraPos = GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition();
-
-	//MiniMapBox->GetTransform()->SetLocalPosition(CameraPos + float4{ -400, 300 } + float4{ 100, -100 });
-	///loat4 MapBoxPos = MiniMapBox->GetTransform()->GetLocalPosition();
-
-	//Map->GetTransform()->SetLocalPosition(MapBoxPos + float4{ 0, -45 });
-
 	float4 MiniMapPos = Map->GetTransform()->GetLocalPosition();
 
 	if(Player::GetCurPlayer() != nullptr)
@@ -107,7 +101,7 @@ bool MiniMap::PosUpdate()
 		float4 PlayerPos = Player::GetCurPlayer()->GetTransform()->GetLocalPosition();
 
 		Filter->GetTransform()->SetLocalPosition(MiniMapPos + float4{ 0, 15 });
-		UserMark->GetTransform()->SetLocalPosition(MiniMapPos + PlayerPos * DownSizeRatio);
+		UserMark->GetTransform()->SetLocalPosition(MiniMapPos + (PlayerPos + float4{0, 25}) * DownSizeRatio);
 	}
 
 	if (MiniMapBox->IsUpdate() == true) 
@@ -118,7 +112,6 @@ bool MiniMap::PosUpdate()
 	{
 		return true;
 	}
-
 }
 
 void MiniMap::CreateInputKey()
@@ -159,5 +152,70 @@ void MiniMap::MiniMapUpdate()
 		}
 
 		StartIter++;
+	}
+}
+
+void MiniMap::SetNPCToMiniMap(float4 _Pos)
+{
+	std::shared_ptr<GameEngineUIRenderer> NewNPCPoint = CreateComponent<GameEngineUIRenderer>();
+	NewNPCPoint->SetScaleToTexture("NPCPosPoint.png");
+	
+	float4 MiniMapPos = Map->GetTransform()->GetLocalPosition();
+	NewNPCPoint->GetTransform()->SetLocalPosition(MiniMapPos + _Pos * DownSizeRatio);
+
+	NPCMarkList.push_back(NewNPCPoint);
+
+	MarkOff();
+}
+
+
+void MiniMap::SetPortalToMiniMap(float4 _Pos)
+{
+	std::shared_ptr<GameEngineUIRenderer> NewPortalPoint = CreateComponent<GameEngineUIRenderer>();
+	NewPortalPoint->SetScaleToTexture("PortalPosPoint.png");
+
+	float4 MiniMapPos = Map->GetTransform()->GetLocalPosition();
+	NewPortalPoint->GetTransform()->SetLocalPosition(MiniMapPos + (_Pos + float4{0, -80}) * DownSizeRatio);
+
+	PortalMarkList.push_back(NewPortalPoint);
+
+	MarkOff();
+}
+
+void MiniMap::MarkOn()
+{
+	std::list<std::shared_ptr<GameEngineUIRenderer>>::iterator StartIter = NPCMarkList.begin();
+	std::list<std::shared_ptr<GameEngineUIRenderer>>::iterator EndIter = NPCMarkList.end();
+
+	for (; StartIter != EndIter; StartIter++)
+	{
+		(*StartIter)->On();
+	}
+
+	StartIter = PortalMarkList.begin();
+	EndIter = PortalMarkList.end();
+
+	for (; StartIter != EndIter; StartIter++)
+	{
+		(*StartIter)->On();
+	}
+}
+
+void MiniMap::MarkOff()
+{
+	std::list<std::shared_ptr<GameEngineUIRenderer>>::iterator StartIter = NPCMarkList.begin();
+	std::list<std::shared_ptr<GameEngineUIRenderer>>::iterator EndIter = NPCMarkList.end();
+
+	for (; StartIter != EndIter; StartIter++)
+	{
+		(*StartIter)->Off();
+	}
+
+	StartIter = PortalMarkList.begin();
+	EndIter = PortalMarkList.end();
+
+	for (; StartIter != EndIter; StartIter++)
+	{
+		(*StartIter)->Off();
 	}
 }

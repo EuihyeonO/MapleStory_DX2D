@@ -1,4 +1,5 @@
 #pragma once
+#include "ContentButton.h"
 
 #include <GameEngineCore/GameEngineActor.h>
 #include <GameEngineCore/GameEngineUIRenderer.h>
@@ -20,17 +21,24 @@ public:
 
 	private:
 
-		std::shared_ptr<GameEngineUIRenderer> SkillBackGround;
+		std::shared_ptr<GameEngineUIRenderer> SkillBackGround = nullptr;
 
-		std::shared_ptr<GameEngineUIRenderer> IconRender;
-		std::shared_ptr<class GameEngineCollision> IconCollision;
+		std::shared_ptr<GameEngineUIRenderer> IconRender = nullptr;
+		std::shared_ptr<class GameEngineCollision> IconCollision = nullptr;
 
-		std::shared_ptr<GameEngineUIRenderer> SkillLevelUpRender;
-		std::shared_ptr<class GameEngineCollision> SkillLevelUpButton;
+		std::shared_ptr<GameEngineUIRenderer> SkillLevelUpRender = nullptr;
+		std::shared_ptr<class GameEngineCollision> SkillLevelUpButton = nullptr;
 
 		std::string SkillName = "";
 
-		std::function<void(std::shared_ptr<class Player>)> SkillFunc;
+		std::function<void(std::shared_ptr<class Player>)> SkillFunc = nullptr;
+
+		std::shared_ptr<class ContentFontRenderer> SkillNameFont = nullptr;
+		std::shared_ptr<class ContentFontRenderer> SkillLv = nullptr;
+
+		std::shared_ptr<ContentButton> LvUpBt = nullptr;
+		
+		bool isPassive = false;
 	};
 
 public:
@@ -44,6 +52,7 @@ public:
 		{
 			for (int i = 0; i < Start->second.size(); i++)
 			{
+				Start->second[i]->LvUpBt->Death();
 				Start->second[i]->Death();
 				Start->second[i] = nullptr;
 			}
@@ -77,11 +86,11 @@ private:
 
 	void ColPosUpdate();
 
-	void InsertSkillToList(int _Index, const std::string_view& _SkillName);
+	void InsertSkillToList(int _Index, const std::string_view& _SkillName, bool isPassive = false);
 	void IndexSkillOn(int _Index);
 	void IndexSkillOff(int _Index);
 	void SortSkillList(int _Index, float4 _Pos = {0, 0});
-	void SetSkillFunc(std::shared_ptr<SkillList::SkillIcon> _SkillIcon);
+	void SetSkillIcon(std::shared_ptr<SkillList::SkillIcon> _SkillIcon);
 
 	int CurIndex = 0;
 

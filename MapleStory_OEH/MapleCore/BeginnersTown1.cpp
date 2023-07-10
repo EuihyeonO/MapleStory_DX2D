@@ -61,9 +61,7 @@ void BeginnersTown1::Start()
 	RopeCol->SetOrder(static_cast<int>(CollisionOrder::RopeAndLadder));
 
 	std::shared_ptr<Hina> npc = GetLevel()->CreateActor<Hina>(static_cast<int>(RenderOrder::NPC));
-
-	MyMiniMap = GetLevel()->CreateActor<MiniMap>(static_cast<int>(RenderOrder::UI));
-	MyMiniMap->SetMap(MapName);
+	npc->GetTransform()->SetLocalPosition({ -541, 244 });
 
 	MyPortal = GetLevel()->CreateActor<Portal>();
 	MyPortal->SetLinkedMap("Level_BeginnersTown2");
@@ -73,6 +71,11 @@ void BeginnersTown1::Start()
 	Black->GetTransform()->SetWorldScale({ 800, 600 });
 	Black->GetTransform()->SetWorldPosition({ 0, 0 });
 	Black->ColorOptionValue.MulColor = { 0.0f, 0.0f, 0.0f, 1.0f };
+	
+	MyMiniMap = GetLevel()->CreateActor<MiniMap>(static_cast<int>(RenderOrder::UI));
+	MyMiniMap->SetMap(MapName);
+	MyMiniMap->SetNPCToMiniMap({ -541, 244 });
+	MyMiniMap->SetPortalToMiniMap({ 625, 45 });
 
 	FadeInUpdate = &BeginnersTown1::FadeIn;
 }

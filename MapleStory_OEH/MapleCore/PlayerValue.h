@@ -86,6 +86,7 @@ public: //local
 		Exp -= MaxExp;
 		MaxExp = static_cast<int>(MaxExp * 1.08f);
 		StatPoint += 5;
+		SkillPoint += 3;
 		MaxHp = static_cast<int>(Hp * 1.035f);
 		MaxMp = static_cast<int>(Mp * 1.02f);
 		Hp = MaxHp;
@@ -479,31 +480,99 @@ private:
 	
 	//스킬 관련
 public:
-		
-	int GetKeenEyesLevel()
+	
+	int GetSkillPoint()
 	{
-		return KeenEyesLevel;
+		return SkillPoint;
 	}
 
-	void KeenEyesLevelUp()
+	int GetKeenEyesLv()
 	{
-		KeenEyesLevel++;
+		return KeenEyesLv;
+	}
+
+	void KeenEyesLvUp()
+	{
+		KeenEyesLv++;
+		SkillPoint--;
 		AttackDistance += 10.0f;
 	}
 
-	int GetJavelinBoosterLevel()
+	int GetJavelinBoosterLv()
 	{
-		return JavelinBoosterLevel;
+		return JavelinBoosterLv;
 	}
 
-	void JavelinBooster()
+	void JavelinBoosterLvUp()
 	{
-		JavelinBoosterLevel++;
+		JavelinBoosterLv++;
+		SkillPoint--;
+	}
+
+	int GetHasteLv()
+	{
+		return HasteLv;
+	}
+
+	void HasteLvUp()
+	{
+		HasteLv++;
+		SkillPoint--;
+	}
+
+	int GetShadowPartnerLv()
+	{
+		return ShadowPartnerLv;
+	}
+
+	void ShadowPartnerLvUp()
+	{
+		ShadowPartnerLv++;
+		SkillPoint--;
+	}
+
+	int GetAvengerLv()
+	{
+		return AvengerLv;
+	}
+
+	void AvengerLvUp()
+	{
+		AvengerLv++;
+		SkillPoint--;
+	}
+
+	int GetLuckySevenLv()
+	{
+		return LuckySevenLv;
+	}
+
+	void LuckySevenLvUp()
+	{
+		LuckySevenLv++;
+		SkillPoint--;
+	}
+
+	int GetFlashJumpLv()
+	{
+		return FlashJumpLv;
+	}
+
+	void FlashJumpLvUp()
+	{
+		FlashJumpLv++;
+		SkillPoint--;
 	}
 
 private:
+	int SkillPoint = 0;
 
-	int JavelinBoosterLevel = 0;
-	int KeenEyesLevel = 0;
+	int JavelinBoosterLv = 0;
+	int KeenEyesLv = 0;
+	int HasteLv = 0;
+	int ShadowPartnerLv = 0;
+	int LuckySevenLv = 0;
+	int AvengerLv = 0;
+	int FlashJumpLv = 20;
 };
 

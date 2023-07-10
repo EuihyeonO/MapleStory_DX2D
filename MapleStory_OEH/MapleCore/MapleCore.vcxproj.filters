@@ -88,9 +88,6 @@
     <ClInclude Include="QuickSlot.h">
       <Filter>Actor\UI</Filter>
     </ClInclude>
-    <ClInclude Include="UIController.h">
-      <Filter>Global</Filter>
-    </ClInclude>
     <ClInclude Include="StatusWindow.h">
       <Filter>Actor\UI\Window\StatusWindow</Filter>
     </ClInclude>
@@ -246,6 +243,9 @@
     </ClInclude>
     <ClInclude Include="CheatNPCWindow.h">
       <Filter>Actor\UI\Window\NPCWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="UIController.h">
+      <Filter>Global</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,8 @@
 #include "PrecompileHeader.h"
 #include "SkillWindow.h"
 #include "SkillList.h"
+#include "PlayerValue.h"
+#include "ContentFontRenderer.h"
 
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEnginePlatform/GameEngineSound.h>
@@ -41,6 +43,12 @@ void SkillWindow::Start()
 	Index4->GetTransform()->SetLocalScale({ 27, 16 });
 	Index4->GetTransform()->SetLocalPosition({ 60, 110 });
 
+	SkillPoint = CreateComponent<ContentFontRenderer>();
+	SkillPoint->SetScale(12.0f);
+	SkillPoint->SetFont("±¼¸²");
+	SkillPoint->SetColor({0.0f, 0.0f, 0.0f, 1.0f});
+	SkillPoint->GetTransform()->SetLocalPosition({ 0, -122 });
+
 	MySkillList = GetLevel()->CreateActor<SkillList>();
 }
 
@@ -48,6 +56,8 @@ void SkillWindow::Update(float _DeltaTime)
 {
 	ChangeWindowIndex();
 	ColPosUpdate();
+
+	SkillPoint->SetText(std::to_string(PlayerValue::GetValue()->GetSkillPoint()));
 }
 
 void SkillWindow::Render(float _DeltaTime) 

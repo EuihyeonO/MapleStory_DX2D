@@ -97,7 +97,7 @@ float4 Content_PS(OutPut _Value) : SV_Target0
     float4 Color;
     
     Color = DiffuseTex.Sample(WRAPSAMPLER, float2((_Value.UV.x * XScale) + XMove, (_Value.UV.y * YScale) + YMove));
-    Color.a *= MulColor.a;
+    Color *= MulColor;
     
     if (Distance > 0.0f)
     {

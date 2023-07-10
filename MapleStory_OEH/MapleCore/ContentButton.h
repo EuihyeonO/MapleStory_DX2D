@@ -103,6 +103,13 @@ public:
 		PressPos = _Pos;
 	}
 
+	void SetAllTexture(const std::string_view& _Name)
+	{
+		ContentReleaseImage = _Name;
+		ContentHoverImage = _Name;
+		ContentPressImage = _Name;
+	}
+
 	void SetPressInter(float _Inter)
 	{
 		PressInter = _Inter;
@@ -132,8 +139,10 @@ private:
 
 	float4 HoverScale;
 	float4 HoverPos;
+
 	float4 ReleaseScale;
 	float4 ReleasePos;
+
 	float4 PressScale;
 	float4 PressPos;
 
@@ -141,6 +150,7 @@ private:
 	float PressStartTime = 0.0f;
 	float PressStartTimeCount = 0.0f;
 	float PressInter = 0.0f;
+
 	std::function<void()> Click;
 	std::function<void()> PressEvent;
 };

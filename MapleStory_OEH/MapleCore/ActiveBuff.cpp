@@ -84,7 +84,7 @@ void Player::JavelinBooster()
 			//지속시간은 나중에 따로 변수 만들어야함
 			MyBuffList->BuffOn("JavelinBooster", EndFunction, 5.0f);
 
-			int GetJavelinBoosterLv = PlayerValue::Value.GetJavelinBoosterLevel();
+			int GetJavelinBoosterLv = PlayerValue::Value.GetJavelinBoosterLv();
 			PlayerValue::Value.PlusAttackSpeed(GetJavelinBoosterLv * 0.05f);
 		}
 

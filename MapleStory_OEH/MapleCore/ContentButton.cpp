@@ -60,13 +60,15 @@ void ContentButton::Update(float _Delta)
 	MouseData.SPHERE.Center = Mouse.DirectFloat3;
 	MouseData.SPHERE.Radius = 0.0f;
 
-	if(isUIRender == true)
+ 	if(isUIRender == true)
 	{
 		if (true == GameEngineTransform::AABB2DToSpehre2D(GetRender()->GetTransform()->GetCollisionData(), MouseData))
 		{
 			if (ContentHoverImage != "")
 			{
 				GetRender()->SetTexture(ContentHoverImage);
+				GetTransform()->SetLocalScale(HoverScale);
+				GetTransform()->SetLocalPosition(HoverPos);
 			}
 
 			if (ContentHoverSound != "" && isPlayHoverSound == false)
@@ -99,6 +101,8 @@ void ContentButton::Update(float _Delta)
 				if (ContentPressImage != "")
 				{
 					GetRender()->SetTexture(ContentPressImage);
+					GetTransform()->SetLocalScale(PressScale);
+					GetTransform()->SetLocalPosition(PressPos);
 				}
 			}
 			else
@@ -124,6 +128,8 @@ void ContentButton::Update(float _Delta)
 			if (ContentReleaseImage != "")
 			{
 				GetRender()->SetTexture(ContentReleaseImage);
+				GetTransform()->SetLocalScale(ReleaseScale);
+				GetTransform()->SetLocalPosition(ReleasePos);
 			}
 			isPlayHoverSound = false;
 		}

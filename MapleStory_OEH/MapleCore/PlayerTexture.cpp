@@ -1252,11 +1252,11 @@ void Player::TextureAnimationUpdate()
 			AniIndex++;
 		}
 
-		//공격이 끝나면 자동으로 Stand로 변경
+		//공격이 끝나면
 		if ((isSwing == true && AniIndex == 3) || (isSwing == true && (MoveType == "Stab0" || MoveType == "Stab1") && AniIndex == 2))
 		{
 			isSwing = false;
-			MoveType = "Stand";
+			MoveType = "Jump";
 			AniIndex = 0;
 			AnimationCount = 0.0f;
 

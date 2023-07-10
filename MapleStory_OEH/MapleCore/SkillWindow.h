@@ -46,6 +46,7 @@ private:
 	std::shared_ptr<class SkillList> MySkillList = nullptr;
 
 	std::shared_ptr<class GameEngineUIRenderer> SkillWindowRender = nullptr;
+	std::shared_ptr<class ContentFontRenderer> SkillPoint = nullptr;
 
 	std::shared_ptr<class GameEngineCollision> Index0 = nullptr;
 	std::shared_ptr<class GameEngineCollision> Index1 = nullptr;

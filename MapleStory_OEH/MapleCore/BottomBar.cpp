@@ -2,6 +2,7 @@
 #include "BottomBar.h"
 #include "PlayerValue.h"
 #include "ContentFontRenderer.h"
+#include "ContentUIRenderer.h"
 
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineUIRenderer.h>
@@ -61,6 +62,18 @@ void BottomBar::Start()
 	ExpFont->SetScale(11.0f);
 	ExpFont->GetTransform()->SetLocalPosition({ 63, -267 });
 
+	CashShop = CreateComponent<ContentUIRenderer>();
+	CashShop->SetTexture("CashShop.png");
+	CashShop->GetTransform()->SetLocalScale({ 73, 34 });
+
+	Menu = CreateComponent<ContentUIRenderer>();
+	Menu->SetTexture("Menu.png");
+	Menu->GetTransform()->SetLocalScale({ 73, 34 });
+
+	ShortCut = CreateComponent<ContentUIRenderer>();
+	ShortCut->SetTexture("ShortCut.png");
+	ShortCut->GetTransform()->SetLocalScale({ 73, 34 });
+
 	BottomBarPosUpdate();	
 }
 
@@ -90,6 +103,47 @@ void BottomBar::BottomBarPosUpdate()
 
 	float4 StatusBarPos = StatusBar->GetTransform()->GetLocalPosition();
 	StatusBarLayer->GetTransform()->SetLocalPosition(StatusBarPos);
+
+	CashShop->GetTransform()->SetLocalPosition(BottomBarBackGroundPos + float4{ 209, -18 });
+	Menu->GetTransform()->SetLocalPosition(BottomBarBackGroundPos + float4{ 284, -18 });
+	ShortCut->GetTransform()->SetLocalPosition(BottomBarBackGroundPos + float4{ 359, -18 });
+
+	std::shared_ptr<ContentUIRenderer> NewRed = CreateComponent<ContentUIRenderer>();
+	NewRed->SetScaleToTexture("report_Post_Box.png");
+	NewRed->GetTransform()->SetLocalPosition(BottomBarBackGroundPos + float4{ 191, 17 });
+
+	std::shared_ptr<ContentUIRenderer> NewRed1 = CreateComponent<ContentUIRenderer>();
+	NewRed1->SetScaleToTexture("EquipKey.png");
+	NewRed1->GetTransform()->SetLocalPosition(BottomBarBackGroundPos + float4{ 230, 17 });
+	std::shared_ptr<ContentUIRenderer> NewRed2 = CreateComponent<ContentUIRenderer>();
+	NewRed2->SetScaleToTexture("InvenKey.png");
+	NewRed2->GetTransform()->SetLocalPosition(BottomBarBackGroundPos + float4{ 260, 17 });
+	std::shared_ptr<ContentUIRenderer> NewRed3 = CreateComponent<ContentUIRenderer>();
+	NewRed3->SetScaleToTexture("StatKey.png");
+	NewRed3->GetTransform()->SetLocalPosition(BottomBarBackGroundPos + float4{ 290, 17 });
+	std::shared_ptr<ContentUIRenderer> NewRed4 = CreateComponent<ContentUIRenderer>();
+	NewRed4->SetScaleToTexture("SkillKey.png");
+	NewRed4->GetTransform()->SetLocalPosition(BottomBarBackGroundPos + float4{ 320, 17 });
+	std::shared_ptr<ContentUIRenderer> NewRed5 = CreateComponent<ContentUIRenderer>();
+	NewRed5->SetScaleToTexture("KeySet.png");
+	NewRed5->GetTransform()->SetLocalPosition(BottomBarBackGroundPos + float4{ 350, 17 });
+	std::shared_ptr<ContentUIRenderer> NewRed6 = CreateComponent<ContentUIRenderer>();
+	NewRed6->SetScaleToTexture("QuickSlotKey.png");
+	NewRed6->GetTransform()->SetLocalPosition(BottomBarBackGroundPos + float4{ 380, 17 });
+
+	std::shared_ptr<ContentUIRenderer> NewRed7 = CreateComponent<ContentUIRenderer>();
+	NewRed7->SetTexture("Chat.png");
+	NewRed7->GetTransform()->SetLocalPosition(BottomBarLayerPos + float4{ -3, 17 });
+	NewRed7->GetTransform()->SetLocalScale({566, 24});
+	NewRed7->SetMulColor({0.f, 0.0f, 0.0f, 0.4f});
+
+	std::shared_ptr<ContentUIRenderer> Up = CreateComponent<ContentUIRenderer>();
+	Up->SetScaleToTexture("ChatUpBt.png");
+	Up->GetTransform()->SetLocalPosition(BottomBarLayerPos + float4{ -3, 17 } + float4{276, 6});
+
+	std::shared_ptr<ContentUIRenderer> Down = CreateComponent<ContentUIRenderer>();
+	Down->SetScaleToTexture("ChatDownBt.png");
+	Down->GetTransform()->SetLocalPosition(BottomBarLayerPos + float4{ -3, 17 } + float4{ 276, -6 });
 }
 
 void BottomBar::GradationUpdate()

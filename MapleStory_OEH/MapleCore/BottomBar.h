@@ -37,6 +37,10 @@ private:
 	std::shared_ptr<GameEngineUIRenderer> MpGradation = nullptr;
 	std::shared_ptr<GameEngineUIRenderer> ExpGradation = nullptr;
 
+	std::shared_ptr<class ContentUIRenderer> CashShop = nullptr;
+	std::shared_ptr<class ContentUIRenderer> Menu = nullptr;
+	std::shared_ptr<class ContentUIRenderer> ShortCut = nullptr;
+
 	std::shared_ptr<class ContentFontRenderer> HpFont = nullptr;
 	std::shared_ptr<class ContentFontRenderer> MpFont = nullptr;
 	std::shared_ptr<class ContentFontRenderer> ExpFont = nullptr;

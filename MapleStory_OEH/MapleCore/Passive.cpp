@@ -15,10 +15,13 @@
 
 void Player::KeenEyes()
 {
-	int Level = PlayerValue::Value.GetKeenEyesLevel();
+	int Level = PlayerValue::Value.GetKeenEyesLv();
 	
 	if(Level < 20)
 	{ 
-		PlayerValue::Value.KeenEyesLevelUp();
+		PlayerValue::Value.KeenEyesLvUp();
 	}
+
+	RangeCheck->GetTransform()->SetLocalScale({ PlayerValue::Value.GetAttackDistance() , 100.0f });
+	RangeCheck->GetTransform()->AddLocalPosition({ -5.0f , 0  });
 }
