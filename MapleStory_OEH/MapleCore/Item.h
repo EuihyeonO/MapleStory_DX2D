@@ -44,6 +44,13 @@ private:
 	void NumRenderOff();
 	void NumRenderOn();
 
+	void InfoBoxOn();
+	void InfoBoxOff();
+
+	void InfoBoxUpdate();
+
+	const std::string_view GetItemNameToKr(const std::string_view& _Name);
+
 	std::string ItemName = "";
 
 	bool isEmptyItem = false;
@@ -55,8 +62,16 @@ private:
 	//int NumOfItem = 0;
 	//int EquipType = -1;
 	
-	std::shared_ptr<struct ItemInfo> MyInfo = nullptr;
+	struct ItemInfoBox {
+		std::shared_ptr<class ContentUIRenderer> ItemRender;
+		std::shared_ptr<class ContentUIRenderer> ItemBackGround;
+		std::shared_ptr<class ContentUIRenderer> BoxRender;
+		std::shared_ptr<class ContentFontRenderer> ItemName;
+		std::shared_ptr<class ContentFontRenderer> ItemNameLayer;
+	};
 
+	std::shared_ptr<struct ItemInfo> MyInfo = nullptr;
+	std::shared_ptr<ItemInfoBox> MyInfoBox = nullptr;
 	int ItemIndex = 0;
 	int Digit = 0;
 

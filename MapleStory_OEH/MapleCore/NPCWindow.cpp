@@ -52,7 +52,7 @@ void NPCWindow::Update(float _DeltaTime)
 		int count = 0;
 		for (; Start != End; Start++)
 		{
-			(*Start)->Text->GetTransform()->SetLocalPosition({-85, -17.0f * count});
+			(*Start)->Text->GetTransform()->SetLocalPosition(TextButtonPos + float4{-85, -17.0f * count});
 			(*Start)->Col->GetTransform()->SetLocalPosition(GetLevel()->GetMainCamera()->GetTransform()->GetWorldPosition() + float4{ (*Start)->Text->GetTransform()->GetLocalPosition() } + float4{ (*Start)->Col->GetTransform()->GetLocalScale().hx(), -12.0f});
 			(*Start)->Arrow->GetTransform()->SetLocalPosition(float4{ (*Start)->Text->GetTransform()->GetLocalPosition() } + float4{ -10.0f , -6.0f, -1.0f });
 
@@ -102,7 +102,7 @@ void NPCWindow::TextUpdate()
 	TimeCounting();
 	TextCount += TimeCount;
 
-	if (TextCount >= 0.005f)
+	if (TextCount >= 0.01f)
 	{
 		TextCount = 0.0f;
 		RenderText.push_back(DialogText[TextIndex]);
@@ -118,7 +118,12 @@ void NPCWindow::SetDialogText(const std::string_view& _Text)
 	UpdateFunc = &NPCWindow::TextUpdate;
 }
 
-void NPCWindow::AddToTextButton(const std::string_view& _Text, int Index, std::function<void()> _Event)
+void NPCWindow::SetDialogText(int _Index, const std::string_view& _Text)
+{
+	DialogTextList[_Index] = GameEngineString::AnsiToUniCode(_Text);
+}
+
+void NPCWindow::AddToTextButton(const std::string_view& _Text, int _Index, std::function<void()> _Event)
 {
 	std::shared_ptr<ContentFontRenderer> NewFont = CreateComponent<ContentFontRenderer>();
 	NewFont->SetFont("±¼¸²");
@@ -139,6 +144,11 @@ void NPCWindow::AddToTextButton(const std::string_view& _Text, int Index, std::f
 	std::shared_ptr<GameEngineUIRenderer> NewArrow = CreateComponent<GameEngineUIRenderer>();
 	NewArrow->SetScaleToTexture("TextArrow.png");
 
+	if (_Index != DialogIndex)
+	{
+		NewArrow->Off();
+	}
+
 	std::shared_ptr<TextButton> NewButton = std::make_shared<TextButton>();
 	NewButton->Text = NewFont;
 	NewButton->Col = NewFontCollision;
@@ -146,13 +156,13 @@ void NPCWindow::AddToTextButton(const std::string_view& _Text, int Index, std::f
 	NewButton->UnderLine = NewUnderLine;
 	NewButton->Arrow = NewArrow;
 
-	if (DialogIndex != Index)
+	if (DialogIndex != _Index)
 	{
 		NewFont->Off();
 		NewFontCollision->Off();
 	}
 
-	TextButtonList[Index].push_back(NewButton);
+	TextButtonList[_Index].push_back(NewButton);
 }
 
 void NPCWindow::ChangeDialog(const std::string_view& _NewText)
@@ -199,6 +209,50 @@ void NPCWindow::ChangeDialog(const std::string_view& _NewText)
 	UIButtonsOn();
 }
 
+void NPCWindow::ChangeDialogToIndex(int _Index)
+{
+	DialogText.clear();
+	DialogText = DialogTextList[_Index];
+
+	RenderText.clear();
+
+	TextIndex = 0;
+	TextCount = 0.0f;
+
+	if (TextButtonList[DialogIndex].size() >= 1)
+	{
+		std::list<std::shared_ptr<TextButton>>::iterator IterStart = TextButtonList[DialogIndex].begin();
+		std::list<std::shared_ptr<TextButton>>::iterator IterEnd = TextButtonList[DialogIndex].end();
+
+		for (; IterStart != IterEnd; IterStart++)
+		{
+			(*IterStart)->Col->Off();
+			(*IterStart)->Text->Off();
+			(*IterStart)->UnderLine->Off();
+			(*IterStart)->Arrow->Off();
+		}
+	}
+
+	UIButtonsOff();
+
+	DialogIndex = _Index;
+
+	if (TextButtonList[DialogIndex].size() >= 1)
+	{
+		std::list<std::shared_ptr<TextButton>>::iterator IterStart = TextButtonList[DialogIndex].begin();
+		std::list<std::shared_ptr<TextButton>>::iterator IterEnd = TextButtonList[DialogIndex].end();
+
+		for (; IterStart != IterEnd; IterStart++)
+		{
+			(*IterStart)->Col->On();
+			(*IterStart)->Text->On();
+			(*IterStart)->Arrow->On();
+		}
+	}
+
+	UIButtonsOn();
+}
+
 void NPCWindow::CreateUIButtonList(int _Index)
 {
 	UIButtonList[_Index] = std::make_shared<UIButtons>();
@@ -223,7 +277,19 @@ void NPCWindow::SetCloseButton(int _Index, std::function<void()> _Event)
 
 void NPCWindow::SetNextButton(int _Index)
 {
+	UIButtonList[_Index]->Next = GetLevel()->CreateActor<GameEngineButton>();
+	UIButtonList[_Index]->Next->SetReleaseTexture("NPCWindowNextRelease.png");
+	UIButtonList[_Index]->Next->SetHoverTexture("NPCWindowNextHover.png");
+	UIButtonList[_Index]->Next->SetPressTexture("NPCWindowNextPress.png");
+	UIButtonList[_Index]->Next->SetEvent([this] {ChangeDialogToIndex(DialogIndex + 1); });
 
+	UIButtonList[_Index]->Next->GetTransform()->SetLocalPosition({ 180, -40, -3 });
+	UIButtonList[_Index]->Next->GetTransform()->SetLocalScale({ 46, 18, -3 });
+
+	if (DialogIndex != _Index)
+	{
+		UIButtonList[_Index]->Close->Off();
+	}
 }
 
 void NPCWindow::SetPrevButton(int _Index)

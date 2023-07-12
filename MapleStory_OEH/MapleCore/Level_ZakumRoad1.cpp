@@ -11,6 +11,7 @@
 #include "KeyBox.h"
 #include "BigBox.h"
 #include "UIController.h"
+#include "MapleCore.h"
 
 #include <GameEngineBase/GameEngineRandom.h>
 
@@ -65,8 +66,6 @@ void Level_ZakumRoad1::ActorCreate()
 
 	if (MyPlayer == nullptr)
 	{
-
-		
 		MyPlayer = CreateActor<Player>();
 		MyPlayer->SetCurPlayer(MyPlayer);
 		MyPlayer->SetColMap(Map->GetColMapName());
@@ -93,26 +92,6 @@ void Level_ZakumRoad1::ActorCreate()
 		MyUIWindowManager = CreateActor<UIWindowManager>();
 	}
 
-	//std::shared_ptr<KeyBox> NewBox = CreateActor<KeyBox>();
-	//NewBox->GetTransform()->SetLocalPosition({ 0, -300 });
-
-	//std::shared_ptr<KeyBox> NewBox1 = CreateActor<KeyBox>();
-	//NewBox1->GetTransform()->SetLocalPosition({ -200, -300 });
-
-	//std::shared_ptr<KeyBox> NewBox2 = CreateActor<KeyBox>();
-	//NewBox2->GetTransform()->SetLocalPosition({ -400 , -300 });
-
-	//std::shared_ptr<KeyBox> NewBox3 = CreateActor<KeyBox>();
-	//NewBox3->GetTransform()->SetLocalPosition({ -600 , -300 });
-
-	//std::shared_ptr<KeyBox> NewBox6 = CreateActor<KeyBox>();
-	//NewBox6->GetTransform()->SetLocalPosition({ -800 , -300 }); 
-
-	//std::shared_ptr<KeyBox> NewBox4 = CreateActor<KeyBox>();
-	//NewBox4->GetTransform()->SetLocalPosition({ 500 , -150 });
-	
-	//std::shared_ptr<KeyBox> NewBox5 = CreateActor<KeyBox>();
-	//NewBox5->GetTransform()->SetLocalPosition({ 700,  -150 });
 	std::shared_ptr<BigBox> NewBox5 = CreateActor<BigBox>();
 
 	SetKeyBox();

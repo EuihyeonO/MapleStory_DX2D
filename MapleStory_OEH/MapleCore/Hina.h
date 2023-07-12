@@ -24,6 +24,8 @@ private:
 
 	void TextureUpdate();
 	void StatusUpdate();
+	
+	void OpenWindow();
 
 	int AniIndex = 0;
 	float AnimationCount = 0.0f;
@@ -31,5 +33,7 @@ private:
 	std::string Status;
 	std::map<std::string, std::vector<float>> FrameList;
 	std::shared_ptr<GameEngineSpriteRenderer> HinaRender;
+	std::shared_ptr<class GameEngineCollision> HinaCollision;
+	std::shared_ptr<class NPCWindow> MyWindow;
 };
 

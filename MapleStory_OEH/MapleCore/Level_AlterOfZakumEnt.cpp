@@ -8,6 +8,7 @@
 #include "BottomBar.h"
 #include "GlobalFunction.h"
 #include "UIWindowManager.h"
+#include "MapleCore.h"
 
 Level_AlterOfZakumEnt::Level_AlterOfZakumEnt()
 {
@@ -83,6 +84,16 @@ void Level_AlterOfZakumEnt::ActorCreate()
 	if (MyUIWindowManager == nullptr)
 	{
 		MyUIWindowManager = CreateActor<UIWindowManager>();
+	}
+
+	MyPlayer->SetRight();
+	MyPlayer->SetMoveType("Jump");
+	MyPlayer->GetTransform()->SetLocalPosition({ -1200, -100 });
+
+	if (PlayerValue::GetValue()->GetPrevLevelName() != "Level_ZakumRoad1")
+	{
+		MapleCore::BGMPlayer.Stop();
+		MapleCore::BGMPlayer = GameEngineSound::Play("HellGate.mp3");
 	}
 }
 

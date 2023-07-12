@@ -103,29 +103,29 @@ void StatusWindow::Start()
 	StrBt->SetReleaseTexture("StatUpRelease.png");
 	StrBt->SetHoverTexture("StatUpHover.png");
 	StrBt->SetPressTexture("StatUpPress.png");
-	StrBt->GetTransform()->SetLocalScale({ 12, 12 });
-	StrBt->GetTransform()->SetLocalPosition({ -30, -74 });
+	StrBt->SetAllScale({ 12, 12 });
+	StrBt->SetAllPos({ -30, -74 });
 
 	DexBt = GetLevel()->CreateActor<ContentButton>();
 	DexBt->SetReleaseTexture("StatUpRelease.png");
 	DexBt->SetHoverTexture("StatUpHover.png");
 	DexBt->SetPressTexture("StatUpPress.png");
-	DexBt->GetTransform()->SetLocalScale({ 12, 12 });
-	DexBt->GetTransform()->SetLocalPosition({ -30, -92 });
+	DexBt->SetAllScale({ 12, 12 });
+	DexBt->SetAllPos({ -30, -92 });
 
 	IntBt = GetLevel()->CreateActor<ContentButton>();
 	IntBt->SetReleaseTexture("StatUpRelease.png");
 	IntBt->SetHoverTexture("StatUpHover.png");
 	IntBt->SetPressTexture("StatUpPress.png");
-	IntBt->GetTransform()->SetLocalScale({ 12, 12 });
-	IntBt->GetTransform()->SetLocalPosition({ -30, -110 });
+	IntBt->SetAllScale({ 12, 12 });
+	IntBt->SetAllPos({ -30, -110 });
 
 	LukBt = GetLevel()->CreateActor<ContentButton>();
 	LukBt->SetReleaseTexture("StatUpRelease.png");
 	LukBt->SetHoverTexture("StatUpHover.png");
 	LukBt->SetPressTexture("StatUpPress.png");
-	LukBt->GetTransform()->SetLocalScale({ 12, 12 });
-	LukBt->GetTransform()->SetLocalPosition({ -30, -128 });
+	LukBt->SetAllScale({ 12, 12 });
+	LukBt->SetAllPos({ -30, -128 });
 
 	AttRender = CreateComponent<ContentFontRenderer>();
 	AttRender->SetFont("±¼¸²");

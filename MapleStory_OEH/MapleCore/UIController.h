@@ -433,5 +433,34 @@ private:
 	std::map <int, std::shared_ptr<ItemInfo>> EquipItemList;
 
 	std::shared_ptr<class EquipItemList> CurEquipItemList = nullptr;
+
+public:
+	void AddToQuestList(const std::string_view& _Quest)
+	{
+		if (isQuestInList(_Quest) == true)
+		{
+			return;
+		}
+
+		QuestList.push_back(_Quest.data());
+	}
+
+	bool isQuestInList(const std::string_view& _Quest)
+	{
+		std::list<std::string>::iterator StartIter = QuestList.begin();
+		std::list<std::string>::iterator EndIter = QuestList.end();
+
+		for (; StartIter != EndIter; StartIter++)
+		{
+			if (*StartIter == _Quest.data())
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+private:
+	std::list<std::string> QuestList;
 };
 

@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "PlayerValue.h"
 #include "ContentEnums.h"
+#include "ContentRenderer.h"
 #include "Star.h"
 #include "BuffList.h"
 #include "DropItem.h"
@@ -386,7 +387,11 @@ void Player::CameraUpdate(float _DeltaTime)
 	{
 		MinY = 250.0f;
 	}
-
+	else if (GetLevel()->GetName() == "ZAKUMROAD2")
+	{
+		//MaxY = 385.0f;
+		//MinY = 240.0f;
+	}
 
 	if (newPosition.x - 425 < -HalfWidth)
 	{
@@ -415,6 +420,12 @@ void Player::CameraUpdate(float _DeltaTime)
 	{
 		newPosition.y = -30.0f;
 	}
+
+	if (GetLevel()->GetName() == "ZAKUMROAD2")
+	{
+		newPosition.y = -50.0f;
+	}
+
 
 	std::string CopyX = std::to_string(newPosition.x);
 	CopyX = CopyX.substr(0, 6);
@@ -529,7 +540,7 @@ void Player::FallingDown(float _DeltaTime)
 			MoveType = "Stand";
 		}
 
-		JumpPower = 600.0f;
+		JumpPower = 650.0f;
 		isFalling = false;
 		isFlashJump = false;
 

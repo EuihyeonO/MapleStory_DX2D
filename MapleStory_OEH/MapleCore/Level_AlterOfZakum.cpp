@@ -10,6 +10,7 @@
 #include "PlayerValue.h"
 #include "GlobalFunction.h"
 #include "AlterOfZakum.h"
+#include "MapleCore.h"
 
 Level_AlterOfZakum::Level_AlterOfZakum()
 {
@@ -28,7 +29,6 @@ void Level_AlterOfZakum::Start()
 
 	GetMainCamera()->SetSortType(0, SortType::ZSort);
 	GetCamera(100)->SetSortType(0, SortType::ZSort);
-
 }
 
 void Level_AlterOfZakum::Update(float _DeltaTime)
@@ -39,6 +39,9 @@ void Level_AlterOfZakum::LevelChangeStart()
 {
 	LoadResources();
 	ActorCreate();
+
+	MapleCore::BGMPlayer.Stop();
+	MapleCore::BGMPlayer = GameEngineSound::Play("Zakum.mp3");
 }
 
 void Level_AlterOfZakum::LevelChangeEnd()

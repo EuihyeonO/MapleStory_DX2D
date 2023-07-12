@@ -33,7 +33,17 @@ void EquipItemList::Start()
 
 void EquipItemList::Update(float _DeltaTime) 
 {
-	std::map<int, std::shared_ptr<class Item>> MyEqu = MyEquipItems;
+	if (MyEquipItems[static_cast<int>(EquipType::Coat)] != nullptr)
+	{
+		float4 Pos = MyEquipItems[static_cast<int>(EquipType::Coat)]->GetTransform()->GetLocalPosition();
+		float4 Pos1 = MyEquipItems[static_cast<int>(EquipType::Coat)]->GetTransform()->GetLocalPosition();
+	}
+
+	if (MyEquipItems[static_cast<int>(EquipType::Pants)] != nullptr)
+	{
+		float4 Pos = MyEquipItems[static_cast<int>(EquipType::Pants)]->GetTransform()->GetLocalPosition();
+		float4 Pos2 = MyEquipItems[static_cast<int>(EquipType::Pants)]->GetTransform()->GetLocalPosition();
+	}
 }
 
 void EquipItemList::Render(float _DeltaTime) 
@@ -148,28 +158,28 @@ void EquipItemList::SortItem()
 
 	if (MyEquipItems[static_cast<int>(EquipType::Cap)] != nullptr)
 	{
-		MyEquipItems[static_cast<int>(EquipType::Cap)]->GetTransform()->SetLocalPosition({ -200 , 193 });
+		MyEquipItems[static_cast<int>(EquipType::Cap)]->GetTransform()->SetLocalPosition({ -200 , 193, -1 });
 	}
 
 	if (MyEquipItems[static_cast<int>(EquipType::Coat)] != nullptr)
 	{
-		MyEquipItems[static_cast<int>(EquipType::Coat)]->GetTransform()->SetLocalPosition({ -233, 94 });
+		MyEquipItems[static_cast<int>(EquipType::Coat)]->GetTransform()->SetLocalPosition({ -233, 94, -1 });
 		MyEquipItems[static_cast<int>(EquipType::Coat)]->GetItemRender()->On();
 		MyEquipItems[static_cast<int>(EquipType::Coat)]->GetItemCollision()->On();
 	}
 
 	if (MyEquipItems[static_cast<int>(EquipType::Pants)] != nullptr)
 	{
-		MyEquipItems[static_cast<int>(EquipType::Pants)]->GetTransform()->SetLocalPosition({ -233, 61 });
+		MyEquipItems[static_cast<int>(EquipType::Pants)]->GetTransform()->SetLocalPosition({ -233, 61, -1 });
 	}
 
 	if (MyEquipItems[static_cast<int>(EquipType::Weapon)] != nullptr)
 	{
-		MyEquipItems[static_cast<int>(EquipType::Weapon)]->GetTransform()->SetLocalPosition({ -167 , 94 });
+		MyEquipItems[static_cast<int>(EquipType::Weapon)]->GetTransform()->SetLocalPosition({ -167 , 94, -1 });
 	}
 
 	if (MyEquipItems[static_cast<int>(EquipType::Shoes)] != nullptr)
 	{
-		MyEquipItems[static_cast<int>(EquipType::Shoes)]->GetTransform()->SetLocalPosition({ -200 , 28 });
+		MyEquipItems[static_cast<int>(EquipType::Shoes)]->GetTransform()->SetLocalPosition({ -200 , 28, -1 });
 	}
 }

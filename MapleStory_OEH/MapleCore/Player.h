@@ -258,7 +258,7 @@ private:
 	float Gravity = 200.0f;
 	float GravityAccel = 1000.0f;
 
-	float JumpPower = 600.0f;
+	float JumpPower = 650.0f;
 	float JumpXMove = 0.0f;
 
 	float BasicMoveSpeed = 150.0f;

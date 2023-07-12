@@ -17,8 +17,10 @@ public:
 	
 	void SetNPC(const std::string_view& _TextureName, const std::string_view& _NPCName);
 	void SetDialogText(const std::string_view& _Text);
+	void SetDialogText(int _Index, const std::string_view& _Text);
 
 	void ChangeDialog(const std::string_view& _NewText);
+	void ChangeDialogToIndex(int _Index);
 	void AddToTextButton(const std::string_view& _Text, int Index, std::function<void()> _Function = nullptr);
 
 	void SetCloseButton(int _Index, std::function<void()> _Event);
@@ -34,6 +36,11 @@ public:
 	void SetNamePos(float4 _Pos)
 	{
 		NPCNameFont->GetTransform()->SetLocalPosition(_Pos);
+	}
+
+	void SetTextButtonPos(float4 _Pos)
+	{
+		TextButtonPos = _Pos;
 	}
 
 	void CreateUIButtonList(int _Index);
@@ -62,6 +69,8 @@ private:
 	float TextCount = 0.0f;
 	int TextIndex = 0;
 
+	float4 TextButtonPos = { 0, 0 };
+	
 	struct TextButton
 	{
 		std::shared_ptr<class ContentFontRenderer> Text = nullptr;
@@ -83,5 +92,7 @@ private:
 
 	std::map<int,std::list<std::shared_ptr<TextButton>>> TextButtonList;
 	std::map<int, std::shared_ptr<UIButtons>> UIButtonList;
+
+	std::map<int, std::wstring> DialogTextList;
 };
 

@@ -92,7 +92,7 @@ void Player::JumpUpdate(float _DeltaTime)
 
 		isKeyJump = false;
 		isFlashJump = false;
-		JumpPower = 600.0f;
+		JumpPower = 650.0f;
 
 		float4 RealNextPos = { NextColorPos.x - MapHalfScale.x, MapHalfScale.y - NextColorPos.y - 1.0f, -5.0f };
 		GetTransform()->SetLocalPosition(RealNextPos);
@@ -435,7 +435,7 @@ void Player::Idle()
 		return;
 	}
 
-	JumpPower = 600.0f;
+	JumpPower = 650.0f;
 	MoveType = "Stand";
 	FrontBackDir = "Front";
 }
@@ -647,7 +647,7 @@ void Player::KnockBack(float4 _Dir, float _Distance, int _Damage, float _Speed, 
 		{
 			isKeyJump = false;
 			isFlashJump = false;
-			JumpPower = 600.0f;
+			JumpPower = 650.0f;
 			Gravity = 200.0f;
 		}
 

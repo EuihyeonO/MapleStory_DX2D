@@ -26,6 +26,8 @@ void CheatNPCWindow::Start()
 	MyWindow->AddToTextButton("원하는 레벨로 이동한다.", 0, [this] {SelectLevel(); });
 	MyWindow->AddToTextButton("충돌 디버그모드를 켜고 끈다.", 0, [this] {ColSwitch(); });
 	MyWindow->AddToTextButton("4차까지 전직을 한다", 0, [this] {ColSwitch();});
+
+	MyWindow->SetTextButtonPos({ 0, 25 });
 }
 
 void CheatNPCWindow::Update(float _DeltaTime) 
@@ -57,9 +59,10 @@ void CheatNPCWindow::ColSwitch()
 void CheatNPCWindow::SelectLevel()
 {
 	MyWindow->CreateUIButtonList(1);
-	MyWindow->ChangeDialog("가고 싶은 레벨을 고르라곰!");
 	MyWindow->AddToTextButton("재즈바", 1, [this] {GameEngineCore::ChangeLevel("Level_JazzBar"); MyWindow->Death(); MyWindow = nullptr; });
 	MyWindow->AddToTextButton("자쿰의 제단 입구", 1, [this] {GameEngineCore::ChangeLevel("Level_AlterOfZakumEnt"); MyWindow->Death(); MyWindow = nullptr; });
+	MyWindow->AddToTextButton("자쿰의 시련 2", 1, [this] {GameEngineCore::ChangeLevel("Level_ZakumRoad2"); MyWindow->Death(); MyWindow = nullptr; });
+	MyWindow->ChangeDialog("가고 싶은 레벨을 고르라곰!");
 }
 
 void CheatNPCWindow::WindowDeath()

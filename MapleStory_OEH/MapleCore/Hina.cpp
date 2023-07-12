@@ -1,7 +1,11 @@
 #include "PrecompileHeader.h"
 #include "Hina.h"
+#include "Mouse.h"
+#include "NPCWindow.h"
+#include "UIController.h"
 
 #include <GameEngineBase/GameEngineRandom.h>
+#include <GameEngineCore/GameEngineLevel.h>
 #include <ctime>
 
 Hina::Hina()
@@ -20,6 +24,23 @@ void Hina::Start()
 	HinaRender = CreateComponent<GameEngineSpriteRenderer>();
 	Status = "NORMAL";
 
+	HinaCollision = CreateComponent<GameEngineCollision>();
+	HinaCollision->GetTransform()->SetLocalScale({ 30, 50 });
+	HinaCollision->SetColType(ColType::AABBBOX2D);
+
+	std::shared_ptr<GameEngineSpriteRenderer> NameCard = CreateComponent<GameEngineSpriteRenderer>();
+	NameCard->SetScaleToTexture("NameBackGround.png");
+	NameCard->GetTransform()->SetLocalPosition({ 0.5, -40 });
+	NameCard->GetTransform()->SetLocalScale({ 29, 16 });
+	NameCard->ColorOptionValue.MulColor.a = 0.7f;
+
+	std::shared_ptr<GameEngineFontRenderer> NameFont = CreateComponent<GameEngineFontRenderer>();
+	NameFont->SetFont("굴림");
+	NameFont->SetScale(12.0f);
+	NameFont->GetTransform()->SetLocalPosition({ 13, -32 });
+	NameFont->SetText("히나");
+	NameFont->SetColor({ 1.0f, 1.0f, 0.0f, 1.0f });
+
 	GetTransform()->SetLocalScale({ -1, 1 });
 	GetTransform()->SetLocalPosition({ -541, 244 });
 }
@@ -27,12 +48,55 @@ void Hina::Start()
 void Hina::Update(float _DeltaTime)
 {
 	TimeCounting();
+	OpenWindow();
 	TextureUpdate();
 }
 
 void Hina::Render(float _DeltaTime) 
 {
 
+}
+
+void Hina::OpenWindow()
+{
+	if (Mouse::GetMouse()->IsDoubleClick() == false)
+	{
+		return;
+	}
+
+	std::shared_ptr<GameEngineCollision> Col = HinaCollision->Collision(static_cast<int>(CollisionOrder::Mouse), ColType::AABBBOX2D, ColType::AABBBOX2D);
+
+	if (Col == nullptr)
+	{
+		return;
+	}
+
+	MyWindow = GetLevel()->CreateActor<NPCWindow>();
+	MyWindow->SetNPC("HINASMILE00.PNG", "   히나");
+	
+	if (UIController::GetUIController()->isQuestInList("HINA0") == true /* && 거울이 없다면 */)
+	{
+		MyWindow->SetDialogText("세라 언니에게 아직 안 가 보셨어요? 동쪽 언덕에 있을 텐데...\n여기서 가까운 곳이니까 쉽게 찾을 수 있을 거예요.");
+
+		MyWindow->CreateUIButtonList(0);
+		MyWindow->SetCloseButton(0, [this] {MyWindow->ButtonsDeath(); MyWindow->Death(); MyWindow = nullptr; });
+	}
+	else
+	{
+		MyWindow->SetDialogText("새로운 여행자군요? 아직 많이 낯설죠? \n제가 이것저것 알려 드릴테니 잘 듣고 따라해보세요. \n우선 저희에게 말을 걸기 위해선 \n마우스로 저희들을 더블클릭을 하면 된답니다.\n좌, 우 방향키를 누르면 이동할 수 있구요.\n왼쪽 Alt 키를 누르면 점프하실 수 있어요. ");
+
+		MyWindow->CreateUIButtonList(0);
+		MyWindow->SetNextButton(0);
+
+		MyWindow->SetDialogText(1, "아~ 그나저나 햇빛이 너무 따가운 걸요? \n내 백옥같은 피부가 다 상해 버리겠네... 어떻게 하지? \n죄송하지만 바쁘지 않으시다면 \n여기서 멀지 않은 곳에서 빨래를 널고 있는 \n세라 언니에게서 거울 좀 빌려와 주세요.");
+		MyWindow->CreateUIButtonList(1);
+		
+		MyWindow->AddToTextButton("네 가져다 드릴게요.", 1, [this] {MyWindow->ChangeDialog("고맙습니다. 세라 언니는 언덕에서 빨래를 널고 있을 거예요. \n...아! 지금 받은 퀘스트 내용을 다시 한 번 확인하고 싶다면 \n키보드의 단축키 Q를 누르면 된답니다."); UIController::GetUIController()->AddToQuestList("HINA0"); });
+		MyWindow->AddToTextButton("싫어요.", 1, [this] {MyWindow->ChangeDialog("제 부탁을 들어주기 싫으신가요? 흐음~ 마음이 바뀌면 다시 찾아와 주세요."); });
+		
+		MyWindow->CreateUIButtonList(2);
+		MyWindow->SetCloseButton(2, [this] {MyWindow->ButtonsDeath(); MyWindow->Death(); MyWindow = nullptr; });
+	}
 }
 
 void Hina::TextureUpdate()

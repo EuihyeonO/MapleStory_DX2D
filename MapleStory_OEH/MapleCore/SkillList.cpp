@@ -362,7 +362,7 @@ void SkillList::SetSkillIcon(std::shared_ptr<SkillList::SkillIcon> _SkillIcon)
 	else if (_SkillIcon->SkillName == "FlashJump")
 	{
 		_SkillIcon->SkillFunc = &Player::FlashJump;
-		_SkillIcon->SkillNameFont->SetText("픓래시 점프");
+		_SkillIcon->SkillNameFont->SetText("플래시 점프");
 		_SkillIcon->SkillLv->SetText(std::to_string(Value->GetFlashJumpLv()));
 		
 		if (Value->GetFlashJumpLv() >= 20 || Value->GetSkillPoint() <= 0)
