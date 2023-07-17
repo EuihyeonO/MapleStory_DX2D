@@ -132,21 +132,73 @@ void Level_ZakumRoad2::ActorDeath()
 
 void Level_ZakumRoad2::LoadResources()
 {
-	if (nullptr == GameEngineTexture::Find("ZakumRoad2.png"))
-	{
-		GameEngineDirectory NewDir;
-		NewDir.MoveParentToDirectory("MapleResources");
-		NewDir.Move("MapleResources");
-		NewDir.Move("ZakumRoad2");
-		NewDir.Move("ZakumRoad2NotSprite");
+	GameEngineDirectory NewDir;
+	NewDir.MoveParentToDirectory("MapleResources");
+	NewDir.Move("MapleResources");
+	NewDir.Move("ZakumRoad2");
+	NewDir.Move("ZakumRoad2NotSprite");
 
-		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
-		for (size_t i = 0; i < File.size(); i++)
+	std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
+
+	for (size_t i = 0; i < File.size(); i++)
+	{
+		std::string FileFullPath = File[i].GetFullPath();
+		std::string FileName = "";
+		size_t Count = 0;
+
+		for (Count = FileFullPath.size(); Count > 0; Count--)
+		{
+			char a = FileFullPath[Count];
+			if (FileFullPath[Count] == '\\')
+			{
+				break;
+			}
+		}
+
+		for (size_t j = Count + 1; j < FileFullPath.size(); j++)
+		{
+			FileName.push_back(FileFullPath[j]);
+		}
+
+		if (GameEngineTexture::Find(FileName) != nullptr)
+		{
+			GameEngineTexture::ReLoad(File[i].GetFullPath());
+		}
+		else
 		{
 			GameEngineTexture::Load(File[i].GetFullPath());
 		}
 	}
-	else
+
+	if (GameEngineSprite::Find("StoneTrap") == nullptr)
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("MapleResources");
+		NewDir.Move("MapleResources");
+		NewDir.Move("ZakumRoad2");
+		NewDir.Move("ZakumRoad2Sprite");
+		
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("StoneTrap").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("SteamTrap").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Lira").GetFullPath());
+	}
+	else if (GameEngineSprite::Find("StoneTrap") != nullptr)
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("MapleResources");
+		NewDir.Move("MapleResources");
+		NewDir.Move("ZakumRoad2");
+		NewDir.Move("ZakumRoad2Sprite");
+
+		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("StoneTrap").GetFullPath());
+		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("SteamTrap").GetFullPath());
+		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("Lira").GetFullPath());
+	}
+}
+
+void Level_ZakumRoad2::UnLoadResources()
+{
+	if (nullptr != GameEngineTexture::Find("ZakumRoad2.png"))
 	{
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("MapleResources");
@@ -157,13 +209,33 @@ void Level_ZakumRoad2::LoadResources()
 		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
 		for (size_t i = 0; i < File.size(); i++)
 		{
-			GameEngineTexture::ReLoad(File[i].GetFullPath());
+
+			std::string FileFullPath = File[i].GetFullPath();
+			std::string FileName = "";
+			size_t Count = 0;
+
+			for (Count = FileFullPath.size(); Count > 0; Count--)
+			{
+				char a = FileFullPath[Count];
+				if (FileFullPath[Count] == '\\')
+				{
+					break;
+				}
+			}
+
+			for (size_t j = Count + 1; j < FileFullPath.size(); j++)
+			{
+				FileName.push_back(FileFullPath[j]);
+			}
+
+			GameEngineTexture::UnLoad(FileName);
 		}
 	}
 
-}
-
-void Level_ZakumRoad2::UnLoadResources()
-{
-
+	if (GameEngineSprite::Find("StoneTrap") != nullptr)
+	{
+		GameEngineSprite::UnLoad("StoneTrap");
+		GameEngineSprite::UnLoad("SteamTrap");
+		GameEngineSprite::UnLoad("Lira");
+	}
 }

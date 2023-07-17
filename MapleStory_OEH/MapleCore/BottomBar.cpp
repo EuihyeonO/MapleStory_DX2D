@@ -74,6 +74,12 @@ void BottomBar::Start()
 	ShortCut->SetTexture("ShortCut.png");
 	ShortCut->GetTransform()->SetLocalScale({ 73, 34 });
 
+	ClassFont = CreateComponent<ContentFontRenderer>();
+	ClassFont->SetFont("±¼¸²");
+	ClassFont->SetColor({ 1, 1, 1, 1 });
+	ClassFont->SetScale(13.0f);
+	ClassFont->GetTransform()->SetLocalPosition({ -315, -266 });
+
 	BottomBarPosUpdate();	
 }
 
@@ -82,6 +88,8 @@ void BottomBar::Update(float _DeltaTime)
 	GradationUpdate();
 	LevelUpdate();
 	HPAndMPUpdate();
+
+	ClassFont->SetText(PlayerValue::GetValue()->GetClassKr());
 }
 
 void BottomBar::Render(float _DeltaTime) 

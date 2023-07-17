@@ -30,7 +30,7 @@ void BigBox::Start()
 			{
 				std::shared_ptr<DropItem> NewItem = GetLevel()->CreateActor<DropItem>();
 				NewItem->SetQuadraticFunction(1.0f, GetTransform()->GetWorldPosition() + float4{ -40, 5 });
-				NewItem->SetDropItemInfo("FireStone", static_cast<int>(ItemType::Etc));
+				NewItem->SetDropItemInfo("FIRESTONE", static_cast<int>(ItemType::Etc));
 				isCreateItem = true;
 			}
 		});

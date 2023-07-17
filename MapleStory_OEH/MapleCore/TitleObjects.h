@@ -38,6 +38,8 @@ public:
 		OkButton->SetEvent(_Event);
 	}
 
+	void ActivateToCharSelect();
+
 protected:
 	void Start();
 	void Update(float _DeltaTime) override;
@@ -57,10 +59,26 @@ private:
 	void RollStatDice();
 	void StatChange();
 
+	void TypingLoginInfo(float _DeltaTtime);
+
+	float TypingCount = -1.0f;
+	int TypingIndex = 0;
+
+	std::function<void(float)> TypingUpdateFunc = nullptr;
+	bool isEndID = false;
+
+	std::string IDText;
+	std::string PassWordText;
+
+	std::shared_ptr<class GameEngineFontRenderer> LoginID;
+	std::shared_ptr<class GameEngineFontRenderer> LoginPassWord;
+
+	std::shared_ptr<class GameEngineFontRenderer> NickName;
 
 	std::shared_ptr<class GameEngineUIRenderer> Frame;
 	std::shared_ptr<GameEngineSpriteRenderer> BackGround;
 	std::shared_ptr<GameEngineSpriteRenderer> Logo;
+
 	float LogoAlphaAngle = 45.0f;
 
 	std::shared_ptr<GameEngineSpriteRenderer> TitleLight0;

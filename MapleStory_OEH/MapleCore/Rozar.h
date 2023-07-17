@@ -16,6 +16,8 @@ public:
 	Rozar& operator=(const Rozar& _Other) = delete;
 	Rozar& operator=(Rozar&& _Other) noexcept = delete;
 
+	void ActorDeath();
+
 protected:
 	void Start();
 	void Update(float _DeltaTime) override;
@@ -25,10 +27,15 @@ private:
 	void TextureUpdate();
 	void StatusUpdate();
 
+	void OpenWindow();
+
 	int AniIndex = 0;
 	float AnimationCount = 0.0f;
 
 	std::string Status;
 	float WinkFrame[2] = { 0.2f, 4.8f };
+
 	std::shared_ptr<GameEngineSpriteRenderer> RozarRender;
+	std::shared_ptr<class GameEngineCollision> RozarCollision;
+	std::shared_ptr<class NPCWindow> MyWindow;
 };

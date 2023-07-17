@@ -30,18 +30,22 @@ void SkillWindow::Start()
 	Index1 = CreateComponent<GameEngineCollision>();
 	Index1->GetTransform()->SetLocalScale({ 27, 16 });
 	Index1->GetTransform()->SetLocalPosition({ -36, 110 });
+	Index1->Off();
 
 	Index2 = CreateComponent<GameEngineCollision>();
 	Index2->GetTransform()->SetLocalScale({ 27, 16 });
 	Index2->GetTransform()->SetLocalPosition({ -4, 110 });
+	Index2->Off();
 
 	Index3 = CreateComponent<GameEngineCollision>();
 	Index3->GetTransform()->SetLocalScale({ 27, 16 });
 	Index3->GetTransform()->SetLocalPosition({ 28, 110 });
+	Index3->Off();
 
 	Index4 = CreateComponent<GameEngineCollision>();
 	Index4->GetTransform()->SetLocalScale({ 27, 16 });
 	Index4->GetTransform()->SetLocalPosition({ 60, 110 });
+	Index4->Off();
 
 	SkillPoint = CreateComponent<ContentFontRenderer>();
 	SkillPoint->SetScale(12.0f);
@@ -49,7 +53,14 @@ void SkillWindow::Start()
 	SkillPoint->SetColor({0.0f, 0.0f, 0.0f, 1.0f});
 	SkillPoint->GetTransform()->SetLocalPosition({ 0, -122 });
 
+	SkillActivate();
+
 	MySkillList = GetLevel()->CreateActor<SkillList>();
+
+	SkillWindowRender->SetTexture("SkillWindow0.png");
+	MySkillList->IndexSkillOn(0);
+	MySkillList->SortSkillList(0, SkillWindowRender->GetTransform()->GetWorldPosition() + float4{ 0, 29 });
+
 }
 
 void SkillWindow::Update(float _DeltaTime) 
@@ -62,6 +73,32 @@ void SkillWindow::Update(float _DeltaTime)
 
 void SkillWindow::Render(float _DeltaTime) 
 {
+}
+
+void SkillWindow::SkillActivate()
+{
+	if (PlayerValue::GetValue()->GetClass() == "LOG")
+	{
+		Index1->On();
+	}
+	else if (PlayerValue::GetValue()->GetClass() == "ASSASSIN")
+	{
+		Index1->On();
+		Index2->On();
+	}
+	else if (PlayerValue::GetValue()->GetClass() == "HERMIT")
+	{
+		Index1->On();
+		Index2->On();
+		Index3->On();
+	}
+	else if (PlayerValue::GetValue()->GetClass() == "NIGHTLORD")
+	{
+		Index1->On();
+		Index2->On();
+		Index3->On();
+		Index4->On();
+	}
 }
 
 void SkillWindow::ChangeWindowIndex()

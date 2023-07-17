@@ -49,7 +49,12 @@ private:
 
 	void InfoBoxUpdate();
 
+	void SetMyInfoBox();
+
 	const std::string_view GetItemNameToKr(const std::string_view& _Name);
+
+	void SetItemToolTip(std::shared_ptr<class ContentFontRenderer>  _FontRenderer);
+	void SetInfoBoxPos();
 
 	std::string ItemName = "";
 
@@ -61,17 +66,48 @@ private:
 	//int EquipLevel = 0;
 	//int NumOfItem = 0;
 	//int EquipType = -1;
-	
+
+	struct ReQuiredStatInfo {
+		int ReQuiredLev;
+		int ReQuiredStr;
+		int ReQuiredDex;
+		int ReQuiredInt;
+		int ReQuiredLuk;
+	};
+
+	struct StatRenderer {
+		std::vector<std::shared_ptr<class ContentUIRenderer>> LevRender;
+		std::vector<std::shared_ptr<class ContentUIRenderer>> StrRender;
+		std::vector<std::shared_ptr<class ContentUIRenderer>> DexRender;
+		std::vector<std::shared_ptr<class ContentUIRenderer>> IntRender;
+		std::vector<std::shared_ptr<class ContentUIRenderer>> LukRender;
+	};
+
 	struct ItemInfoBox {
 		std::shared_ptr<class ContentUIRenderer> ItemRender;
 		std::shared_ptr<class ContentUIRenderer> ItemBackGround;
 		std::shared_ptr<class ContentUIRenderer> BoxRender;
 		std::shared_ptr<class ContentFontRenderer> ItemName;
 		std::shared_ptr<class ContentFontRenderer> ItemNameLayer;
+		std::shared_ptr<class ContentFontRenderer> ToolTip;
+		std::shared_ptr<class ContentUIRenderer> StatInfo = nullptr;
+		std::shared_ptr<StatRenderer> ReQuiredStat = nullptr;
 	};
+
+	void StatRenderOn();
+	void StatRenderOff();
+
+	void SetStatRender();
+	void SetRequiredStat();
+
+	void UseItem();
+
 
 	std::shared_ptr<struct ItemInfo> MyInfo = nullptr;
 	std::shared_ptr<ItemInfoBox> MyInfoBox = nullptr;
+	std::shared_ptr<ReQuiredStatInfo> MyRequiredStat = nullptr;
+
+
 	int ItemIndex = 0;
 	int Digit = 0;
 

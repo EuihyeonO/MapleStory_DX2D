@@ -38,7 +38,7 @@ void BeginnersTown2::Start()
 	BackGround = CreateComponent<GameEngineSpriteRenderer>();
 	BackGround->SetScaleToTexture("BeginnersTown2.png");
 
-	std::shared_ptr<Rozar> npc = GetLevel()->CreateActor<Rozar>(static_cast<int>(RenderOrder::NPC));
+	MyRozar = GetLevel()->CreateActor<Rozar>(static_cast<int>(RenderOrder::NPC));
 	
 	MyPortal1 = GetLevel()->CreateActor<Portal>(static_cast<int>(RenderOrder::UI));
 	MyPortal1->SetLinkedMap("Level_BeginnersTown1");
@@ -50,6 +50,12 @@ void BeginnersTown2::Start()
 
 	MyMiniMap = GetLevel()->CreateActor<MiniMap>(static_cast<int>(RenderOrder::UI));
 	MyMiniMap->SetMap(MapName);
+	MyMiniMap->SetNPCToMiniMap({ -20, 220 });
+	MyMiniMap->SetPortalToMiniMap({ -460, 95, -10 });
+	MyMiniMap->SetPortalToMiniMap({ 465, 155, -10 });
+	MyMiniMap->SetMapMark("MushroomVillageMark.png");
+	MyMiniMap->SetWorldName("메이플월드");
+	MyMiniMap->SetMapName("버섯마을");
 
 	Black = CreateComponent<GameEngineUIRenderer>();
 	Black->GetTransform()->SetWorldScale({ 800, 600 });
@@ -91,14 +97,30 @@ void BeginnersTown2::BackGroundMove(float _DeltaTime)
 
 void BeginnersTown2::ActorDeath()
 {
-	MyPortal1->Death();
-	MyPortal1 = nullptr;
+	if(MyPortal1 != nullptr)
+	{
+		MyPortal1->Death();
+		MyPortal1 = nullptr;
+	}
 
-	MyPortal2->Death();
-	MyPortal2 = nullptr;
+	if(MyPortal2 != nullptr)
+	{
+		MyPortal2->Death();
+		MyPortal2 = nullptr;
+	}
 
-	MyMiniMap->Death();
-	MyMiniMap = nullptr;
+	if(MyMiniMap != nullptr)
+	{
+		MyMiniMap->Death();
+		MyMiniMap = nullptr;
+	}
+
+	if(MyRozar != nullptr)
+	{
+		MyRozar->ActorDeath();
+		MyRozar->Death();
+		MyRozar = nullptr;
+	}
 }
 
 void BeginnersTown2::FadeIn(float _DeltaTime)

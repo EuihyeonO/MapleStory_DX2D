@@ -253,6 +253,24 @@
     <ClInclude Include="ZakumRoad2.h">
       <Filter>Actor\Map</Filter>
     </ClInclude>
+    <ClInclude Include="Sera.h">
+      <Filter>Actor\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="SteamTrap.h">
+      <Filter>Actor\Map\ZakumRoad2Object</Filter>
+    </ClInclude>
+    <ClInclude Include="StoneTrap.h">
+      <Filter>Actor\Map\ZakumRoad2Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Lira.h">
+      <Filter>Actor\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="DarkLord.h">
+      <Filter>Actor\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="Adovis.h">
+      <Filter>Actor\NPC</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Level_Title.cpp">
@@ -534,6 +552,27 @@
     <ClCompile Include="ZakumRoad2.cpp">
       <Filter>Actor\Map</Filter>
     </ClCompile>
+    <ClCompile Include="Sera.cpp">
+      <Filter>Actor\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemInfoBox.cpp">
+      <Filter>Actor\UI\Window\InventoryWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="SteamTrap.cpp">
+      <Filter>Actor\Map\ZakumRoad2Object</Filter>
+    </ClCompile>
+    <ClCompile Include="StoneTrap.cpp">
+      <Filter>Actor\Map\ZakumRoad2Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Lira.cpp">
+      <Filter>Actor\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="DarkLord.cpp">
+      <Filter>Actor\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="Adovis.cpp">
+      <Filter>Actor\NPC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -625,6 +664,9 @@
     </Filter>
     <Filter Include="Actor\UI\Window\NPCWindow">
       <UniqueIdentifier>{8b005594-9586-4bfc-938a-67e8749f5db9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Map\ZakumRoad2Object">
+      <UniqueIdentifier>{820a5a7b-3e76-4dc6-9dee-2a34203e3748}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

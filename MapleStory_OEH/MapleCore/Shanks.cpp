@@ -95,14 +95,15 @@ void Shanks::ChangeLevel(const std::string_view& _LevelName)
 	Black.lock()->GetTransform()->SetWorldPosition({ 0, 0, 1 });
 	Black.lock()->GetTransform()->SetLocalScale({ 800, 600 });
 
-	UpdateFunc = std::bind([Black, _LevelName](float _Deltatime)
+	UpdateFunc = std::bind([this, Black, _LevelName](float _Deltatime)
 		{
 			Black.lock()->ColorOptionValue.MulColor.a += 2.0f * _Deltatime;
 
 			if (Black.lock()->ColorOptionValue.MulColor.a >= 1.0f)
 			{
 				Black.lock()->Death();
-				GameEngineCore::ChangeLevel(_LevelName);
+				GameEngineCore::ChangeLevel(_LevelName);\
+				UpdateFunc = nullptr;
 			}
 		}, std::placeholders::_1);
 }

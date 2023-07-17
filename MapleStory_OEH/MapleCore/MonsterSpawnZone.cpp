@@ -32,12 +32,17 @@ void MonsterSpawnZone::Render(float _DeltaTime)
 
 void MonsterSpawnZone::SpawnUpdate()
 {
-	std::map<int, std::pair<int, int>>::iterator Start = NumOfMonster.begin();
-	std::map<int, std::pair<int, int>>::iterator End = NumOfMonster.end();
+	std::map<int, std::shared_ptr<MonsterInfo>>::iterator Start = NumOfMonster.begin();
+	std::map<int, std::shared_ptr<MonsterInfo>>::iterator End = NumOfMonster.end();
 
 	for (; Start != End; Start++)
 	{
-		if (Start->second.first > Start->second.second)
+		if (Start->second == nullptr)
+		{
+			continue;
+		}
+
+		if (Start->second->MaxNum > Start->second->CurNum)
 		{
 			SpawnMonster(Start->first);
 		}
@@ -58,6 +63,8 @@ void MonsterSpawnZone::SpawnMonster(int _MonsterName)
 		TransformData ZoneData = GetTransform()->GetTransDataRef();
 		float SpawnXpos = GameEngineRandom::MainRandom.RandomFloat(-Range, Range);
 		_GreenSnail->GetTransform()->SetLocalPosition({ ZoneData.WorldPosition.x + SpawnXpos, ZoneData.WorldPosition.y, -10 });
+		
+		NumOfMonster[static_cast<int>(MonsterName::GreenSnail)]->MonsterList.push_back(_GreenSnail->DynamicThis<MonsterBasicFunction>());
 	}
 		break;
 	case static_cast<int>(MonsterName::Boogie):
@@ -69,6 +76,8 @@ void MonsterSpawnZone::SpawnMonster(int _MonsterName)
 		TransformData ZoneData = GetTransform()->GetTransDataRef();
 		float SpawnXpos = GameEngineRandom::MainRandom.RandomFloat(-Range, Range);
 		_Boogie->GetTransform()->SetLocalPosition({ ZoneData.WorldPosition.x + SpawnXpos, ZoneData.WorldPosition.y, -10 });
+
+		NumOfMonster[static_cast<int>(MonsterName::Boogie)]->MonsterList.push_back(_Boogie->DynamicThis<MonsterBasicFunction>());
 	}
 		break;
 	case static_cast<int>(MonsterName::Spore):
@@ -80,6 +89,8 @@ void MonsterSpawnZone::SpawnMonster(int _MonsterName)
 		TransformData ZoneData = GetTransform()->GetTransDataRef();
 		float SpawnXpos = GameEngineRandom::MainRandom.RandomFloat(-Range, Range);
 		_Spore->GetTransform()->SetLocalPosition({ ZoneData.WorldPosition.x + SpawnXpos, ZoneData.WorldPosition.y, -10 });
+
+		NumOfMonster[static_cast<int>(MonsterName::Spore)]->MonsterList.push_back(_Spore->DynamicThis<MonsterBasicFunction>());
 	}
 		break;
 	case static_cast<int>(MonsterName::BlueSnail):
@@ -91,9 +102,34 @@ void MonsterSpawnZone::SpawnMonster(int _MonsterName)
 		TransformData ZoneData = GetTransform()->GetTransDataRef();
 		float SpawnXpos = GameEngineRandom::MainRandom.RandomFloat(-Range, Range);
 		_BlueSnail->GetTransform()->SetLocalPosition({ ZoneData.WorldPosition.x + SpawnXpos, ZoneData.WorldPosition.y, -10 });
+
+		NumOfMonster[static_cast<int>(MonsterName::BlueSnail)]->MonsterList.push_back(_BlueSnail->DynamicThis<MonsterBasicFunction>());
 	}
 	break;
 	default:
 		break;
+	}
+}
+
+
+void MonsterSpawnZone::AllMonsterDeath()
+{
+	std::map<int, std::shared_ptr<MonsterInfo>>::iterator Start = NumOfMonster.begin();
+	std::map<int, std::shared_ptr<MonsterInfo>>::iterator End = NumOfMonster.end();
+
+	for (; Start != End; Start++)
+	{
+		if (Start->second == nullptr)
+		{
+			continue;
+		}
+		
+		size_t Size = Start->second->MonsterList.size();
+
+		for (int i = 0; i < Size; i++)
+		{
+			Start->second->MonsterList[i]->Death();
+			Start->second->MonsterList[i] = nullptr;
+		}
 	}
 }

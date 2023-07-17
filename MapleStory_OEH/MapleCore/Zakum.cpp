@@ -85,11 +85,6 @@ void Zakum::Update(float _DeltaTime)
 		RArm_3->Hit(201, true);
 	}
 
-	if (GameEngineInput::IsDown("MyTest1") == true)
-	{
-		//BodyRender->ChangeAnimation("Phase2Die");
-	}
-
 	FunctionUpdate();
 	Attack();
 

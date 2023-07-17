@@ -1,6 +1,7 @@
 #include "PrecompileHeader.h"
 #include "MiniMap.h"
 #include "Player.h"
+#include "ContentFontRenderer.h"
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineUIRenderer.h>
@@ -29,13 +30,68 @@ void MiniMap::Start()
 	UserMark = CreateComponent<GameEngineUIRenderer>();
 	UserMark->SetScaleToTexture("userposPoint.png");
 
-	MiniMapOff();
+	MapMark = CreateComponent<GameEngineUIRenderer>();
 
+	WorldNameWhiteLayer = CreateComponent<ContentFontRenderer>();
+	WorldNameBlackLayer1 = CreateComponent<ContentFontRenderer>();
+	WorldNameBlackLayer2 = CreateComponent<ContentFontRenderer>();
+	
+	WorldName = CreateComponent<ContentFontRenderer>();
+
+	MapNameWhiteLayer = CreateComponent<ContentFontRenderer>();
+	MapNameBlackLayer1 = CreateComponent<ContentFontRenderer>();
+	MapNameBlackLayer2 = CreateComponent<ContentFontRenderer>();
+
+	MapName = CreateComponent<ContentFontRenderer>();
+
+	MiniMapOff();
 
 	MiniMapBox->GetTransform()->SetLocalPosition(float4{ -400, 300 } + float4{ 100, -100 });
 	float4 MapBoxPos = MiniMapBox->GetTransform()->GetLocalPosition();
 
+	MapMark->GetTransform()->SetLocalPosition(MapBoxPos + float4{ -72, 58 });
 	Map->GetTransform()->SetLocalPosition(MapBoxPos + float4{ 0, -45 });
+	
+	WorldNameBlackLayer1->SetFont("±¼¸²");
+	WorldNameBlackLayer1->SetScale(13.0f);
+	WorldNameBlackLayer1->SetColor({ 0.0f, 0.0f, 0.0f, 1.0f });
+	WorldNameBlackLayer1->GetTransform()->SetLocalPosition(MapBoxPos + float4{ -50, 75 });
+	
+	WorldNameBlackLayer2->SetFont("±¼¸²");
+	WorldNameBlackLayer2->SetScale(13.0f);
+	WorldNameBlackLayer2->SetColor({ 0.0f, 0.0f, 0.0f, 1.0f });
+	WorldNameBlackLayer2->GetTransform()->SetLocalPosition(MapBoxPos + float4{ -51, 75 });
+
+	WorldNameWhiteLayer->SetFont("±¼¸²");
+	WorldNameWhiteLayer->SetScale(13.0f);
+	WorldNameWhiteLayer->SetColor({ 1.0f, 1.0f, 1.0f, 1.0f });
+	WorldNameWhiteLayer->GetTransform()->SetLocalPosition(MapBoxPos + float4{ -49, 76, -1 });
+
+	WorldName->SetFont("±¼¸²");
+	WorldName->SetScale(13.0f);
+	WorldName->SetColor({ 1.0f, 1.0f, 1.0f, 1.0f });
+	WorldName->GetTransform()->SetLocalPosition(MapBoxPos + float4{ -50, 76, -1 });
+
+	//
+	MapNameBlackLayer1->SetFont("±¼¸²");
+	MapNameBlackLayer1->SetScale(13.0f);
+	MapNameBlackLayer1->SetColor({ 0.0f, 0.0f, 0.0f, 1.0f });
+	MapNameBlackLayer1->GetTransform()->SetLocalPosition(MapBoxPos + float4{ -50, 56 });
+	
+	MapNameBlackLayer2->SetFont("±¼¸²");
+	MapNameBlackLayer2->SetScale(13.0f);
+	MapNameBlackLayer2->SetColor({ 0.0f, 0.0f, 0.0f, 1.0f });
+	MapNameBlackLayer2->GetTransform()->SetLocalPosition(MapBoxPos + float4{ -51, 56 });
+	
+	MapNameWhiteLayer->SetFont("±¼¸²");
+	MapNameWhiteLayer->SetScale(13.0f);
+	MapNameWhiteLayer->SetColor({ 1.0f, 1.0f, 1.0f, 1.0f });
+	MapNameWhiteLayer->GetTransform()->SetLocalPosition(MapBoxPos + float4{ -49, 57, -1});
+	
+	MapName->SetFont("±¼¸²");
+	MapName->SetScale(13.0f);
+	MapName->SetColor({ 1.0f, 1.0f, 1.0f, 1.0f });
+	MapName->GetTransform()->SetLocalPosition(MapBoxPos + float4{ -50, 57, -1 });
 }
 
 void MiniMap::Update(float _DeltaTime)
@@ -65,6 +121,17 @@ void MiniMap::MiniMapOn()
 	Map->On();
 	MiniMapBox->On();
 	UserMark->On();
+	MapMark->On();
+
+	WorldName->On();
+	WorldNameWhiteLayer->On();
+	WorldNameBlackLayer1->On();
+	WorldNameBlackLayer2->On();
+
+	MapName->On();
+	MapNameWhiteLayer->On();
+	MapNameBlackLayer1->On();
+	MapNameBlackLayer2->On();
 	MarkOn();
 }
 
@@ -74,6 +141,18 @@ void MiniMap::MiniMapOff()
 	Map->Off();
 	MiniMapBox->Off();
 	UserMark->Off();
+	MapMark->Off();
+
+	WorldName->Off();
+	WorldNameWhiteLayer->Off();
+	WorldNameBlackLayer1->Off();
+	WorldNameBlackLayer2->Off();
+
+	MapName->Off();
+	MapNameWhiteLayer->Off();
+	MapNameBlackLayer1->Off();
+	MapNameBlackLayer2->Off();
+
 	MarkOff();
 }
 
@@ -218,4 +297,27 @@ void MiniMap::MarkOff()
 	{
 		(*StartIter)->Off();
 	}
+}
+
+
+void MiniMap::SetMapMark(const std::string_view& _MarkName)
+{
+	MapMark->SetScaleToTexture(_MarkName);
+}
+
+void MiniMap::SetWorldName(const std::string_view& _MarkName)
+{
+	WorldName->SetText(_MarkName);
+	WorldNameWhiteLayer->SetText(_MarkName);
+	WorldNameBlackLayer1->SetText(_MarkName);
+	WorldNameBlackLayer2->SetText(_MarkName);
+}
+
+void MiniMap::SetMapName(const std::string_view& _MarkName)
+{
+	MapName->SetText(_MarkName);
+	MapNameWhiteLayer->SetText(_MarkName);
+	MapNameBlackLayer1->SetText(_MarkName);
+	MapNameBlackLayer2->SetText(_MarkName);
+
 }

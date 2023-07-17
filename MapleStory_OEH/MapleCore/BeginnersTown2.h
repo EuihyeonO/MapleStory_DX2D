@@ -52,5 +52,7 @@ private:
 	std::function<void(BeginnersTown2&, float)> FadeInUpdate;
 	std::shared_ptr<class GameEngineUIRenderer> Black = nullptr;
 
+	std::shared_ptr<class Rozar> MyRozar = nullptr;
+
 };
 

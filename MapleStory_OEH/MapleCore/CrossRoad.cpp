@@ -45,6 +45,11 @@ void CrossRoad::Start()
 
 	MyMiniMap = GetLevel()->CreateActor<MiniMap>(static_cast<int>(RenderOrder::UI));
 	MyMiniMap->SetMap(MapName);
+	MyMiniMap->SetPortalToMiniMap({ -1750, 45, -10 });
+	MyMiniMap->SetPortalToMiniMap({ 1760, -70, -10 });
+	MyMiniMap->SetMapMark("MushroomVillageMark.png");
+	MyMiniMap->SetWorldName("메이플월드");
+	MyMiniMap->SetMapName("두 갈래 길");
 
 	Portal1 = GetLevel()->CreateActor<Portal>(static_cast<int>(RenderOrder::UI));
 	Portal1->SetLinkedMap("Level_BeginnersTown2");
@@ -161,12 +166,14 @@ void CrossRoad::ActorDeath()
 
 	if (Zone1 != nullptr)
 	{
+		Zone1->AllMonsterDeath();
 		Zone1->Death();
 		Zone1 = nullptr;
 	}
 
 	if (Zone2 != nullptr)
 	{
+		Zone2->AllMonsterDeath();
 		Zone2->Death();
 		Zone2 = nullptr;
 	}

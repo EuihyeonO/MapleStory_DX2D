@@ -27,6 +27,7 @@ protected:
 	void Render(float _DeltaTime) override;
 private:
 
+	void SpawnZakum(float _DeltaTime);
 	void LandScapeMove();
 
 	void MagmaMove(float _DeltaTime);
@@ -44,6 +45,10 @@ private:
 
 	std::shared_ptr<class GameEngineSpriteRenderer> BackGround = nullptr;
 	std::shared_ptr<class GameEngineSpriteRenderer> Layer = nullptr;
+
+	std::function<void(float)> UpdateFunc = nullptr;
+	std::shared_ptr<class GameEngineCollision> AlterCollision = nullptr;
+	float ColCount = 0.0f;
 
 	float Magma_UVXMove = 0.0f;
 

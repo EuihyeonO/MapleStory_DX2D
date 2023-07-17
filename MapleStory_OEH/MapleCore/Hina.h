@@ -14,6 +14,8 @@ public:
 	Hina& operator=(const Hina& _Other) = delete;
 	Hina& operator=(Hina&& _Other) noexcept = delete;
 
+	void ActorDeath();
+
 protected:
 	void Start();
 	void Update(float _DeltaTime) override;

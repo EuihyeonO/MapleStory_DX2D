@@ -25,6 +25,10 @@ protected:
 	void Render(float _DeltaTime) override;
 private:
 	void BackGroundUpdate(float _Deltatime);
+	void FadeIn(float _DeltaTime);
+
+	std::function<void(KerningCity&, float)> FadeInUpdate;
+	std::shared_ptr<class GameEngineUIRenderer> Black = nullptr;
 
 	std::string ColMapName = "ColKerningCity.png";
 	std::string MapName = "KerningCity.png";
@@ -34,6 +38,8 @@ private:
 	std::shared_ptr<class GameEngineSpriteRenderer> BackGround1 = nullptr;
 	std::shared_ptr<class GameEngineSpriteRenderer> BackGround2 = nullptr;
 	std::shared_ptr<class GameEngineSpriteRenderer> BackGround3 = nullptr;
+
+	std::shared_ptr<class Portal> Portal1 = nullptr;
 
 };
 

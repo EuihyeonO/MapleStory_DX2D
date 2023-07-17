@@ -97,12 +97,11 @@ void Level_CrossRoad::ActorCreate()
 		MyUIWindowManager = CreateActor<UIWindowManager>();
 	}
 
-
-	if (PlayerValue::GetValue()->GetPrevLevelName() == "Level_Title")
+	if (PlayerValue::GetValue()->GetPrevLevelName() == "Level_SouthFerry")
 	{
-		MyPlayer->SetRight();
+		MyPlayer->SetLeft();
 		MyPlayer->SetMoveType("Jump");
-		MyPlayer->GetTransform()->SetLocalPosition({ -500, 200 });
+		MyPlayer->GetTransform()->SetLocalPosition({ 1760, -70, -10 });
 	}
 	else if (PlayerValue::GetValue()->GetPrevLevelName() == "Level_BeginnersTown2")
 	{

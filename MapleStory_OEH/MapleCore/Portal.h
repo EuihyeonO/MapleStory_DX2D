@@ -25,6 +25,11 @@ public:
 		GetTransform()->SetLocalPosition(_Pos);
 	}
 
+	void PortalRenderOff()
+	{
+		PortalRender->Off();
+	}
+
 protected:
 	void Start();
 	void Update(float _DeltaTime) override;

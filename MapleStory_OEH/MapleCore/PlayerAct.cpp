@@ -389,7 +389,7 @@ void Player::Swing()
 	std::function<void(Star&, float)> UpdateFunction = &Star::Move;
 	NewStar1->SetUpdateFuction(UpdateFunction);
 	NewStar1->SetTargetMonster(HitMonsterVector, PlayerPos);
-	NewStar1->SetType("Swing");
+	NewStar1->SetType("LuckySeven");
 
 	if (isOnShadow == true)
 	{
@@ -404,7 +404,7 @@ void Player::Swing()
 		std::function<void(Star&, float)> UpdateFunction = &Star::Move;
 		NewStar2->SetUpdateFuction(UpdateFunction);
 		NewStar2->SetTargetMonster(HitMonsterVector, PlayerPos);
-		NewStar2->SetType("Swing");
+		NewStar2->SetType("LuckySeven");
 	}
 }
 

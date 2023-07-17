@@ -2,6 +2,7 @@
 #include "AlterOfZakum.h"
 #include "Zakum.h"
 #include "Boogie.h"
+#include "DropItem.h"
 
 #include "ContentRenderer.h"
 #include <GameEngineCore/GameEngineLevel.h>
@@ -87,17 +88,28 @@ void AlterOfZakum::Start()
 	RopeCol2->GetTransform()->SetLocalPosition(Rope2Data.LocalPosition);
 	RopeCol2->SetOrder(static_cast<int>(CollisionOrder::RopeAndLadder));
 
-	std::shared_ptr<Zakum> NewZakum = GetLevel()->CreateActor<Zakum>();
+	UpdateFunc = std::bind(&AlterOfZakum::SpawnZakum, this, std::placeholders::_1);
 
 	Alter = CreateComponent<GameEngineSpriteRenderer>();
 	Alter->SetScaleToTexture("Alter0.png");
-	Alter->GetTransform()->SetLocalPosition({ 0, -180.0f , -5.0f });
+	Alter->GetTransform()->SetLocalPosition({ 0, -180.0f , -6.0f });
+
+	AlterCollision = CreateComponent<GameEngineCollision>();
+	AlterCollision->SetColType(ColType::AABBBOX2D);
+	AlterCollision->GetTransform()->SetLocalScale({ Alter->GetTransform()->GetLocalScale().hx(),Alter->GetTransform()->GetLocalScale().hy() });
+	AlterCollision->GetTransform()->SetLocalPosition(Alter->GetTransform()->GetLocalPosition() + float4{0, 30});
+
 }
 
 void AlterOfZakum::Update(float _DeltaTime) 
 {
 	MagmaMove(_DeltaTime);
 	LandScapeMove();
+
+	if (UpdateFunc != nullptr)
+	{
+		UpdateFunc(_DeltaTime);
+	}
 }
 
 void AlterOfZakum::Render(float _DeltaTime)
@@ -126,4 +138,38 @@ void AlterOfZakum::MagmaMove(float _DeltaTime)
 	}
 
 	Magma->SetUVconstant({ Magma_UVXMove, 0, 5, 1 });
+}
+
+void AlterOfZakum::SpawnZakum(float _DeltaTime)
+{
+	if (AlterCollision == nullptr)
+	{
+		return;
+	}
+
+	std::shared_ptr<GameEngineCollision> Col = AlterCollision->Collision(static_cast<int>(CollisionOrder::DropItem), ColType::AABBBOX2D, ColType::AABBBOX2D);
+
+	if (Col != nullptr)
+	{
+		std::shared_ptr<DropItem> ColItem = Col->GetActor()->DynamicThis<DropItem>();
+		std::string ItemName = GameEngineString::ToUpper(ColItem->GetItemName().data());
+
+		if (ItemName == "EYEOFFIRE")
+		{
+			ColCount += _DeltaTime;
+
+			if (ColCount >= 2.0f)
+			{
+				ColItem->GetRender()->ColorOptionValue.MulColor.a -= 1.0f * _DeltaTime;
+
+				if (ColItem->GetRender()->ColorOptionValue.MulColor.a <= 0.0f)
+				{
+					ColItem->Death();
+					std::shared_ptr<Zakum> NewZakum = GetLevel()->CreateActor<Zakum>();
+					UpdateFunc = nullptr;
+				}
+			}
+
+		}
+	}
 }

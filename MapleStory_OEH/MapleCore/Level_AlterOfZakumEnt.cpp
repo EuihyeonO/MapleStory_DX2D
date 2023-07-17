@@ -130,6 +130,7 @@ void Level_AlterOfZakumEnt::ActorDeath()
 
 	if (Map != nullptr)
 	{
+		Map->ActorDeath();
 		Map->Death();
 		Map = nullptr;
 	}
@@ -137,35 +138,43 @@ void Level_AlterOfZakumEnt::ActorDeath()
 
 void Level_AlterOfZakumEnt::LoadResources()
 {
-	if (nullptr == GameEngineTexture::Find("AlterOfZakumEnt.png"))
-	{
-		GameEngineDirectory NewDir;
-		NewDir.MoveParentToDirectory("MapleResources");
-		NewDir.Move("MapleResources");
-		NewDir.Move("AlterOfZakumEnt");
-		NewDir.Move("AlterOfZakumEntNotSprite");
+	GameEngineDirectory NewDir;
+	NewDir.MoveParentToDirectory("MapleResources");
+	NewDir.Move("MapleResources");
+	NewDir.Move("AlterOfZakumEnt");
+	NewDir.Move("AlterOfZakumEntNotSprite");
 
-		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
-		for (size_t i = 0; i < File.size(); i++)
+	std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
+
+	for (size_t i = 0; i < File.size(); i++)
+	{
+		std::string FileFullPath = File[i].GetFullPath();
+		std::string FileName = "";
+		size_t Count = 0;
+
+		for (Count = FileFullPath.size(); Count > 0; Count--)
+		{
+			char a = FileFullPath[Count];
+			if (FileFullPath[Count] == '\\')
+			{
+				break;
+			}
+		}
+
+		for (size_t j = Count + 1; j < FileFullPath.size(); j++)
+		{
+			FileName.push_back(FileFullPath[j]);
+		}
+
+		if (GameEngineTexture::Find(FileName) != nullptr)
+		{
+			GameEngineTexture::ReLoad(File[i].GetFullPath());
+		}
+		else
 		{
 			GameEngineTexture::Load(File[i].GetFullPath());
 		}
 	}
-	else
-	{
-		GameEngineDirectory NewDir;
-		NewDir.MoveParentToDirectory("MapleResources");
-		NewDir.Move("MapleResources");
-		NewDir.Move("AlterOfZakumEnt");
-		NewDir.Move("AlterOfZakumEntNotSprite");
-
-		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
-		for (size_t i = 0; i < File.size(); i++)
-		{
-			GameEngineTexture::ReLoad(File[i].GetFullPath());
-		}
-	}
-
 
 	if (nullptr == GameEngineSprite::Find("FireDewDrop"))
 	{
@@ -176,6 +185,7 @@ void Level_AlterOfZakumEnt::LoadResources()
 		NewDir.Move("AlterOfZakumEntSprite");
 
 		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("FireDewDrop").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Adovis").GetFullPath());
 	}
 	else
 	{
@@ -186,8 +196,8 @@ void Level_AlterOfZakumEnt::LoadResources()
 		NewDir.Move("AlterOfZakumEntSprite");
 
 		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("FireDewDrop").GetFullPath());
+		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("Adovis").GetFullPath());
 	}
-
 }
 
 void Level_AlterOfZakumEnt::UnLoadResources()
@@ -228,6 +238,7 @@ void Level_AlterOfZakumEnt::UnLoadResources()
 
 	{
 		GameEngineSprite::UnLoad("FireDewDrop");
+		GameEngineSprite::UnLoad("Adovis");
 	}
 }
 

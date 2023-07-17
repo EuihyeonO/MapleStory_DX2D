@@ -310,36 +310,50 @@ void Level_AlterOfZakum::LoadSprite()
 
 void Level_AlterOfZakum::LoadResources()
 {
-	if (nullptr == GameEngineSprite::Find("AlterOfZakum.png"))
-	{
-		GameEngineDirectory NewDir;
-		NewDir.MoveParentToDirectory("MapleResources");
-		NewDir.Move("MapleResources");
-		NewDir.Move("AlterOfZakum");
-		NewDir.Move("AlterOfZakumNotSprite");
+	GameEngineDirectory NewDir;
+	NewDir.MoveParentToDirectory("MapleResources");
+	NewDir.Move("MapleResources");
+	NewDir.Move("AlterOfZakum");
+	NewDir.Move("AlterOfZakumNotSprite");
 
-		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
-		for (size_t i = 0; i < File.size(); i++)
+	std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
+
+	for (size_t i = 0; i < File.size(); i++)
+	{
+		std::string FileFullPath = File[i].GetFullPath();
+		std::string FileName = "";
+		size_t Count = 0;
+
+		for (Count = FileFullPath.size(); Count > 0; Count--)
+		{
+			char a = FileFullPath[Count];
+			if (FileFullPath[Count] == '\\')
+			{
+				break;
+			}
+		}
+
+		for (size_t j = Count + 1; j < FileFullPath.size(); j++)
+		{
+			FileName.push_back(FileFullPath[j]);
+		}
+
+		if (GameEngineTexture::Find(FileName) != nullptr)
+		{
+			GameEngineTexture::ReLoad(File[i].GetFullPath());
+		}
+		else
 		{
 			GameEngineTexture::Load(File[i].GetFullPath());
 		}
-		
+	}
+
+	if (nullptr == GameEngineSprite::Find("AlterOfZakum.png"))
+	{		
 		LoadSprite();
 	}
 	else
 	{
-		GameEngineDirectory NewDir;
-		NewDir.MoveParentToDirectory("MapleResources");
-		NewDir.Move("MapleResources");
-		NewDir.Move("AlterOfZakum");
-		NewDir.Move("AlterOfZakumNotSprite");
-
-		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
-		for (size_t i = 0; i < File.size(); i++)
-		{
-			GameEngineTexture::ReLoad(File[i].GetFullPath());
-		}
-
 		ReLoadSprite();
 	}
 }
@@ -383,6 +397,7 @@ void Level_AlterOfZakum::ActorCreate()
 	{
 		MyUIWindowManager = CreateActor<UIWindowManager>();
 	}
+
 }
 
 void Level_AlterOfZakum::ActorDeath()

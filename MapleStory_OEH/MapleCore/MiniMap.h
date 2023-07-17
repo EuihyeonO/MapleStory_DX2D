@@ -23,7 +23,9 @@ public:
 
 	void SetNPCToMiniMap(float4 _Pos);
 	void SetPortalToMiniMap(float4 _Pos);
-	
+	void SetMapMark(const std::string_view& _MarkName);
+	void SetWorldName(const std::string_view& _MarkName);
+	void SetMapName(const std::string_view& _MarkName);
 protected:
 	void Start();
 	void Update(float _DeltaTime) override;
@@ -42,13 +44,25 @@ private:
 	void GetKetInput();
 	void CreateInputKey();
 
+
 	std::list<std::function<bool(MiniMap&)>> UpdateFunction;
 
+	std::shared_ptr<class GameEngineUIRenderer> MapMark;
 	std::shared_ptr<class GameEngineUIRenderer> Map;
 	std::shared_ptr<class GameEngineUIRenderer> Filter;
 	std::shared_ptr<class GameEngineUIRenderer> MiniMapBox;
 	std::shared_ptr<class GameEngineUIRenderer> UserMark;
 
+	std::shared_ptr<class ContentFontRenderer> WorldName;
+	std::shared_ptr<class ContentFontRenderer> MapName;
+
+	std::shared_ptr<class ContentFontRenderer> WorldNameWhiteLayer;
+	std::shared_ptr<class ContentFontRenderer> WorldNameBlackLayer1;
+	std::shared_ptr<class ContentFontRenderer> WorldNameBlackLayer2;
+
+	std::shared_ptr<class ContentFontRenderer> MapNameWhiteLayer;
+	std::shared_ptr<class ContentFontRenderer> MapNameBlackLayer1;
+	std::shared_ptr<class ContentFontRenderer> MapNameBlackLayer2;
 	float4 DownSizeRatio = {0,0};
 
 	std::list<std::shared_ptr<GameEngineUIRenderer>> NPCMarkList;

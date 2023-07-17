@@ -143,6 +143,7 @@ void Level_JazzBar::ActorDeath()
 
 	if (Map != nullptr)
 	{
+		Map->ActorDeath();
 		Map->Death();
 		Map = nullptr;
 	}

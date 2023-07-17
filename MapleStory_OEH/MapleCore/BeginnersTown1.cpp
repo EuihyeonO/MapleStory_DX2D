@@ -2,6 +2,7 @@
 #include "BeginnersTown1.h"
 #include "MiniMap.h"
 #include "Hina.h"
+#include "Sera.h"
 #include "ContentEnums.h"
 #include "ContentRenderer.h"
 #include "GreenSnail.h"
@@ -60,8 +61,15 @@ void BeginnersTown1::Start()
 	RopeCol->SetColType(ColType::AABBBOX2D);
 	RopeCol->SetOrder(static_cast<int>(CollisionOrder::RopeAndLadder));
 
-	std::shared_ptr<Hina> npc = GetLevel()->CreateActor<Hina>(static_cast<int>(RenderOrder::NPC));
-	npc->GetTransform()->SetLocalPosition({ -541, 244 });
+	MyHina = GetLevel()->CreateActor<Hina>(static_cast<int>(RenderOrder::NPC));
+	MyHina->GetTransform()->SetLocalPosition({ -541, 244 });
+
+	MySera = GetLevel()->CreateActor<Sera>(static_cast<int>(RenderOrder::NPC));
+	MySera->GetTransform()->SetLocalPosition({ 300, 197 });
+
+	std::shared_ptr<GameEngineSpriteRenderer> KeyGuide = CreateComponent<GameEngineSpriteRenderer>(static_cast<int>(RenderOrder::NPC));
+	KeyGuide->SetScaleToTexture("KeyGuide.png");
+	KeyGuide->GetTransform()->SetLocalPosition({ -400, -20 });
 
 	MyPortal = GetLevel()->CreateActor<Portal>();
 	MyPortal->SetLinkedMap("Level_BeginnersTown2");
@@ -76,6 +84,9 @@ void BeginnersTown1::Start()
 	MyMiniMap->SetMap(MapName);
 	MyMiniMap->SetNPCToMiniMap({ -541, 244 });
 	MyMiniMap->SetPortalToMiniMap({ 625, 45 });
+	MyMiniMap->SetMapMark("MushroomVillageMark.png");
+	MyMiniMap->SetWorldName("메이플월드");
+	MyMiniMap->SetMapName("버섯마을 서쪽입구");
 
 	FadeInUpdate = &BeginnersTown1::FadeIn;
 }
@@ -112,11 +123,31 @@ void BeginnersTown1::BackGroundMove(float _DeltaTime)
 
 void BeginnersTown1::ActorDeath()
 {
-	MyPortal->Death();
-	MyPortal = nullptr;
+	if(MyPortal != nullptr)
+	{
+		MyPortal->Death();
+		MyPortal = nullptr;
+	}
 
-	MyMiniMap->Death();
-	MyMiniMap = nullptr;
+	if(MyMiniMap != nullptr)
+	{
+		MyMiniMap->Death();
+		MyMiniMap = nullptr;
+	}
+
+	if (MyHina != nullptr)
+	{
+		MyHina->ActorDeath();
+		MyHina->Death();
+		MyHina = nullptr;
+	}
+
+	if (MySera != nullptr)
+	{	 
+		MySera->ActorDeath();
+		MySera->Death();
+		MySera = nullptr;
+	}
 }
 
 

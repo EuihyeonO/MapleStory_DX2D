@@ -18,6 +18,8 @@ public:
 	JazzBar& operator=(const JazzBar& _Other) = delete;
 	JazzBar& operator=(JazzBar&& _Other) noexcept = delete;
 
+	void ActorDeath();
+
 protected:
 	void Start();
 	void Update(float _DeltaTime) override;
@@ -29,5 +31,6 @@ private:
 	std::shared_ptr<class GameEngineSpriteRenderer> Map = nullptr;
 	std::shared_ptr<class GameEngineSpriteRenderer> Layer = nullptr;
 
+	std::shared_ptr<class DarkLord> MyDarkLord = nullptr;
 };
 

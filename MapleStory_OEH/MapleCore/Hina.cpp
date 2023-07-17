@@ -41,6 +41,13 @@ void Hina::Start()
 	NameFont->SetText("히나");
 	NameFont->SetColor({ 1.0f, 1.0f, 0.0f, 1.0f });
 
+	std::shared_ptr<GameEngineFontRenderer> NameFont1 = CreateComponent<GameEngineFontRenderer>();
+	NameFont1->SetFont("굴림");
+	NameFont1->SetScale(12.0f);
+	NameFont1->GetTransform()->SetLocalPosition({ 14, -32 });
+	NameFont1->SetText("히나");
+	NameFont1->SetColor({ 1.0f, 1.0f, 0.0f, 1.0f });
+
 	GetTransform()->SetLocalScale({ -1, 1 });
 	GetTransform()->SetLocalPosition({ -541, 244 });
 }
@@ -74,14 +81,31 @@ void Hina::OpenWindow()
 	MyWindow = GetLevel()->CreateActor<NPCWindow>();
 	MyWindow->SetNPC("HINASMILE00.PNG", "   히나");
 	
-	if (UIController::GetUIController()->isQuestInList("HINA0") == true /* && 거울이 없다면 */)
+	if (UIController::GetUIController()->isQuestInList("HINA0") == true && UIController::GetUIController()->ItemFind("MIRROROFSERA", static_cast<int>(ItemType::Etc)) == -1)
 	{
 		MyWindow->SetDialogText("세라 언니에게 아직 안 가 보셨어요? 동쪽 언덕에 있을 텐데...\n여기서 가까운 곳이니까 쉽게 찾을 수 있을 거예요.");
 
 		MyWindow->CreateUIButtonList(0);
 		MyWindow->SetCloseButton(0, [this] {MyWindow->ButtonsDeath(); MyWindow->Death(); MyWindow = nullptr; });
 	}
-	else
+	else if (UIController::GetUIController()->isQuestInList("HINA0") == true && UIController::GetUIController()->ItemFind("MIRROROFSERA", static_cast<int>(ItemType::Etc)) != -1)
+	{
+		MyWindow->SetDialogText("앗! 세라 언니의 거울을 가져 오셨군요! 정말 고마워요. \n어디..피부가 상하지는 않았겠지...? 흐음~");
+
+		MyWindow->CreateUIButtonList(0);
+		MyWindow->SetNextButton(0);
+		MyWindow->SetDialogText(1, "이제 우측으로 가면 다음 장소로 이동할 수 있는\n빛나는 입구를 볼 수 있을 거예요. \n그것을 포탈이라고 부르는 데 그 위에서 방향키 ↑ 를 누르면 \n다음 장소로 이동할 수 있어요. 그럼 잘가요~");
+		MyWindow->CreateUIButtonList(1);
+		MyWindow->SetCloseButton(1, [this] {MyWindow->ButtonsDeath(); MyWindow->Death(); MyWindow = nullptr; UIController::GetUIController()->DeleteToItemList("MIRROROFSERA", static_cast<int>(ItemType::Etc)); UIController::GetUIController()->QuestClear("HINA0"); });
+	}
+	else if (UIController::GetUIController()->isQuestInClearList("HINA0") == true)
+	{
+		MyWindow->SetDialogText("이제 우측으로 가면 다음 장소로 이동할 수 있는\n빛나는 입구를 볼 수 있을 거예요. \n그것을 포탈이라고 부르는 데 그 위에서 방향키 ↑ 를 누르면 \n다음 장소로 이동할 수 있어요. 그럼 잘가요~");
+
+		MyWindow->CreateUIButtonList(0);
+		MyWindow->SetCloseButton(0, [this] {MyWindow->ButtonsDeath(); MyWindow->Death(); MyWindow = nullptr; });
+	}
+	else if(UIController::GetUIController()->isQuestInClearList("HINA0") == false && UIController::GetUIController()->isQuestInList("HINA0") == false)
 	{
 		MyWindow->SetDialogText("새로운 여행자군요? 아직 많이 낯설죠? \n제가 이것저것 알려 드릴테니 잘 듣고 따라해보세요. \n우선 저희에게 말을 걸기 위해선 \n마우스로 저희들을 더블클릭을 하면 된답니다.\n좌, 우 방향키를 누르면 이동할 수 있구요.\n왼쪽 Alt 키를 누르면 점프하실 수 있어요. ");
 
@@ -92,7 +116,7 @@ void Hina::OpenWindow()
 		MyWindow->CreateUIButtonList(1);
 		
 		MyWindow->AddToTextButton("네 가져다 드릴게요.", 1, [this] {MyWindow->ChangeDialog("고맙습니다. 세라 언니는 언덕에서 빨래를 널고 있을 거예요. \n...아! 지금 받은 퀘스트 내용을 다시 한 번 확인하고 싶다면 \n키보드의 단축키 Q를 누르면 된답니다."); UIController::GetUIController()->AddToQuestList("HINA0"); });
-		MyWindow->AddToTextButton("싫어요.", 1, [this] {MyWindow->ChangeDialog("제 부탁을 들어주기 싫으신가요? 흐음~ 마음이 바뀌면 다시 찾아와 주세요."); });
+		MyWindow->AddToTextButton("싫어요.", 1, [this] {MyWindow->ChangeDialog("제 부탁을 들어주기 싫으신가요? \n흐음~ 마음이 바뀌면 다시 찾아와 주세요."); });
 		
 		MyWindow->CreateUIButtonList(2);
 		MyWindow->SetCloseButton(2, [this] {MyWindow->ButtonsDeath(); MyWindow->Death(); MyWindow = nullptr; });
@@ -192,4 +216,14 @@ void Hina::SetFrameList()
 		FrameList["CRY"].push_back(0.1f);
 	}
 
+}	
+
+void Hina::ActorDeath()
+{
+	if (MyWindow != nullptr)
+	{
+		MyWindow->ButtonsDeath();
+		MyWindow->Death();
+		MyWindow = nullptr;
+	}
 }

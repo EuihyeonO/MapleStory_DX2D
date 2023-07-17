@@ -19,6 +19,8 @@ public:
 	AlterOfZakumEnt& operator=(const AlterOfZakumEnt& _Other) = delete;
 	AlterOfZakumEnt& operator=(AlterOfZakumEnt&& _Other) noexcept = delete;
 
+	void ActorDeath();
+
 protected:
 	void Start();
 	void Update(float _DeltaTime) override;
@@ -38,6 +40,13 @@ private:
 
 	void SetFireDewDrop();
 	void FireDewDrop();
+
+	void FadeIn(float _DeltaTime);
+	std::function<void(AlterOfZakumEnt&, float)> FadeInUpdate;
+	std::shared_ptr<class GameEngineUIRenderer> Black = nullptr;
+	std::shared_ptr<class Adovis> MyAdovis = nullptr;
+	
+	std::shared_ptr<class Portal> Portal1 = nullptr;
 
 	std::vector<std::pair<bool, std::shared_ptr<class GameEngineSpriteRenderer>>> FireDewDropList;
 					

@@ -52,5 +52,8 @@ private:
 	void FadeIn(float _DeltaTime);
 	std::function<void(BeginnersTown1&, float)> FadeInUpdate;
 	std::shared_ptr<class GameEngineUIRenderer> Black = nullptr;
+
+	std::shared_ptr<class Hina> MyHina = nullptr;
+	std::shared_ptr<class Sera> MySera = nullptr;
 };
 

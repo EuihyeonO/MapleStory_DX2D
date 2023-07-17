@@ -30,9 +30,11 @@ private:
 	void Haste();
 	void Avenger();
 	void LuckySeven();
+	void TripleThrow();
 	void JavelinBooster();
 	void ShadowPartner();
 	void FlashJump();
+	void HeroesOfMaple();
 
 
 	std::string SkillName;

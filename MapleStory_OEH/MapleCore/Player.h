@@ -49,6 +49,11 @@ public:
 		return isFalling;
 	}
 
+	bool GetIsKeyJump()
+	{
+		return isKeyJump;
+	}
+
 	void SetColMap(const std::string_view& _MapName)
 	{		
 		ColMap = GameEngineTexture::Find(_MapName);
@@ -152,7 +157,7 @@ public:
 	{
 		PantsName = _Name;
 	}
-
+	
 	void SetLeft();
 	void SetRight();
 	void KnockBack(float4 _Dir, float _Distance, int _Damage, float _Speed = 750.0f, float _MinTime = 10.0f);
@@ -172,6 +177,9 @@ protected:
 
 private:
 	
+	std::shared_ptr<GameEngineSpriteRenderer> NameCard = nullptr;
+	std::shared_ptr<class ContentFontRenderer> NickName = nullptr;
+
 	static std::shared_ptr<Player> CurPlayer;
 	std::shared_ptr<GameEngineTexture> ColMap;
 	std::shared_ptr<class GameEngineCollision> BodyCollision;
@@ -269,11 +277,13 @@ private:
 		//Active
 
 	void LuckySeven();
+	void TripleThrow();
 	void Haste();
 	void Avenger();
 	void JavelinBooster();
 	void ShadowPartner();
 	void FlashJump();
+	void HeroesOfMaple();
 
 		//Passive
 	void KeenEyes();

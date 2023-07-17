@@ -190,7 +190,7 @@ void Star::Damage()
 	std::shared_ptr<GameEngineCollision> _Collision;
 	if (_Collision = StarCollision->Collision(static_cast<int>(CollisionOrder::Monster), ColType::AABBBOX2D, ColType::AABBBOX2D), _Collision != nullptr)
 	{
-		int Damage = GameEngineRandom::MainRandom.RandomInt(PlayerValue::GetValue()->GetMinAtt(), PlayerValue::GetValue()->GetMaxAtt());
+		int Damage = GameEngineRandom::MainRandom.RandomInt(static_cast<int>(PlayerValue::GetValue()->GetMinAtt()), static_cast<int>(PlayerValue::GetValue()->GetMaxAtt()));
 	
 		std::shared_ptr<DamageRender> NewDR = GetLevel()->CreateActor<DamageRender>();
 		NewDR->PushDamageToQueue(Damage);
@@ -199,7 +199,7 @@ void Star::Damage()
 		_Collision->GetActor()->DynamicThis<MonsterBasicFunction>()->Hit(Damage, isRealAttack);
 
 		std::shared_ptr<StarHitEffect> _Effect = GetLevel()->CreateActor< StarHitEffect>();
-		_Effect->SetSkillType("LuckySeven");
+		_Effect->SetSkillType(Type);
 		_Effect->SetFrame();
 		_Effect->GetTransform()->SetLocalPosition(_Collision->GetTransform()->GetWorldPosition());
 		

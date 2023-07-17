@@ -114,6 +114,8 @@ void Player::Start()
 	
 	CtrlSkill = &Player::Swing;
 
+	//NameCard = CreateComponent<GameEngineSpriteRenderer>();
+	
 	PlayerValue::Value.AttUpdate();
 }
 

@@ -95,7 +95,7 @@ void Level_KerningCity::ActorCreate()
 	{
 		MyPlayer->SetRight();
 		MyPlayer->SetMoveType("Jump");
-		MyPlayer->GetTransform()->SetLocalPosition({ -1000, 200 });
+		MyPlayer->GetTransform()->SetLocalPosition({ 1310, -380 });
 
 		MapleCore::BGMPlayer.Stop();
 		MapleCore::BGMPlayer = GameEngineSound::Play("KerningCity.mp3");

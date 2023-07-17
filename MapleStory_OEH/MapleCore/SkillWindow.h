@@ -41,6 +41,7 @@ private:
 	void ChangeWindowIndex();
 	void ColPosUpdate();
 
+	void SkillActivate();
 	int Index = 0;
 
 	std::shared_ptr<class SkillList> MySkillList = nullptr;

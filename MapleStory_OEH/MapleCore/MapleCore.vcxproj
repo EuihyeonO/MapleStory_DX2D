@@ -178,6 +178,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Adovis.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="AlterOfZakum.h">
       <SubType>
       </SubType>
@@ -255,6 +259,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="DamageRender.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="DarkLord.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -346,6 +354,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Lira.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Logo.h">
       <SubType>
       </SubType>
@@ -406,6 +418,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Sera.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Shanks.h">
       <SubType>
       </SubType>
@@ -451,6 +467,14 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="StatusWindow.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="SteamTrap.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="StoneTrap.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -518,6 +542,10 @@
   <ItemGroup>
     <ClCompile Include="ActiveAttack.cpp" />
     <ClCompile Include="ActiveBuff.cpp" />
+    <ClCompile Include="Adovis.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="AlterOfZakum.cpp">
       <SubType>
       </SubType>
@@ -594,6 +622,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="DarkLord.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="DropItem.cpp">
       <SubType>
       </SubType>
@@ -626,6 +658,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="ItemInfoBox.cpp" />
     <ClCompile Include="ItemList.cpp">
       <SubType>
       </SubType>
@@ -679,6 +712,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Level_ZakumRoad2.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Lira.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -752,6 +789,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Sera.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Shanks.cpp">
       <SubType>
       </SubType>
@@ -798,6 +839,14 @@
     </ClCompile>
     <ClCompile Include="StatusEffect.cpp" />
     <ClCompile Include="StatusWindow.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="SteamTrap.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="StoneTrap.cpp">
       <SubType>
       </SubType>
     </ClCompile>

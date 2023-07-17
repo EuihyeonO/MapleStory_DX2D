@@ -1,6 +1,12 @@
 #include "PrecompileHeader.h"
 #include "ZakumRoad2.h"
 #include "ContentRenderer.h"
+#include "SteamTrap.h"
+#include "StoneTrap.h"
+#include "RingPortal.h"
+#include "Lira.h"
+
+#include <GameEngineCore/GameEngineLevel.h>
 
 ZakumRoad2::ZakumRoad2()
 {
@@ -20,7 +26,7 @@ void ZakumRoad2::Start()
 
 	Tile = CreateComponent<GameEngineSpriteRenderer>();
 	Tile->SetScaleToTexture("ZakumRoad2.png");
-	Tile->GetTransform()->AddLocalPosition({ 0, 0, -10 });
+	Tile->GetTransform()->AddLocalPosition({ 0, 0, -5 });
 
 	Layer = CreateComponent<GameEngineSpriteRenderer>();
 	Layer->SetScaleToTexture("ZakumRoad2Layer.png");
@@ -128,20 +134,59 @@ void ZakumRoad2::Start()
 	Rope16->SetColType(ColType::AABBBOX2D);
 	Rope16->SetOrder(static_cast<int>(CollisionOrder::RopeAndLadder));
 
+	RingPortal1 = GetLevel()->CreateActor<RingPortal>();
+	RingPortal1->SetLinkedPos({1600, -175});
+	//RingPortal1->SetLinkedPos({ 390, -50, -4.0f });
+	RingPortal1->GetTransform()->SetLocalPosition({ -1800, -60, -10.0f });
+	
+	RingPortal2= GetLevel()->CreateActor<RingPortal>();
+	RingPortal2->SetLinkedPos({ -1800, -110 });
+	RingPortal2->GetTransform()->SetLocalPosition({ 1600, -125, - 10.0f});
+
+	StoneTrapList.reserve(16);
+	SteamTrapList.reserve(4);
+
+	std::shared_ptr<SteamTrap> SteamTrap1 = GetLevel()->CreateActor<SteamTrap>();
+	SteamTrap1->GetTransform()->SetLocalPosition({ -1680, -125, -4.0f });
+	SteamTrapList.push_back(SteamTrap1);
+
+	std::shared_ptr<SteamTrap> SteamTrap2 = GetLevel()->CreateActor<SteamTrap>();
+	SteamTrap2->GetTransform()->SetLocalPosition({ 390, -120, -4.0f });
+	SteamTrapList.push_back(SteamTrap2);
+
+	std::shared_ptr<StoneTrap> StoneTrap1 = GetLevel()->CreateActor<StoneTrap>();
+	StoneTrap1->GetTransform()->SetLocalPosition({ -1465, 100, -4.0f });
+	StoneTrapList.push_back(StoneTrap1);
+
+	std::shared_ptr<StoneTrap> StoneTrap2 = GetLevel()->CreateActor<StoneTrap>();
+	StoneTrap2->GetTransform()->SetLocalPosition({ -1105, 100, -4.0f });
+	StoneTrapList.push_back(StoneTrap2);
+
+	std::shared_ptr<StoneTrap> StoneTrap3 = GetLevel()->CreateActor<StoneTrap>();
+	StoneTrap3->GetTransform()->SetLocalPosition({ -745, 100, -4.0f });
+	StoneTrapList.push_back(StoneTrap3);
+
+	std::shared_ptr<StoneTrap> StoneTrap4 = GetLevel()->CreateActor<StoneTrap>();
+	StoneTrap4->GetTransform()->SetLocalPosition({ -205, 100, -4.0f });
+	StoneTrapList.push_back(StoneTrap4);
+
 	for (int i = 0; i < 12; i++)
 	{
-		//int Num = i % 2 + 1;
+		int Num = i % 2 + 1;
+		
+		std::shared_ptr<GameEngineSpriteRenderer> Renderer = CreateComponent<GameEngineSpriteRenderer>();
+		Renderer->SetScaleToTexture("ZakumLandScape" + std::to_string(Num) + ".png");
+		Renderer->GetTransform()->SetLocalPosition({ -2200 + 400.0f * i , 1 });
+		
+		Num += 2;
 
-		//std::shared_ptr<GameEngineSpriteRenderer> Renderer = CreateComponent<GameEngineSpriteRenderer>();
-		//Renderer->SetScaleToTexture("ZakumLandScape" + std::to_string(Num) + ".png");
-		//Renderer->GetTransform()->SetLocalPosition({ -2200 + 400.0f * i , 1 });
-
-		//Num += 2;
-
-		//std::shared_ptr<GameEngineSpriteRenderer> Renderer1 = CreateComponent<GameEngineSpriteRenderer>();
-		//Renderer1->SetScaleToTexture("ZakumLandScape" + std::to_string(Num) + ".png");
-		//Renderer1->GetTransform()->SetLocalPosition({ -2000 + 400.0f * i , -1 });
+		std::shared_ptr<GameEngineSpriteRenderer> Renderer1 = CreateComponent<GameEngineSpriteRenderer>();
+		Renderer1->SetScaleToTexture("ZakumLandScape" + std::to_string(Num) + ".png");
+		Renderer1->GetTransform()->SetLocalPosition({ -2000 + 400.0f * i , -1 });
 	}
+
+	MyLira = GetLevel()->CreateActor<Lira>();
+	MyLira->GetTransform()->SetLocalPosition({ 1700, -147, -6.0f });
 }
 
 void ZakumRoad2::Update(float _DeltaTime) 
@@ -159,4 +204,43 @@ void ZakumRoad2::Update(float _DeltaTime)
 void ZakumRoad2::Render(float _DeltaTime) 
 {
 
+}
+
+void ZakumRoad2::ActorDeath()
+{
+	for (int i = 0; i < StoneTrapList.size(); i++)
+	{
+		if(StoneTrapList[i] != nullptr)
+		{
+			StoneTrapList[i]->Death();
+			StoneTrapList[i] = nullptr;
+		}
+	}
+
+	for (int i = 0; i < SteamTrapList.size(); i++)
+	{
+		if (SteamTrapList[i] != nullptr)
+		{
+			SteamTrapList[i]->Death();
+			SteamTrapList[i] = nullptr;
+		}
+	}
+
+	if(RingPortal1 != nullptr)
+	{
+		RingPortal1->Death();
+		RingPortal1 = nullptr;
+	}
+
+	if (RingPortal2 != nullptr)
+	{			  
+		RingPortal2->Death();
+		RingPortal2 = nullptr;
+	}
+
+	if (MyLira != nullptr)
+	{
+		MyLira->Death();
+		MyLira = nullptr;
+	}
 }

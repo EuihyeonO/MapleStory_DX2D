@@ -1,5 +1,6 @@
 #include "PrecompileHeader.h"
 #include "KerningCity.h"
+#include "Portal.h"
 
 #include <GameEngineCore/GameEngineLevel.h>
 
@@ -36,11 +37,28 @@ void KerningCity::Start()
 	Rope2->SetOrder(static_cast<int>(CollisionOrder::RopeAndLadder));
 	Rope2->GetTransform()->SetLocalPosition({ 6.0f, -462.0f });
 	Rope2->GetTransform()->SetLocalScale({ 10.0f, 124.0f });
+
+	Black = CreateComponent<GameEngineUIRenderer>();
+	Black->GetTransform()->SetWorldScale({ 800, 600 });
+	Black->GetTransform()->SetWorldPosition({ 0, 0 });
+	Black->ColorOptionValue.MulColor = { 0.0f, 0.0f, 0.0f, 1.0f };
+	
+	Portal1 = GetLevel()->CreateActor<Portal>();
+	Portal1->GetTransform()->SetLocalPosition({ 1305, -300 });
+	Portal1->SetLinkedMap("Level_JazzBar");
+	Portal1->PortalRenderOff();
+
+	FadeInUpdate = &KerningCity::FadeIn;
 }
 
 void KerningCity::Update(float _DeltaTime)
 {
 	BackGroundUpdate(_DeltaTime);
+
+	if (FadeInUpdate != nullptr)
+	{
+		FadeInUpdate(*this, _DeltaTime);
+	}
 }
 
 void KerningCity::Render(float _DeltaTime) 
@@ -60,4 +78,16 @@ void KerningCity::BackGroundUpdate(float _DeltaTime)
 	BackGround1->GetTransform()->SetLocalPosition(CamPos + float4{ 0, 0, 3 });
 	BackGround2->GetTransform()->SetLocalPosition(CamPos + float4::Lerp({30, 0}, {-30, 0}, abs(Ratio)) + float4{0, 150, 2});
 	BackGround3->GetTransform()->SetLocalPosition(CamPos + float4::Lerp({ 50, 0 }, {-50, 0 }, abs(Ratio)) + float4{ 0, 50, 1 });
+}
+
+void KerningCity::FadeIn(float _DeltaTime)
+{
+	Black->ColorOptionValue.MulColor.a -= 1.0F * _DeltaTime;
+
+	if (Black->ColorOptionValue.MulColor.a <= 0)
+	{
+		Black->Death();
+		Black = nullptr;
+		FadeInUpdate = nullptr;
+	}
 }

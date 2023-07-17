@@ -32,7 +32,7 @@ void NPCWindow::Start()
 
 	DialogTextFont = CreateComponent<ContentFontRenderer>();
 	DialogTextFont->SetFont("±¼¸²");
-	DialogTextFont->SetScale(12.0f);
+	DialogTextFont->SetScale(13.0f);
 	DialogTextFont->GetTransform()->SetLocalPosition({ -105, 85 });
 	DialogTextFont->SetColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 }
@@ -89,6 +89,16 @@ void NPCWindow::SetNPC(const std::string_view& _TextureName, const std::string_v
 {
 	NPCNameFont->SetText(_NPCName);
 	NPCRender->SetScaleToTexture(_TextureName);
+}
+
+void NPCWindow::SetNPCPos(float4 _Pos)
+{
+	NPCRender->GetTransform()->SetLocalPosition(_Pos);
+}
+
+void NPCWindow::SetNPCNamePos(float4 _Pos)
+{
+	NPCNameFont->GetTransform()->SetLocalPosition(_Pos);
 }
 
 void NPCWindow::TextUpdate()

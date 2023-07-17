@@ -54,32 +54,32 @@ void TitleObjects::Start()
 	TitleLight0 = CreateComponent<GameEngineSpriteRenderer>();
 	TitleLight0->CreateAnimation({ .AnimationName = "TitleLight",.SpriteName = "TitleLight0",.FrameInter = 1.5f,.Loop = true,.ScaleToTexture = true });
 	TitleLight0->ChangeAnimation("TitleLight");
-	TitleLight0->GetTransform()->SetLocalPosition({ 200, 55 });
+	TitleLight0->GetTransform()->SetLocalPosition({ 200, 55, -1 });
 
 	TitleLight1 = CreateComponent<GameEngineSpriteRenderer>();
 	TitleLight1->CreateAnimation({ .AnimationName = "TitleLight",.SpriteName = "TitleLight1",.FrameInter = 2.5f,.Loop = true,.ScaleToTexture = true });
 	TitleLight1->ChangeAnimation("TitleLight");
-	TitleLight1->GetTransform()->SetLocalPosition({ 125, 130 });
+	TitleLight1->GetTransform()->SetLocalPosition({ 125, 130, -1 });
 
 	TitleLight2 = CreateComponent<GameEngineSpriteRenderer>();
 	TitleLight2->CreateAnimation({ .AnimationName = "TitleLight",.SpriteName = "TitleLight2",.FrameInter = 1.7f,.Loop = true,.ScaleToTexture = true });
 	TitleLight2->ChangeAnimation("TitleLight");
-	TitleLight2->GetTransform()->SetLocalPosition({ 115, 130 });
+	TitleLight2->GetTransform()->SetLocalPosition({ 115, 130, -1 });
 	
 	TitleLight3 = CreateComponent<GameEngineSpriteRenderer>();
 	TitleLight3->CreateAnimation({ .AnimationName = "TitleLight",.SpriteName = "TitleLight3",.FrameInter = 3.0f,.Loop = true,.ScaleToTexture = true });
 	TitleLight3->ChangeAnimation("TitleLight");
-	TitleLight3->GetTransform()->SetLocalPosition({ 225, 100 });
+	TitleLight3->GetTransform()->SetLocalPosition({ 225, 100, -1 });
 
 	TitleLight4 = CreateComponent<GameEngineSpriteRenderer>();
 	TitleLight4->CreateAnimation({ .AnimationName = "TitleLight",.SpriteName = "TitleLight4",.FrameInter = 2.8f,.Loop = true,.ScaleToTexture = true });
 	TitleLight4->ChangeAnimation("TitleLight");
-	TitleLight4->GetTransform()->SetLocalPosition({ 185, 140 });
+	TitleLight4->GetTransform()->SetLocalPosition({ 185, 140, -1 });
 	
 	TitleLight5 = CreateComponent<GameEngineSpriteRenderer>();
 	TitleLight5->CreateAnimation({ .AnimationName = "TitleLight",.SpriteName = "TitleLight5",.FrameInter = 1.0f,.Loop = true,.ScaleToTexture = true });
 	TitleLight5->ChangeAnimation("TitleLight");
-	TitleLight5->GetTransform()->SetLocalPosition({ 185, 140 });
+	TitleLight5->GetTransform()->SetLocalPosition({ 185, 140, -1 });
 
 	Frame = CreateComponent<GameEngineUIRenderer>();
 	Frame->SetTexture("Frame.png");
@@ -88,6 +88,27 @@ void TitleObjects::Start()
 	ChannelCheck = CreateComponent<GameEngineSpriteRenderer>();
 	ChannelCheck->CreateAnimation({ .AnimationName = "Check",.SpriteName = "ChannelCheck",.Loop = false,.ScaleToTexture = true,.FrameTime = {0.1f, 0.05f ,0.05f ,0.1f } });
 	ChannelCheck->Off();
+
+	LoginID = CreateComponent<GameEngineFontRenderer>();
+	LoginID->SetFont("±¼¸²");
+	LoginID->SetScale(13.0f);
+	LoginID->SetColor({ 1.0f, 1.0f, 1.0f, 1.0f});
+	LoginID->GetTransform()->SetLocalPosition({ 37, 51 });
+
+	LoginPassWord = CreateComponent<GameEngineFontRenderer>();
+	LoginPassWord->SetFont("±¼¸²");
+	LoginPassWord->SetScale(13.0f);
+	LoginPassWord->SetColor({ 1.0f, 1.0f, 1.0f, 1.0f });
+	LoginPassWord->GetTransform()->SetLocalPosition({ 37, 21 });
+
+	NickName = CreateComponent<GameEngineFontRenderer>();
+	NickName->SetFont("±¼¸²");
+	NickName->SetScale(13.0f);
+	NickName->SetColor({ 1.0f, 1.0f, 1.0f, 1.0f });
+	NickName->GetTransform()->SetLocalPosition({ 110, 1909 });
+	NickName->SetText("ÀÇÇöÂ¯Â¯");
+
+	TypingUpdateFunc = std::bind(&TitleObjects::TypingLoginInfo, this, std::placeholders::_1);
 
 	SetChCollision();
 	Create_FrameObject();
@@ -98,6 +119,11 @@ void TitleObjects::Update(float _DeltaTime)
 	TimeCounting();
 	EmptySlotAnimation();
 	RollStatDice();
+
+	if (TypingUpdateFunc != nullptr)
+	{
+		TypingUpdateFunc(_DeltaTime);
+	}
 
 	if (LogoAlphaAngle >= 135.0f)
 	{
@@ -376,7 +402,6 @@ void TitleObjects::Create_ChannelButton()
 	Stierce->SetEvent([this] {ChScroll->ChangeAnimation("Stierce"); });
 	Stierce->SetHoverSound("ButtonHover.mp3");
 	Stierce->SetPressSound("WorldSelect.mp3");
-
 }
 
 void TitleObjects::Create_CharSelectButton()
@@ -397,12 +422,29 @@ void TitleObjects::Create_CharSelectButton()
 	CharCreate->SetAllPos(BoxPos + float4{1, 48, -1});
 
 	CharSelect = GetLevel()->CreateActor<ContentButton>();
-	CharSelect->SetReleaseTexture("SelectRelease.png");
-	CharSelect->SetHoverTexture("SelectHover.png");
-	CharSelect->SetPressTexture("SelectPress.png");
+	CharSelect->SetReleaseTexture("SelectDisable.png");
+	CharSelect->SetHoverTexture("SelectDisable.png");
+	CharSelect->SetPressTexture("SelectDisable.png");
 	CharSelect->SetAllScale({ 101, 30 });
 	CharSelect->SetisUIRenderer(false);
 	CharSelect->SetAllPos(BoxPos + float4{ 1, 86 });
+	CharSelect->SetEvent(nullptr);
+
+	CharDelete = GetLevel()->CreateActor<ContentButton>();
+	CharDelete->SetReleaseTexture("DeleteRelease.png");
+	CharDelete->SetHoverTexture("DeleteHover.png");
+	CharDelete->SetPressTexture("DeletePress.png");
+	CharDelete->SetAllScale({ 101, 43 });
+	CharDelete->SetisUIRenderer(false);
+	CharDelete->SetAllPos(BoxPos + float4{ 1, -8 });
+}
+
+void TitleObjects::ActivateToCharSelect()
+{
+
+	CharSelect->SetReleaseTexture("SelectRelease.png");
+	CharSelect->SetHoverTexture("SelectHover.png");
+	CharSelect->SetPressTexture("SelectPress.png");
 	CharSelect->SetEvent([this]
 		{
 			GameEngineSound::Play("CharSelect.mp3");
@@ -418,18 +460,52 @@ void TitleObjects::Create_CharSelectButton()
 				{
 					Black.lock()->ColorOptionValue.MulColor.a = 1.0f;
 					Black.lock()->Death();
+
 					GameEngineCore::ChangeLevel("Level_BeginnersTown1");
 				}
 			};
 		});
+}
 
-	CharDelete = GetLevel()->CreateActor<ContentButton>();
-	CharDelete->SetReleaseTexture("DeleteRelease.png");
-	CharDelete->SetHoverTexture("DeleteHover.png");
-	CharDelete->SetPressTexture("DeletePress.png");
-	CharDelete->SetAllScale({ 101, 43 });
-	CharDelete->SetisUIRenderer(false);
-	CharDelete->SetAllPos(BoxPos + float4{ 1, -8 });
+void TitleObjects::TypingLoginInfo(float _DeltaTtime)
+{
+	TypingCount += _DeltaTtime;
+
+	if(TypingCount >= 0.08f)
+	{
+		if(isEndID == false)
+		{
+			std::string CopyText = "OhEuiHyeon";
+			IDText.push_back(CopyText[TypingIndex]);
+			LoginID->SetText(IDText);
+
+			TypingCount = 0.0f;
+			TypingIndex++;
+
+			if (TypingIndex >= CopyText.size())
+			{
+				isEndID = true;
+				TypingCount = -1.0f;
+				TypingIndex = 0;
+			}
+		}
+		else
+		{
+			std::string CopyText = "MapleStory By DX_11";
+			
+			PassWordText.push_back(CopyText[TypingIndex]);
+			LoginPassWord->SetText(PassWordText);
+
+			TypingCount = 0.0f;
+			TypingIndex++;
+
+			if (TypingIndex >= CopyText.size())
+			{
+				TypingIndex = 0;
+				TypingUpdateFunc = nullptr;
+			}
+		}
+	}
 }
 
 void TitleObjects::Create_CharacterObject()
@@ -657,6 +733,7 @@ void TitleObjects::Create_CharCreateObject()
 	LChangePants->SetEvent([this]
 		{
 			PantsIndex--;
+
 			if (PantsIndex < 0)
 			{
 				PantsIndex = ClothesVec[static_cast<int>(EquipType::Pants)].size() - 1;

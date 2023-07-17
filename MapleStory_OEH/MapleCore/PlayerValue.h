@@ -233,7 +233,16 @@ public: //local
 		{
 			Hp = 0;
 		}
+	}
 
+	void AddHp(int _Hp)
+	{
+		Hp += _Hp;
+
+		if (Hp >= MaxHp)
+		{
+			Hp = MaxHp;
+		}
 	}
 
 	int GetMp()
@@ -553,6 +562,17 @@ public:
 		SkillPoint--;
 	}
 
+	int GetTripleThrowLv()
+	{
+		return TripleThrowLv;
+	}
+
+	void TripleThrowLvUp()
+	{
+		TripleThrowLv++;
+		SkillPoint--;
+	}
+
 	int GetFlashJumpLv()
 	{
 		return FlashJumpLv;
@@ -561,6 +581,17 @@ public:
 	void FlashJumpLvUp()
 	{
 		FlashJumpLv++;
+		SkillPoint--;
+	}
+
+	int GetHeroesOfMapleLv()
+	{
+		return HeroesOfMapleLv;
+	}
+
+	void HeroesOfMapleLvUp()
+	{
+		HeroesOfMapleLv++;
 		SkillPoint--;
 	}
 
@@ -573,6 +604,8 @@ private:
 	int ShadowPartnerLv = 0;
 	int LuckySevenLv = 0;
 	int AvengerLv = 0;
+	int TripleThrowLv = 0;
+	int HeroesOfMapleLv = 0;
 	int FlashJumpLv = 20;
 };
 

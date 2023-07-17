@@ -44,6 +44,7 @@ private:
 	std::shared_ptr<class ContentFontRenderer> HpFont = nullptr;
 	std::shared_ptr<class ContentFontRenderer> MpFont = nullptr;
 	std::shared_ptr<class ContentFontRenderer> ExpFont = nullptr;
+	std::shared_ptr<class ContentFontRenderer> ClassFont = nullptr;
 
 	std::vector<std::shared_ptr<GameEngineUIRenderer>> LevelRenderer;
 	float4 ExpBarRightPos = { 0, 0 };

@@ -29,13 +29,15 @@ void SkillList::Start()
 		SkillVector[i].reserve(4);
 	}
 
+	InsertSkillToList(0, "FlashJump");
 	InsertSkillToList(1, "LuckySeven");
 	InsertSkillToList(1, "KeenEyes");
 	InsertSkillToList(2, "Haste");
 	InsertSkillToList(2, "JavelinBooster");
 	InsertSkillToList(3, "ShadowPartner");
 	InsertSkillToList(3, "Avenger");
-	InsertSkillToList(3, "FlashJump");
+	InsertSkillToList(4, "HeroesOfMaple");
+	InsertSkillToList(4, "TripleThrow");
 }
 
 void SkillList::Update(float _DeltaTime) 
@@ -299,6 +301,21 @@ void SkillList::SetSkillIcon(std::shared_ptr<SkillList::SkillIcon> _SkillIcon)
 		_SkillIcon->LvUpBt->SetPressEvent([=, this] {if (Value->GetLuckySevenLv() < 20 && Value->GetSkillPoint() > 0) { Value->LuckySevenLvUp(); } if (Value->GetLuckySevenLv() == 20) { _SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png"); } _SkillIcon->SkillLv->SetText(std::to_string(Value->GetLuckySevenLv())); });
 		_SkillIcon->LvUpBt->SetPressStartTime(0.3f);
 	}
+	else if (_SkillIcon->SkillName == "TripleThrow")
+	{
+		_SkillIcon->SkillFunc = &Player::TripleThrow;
+		_SkillIcon->SkillNameFont->SetText("트리플 스로우");
+		_SkillIcon->SkillLv->SetText(std::to_string(Value->GetTripleThrowLv()));
+
+		if (Value->GetTripleThrowLv() >= 20 || Value->GetSkillPoint() <= 0)
+		{
+			_SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png");
+		};
+
+		_SkillIcon->LvUpBt->SetEvent([=, this] {if (Value->GetTripleThrowLv() < 20 && Value->GetSkillPoint() > 0) { Value->TripleThrowLvUp(); } if (Value->GetTripleThrowLv() == 20) { _SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png"); } _SkillIcon->SkillLv->SetText(std::to_string(Value->GetTripleThrowLv())); });
+		_SkillIcon->LvUpBt->SetPressEvent([=, this] {if (Value->GetTripleThrowLv() < 20 && Value->GetSkillPoint() > 0) { Value->TripleThrowLvUp(); } if (Value->GetTripleThrowLv() == 20) { _SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png"); } _SkillIcon->SkillLv->SetText(std::to_string(Value->GetTripleThrowLv())); });
+		_SkillIcon->LvUpBt->SetPressStartTime(0.3f);
+	}
 	else if (_SkillIcon->SkillName == "KeenEyes")
 	{
 		_SkillIcon->SkillFunc = &Player::KeenEyes;
@@ -372,6 +389,21 @@ void SkillList::SetSkillIcon(std::shared_ptr<SkillList::SkillIcon> _SkillIcon)
 
 		_SkillIcon->LvUpBt->SetEvent([=, this] {if (Value->GetFlashJumpLv() < 20 && Value->GetSkillPoint() > 0) { Value->FlashJumpLvUp(); } if (Value->GetFlashJumpLv() == 20) { _SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png"); } _SkillIcon->SkillLv->SetText(std::to_string(Value->GetFlashJumpLv())); });
 		_SkillIcon->LvUpBt->SetPressEvent([=, this] {if (Value->GetFlashJumpLv() < 20 && Value->GetSkillPoint() > 0) { Value->FlashJumpLvUp(); } if (Value->GetFlashJumpLv() == 20) { _SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png"); } _SkillIcon->SkillLv->SetText(std::to_string(Value->GetFlashJumpLv())); });
+		_SkillIcon->LvUpBt->SetPressStartTime(0.3f);
+	}
+	else if (_SkillIcon->SkillName == "HeroesOfMaple")
+	{
+		_SkillIcon->SkillFunc = &Player::HeroesOfMaple;
+		_SkillIcon->SkillNameFont->SetText("메이플 용사");
+		_SkillIcon->SkillLv->SetText(std::to_string(Value->GetHeroesOfMapleLv()));
+
+		if (Value->GetHeroesOfMapleLv() >= 20 || Value->GetSkillPoint() <= 0)
+		{
+			_SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png");
+		};
+
+		_SkillIcon->LvUpBt->SetEvent([=, this] {if (Value->GetHeroesOfMapleLv() < 20 && Value->GetSkillPoint() > 0) { Value->HeroesOfMapleLvUp(); } if (Value->GetHeroesOfMapleLv() == 20) { _SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png"); } _SkillIcon->SkillLv->SetText(std::to_string(Value->GetHeroesOfMapleLv())); });
+		_SkillIcon->LvUpBt->SetPressEvent([=, this] {if (Value->GetHeroesOfMapleLv() < 20 && Value->GetSkillPoint() > 0) { Value->HeroesOfMapleLvUp(); } if (Value->GetHeroesOfMapleLv() == 20) { _SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png"); } _SkillIcon->SkillLv->SetText(std::to_string(Value->GetHeroesOfMapleLv())); });
 		_SkillIcon->LvUpBt->SetPressStartTime(0.3f);
 	}
 }

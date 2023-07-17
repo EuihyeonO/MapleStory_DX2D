@@ -71,7 +71,7 @@ void Aura::OpenWindow()
 	MyWindow = GetLevel()->CreateActor<NPCWindow>();
 
 	MyWindow->SetNPC("AURA.PNG", "아우라");
-	MyWindow->SetDialogText(" 시련을 통과하고 싶다면, 이곳 어딘가에 있는 불의 원석을 \n 저에게 가져오시면 됩니다. \n 곳곳에 있는 상자들이 수상하던데, 가서 살펴보는건 어떤가요?");
+	MyWindow->SetDialogText(" 시련을 통과하고 싶다면, 이곳 어딘가에 있는 불의 원석을 \n 저에게 가져오시면 됩니다. \n 곳곳에 있는 상자들이 수상하던데, 가서 살펴보는건 \n어떤가요?");
 	
 	std::function<void()> ButtonFunc = std::bind(&Aura::ItemCheck, DynamicThis<Aura>());
 	MyWindow->AddToTextButton(" ☞불의 원석을 가져왔습니다.", 0, ButtonFunc);
@@ -93,7 +93,7 @@ void Aura::ChangeLevel(const std::string_view& _LevelName)
 	Black.lock()->GetTransform()->SetWorldPosition({ 0, 0, 1 });
 	Black.lock()->GetTransform()->SetLocalScale({ 800, 600 });
 
-	UpdateFunc = std::bind([Black, _LevelName](float _Deltatime)
+	UpdateFunc = std::bind([this, Black, _LevelName](float _Deltatime)
 	{
 			Black.lock()->ColorOptionValue.MulColor.a += 2.0f * _Deltatime;
 
@@ -101,13 +101,14 @@ void Aura::ChangeLevel(const std::string_view& _LevelName)
 			{
 				Black.lock()->Death();
 				GameEngineCore::ChangeLevel(_LevelName);
+				UpdateFunc = nullptr;
 			}	
 	}, std::placeholders::_1);
 }
 
 void Aura::ItemCheck()
 {
-	int Index = UIController::GetUIController()->ItemFind("FireStone", static_cast<int>(ItemType::Etc));
+	int Index = UIController::GetUIController()->ItemFind("FIRESTONE", static_cast<int>(ItemType::Etc));
 
 	if (Index == -1)
 	{

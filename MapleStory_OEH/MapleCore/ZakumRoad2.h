@@ -19,6 +19,8 @@ public:
 	ZakumRoad2& operator=(const ZakumRoad2& _Other) = delete;
 	ZakumRoad2& operator=(ZakumRoad2&& _Other) noexcept = delete;
 
+	void ActorDeath();
+
 protected:
 	void Start();
 	void Update(float _DeltaTime) override;
@@ -34,5 +36,15 @@ private:
 	std::shared_ptr<class GameEngineSpriteRenderer> Layer = nullptr;
 	std::shared_ptr<class ContentRenderer> BackGround = nullptr;
 	std::shared_ptr<class ContentRenderer> Magma = nullptr;
+
+	std::vector<std::shared_ptr<class StoneTrap>> StoneTrapList;
+	std::vector<std::shared_ptr<class SteamTrap>> SteamTrapList;
+
+	std::shared_ptr<class RingPortal> RingPortal1 = nullptr;
+	std::shared_ptr<class RingPortal> RingPortal2 = nullptr;
+
+	std::shared_ptr<class Lira> MyLira = nullptr;
+
+
 };
 

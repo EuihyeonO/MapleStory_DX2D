@@ -63,4 +63,14 @@ void StarHitEffect::SetFrame()
 
 		EffectRender->SetScaleToTexture("LuckySevenHit0.png");
 	}
+	if (SkillType == "TripleThrow")
+	{
+		FrameList.reserve(4);
+
+		FrameList.push_back(0.12f);
+		FrameList.push_back(0.12f);
+		FrameList.push_back(0.12f);
+
+		EffectRender->SetScaleToTexture("TripleThrowHit0.png");
+	}
 }

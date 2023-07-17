@@ -45,6 +45,9 @@ public:
 
 	void CreateUIButtonList(int _Index);
 
+	void SetNPCPos(float4 _Pos);
+	void SetNPCNamePos(float4 _Pos);
+
 	void ButtonsDeath();
 protected:
 	void Start();

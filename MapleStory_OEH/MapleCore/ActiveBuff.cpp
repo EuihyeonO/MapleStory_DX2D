@@ -56,6 +56,56 @@ void Player::Haste()
 	}
 }
 
+void Player::HeroesOfMaple()
+{
+	int CurMp = PlayerValue::Value.GetMp();
+
+	if (CurMp < 10)
+	{
+		return;
+	}
+
+	if (isSwing == false && isFalling == false && isKeyJump == false)
+	{
+		PlayerValue::Value.SetMp(CurMp - 10);
+		GameEngineSound::Play("HeroesOfMaple.mp3");
+
+		if (MyBuffList->IsBuffOn("HeroesOfMaple") == false)
+		{
+			std::shared_ptr<SkillActor> HeroesOfMaple = GetLevel()->CreateActor<SkillActor>(RenderOrder::Skill);
+			HeroesOfMaple->SetSkillActor("HeroesOfMaple");
+
+			int Str = PlayerValue::GetValue()->GetStr();
+			int Dex = PlayerValue::GetValue()->GetDex();
+			int Int = PlayerValue::GetValue()->GetInt();
+			int Luk = PlayerValue::GetValue()->GetLuk();
+
+			std::function<void(Player&)> EndFunction = [=, this](Player&)
+			{
+				PlayerValue::GetValue()->AddStr(static_cast<int>(-Str * 0.15f));
+				PlayerValue::GetValue()->AddDex(static_cast<int>(-Dex * 0.15f));
+				PlayerValue::GetValue()->AddInt(static_cast<int>(-Int * 0.15f));
+				PlayerValue::GetValue()->AddLuk(static_cast<int>(-Luk * 0.15f));
+			};
+
+			//지속시간은 나중에 따로 변수 만들어야함
+			MyBuffList->BuffOn("HeroesOfMaple", EndFunction, 5.0f);
+
+			PlayerValue::GetValue()->AddStr(static_cast<int>(Str * 0.15f));
+			PlayerValue::GetValue()->AddDex(static_cast<int>(Dex * 0.15f));
+			PlayerValue::GetValue()->AddInt(static_cast<int>(Int * 0.15f));
+			PlayerValue::GetValue()->AddLuk(static_cast<int>(Luk * 0.15f));
+		}
+
+		else if (MyBuffList->IsBuffOn("HeroesOfMaple") == true)
+		{
+			std::shared_ptr<SkillActor> Haste = GetLevel()->CreateActor<SkillActor>(RenderOrder::Skill);
+			Haste->SetSkillActor("HeroesOfMaple");
+
+			MyBuffList->Rebuff("HeroesOfMaple");
+		}
+	}
+}
 
 void Player::JavelinBooster()
 {

@@ -144,7 +144,6 @@ public:
 
 	void DeleteToItemList(const std::string_view& _ItemName, int _ItemType, bool AllDelete = false)
 	{
-
 		int Index = ItemFind(_ItemName, _ItemType);
 		
 		if(Index == -1)
@@ -445,6 +444,29 @@ public:
 		QuestList.push_back(_Quest.data());
 	}
 
+	void QuestClear(const std::string_view& _Quest)
+	{
+		if (isQuestInList(_Quest) != true)
+		{
+			return;
+		}
+
+		std::list<std::string>::iterator StartIter = QuestList.begin();
+		std::list<std::string>::iterator EndIter = QuestList.end();
+
+		for (; StartIter != EndIter;)
+		{
+			if (*StartIter == _Quest.data())
+			{
+				StartIter = QuestList.erase(StartIter);
+				break;
+			}
+			StartIter++;
+		}
+
+		ClearQuestList.push_back(_Quest.data());
+	}
+
 	bool isQuestInList(const std::string_view& _Quest)
 	{
 		std::list<std::string>::iterator StartIter = QuestList.begin();
@@ -460,7 +482,22 @@ public:
 		return false;
 	}
 
+	bool isQuestInClearList(const std::string_view& _Quest)
+	{
+		std::list<std::string>::iterator StartIter = ClearQuestList.begin();
+		std::list<std::string>::iterator EndIter = ClearQuestList.end();
+
+		for (; StartIter != EndIter; StartIter++)
+		{
+			if (*StartIter == _Quest.data())
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 private:
 	std::list<std::string> QuestList;
+	std::list<std::string> ClearQuestList;
 };
 

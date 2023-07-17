@@ -62,6 +62,13 @@ void SkillActor::SetSkillAnimation()
 		LastIndex = 6;
 	}
 
+	else if (SkillName == "TripleThrow")
+	{
+		AniFrameList[SkillName].push_back(0.08f);
+
+		LastIndex = 5;
+	}
+
 	else if (SkillName == "Avenger")
 	{
 		AniFrameList[SkillName].push_back(0.045f);
@@ -108,6 +115,13 @@ void SkillActor::SetSkillAnimation()
 
 		LastIndex = 4;
 	}
+
+	else if (SkillName == "HeroesOfMaple")
+	{
+		AniFrameList[SkillName].push_back(0.06f);
+
+		LastIndex = 23;
+	}
 }
 
 void SkillActor::SetUpdateFunc()
@@ -119,6 +133,10 @@ void SkillActor::SetUpdateFunc()
 	else if (SkillName == "LuckySeven")
 	{
 		UpdateFunc = &SkillActor::LuckySeven;
+	}
+	else if (SkillName == "TripleThrow")
+	{
+		UpdateFunc = &SkillActor::TripleThrow;
 	}
 	else if (SkillName == "Avenger")
 	{
@@ -135,6 +153,10 @@ void SkillActor::SetUpdateFunc()
 	else if (SkillName == "FlashJump")
 	{
 		UpdateFunc = &SkillActor::FlashJump;
+	}
+	else if (SkillName == "HeroesOfMaple")
+	{
+		UpdateFunc = &SkillActor::HeroesOfMaple;
 	}
 }
 
@@ -237,6 +259,72 @@ void SkillActor::LuckySeven()
 		{
 			AnimationRender->GetTransform()->SetLocalPositiveScaleX();
 			AnimationRender->GetTransform()->AddLocalPosition({ -60, 0 });
+		}
+
+		AnimationCount = 0.0f;
+		AnimationIndex++;
+	}
+}
+
+void SkillActor::TripleThrow()
+{
+
+	if (AnimationIndex == 0 && TimeCount == 0)
+	{
+		std::string TextureName = "TripleThrow" + std::to_string(AnimationIndex) + ".png";
+
+		std::shared_ptr<Player> CurPlayer = Player::GetCurPlayer();
+		float4 Pos = CurPlayer->GetTransform()->GetWorldPosition();
+
+		AnimationRender->SetScaleToTexture(TextureName);
+
+		AnimationRender->GetTransform()->SetLocalPosition(Pos + float4{ 0, 25 });
+
+		if (Player::GetCurPlayer()->GetLeftRightDir() == "Right")
+		{
+			AnimationRender->GetTransform()->SetLocalNegativeScaleX();
+			AnimationRender->GetTransform()->AddLocalPosition({ 20, 0 });
+		}
+		else if (Player::GetCurPlayer()->GetLeftRightDir() == "Left")
+		{
+			AnimationRender->GetTransform()->SetLocalPositiveScaleX();
+			AnimationRender->GetTransform()->AddLocalPosition({ -20, 0 });
+		}
+
+		TimeCounting();
+		AnimationCount += TimeCount;
+		return;
+	}
+
+	TimeCounting();
+	AnimationCount += TimeCount;
+
+	if (AnimationIndex >= LastIndex)
+	{
+		Death();
+		return;
+	}
+
+	else if (AniFrameList["TripleThrow"][0] <= AnimationCount)
+	{
+		std::string TextureName = "TripleThrow" + std::to_string(AnimationIndex) + ".png";
+
+		std::shared_ptr<Player> CurPlayer = Player::GetCurPlayer();
+		float4 Pos = CurPlayer->GetTransform()->GetWorldPosition();
+
+		AnimationRender->SetScaleToTexture(TextureName);
+
+		AnimationRender->GetTransform()->SetLocalPosition(Pos + float4{ 0, 25 });
+
+		if (Player::GetCurPlayer()->GetLeftRightDir() == "Right")
+		{
+			AnimationRender->GetTransform()->SetLocalNegativeScaleX();
+			AnimationRender->GetTransform()->AddLocalPosition({ 20, 0 });
+		}
+		else if (Player::GetCurPlayer()->GetLeftRightDir() == "Left")
+		{
+			AnimationRender->GetTransform()->SetLocalPositiveScaleX();
+			AnimationRender->GetTransform()->AddLocalPosition({ -20, 0 });
 		}
 
 		AnimationCount = 0.0f;
@@ -517,5 +605,55 @@ void SkillActor::FlashJump()
 
 		std::string TexName = "FlashJump" + std::to_string(AnimationIndex) + ".png";
 		AnimationRender->SetScaleToTexture(TexName);
+	}
+}
+
+void SkillActor::HeroesOfMaple()
+{
+	std::shared_ptr<Player> CurPlayer = Player::GetCurPlayer();
+
+	CurPlayer->SetMovable(false);
+	CurPlayer->SetMoveType("Alert");
+
+	TimeCounting();
+
+	AnimationCount += TimeCount;
+
+	if (AnimationIndex < LastIndex && AniFrameList["HeroesOfMaple"][0] <= AnimationCount)
+	{
+		std::string Num = "";
+
+		if (AnimationIndex <= 9)
+		{
+			Num = "00";
+		}
+		else if(AnimationIndex >= 10)
+		{
+			Num = "0";
+		}
+
+		std::string TextureName = "HeroesOfMaple" + Num + std::to_string(AnimationIndex) + ".png";
+
+		float4 Pos = CurPlayer->GetTransform()->GetWorldPosition();
+
+		AnimationRender->SetScaleToTexture(TextureName);
+		AnimationRender->GetTransform()->SetLocalPosition(Pos + float4{0, 160});
+
+		if (CurPlayer->GetLeftRightDir() == "Right")
+		{
+			AnimationRender->GetTransform()->SetLocalNegativeScaleX();
+		}
+
+		AnimationCount = 0.0f;
+		AnimationIndex++;
+	}
+	else if (AnimationIndex >= LastIndex)
+	{
+		Player::GetCurPlayer()->SetMovable(true);
+
+		AnimationRender->Death();
+		AnimationRender = nullptr;
+		UpdateFunc = nullptr;
+		Death();
 	}
 }

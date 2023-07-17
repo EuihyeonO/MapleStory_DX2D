@@ -48,7 +48,7 @@ void KeyBox::Start()
 			{
 				std::shared_ptr<DropItem> NewItem = GetLevel()->CreateActor<DropItem>();
 				NewItem->SetQuadraticFunction(1.0f, GetTransform()->GetWorldPosition() + float4{ 0, 5 });
-				NewItem->SetDropItemInfo("BoxKey", static_cast<int>(ItemType::Etc));
+				NewItem->SetDropItemInfo("BOXKEY", static_cast<int>(ItemType::Etc));
 			}
 
 			Death(); 

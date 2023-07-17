@@ -185,6 +185,33 @@ void Level_BeginnersTown1::LoadResources()
 			GameEngineTexture::ReLoad(File[i].GetFullPath());
 		}
 	}
+
+	if (nullptr == GameEngineSprite::Find("SeraStand.png"))
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("MapleResources");
+		NewDir.Move("MapleResources");
+		NewDir.Move("BeginnersTown1");
+		NewDir.Move("BeginnersTown1Sprite");
+		NewDir.Move("Sera");
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("SeraHair").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("SeraMove").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("SeraStand").GetFullPath());
+	}
+	else
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("MapleResources");
+		NewDir.Move("MapleResources");
+		NewDir.Move("BeginnersTown1");
+		NewDir.Move("BeginnersTown1Sprite");
+		NewDir.Move("Sera");
+
+		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("SeraHair").GetFullPath());
+		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("SeraMove").GetFullPath());
+		GameEngineSprite::ReLoad(NewDir.GetPlusFileName("SeraStand").GetFullPath());
+	}
 }
 
 void Level_BeginnersTown1::UnLoadResources()
@@ -221,5 +248,12 @@ void Level_BeginnersTown1::UnLoadResources()
 
 			GameEngineTexture::UnLoad(FileName);
 		}
+	}
+
+	if (nullptr != GameEngineSprite::Find("SeraStand.png"))
+	{
+		GameEngineSprite::UnLoad("SeraHair");
+		GameEngineSprite::UnLoad("SeraMove");
+		GameEngineSprite::UnLoad("SeraStand");
 	}
 }

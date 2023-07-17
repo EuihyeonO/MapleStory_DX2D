@@ -179,9 +179,12 @@ void Level_Title::Update(float _DeltaTime)
 				UIController::GetUIController()->AddToEquipItemList(NewItem3, static_cast<int>(ItemType::Equip));
 
 				Player::GetCurPlayer()->GetTransform()->SetLocalPosition({ -162, 1138, -1 });
+				Player::GetCurPlayer()->SetMoveType("Walk");
+				NewTitleObjects->ActivateToCharSelect();
 
 				isCamDown = true;
 			});
+
 		GameLogo->Death();
 		GameLogo = nullptr;
 	}

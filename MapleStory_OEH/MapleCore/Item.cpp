@@ -42,6 +42,8 @@ void Item::Update(float _DeltaTime)
 	EquipThis();
 
 	InfoBoxUpdate();
+
+	UseItem();
 }
 
 void Item::Render(float _DeltaTime) 
@@ -59,52 +61,11 @@ void Item::SetItemInfo(std::shared_ptr<ItemInfo> _ItemInfo, int _ItemType)
 
 	ItemCollision = CreateComponent<GameEngineCollision>();
 	ItemCollision->GetTransform()->SetLocalScale({30, 30});
+	ItemCollision->Off();
 
-	MyInfoBox = std::make_shared<ItemInfoBox>();
-
-	MyInfoBox->BoxRender = CreateComponent<ContentUIRenderer>();
-	MyInfoBox->BoxRender->GetTransform()->SetLocalScale({ 200, 300 });
-	MyInfoBox->BoxRender->ColorOptionValue.PlusColor = { 1.0f, 1.0f, 1.0f, 0.0f };
-	MyInfoBox->BoxRender->ColorOptionValue.MulColor = { 0.1f, 0.25f, 0.5f, 0.8f };
-	MyInfoBox->BoxRender->GetTransform()->SetLocalPosition({ 90, -140, 0 });
-	MyInfoBox->BoxRender->Off();
-
-	float4 BoxPos = MyInfoBox->BoxRender->GetTransform()->GetLocalPosition();
-
-	MyInfoBox->ItemBackGround = CreateComponent<ContentUIRenderer>();
-	MyInfoBox->ItemBackGround->GetTransform()->SetLocalScale({ 64, 64 });
-	MyInfoBox->ItemBackGround->GetTransform()->SetLocalPosition(BoxPos + float4{ -55, 80 });
-	MyInfoBox->ItemBackGround->ColorOptionValue.PlusColor = { 1.0f, 1.0f, 1.0f, 0.0f };
-	MyInfoBox->ItemBackGround->ColorOptionValue.MulColor = { 0.95f, 0.95f, 0.95f, 0.8f };
-
-	MyInfoBox->ItemRender = CreateComponent<ContentUIRenderer>();
-	MyInfoBox->ItemRender->SetScaleToTexture(MyInfo->ItemName + "Icon.png");
-	MyInfoBox->ItemRender->GetTransform()->SetLocalScale(MyInfoBox->ItemRender->GetTransform()->GetLocalScale() * 2.0f);
-	MyInfoBox->ItemRender->GetTransform()->SetLocalPosition(MyInfoBox->ItemBackGround->GetTransform()->GetLocalPosition());
-	MyInfoBox->ItemRender->Off();
-
-	std::string_view KrName = GetItemNameToKr(MyInfo->ItemName);
-
-	MyInfoBox->ItemName = CreateComponent<ContentFontRenderer>();
-	MyInfoBox->ItemName->SetFont("±¼¸²");
-	MyInfoBox->ItemName->SetColor({1.0f, 1.0f, 1.0f, 1.0f});
-	MyInfoBox->ItemName->SetScale(15.0f);
-	MyInfoBox->ItemName->GetTransform()->SetLocalPosition(BoxPos + float4{0, 140});
-	MyInfoBox->ItemName->SetFontFlag(FW1_TEXT_FLAG::FW1_CENTER);
-	MyInfoBox->ItemName->SetText(KrName);
-	MyInfoBox->ItemName->Off();
-
-	MyInfoBox->ItemNameLayer = CreateComponent<ContentFontRenderer>();
-	MyInfoBox->ItemNameLayer->SetFont("±¼¸²");
-	MyInfoBox->ItemNameLayer->SetColor({ 1.0f, 1.0f, 1.0f, 1.0f });
-	MyInfoBox->ItemNameLayer->SetScale(15.0f);
-	MyInfoBox->ItemNameLayer->GetTransform()->SetLocalPosition(BoxPos + float4{ 1.0f, 140 });
-	MyInfoBox->ItemNameLayer->SetFontFlag(FW1_TEXT_FLAG::FW1_CENTER);
-	MyInfoBox->ItemNameLayer->SetText(KrName);
-	MyInfoBox->ItemNameLayer->Off();
+	SetMyInfoBox();
 
 }
-
 
 void Item::Clicked()
 {
@@ -226,109 +187,29 @@ void Item::NumRenderOff()
 	}
 }
 
-void Item::InfoBoxOn()
+void Item::UseItem()
 {
-	if (MyInfoBox == nullptr)
+	if (ItemType != static_cast<int>(ItemType::Use))
+	{
+		return;
+	}
+	
+	if (Mouse::GetMouse()->IsDoubleClick() != true)
 	{
 		return;
 	}
 
-	if (MyInfoBox->BoxRender != nullptr)
-	{
-		MyInfoBox->BoxRender->On();
-	}
+	std::shared_ptr<GameEngineCollision> Col = ItemCollision->Collision(static_cast<int>(CollisionOrder::Mouse), ColType::AABBBOX2D, ColType::AABBBOX2D);
 
-	if (MyInfoBox->ItemBackGround != nullptr)
-	{
-		MyInfoBox->ItemBackGround->On();
-	}
-
-	if (MyInfoBox->ItemRender != nullptr)
-	{
-		MyInfoBox->ItemRender->On();
-	}
-
-	if (MyInfoBox->ItemName != nullptr)
-	{
-		MyInfoBox->ItemName->On();
-	}
-
-	if (MyInfoBox->ItemNameLayer != nullptr)
-	{
-		MyInfoBox->ItemNameLayer->On();
-	}
-}
-
-void Item::InfoBoxOff()
-{
-	if (MyInfoBox == nullptr)
+	if (Col == nullptr)
 	{
 		return;
 	}
 
-	if (MyInfoBox->BoxRender != nullptr)
+	if (MyInfo->ItemName == "APPLEOFROZAR")
 	{
-		MyInfoBox->BoxRender->Off();
-	}
-
-	if (MyInfoBox->ItemBackGround != nullptr)
-	{
-		MyInfoBox->ItemBackGround->Off();
-	}
-
-	if (MyInfoBox->ItemRender != nullptr)
-	{
-		MyInfoBox->ItemRender->Off();
-	}
-
-	if (MyInfoBox->ItemName != nullptr)
-	{
-		MyInfoBox->ItemName->Off();
-	}
-
-	if (MyInfoBox->ItemNameLayer != nullptr)
-	{
-		MyInfoBox->ItemNameLayer->Off();
-	}
-}
-
-void Item::InfoBoxUpdate()
-{
-	if (ItemCollision->Collision(static_cast<int>(CollisionOrder::Mouse), ColType::AABBBOX2D, ColType::AABBBOX2D) != nullptr)
-	{
-		if (isClicked == true)
-		{
-			InfoBoxOff();
-		}
-		else
-		{
-			InfoBoxOn();
-		}
-	}
-	else
-	{
-		InfoBoxOff();
-	}
-}
-
-const std::string_view Item::GetItemNameToKr(const std::string_view& _Name)
-{
-	std::string Name = GameEngineString::ToUpper(_Name.data());
-
-	if (Name == "GANIER")
-	{
-		return "°¡´Ï¾î";
-	}
-	else if (Name == "WHITETSHIRT")
-	{
-		return "ÇÏ¾á ¹ÝÆÈ ¸éÆ¼";
-	}
-	else if (Name == "BLUEPANTS")
-	{
-		return "ÆÄ¶õ Ã» ¹Ý¹ÙÁö";
-	}
-	else
-	{
-		return "";
+		PlayerValue::GetValue()->AddHp(50);
+		UIController::GetUIController()->DeleteToItemList("APPLEOFROZAR", static_cast<int>(ItemType::Use));
+		UIController::GetUIController()->GetCurItemList()->DeleteItem(DynamicThis<Item>());
 	}
 }

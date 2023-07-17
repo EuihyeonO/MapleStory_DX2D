@@ -42,7 +42,8 @@ void EquipItemList::Update(float _DeltaTime)
 	if (MyEquipItems[static_cast<int>(EquipType::Pants)] != nullptr)
 	{
 		float4 Pos = MyEquipItems[static_cast<int>(EquipType::Pants)]->GetTransform()->GetLocalPosition();
-		float4 Pos2 = MyEquipItems[static_cast<int>(EquipType::Pants)]->GetTransform()->GetLocalPosition();
+		float4 Pos2 = MyEquipItems[static_cast<int>(EquipType::Pants)]->GetTransform()->GetWorldPosition();
+		float4 Pos21 = MyEquipItems[static_cast<int>(EquipType::Pants)]->GetTransform()->GetWorldPosition();
 	}
 }
 
