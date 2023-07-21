@@ -178,7 +178,7 @@ protected:
 private:
 	
 	std::shared_ptr<GameEngineSpriteRenderer> NameCard = nullptr;
-	std::shared_ptr<class ContentFontRenderer> NickName = nullptr;
+	std::shared_ptr<class GameEngineFontRenderer> NickName = nullptr;
 
 	static std::shared_ptr<Player> CurPlayer;
 	std::shared_ptr<GameEngineTexture> ColMap;
@@ -384,6 +384,9 @@ private:
 	std::map<std::string, std::map<std::string, std::vector<float4>>> WeaponToHandPos;
 	std::map<std::string, std::map<std::string, std::vector<float4>>> WeaponToNavelPos;
 
+	std::map<std::string, std::map<std::string, std::vector<float4>>> ShoesOriginPos;
+	std::map<std::string, std::map<std::string, std::vector<float4>>> ShoesToNavelPos;
+
 	std::shared_ptr<GameEngineSpriteRenderer> Body;
 	std::shared_ptr<GameEngineSpriteRenderer> Arm;
 	std::shared_ptr<GameEngineSpriteRenderer> Head;
@@ -394,6 +397,7 @@ private:
 	std::shared_ptr<GameEngineSpriteRenderer> Hair;
 	std::shared_ptr<GameEngineSpriteRenderer> Face;
 	std::shared_ptr<GameEngineSpriteRenderer> Cap;
+	std::shared_ptr<GameEngineSpriteRenderer> Shoes;
 
 };
 

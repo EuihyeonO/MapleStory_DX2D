@@ -362,6 +362,8 @@ void Player::Swing()
 			int StabType = GameEngineRandom::MainRandom.RandomInt(0,1);
 			HitObject->GetActor()->DynamicThis<KeyBox>()->Hit();
 
+			GameEngineSound::Play("Stab.mp3");
+
 			MoveType = "Stab" + std::to_string(StabType);
 			AniIndex = 0;
 			AnimationCount = 0.0f;
@@ -389,7 +391,7 @@ void Player::Swing()
 	std::function<void(Star&, float)> UpdateFunction = &Star::Move;
 	NewStar1->SetUpdateFuction(UpdateFunction);
 	NewStar1->SetTargetMonster(HitMonsterVector, PlayerPos);
-	NewStar1->SetType("LuckySeven");
+	NewStar1->SetType("Swing");
 
 	if (isOnShadow == true)
 	{
@@ -404,7 +406,7 @@ void Player::Swing()
 		std::function<void(Star&, float)> UpdateFunction = &Star::Move;
 		NewStar2->SetUpdateFuction(UpdateFunction);
 		NewStar2->SetTargetMonster(HitMonsterVector, PlayerPos);
-		NewStar2->SetType("LuckySeven");
+		NewStar2->SetType("Swing");
 	}
 }
 

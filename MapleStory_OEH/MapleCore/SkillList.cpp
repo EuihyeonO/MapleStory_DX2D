@@ -271,139 +271,141 @@ void SkillList::SetSkillIcon(std::shared_ptr<SkillList::SkillIcon> _SkillIcon)
 
 	PlayerValue* Value = PlayerValue::GetValue();
 
-	if (_SkillIcon->SkillName == "Haste")
+	std::weak_ptr<SkillIcon> Weak_SkillIcon = _SkillIcon;
+
+	if (Weak_SkillIcon.lock()->SkillName == "Haste")
 	{
-		_SkillIcon->SkillFunc = &Player::Haste;
-		_SkillIcon->SkillNameFont->SetText("헤이스트");
-		_SkillIcon->SkillLv->SetText(std::to_string(Value->GetHasteLv()));
+		Weak_SkillIcon.lock()->SkillFunc = &Player::Haste;
+		Weak_SkillIcon.lock()->SkillNameFont->SetText("헤이스트");
+		Weak_SkillIcon.lock()->SkillLv->SetText(std::to_string(Value->GetHasteLv()));
 		
 		if (Value->GetHasteLv() >= 20 || Value->GetSkillPoint() <= 0)
 		{
-			_SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png");
+			Weak_SkillIcon.lock()->LvUpBt->SetAllTexture("LvUpDisable.png");
 		};
 
-		_SkillIcon->LvUpBt->SetEvent([=, this] {if (Value->GetHasteLv() < 20 && Value->GetSkillPoint() > 0) { Value->HasteLvUp(); } if(Value->GetHasteLv() == 20){ _SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png"); } _SkillIcon->SkillLv->SetText(std::to_string(Value->GetHasteLv())); });
-		_SkillIcon->LvUpBt->SetPressEvent([=, this] {if (Value->GetHasteLv() < 20 && Value->GetSkillPoint() > 0) { Value->HasteLvUp(); } if(Value->GetHasteLv() == 20){ _SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png"); } _SkillIcon->SkillLv->SetText(std::to_string(Value->GetHasteLv())); });
-		_SkillIcon->LvUpBt->SetPressStartTime(0.3f);
+		Weak_SkillIcon.lock()->LvUpBt->SetEvent([=, this] {if (Value->GetHasteLv() < 20 && Value->GetSkillPoint() > 0) { Value->HasteLvUp(); } if(Value->GetHasteLv() == 20){ Weak_SkillIcon.lock()->LvUpBt->SetAllTexture("LvUpDisable.png"); } Weak_SkillIcon.lock()->SkillLv->SetText(std::to_string(Value->GetHasteLv())); });
+		Weak_SkillIcon.lock()->LvUpBt->SetPressEvent([=, this] {if (Value->GetHasteLv() < 20 && Value->GetSkillPoint() > 0) { Value->HasteLvUp(); } if(Value->GetHasteLv() == 20){ Weak_SkillIcon.lock()->LvUpBt->SetAllTexture("LvUpDisable.png"); } Weak_SkillIcon.lock()->SkillLv->SetText(std::to_string(Value->GetHasteLv())); });
+		Weak_SkillIcon.lock()->LvUpBt->SetPressStartTime(0.3f);
 	}
-	else if (_SkillIcon->SkillName == "LuckySeven")
+	else if (Weak_SkillIcon.lock()->SkillName == "LuckySeven")
 	{
-		_SkillIcon->SkillFunc = &Player::LuckySeven;
-		_SkillIcon->SkillNameFont->SetText("럭키 세븐");
-		_SkillIcon->SkillLv->SetText(std::to_string(Value->GetLuckySevenLv()));
+		Weak_SkillIcon.lock()->SkillFunc = &Player::LuckySeven;
+		Weak_SkillIcon.lock()->SkillNameFont->SetText("럭키 세븐");
+		Weak_SkillIcon.lock()->SkillLv->SetText(std::to_string(Value->GetLuckySevenLv()));
 		
 		if (Value->GetLuckySevenLv() >= 20 || Value->GetSkillPoint() <= 0)
 		{
-			_SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png");
+			Weak_SkillIcon.lock()->LvUpBt->SetAllTexture("LvUpDisable.png");
 		};
 
-		_SkillIcon->LvUpBt->SetEvent([=, this] {if (Value->GetLuckySevenLv() < 20 && Value->GetSkillPoint() > 0) { Value->LuckySevenLvUp(); } if (Value->GetLuckySevenLv() == 20) { _SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png"); } _SkillIcon->SkillLv->SetText(std::to_string(Value->GetLuckySevenLv())); });
-		_SkillIcon->LvUpBt->SetPressEvent([=, this] {if (Value->GetLuckySevenLv() < 20 && Value->GetSkillPoint() > 0) { Value->LuckySevenLvUp(); } if (Value->GetLuckySevenLv() == 20) { _SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png"); } _SkillIcon->SkillLv->SetText(std::to_string(Value->GetLuckySevenLv())); });
-		_SkillIcon->LvUpBt->SetPressStartTime(0.3f);
+		Weak_SkillIcon.lock()->LvUpBt->SetEvent([=, this] {if (Value->GetLuckySevenLv() < 20 && Value->GetSkillPoint() > 0) { Value->LuckySevenLvUp(); } if (Value->GetLuckySevenLv() == 20) { Weak_SkillIcon.lock()->LvUpBt->SetAllTexture("LvUpDisable.png"); } Weak_SkillIcon.lock()->SkillLv->SetText(std::to_string(Value->GetLuckySevenLv())); });
+		Weak_SkillIcon.lock()->LvUpBt->SetPressEvent([=, this] {if (Value->GetLuckySevenLv() < 20 && Value->GetSkillPoint() > 0) { Value->LuckySevenLvUp(); } if (Value->GetLuckySevenLv() == 20) { Weak_SkillIcon.lock()->LvUpBt->SetAllTexture("LvUpDisable.png"); } Weak_SkillIcon.lock()->SkillLv->SetText(std::to_string(Value->GetLuckySevenLv())); });
+		Weak_SkillIcon.lock()->LvUpBt->SetPressStartTime(0.3f);
 	}
-	else if (_SkillIcon->SkillName == "TripleThrow")
+	else if (Weak_SkillIcon.lock()->SkillName == "TripleThrow")
 	{
-		_SkillIcon->SkillFunc = &Player::TripleThrow;
-		_SkillIcon->SkillNameFont->SetText("트리플 스로우");
-		_SkillIcon->SkillLv->SetText(std::to_string(Value->GetTripleThrowLv()));
+		Weak_SkillIcon.lock()->SkillFunc = &Player::TripleThrow;
+		Weak_SkillIcon.lock()->SkillNameFont->SetText("트리플 스로우");
+		Weak_SkillIcon.lock()->SkillLv->SetText(std::to_string(Value->GetTripleThrowLv()));
 
 		if (Value->GetTripleThrowLv() >= 20 || Value->GetSkillPoint() <= 0)
 		{
-			_SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png");
+			Weak_SkillIcon.lock()->LvUpBt->SetAllTexture("LvUpDisable.png");
 		};
 
-		_SkillIcon->LvUpBt->SetEvent([=, this] {if (Value->GetTripleThrowLv() < 20 && Value->GetSkillPoint() > 0) { Value->TripleThrowLvUp(); } if (Value->GetTripleThrowLv() == 20) { _SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png"); } _SkillIcon->SkillLv->SetText(std::to_string(Value->GetTripleThrowLv())); });
-		_SkillIcon->LvUpBt->SetPressEvent([=, this] {if (Value->GetTripleThrowLv() < 20 && Value->GetSkillPoint() > 0) { Value->TripleThrowLvUp(); } if (Value->GetTripleThrowLv() == 20) { _SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png"); } _SkillIcon->SkillLv->SetText(std::to_string(Value->GetTripleThrowLv())); });
-		_SkillIcon->LvUpBt->SetPressStartTime(0.3f);
+		Weak_SkillIcon.lock()->LvUpBt->SetEvent([=, this] {if (Value->GetTripleThrowLv() < 20 && Value->GetSkillPoint() > 0) { Value->TripleThrowLvUp(); } if (Value->GetTripleThrowLv() == 20) { Weak_SkillIcon.lock()->LvUpBt->SetAllTexture("LvUpDisable.png"); } Weak_SkillIcon.lock()->SkillLv->SetText(std::to_string(Value->GetTripleThrowLv())); });
+		Weak_SkillIcon.lock()->LvUpBt->SetPressEvent([=, this] {if (Value->GetTripleThrowLv() < 20 && Value->GetSkillPoint() > 0) { Value->TripleThrowLvUp(); } if (Value->GetTripleThrowLv() == 20) { Weak_SkillIcon.lock()->LvUpBt->SetAllTexture("LvUpDisable.png"); } Weak_SkillIcon.lock()->SkillLv->SetText(std::to_string(Value->GetTripleThrowLv())); });
+		Weak_SkillIcon.lock()->LvUpBt->SetPressStartTime(0.3f);
 	}
-	else if (_SkillIcon->SkillName == "KeenEyes")
+	else if (Weak_SkillIcon.lock()->SkillName == "KeenEyes")
 	{
-		_SkillIcon->SkillFunc = &Player::KeenEyes;
-		_SkillIcon->SkillNameFont->SetText("킨 아이즈");
-		_SkillIcon->SkillLv->SetText(std::to_string(Value->GetKeenEyesLv()));
+		Weak_SkillIcon.lock()->SkillFunc = &Player::KeenEyes;
+		Weak_SkillIcon.lock()->SkillNameFont->SetText("킨 아이즈");
+		Weak_SkillIcon.lock()->SkillLv->SetText(std::to_string(Value->GetKeenEyesLv()));
 		
 		if (Value->GetKeenEyesLv() >= 20 || Value->GetSkillPoint() <= 0) 
 		{
-			_SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png");
+			Weak_SkillIcon.lock()->LvUpBt->SetAllTexture("LvUpDisable.png");
 		};
 
-		_SkillIcon->LvUpBt->SetEvent([=, this] {if (Value->GetKeenEyesLv() < 20 && Value->GetSkillPoint() > 0) { _SkillIcon->SkillFunc(Player::GetCurPlayer()); } if (Value->GetKeenEyesLv() == 20) { _SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png"); } _SkillIcon->SkillLv->SetText(std::to_string(Value->GetKeenEyesLv())); });
-		_SkillIcon->LvUpBt->SetPressEvent([=, this] {if (Value->GetKeenEyesLv() < 20 && Value->GetSkillPoint() > 0) { _SkillIcon->SkillFunc(Player::GetCurPlayer()); } if (Value->GetKeenEyesLv() == 20) { _SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png"); } _SkillIcon->SkillLv->SetText(std::to_string(Value->GetKeenEyesLv())); });
-		_SkillIcon->LvUpBt->SetPressStartTime(0.3f);
+		Weak_SkillIcon.lock()->LvUpBt->SetEvent([=, this] {if (Value->GetKeenEyesLv() < 20 && Value->GetSkillPoint() > 0) { Weak_SkillIcon.lock()->SkillFunc(Player::GetCurPlayer()); } if (Value->GetKeenEyesLv() == 20) { Weak_SkillIcon.lock()->LvUpBt->SetAllTexture("LvUpDisable.png"); } Weak_SkillIcon.lock()->SkillLv->SetText(std::to_string(Value->GetKeenEyesLv())); });
+		Weak_SkillIcon.lock()->LvUpBt->SetPressEvent([=, this] {if (Value->GetKeenEyesLv() < 20 && Value->GetSkillPoint() > 0) { Weak_SkillIcon.lock()->SkillFunc(Player::GetCurPlayer()); } if (Value->GetKeenEyesLv() == 20) { Weak_SkillIcon.lock()->LvUpBt->SetAllTexture("LvUpDisable.png"); } Weak_SkillIcon.lock()->SkillLv->SetText(std::to_string(Value->GetKeenEyesLv())); });
+		Weak_SkillIcon.lock()->LvUpBt->SetPressStartTime(0.3f);
 	}
-	else if (_SkillIcon->SkillName == "JavelinBooster")
+	else if (Weak_SkillIcon.lock()->SkillName == "JavelinBooster")
 	{
-		_SkillIcon->SkillFunc = &Player::JavelinBooster;
-		_SkillIcon->SkillNameFont->SetText("자벨린 부스터");
-		_SkillIcon->SkillLv->SetText(std::to_string(Value->GetJavelinBoosterLv()));
+		Weak_SkillIcon.lock()->SkillFunc = &Player::JavelinBooster;
+		Weak_SkillIcon.lock()->SkillNameFont->SetText("자벨린 부스터");
+		Weak_SkillIcon.lock()->SkillLv->SetText(std::to_string(Value->GetJavelinBoosterLv()));
 		
 		if (Value->GetJavelinBoosterLv() >= 20 || Value->GetSkillPoint() <= 0)
 		{
-			_SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png");
+			Weak_SkillIcon.lock()->LvUpBt->SetAllTexture("LvUpDisable.png");
 		};
 
-		_SkillIcon->LvUpBt->SetEvent([=, this] {if (Value->GetJavelinBoosterLv() < 20 && Value->GetSkillPoint() > 0) { Value->JavelinBoosterLvUp(); } if (Value->GetJavelinBoosterLv() == 20) { _SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png"); } _SkillIcon->SkillLv->SetText(std::to_string(Value->GetJavelinBoosterLv())); });
-		_SkillIcon->LvUpBt->SetPressEvent([=, this] {if (Value->GetJavelinBoosterLv() < 20 && Value->GetSkillPoint() > 0) { Value->JavelinBoosterLvUp(); } if (Value->GetJavelinBoosterLv() == 20) { _SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png"); } _SkillIcon->SkillLv->SetText(std::to_string(Value->GetJavelinBoosterLv())); });
-		_SkillIcon->LvUpBt->SetPressStartTime(0.3f);
+		Weak_SkillIcon.lock()->LvUpBt->SetEvent([=, this] {if (Value->GetJavelinBoosterLv() < 20 && Value->GetSkillPoint() > 0) { Value->JavelinBoosterLvUp(); } if (Value->GetJavelinBoosterLv() == 20) { Weak_SkillIcon.lock()->LvUpBt->SetAllTexture("LvUpDisable.png"); } Weak_SkillIcon.lock()->SkillLv->SetText(std::to_string(Value->GetJavelinBoosterLv())); });
+		Weak_SkillIcon.lock()->LvUpBt->SetPressEvent([=, this] {if (Value->GetJavelinBoosterLv() < 20 && Value->GetSkillPoint() > 0) { Value->JavelinBoosterLvUp(); } if (Value->GetJavelinBoosterLv() == 20) { Weak_SkillIcon.lock()->LvUpBt->SetAllTexture("LvUpDisable.png"); } Weak_SkillIcon.lock()->SkillLv->SetText(std::to_string(Value->GetJavelinBoosterLv())); });
+		Weak_SkillIcon.lock()->LvUpBt->SetPressStartTime(0.3f);
 	}
-	else if (_SkillIcon->SkillName == "ShadowPartner")
+	else if (Weak_SkillIcon.lock()->SkillName == "ShadowPartner")
 	{
-		_SkillIcon->SkillFunc = &Player::ShadowPartner;
-		_SkillIcon->SkillNameFont->SetText("쉐도우 파트너");
-		_SkillIcon->SkillLv->SetText(std::to_string(Value->GetShadowPartnerLv()));
+		Weak_SkillIcon.lock()->SkillFunc = &Player::ShadowPartner;
+		Weak_SkillIcon.lock()->SkillNameFont->SetText("쉐도우 파트너");
+		Weak_SkillIcon.lock()->SkillLv->SetText(std::to_string(Value->GetShadowPartnerLv()));
 		
 		if (Value->GetShadowPartnerLv() >= 20 || Value->GetSkillPoint() <= 0)
 		{
-			_SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png");
+			Weak_SkillIcon.lock()->LvUpBt->SetAllTexture("LvUpDisable.png");
 		};
 
-		_SkillIcon->LvUpBt->SetEvent([=, this] {if (Value->GetShadowPartnerLv() < 20 && Value->GetSkillPoint() > 0) { Value->ShadowPartnerLvUp(); } if (Value->GetShadowPartnerLv() == 20) { _SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png"); } _SkillIcon->SkillLv->SetText(std::to_string(Value->GetShadowPartnerLv())); });
-		_SkillIcon->LvUpBt->SetPressEvent([=, this] {if (Value->GetShadowPartnerLv() < 20 && Value->GetSkillPoint() > 0) { Value->ShadowPartnerLvUp(); } if (Value->GetShadowPartnerLv() == 20) { _SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png"); } _SkillIcon->SkillLv->SetText(std::to_string(Value->GetShadowPartnerLv())); });
-		_SkillIcon->LvUpBt->SetPressStartTime(0.3f);
+		Weak_SkillIcon.lock()->LvUpBt->SetEvent([=, this] {if (Value->GetShadowPartnerLv() < 20 && Value->GetSkillPoint() > 0) { Value->ShadowPartnerLvUp(); } if (Value->GetShadowPartnerLv() == 20) { Weak_SkillIcon.lock()->LvUpBt->SetAllTexture("LvUpDisable.png"); } Weak_SkillIcon.lock()->SkillLv->SetText(std::to_string(Value->GetShadowPartnerLv())); });
+		Weak_SkillIcon.lock()->LvUpBt->SetPressEvent([=, this] {if (Value->GetShadowPartnerLv() < 20 && Value->GetSkillPoint() > 0) { Value->ShadowPartnerLvUp(); } if (Value->GetShadowPartnerLv() == 20) { Weak_SkillIcon.lock()->LvUpBt->SetAllTexture("LvUpDisable.png"); } Weak_SkillIcon.lock()->SkillLv->SetText(std::to_string(Value->GetShadowPartnerLv())); });
+		Weak_SkillIcon.lock()->LvUpBt->SetPressStartTime(0.3f);
 	}
-	else if (_SkillIcon->SkillName == "Avenger")
+	else if (Weak_SkillIcon.lock()->SkillName == "Avenger")
 	{
-		_SkillIcon->SkillFunc = &Player::Avenger;
-		_SkillIcon->SkillNameFont->SetText("어벤져");
-		_SkillIcon->SkillLv->SetText(std::to_string(Value->GetAvengerLv()));
+		Weak_SkillIcon.lock()->SkillFunc = &Player::Avenger;
+		Weak_SkillIcon.lock()->SkillNameFont->SetText("어벤져");
+		Weak_SkillIcon.lock()->SkillLv->SetText(std::to_string(Value->GetAvengerLv()));
 		
 		if (Value->GetAvengerLv() >= 20 || Value->GetSkillPoint() <= 0)
 		{
-			_SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png");
+			Weak_SkillIcon.lock()->LvUpBt->SetAllTexture("LvUpDisable.png");
 		};
 
-		_SkillIcon->LvUpBt->SetEvent([=, this] {if (Value->GetAvengerLv() < 20 && Value->GetSkillPoint() > 0) { Value->AvengerLvUp(); } if (Value->GetAvengerLv() == 20) { _SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png"); } _SkillIcon->SkillLv->SetText(std::to_string(Value->GetAvengerLv())); });
-		_SkillIcon->LvUpBt->SetPressEvent([=, this] {if (Value->GetAvengerLv() < 20 && Value->GetSkillPoint() > 0) { Value->AvengerLvUp(); } if (Value->GetAvengerLv() == 20) { _SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png"); } _SkillIcon->SkillLv->SetText(std::to_string(Value->GetAvengerLv())); });
-		_SkillIcon->LvUpBt->SetPressStartTime(0.3f);
+		Weak_SkillIcon.lock()->LvUpBt->SetEvent([=, this] {if (Value->GetAvengerLv() < 20 && Value->GetSkillPoint() > 0) { Value->AvengerLvUp(); } if (Value->GetAvengerLv() == 20) { Weak_SkillIcon.lock()->LvUpBt->SetAllTexture("LvUpDisable.png"); } Weak_SkillIcon.lock()->SkillLv->SetText(std::to_string(Value->GetAvengerLv())); });
+		Weak_SkillIcon.lock()->LvUpBt->SetPressEvent([=, this] {if (Value->GetAvengerLv() < 20 && Value->GetSkillPoint() > 0) { Value->AvengerLvUp(); } if (Value->GetAvengerLv() == 20) { Weak_SkillIcon.lock()->LvUpBt->SetAllTexture("LvUpDisable.png"); } Weak_SkillIcon.lock()->SkillLv->SetText(std::to_string(Value->GetAvengerLv())); });
+		Weak_SkillIcon.lock()->LvUpBt->SetPressStartTime(0.3f);
 	}
-	else if (_SkillIcon->SkillName == "FlashJump")
+	else if (Weak_SkillIcon.lock()->SkillName == "FlashJump")
 	{
-		_SkillIcon->SkillFunc = &Player::FlashJump;
-		_SkillIcon->SkillNameFont->SetText("플래시 점프");
-		_SkillIcon->SkillLv->SetText(std::to_string(Value->GetFlashJumpLv()));
+		Weak_SkillIcon.lock()->SkillFunc = &Player::FlashJump;
+		Weak_SkillIcon.lock()->SkillNameFont->SetText("플래시 점프");
+		Weak_SkillIcon.lock()->SkillLv->SetText(std::to_string(Value->GetFlashJumpLv()));
 		
 		if (Value->GetFlashJumpLv() >= 20 || Value->GetSkillPoint() <= 0)
 		{
-			_SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png");
+			Weak_SkillIcon.lock()->LvUpBt->SetAllTexture("LvUpDisable.png");
 		};
 
-		_SkillIcon->LvUpBt->SetEvent([=, this] {if (Value->GetFlashJumpLv() < 20 && Value->GetSkillPoint() > 0) { Value->FlashJumpLvUp(); } if (Value->GetFlashJumpLv() == 20) { _SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png"); } _SkillIcon->SkillLv->SetText(std::to_string(Value->GetFlashJumpLv())); });
-		_SkillIcon->LvUpBt->SetPressEvent([=, this] {if (Value->GetFlashJumpLv() < 20 && Value->GetSkillPoint() > 0) { Value->FlashJumpLvUp(); } if (Value->GetFlashJumpLv() == 20) { _SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png"); } _SkillIcon->SkillLv->SetText(std::to_string(Value->GetFlashJumpLv())); });
-		_SkillIcon->LvUpBt->SetPressStartTime(0.3f);
+		Weak_SkillIcon.lock()->LvUpBt->SetEvent([=, this] {if (Value->GetFlashJumpLv() < 20 && Value->GetSkillPoint() > 0) { Value->FlashJumpLvUp(); } if (Value->GetFlashJumpLv() == 20) { Weak_SkillIcon.lock()->LvUpBt->SetAllTexture("LvUpDisable.png"); } Weak_SkillIcon.lock()->SkillLv->SetText(std::to_string(Value->GetFlashJumpLv())); });
+		Weak_SkillIcon.lock()->LvUpBt->SetPressEvent([=, this] {if (Value->GetFlashJumpLv() < 20 && Value->GetSkillPoint() > 0) { Value->FlashJumpLvUp(); } if (Value->GetFlashJumpLv() == 20) { Weak_SkillIcon.lock()->LvUpBt->SetAllTexture("LvUpDisable.png"); } Weak_SkillIcon.lock()->SkillLv->SetText(std::to_string(Value->GetFlashJumpLv())); });
+		Weak_SkillIcon.lock()->LvUpBt->SetPressStartTime(0.3f);
 	}
-	else if (_SkillIcon->SkillName == "HeroesOfMaple")
+	else if (Weak_SkillIcon.lock()->SkillName == "HeroesOfMaple")
 	{
-		_SkillIcon->SkillFunc = &Player::HeroesOfMaple;
-		_SkillIcon->SkillNameFont->SetText("메이플 용사");
-		_SkillIcon->SkillLv->SetText(std::to_string(Value->GetHeroesOfMapleLv()));
+		Weak_SkillIcon.lock()->SkillFunc = &Player::HeroesOfMaple;
+		Weak_SkillIcon.lock()->SkillNameFont->SetText("메이플 용사");
+		Weak_SkillIcon.lock()->SkillLv->SetText(std::to_string(Value->GetHeroesOfMapleLv()));
 
 		if (Value->GetHeroesOfMapleLv() >= 20 || Value->GetSkillPoint() <= 0)
 		{
-			_SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png");
+			Weak_SkillIcon.lock()->LvUpBt->SetAllTexture("LvUpDisable.png");
 		};
 
-		_SkillIcon->LvUpBt->SetEvent([=, this] {if (Value->GetHeroesOfMapleLv() < 20 && Value->GetSkillPoint() > 0) { Value->HeroesOfMapleLvUp(); } if (Value->GetHeroesOfMapleLv() == 20) { _SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png"); } _SkillIcon->SkillLv->SetText(std::to_string(Value->GetHeroesOfMapleLv())); });
-		_SkillIcon->LvUpBt->SetPressEvent([=, this] {if (Value->GetHeroesOfMapleLv() < 20 && Value->GetSkillPoint() > 0) { Value->HeroesOfMapleLvUp(); } if (Value->GetHeroesOfMapleLv() == 20) { _SkillIcon->LvUpBt->SetAllTexture("LvUpDisable.png"); } _SkillIcon->SkillLv->SetText(std::to_string(Value->GetHeroesOfMapleLv())); });
-		_SkillIcon->LvUpBt->SetPressStartTime(0.3f);
+		Weak_SkillIcon.lock()->LvUpBt->SetEvent([=, this] {if (Value->GetHeroesOfMapleLv() < 20 && Value->GetSkillPoint() > 0) { Value->HeroesOfMapleLvUp(); } if (Value->GetHeroesOfMapleLv() == 20) { Weak_SkillIcon.lock()->LvUpBt->SetAllTexture("LvUpDisable.png"); } Weak_SkillIcon.lock()->SkillLv->SetText(std::to_string(Value->GetHeroesOfMapleLv())); });
+		Weak_SkillIcon.lock()->LvUpBt->SetPressEvent([=, this] {if (Value->GetHeroesOfMapleLv() < 20 && Value->GetSkillPoint() > 0) { Value->HeroesOfMapleLvUp(); } if (Value->GetHeroesOfMapleLv() == 20) { Weak_SkillIcon.lock()->LvUpBt->SetAllTexture("LvUpDisable.png"); } Weak_SkillIcon.lock()->SkillLv->SetText(std::to_string(Value->GetHeroesOfMapleLv())); });
+		Weak_SkillIcon.lock()->LvUpBt->SetPressStartTime(0.3f);
 	}
 }

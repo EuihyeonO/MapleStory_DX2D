@@ -3,6 +3,7 @@
 #include "NPCWindow.h"
 #include "Mouse.h"
 #include "PlayerValue.h"
+#include "UIController.h"
 
 #include <GameEngineCore/GameEngineLevel.h>
 
@@ -151,20 +152,46 @@ void DarkLord::OpenWindow()
 
 		MyWindow->SetCloseButton(0, [this] {ActorDeath(); });
 
-		MyWindow->AddToTextButton("[자쿰] 거대 석상의 공포", 0, [this] {MyWindow->ChangeDialog("무슨 일로 다시 나를 찾아온거지?"); });
-		MyWindow->AddToTextButton("자쿰에게 도전하고 싶습니다.", 1, [this] 
+		MyWindow->AddToTextButton("[자쿰] 거대 석상의 공포", 0, [this] 
 			{
-				MyWindow->CreateUIButtonList(3);
+				MyWindow->ChangeDialog("무슨 일로 다시 나를 찾아온거지?"); 	
 
-				MyWindow->ChangeDialog("자쿰이라.. 정말 위험한 길이 될 수도 있는데, 정말 괜찮겠나?"); 
-				MyWindow->AddToTextButton("네. 도전하겠습니다.", 2, [this] {MyWindow->ChangeDialog("그래. 그대의 뜻이 그렇다면, 자쿰의 길로 보내주도록 하지."); });
+				MyWindow->AddToTextButton("자쿰에게 도전하고 싶습니다.", 1, [this]
+				{
+					MyWindow->CreateUIButtonList(3);
 
-				MyWindow->SetCloseButton(3, [this] { ChangeLevel("Level_AlterOfZakumEnt"); });
+					MyWindow->ChangeDialog("자쿰이라.. 정말 위험한 길이 될 수도 있는데, 정말 괜찮겠나?");
+					MyWindow->AddToTextButton("네. 도전하겠습니다.", 2, [this] {MyWindow->ChangeDialog("그래. 그대의 뜻이 그렇다면, 자쿰의 길로 보내주도록 하지."); });
+
+					MyWindow->SetCloseButton(3, [this] { ChangeLevel("Level_AlterOfZakumEnt"); });
+				});
+
+				MyWindow->AddToTextButton("아무 것도 아닙니다.", 1, [this]
+				{
+					MyWindow->ChangeDialog("그래. 부탁할 것이 있다면, 언제든 다시 찾아와도 좋아.");
+					MyWindow->SetCloseButton(2, [this] { ActorDeath(); });
+				}); 
 			});
-		MyWindow->AddToTextButton("아무 것도 아닙니다.", 1, [this]
+
+		MyWindow->AddToTextButton("장비를 받고 싶습니다.", 0, [this]
 			{
-				MyWindow->ChangeDialog("그래. 부탁할 것이 있다면, 언제든 다시 찾아와도 좋아.");
-				MyWindow->SetCloseButton(2, [this] { ActorDeath(); });
+				MyWindow->ChangeDialog("강해지기 위해선 좋은 장비또한 필요한 법이지.\n아이템 창을 확인해 봐. 아끼는 장비를 넣어두었으니까.");
+				
+				std::shared_ptr<ItemInfo> NewItem1 = std::make_shared<ItemInfo>();
+				NewItem1->EquipType = static_cast<int>(EquipType::Weapon);
+				NewItem1->ItemName = "MAPLETHRONED";
+				NewItem1->Class = static_cast<int>(PlayerClass::Log);
+				NewItem1->Att = 30;
+
+				UIController::GetUIController()->AddToItemList(NewItem1, static_cast<int>(ItemType::Equip));
+
+				std::shared_ptr<ItemInfo> NewItem2 = std::make_shared<ItemInfo>();
+				NewItem2->EquipType = static_cast<int>(EquipType::OnePiece);
+				NewItem2->ItemName = "BLUEGOWN";
+
+				UIController::GetUIController()->AddToItemList(NewItem2, static_cast<int>(ItemType::Equip));
+
+				MyWindow->SetCloseButton(1, [this] {ActorDeath(); });
 			});
 	}
 	else

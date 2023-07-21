@@ -118,6 +118,8 @@ void Star::Move(float _DeltaTime)
 			return;
 		}			
 
+		GameEngineSound::Play(Type + ".mp3");
+
 		StarRender->On();
 		StarCollision->On();
 		isSet = true;
@@ -131,7 +133,7 @@ void Star::Move(float _DeltaTime)
 			Dir.Normalize();
 		}
 
-		float4 MoveDis = Dir * /*捧么加档*/ 400.0f * _DeltaTime;
+		float4 MoveDis = Dir * /*捧么加档*/ 500.0f * _DeltaTime;
 
 		GetTransform()->AddLocalPosition(MoveDis);
 

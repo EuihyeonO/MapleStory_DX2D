@@ -114,8 +114,20 @@ void Player::Start()
 	
 	CtrlSkill = &Player::Swing;
 
-	//NameCard = CreateComponent<GameEngineSpriteRenderer>();
-	
+	NameCard = CreateComponent<GameEngineSpriteRenderer>();
+	NameCard->GetTransform()->SetLocalScale({ 60, 16 });
+	NameCard->GetTransform()->SetLocalPosition({ 0, -10 });
+	NameCard->ColorOptionValue.MulColor = { 0.0f, 0.0f, 0.0f, 0.7f };
+
+	NickName = CreateComponent<GameEngineFontRenderer>();
+	NickName->SetFontFlag(FW1_TEXT_FLAG::FW1_CENTER);
+	NickName->SetFont("±¼¸²");
+	NickName->SetScale(12.0f);
+	NickName->SetColor({ 1.0f, 1.0f, 1.0f, 1.0f });
+	NickName->SetText("EuiHyeon");
+	NickName->GetTransform()->SetLocalPosition(NameCard->GetTransform()->GetLocalPosition() + float4{0, 8});
+
+	//EuiHyeon
 	PlayerValue::Value.AttUpdate();
 }
 
@@ -500,7 +512,7 @@ void Player::FallingDown(float _DeltaTime)
 
 	Gravity += GravityAccel * _DeltaTime;
 
-	if (Gravity > 800.0f)
+	if (Gravity > 1000.0f)
 	{
 		Gravity = 800.0f;
 	}

@@ -130,25 +130,25 @@ void EquipItemList::ClearEquipItem()
 	}
 }
 
-void EquipItemList::LoadEquipItem(int _ItemType)
+void EquipItemList::LoadEquipItem(int _EquipType)
 {
-	std::shared_ptr<ItemInfo> LoadedItem = UIController::GetUIController()->GetEquipItem(_ItemType);
+	std::shared_ptr<ItemInfo> LoadedItem = UIController::GetUIController()->GetEquipItem(_EquipType);
 
 	if (LoadedItem != nullptr)
 	{
-		if (MyEquipItems[_ItemType] != nullptr)
+		if (MyEquipItems[_EquipType] != nullptr)
 		{
-			MyEquipItems[_ItemType]->Death();
-			MyEquipItems[_ItemType] = nullptr;
+			MyEquipItems[_EquipType]->Death();
+			MyEquipItems[_EquipType] = nullptr;
 		}
 
 		std::shared_ptr<Item> NewItem = GetLevel()->CreateActor<Item>();
-		NewItem->SetItemInfo(LoadedItem, _ItemType);
+		NewItem->SetItemInfo(LoadedItem, static_cast<int>(ItemType::Equip));
 		NewItem->GetItemRender()->On();
 		NewItem->GetItemCollision()->On();
 		NewItem->isEquip = true;
 
-		MyEquipItems[_ItemType] = NewItem;
+		MyEquipItems[_EquipType] = NewItem;
 	}
 
 	SortItem();
@@ -183,4 +183,10 @@ void EquipItemList::SortItem()
 	{
 		MyEquipItems[static_cast<int>(EquipType::Shoes)]->GetTransform()->SetLocalPosition({ -200 , 28, -1 });
 	}
+}
+
+void EquipItemList::DeleteEquipItem(int _EquipType)
+{
+	MyEquipItems[_EquipType]->Death();
+	MyEquipItems[_EquipType] = nullptr;
 }

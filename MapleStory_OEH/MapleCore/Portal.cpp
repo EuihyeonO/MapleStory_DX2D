@@ -31,7 +31,7 @@ void Portal::Start()
 
 	BlackOut = CreateComponent<GameEngineUIRenderer>();
 	BlackOut->GetTransform()->SetWorldScale({ 800, 600 });
-	BlackOut->GetTransform()->SetWorldPosition({ 0, 0 });
+	BlackOut->GetTransform()->SetWorldPosition({ 0, 0, -10000 });
 	BlackOut->ColorOptionValue.MulColor = { 0.0f, 0.0f, 0.0f, 0.0f };
 }
 

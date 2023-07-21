@@ -80,12 +80,18 @@ void BottomBar::Start()
 	ClassFont->SetScale(13.0f);
 	ClassFont->GetTransform()->SetLocalPosition({ -315, -266 });
 
+	RenderHP = PlayerValue::GetValue()->GetHp() - 1;
+	RenderHP_flt = RenderHP;
+
+	RenderMP = PlayerValue::GetValue()->GetMp() - 1;
+	RenderMP_flt = RenderMP;
+
 	BottomBarPosUpdate();	
 }
 
 void BottomBar::Update(float _DeltaTime) 
 {
-	GradationUpdate();
+	GradationUpdate(_DeltaTime);
 	LevelUpdate();
 	HPAndMPUpdate();
 
@@ -154,7 +160,7 @@ void BottomBar::BottomBarPosUpdate()
 	Down->GetTransform()->SetLocalPosition(BottomBarLayerPos + float4{ -3, 17 } + float4{ 276, -6 });
 }
 
-void BottomBar::GradationUpdate()
+void BottomBar::GradationUpdate(float _DeltaTime)
 {
 	float4 StatusBarPos = StatusBar->GetTransform()->GetLocalPosition();
 
@@ -162,19 +168,100 @@ void BottomBar::GradationUpdate()
 	HpBarRightPos = ExpBarRightPos - float4{ 230.0f , 0.0f };
 	MpBarRightPos = HpBarRightPos + float4{ 108.0f , 0.0f };
 
+	int RealHp = PlayerValue::GetValue()->GetHp();
+	int MaxHp = PlayerValue::GetValue()->GetMaxHp();
+	
 	//Hp
-	float HpRateScale = 1 - PlayerValue::GetValue()->GetHpRate();
-	float HpGradationXScale = 106.0f * HpRateScale;
+	if (RealHp != RenderHP)
+	{
+		if(RealHp > RenderHP)
+		{
+			RenderHP_flt += MaxHp * 2.0f * _DeltaTime;
+			RenderHP = static_cast<int>(RenderHP_flt);
 
-	HpGradation->GetTransform()->SetLocalScale({ HpGradationXScale , 16.0f });
-	HpGradation->GetTransform()->SetLocalPosition(HpBarRightPos - float4{ HpGradationXScale / 2.0f, 0.0f });
+			if (RenderHP >= RealHp)
+			{
+				RenderHP_flt = static_cast<float>(RealHp);
+				RenderHP = RealHp;
+			}
+		}
+		else
+		{
+			RenderHP_flt -= MaxHp * 2.0f * _DeltaTime;
+			RenderHP = static_cast<int>(RenderHP_flt);
+
+			if (RenderHP <= RealHp)
+			{
+				RenderHP_flt = static_cast<float>(RealHp);
+				RenderHP = RealHp;
+			}
+		}
+
+		float RenderHPRate = 0.0f;
+
+		if(RealHp >= 0)
+		{
+			RenderHPRate = static_cast<float>(RenderHP) / static_cast<float>(MaxHp);
+		}
+		else
+		{
+			RenderHPRate = 0.0f;
+		}
+
+		float HpRateScale = 1 - RenderHPRate;
+		float HpGradationXScale = 106.0f * HpRateScale;
+
+		HpGradation->GetTransform()->SetLocalScale({ HpGradationXScale , 16.0f });
+		HpGradation->GetTransform()->SetLocalPosition(HpBarRightPos - float4{ HpGradationXScale / 2.0f, 0.0f });
+	}
 
 	//Mp
-	float MpRateScale = 1 - PlayerValue::GetValue()->GetMpRate();
-	float MpGradationXScale = 105.0f * MpRateScale;
+	int RealMp = PlayerValue::GetValue()->GetMp();
+	int MaxMp = PlayerValue::GetValue()->GetMaxMp();
 
-	MpGradation->GetTransform()->SetLocalScale({ MpGradationXScale , 16.0f });
-	MpGradation->GetTransform()->SetLocalPosition(MpBarRightPos - float4{MpGradationXScale / 2.0f, 0.0f });
+	if (RealMp != RenderMP)
+	{
+
+		if (RealMp > RenderMP)
+		{
+			RenderMP_flt += MaxMp * 2.0f * _DeltaTime;
+			RenderMP = static_cast<int>(RenderMP_flt);
+
+			if (RenderMP >= RealMp)
+			{
+				RenderMP_flt = static_cast<float>(RealMp);
+				RenderMP = RealMp;
+			}
+		}
+		else
+		{
+			RenderMP_flt -= MaxMp * 2.0f * _DeltaTime;
+			RenderMP = static_cast<int>(RenderMP_flt);
+
+			if (RenderMP <= RealMp)
+			{
+				RenderMP_flt = static_cast<float>(RealMp);
+				RenderMP = RealMp;
+			}
+		}
+
+		float RenderMPRate = 0.0f;
+
+		if (RealMp >= 0)
+		{
+			RenderMPRate = static_cast<float>(RenderMP) / static_cast<float>(MaxMp);
+		}
+		else
+		{
+			RenderMPRate = 0.0f;
+		}
+
+		float MpRateScale = 1 - RenderMPRate;
+		float MpGradationXScale = 105.0f * MpRateScale;
+
+		MpGradation->GetTransform()->SetLocalScale({ MpGradationXScale , 16.0f });
+		MpGradation->GetTransform()->SetLocalPosition(MpBarRightPos - float4{ MpGradationXScale / 2.0f, 0.0f });
+	}
 
 	//Exp
 	float ExpRateScale = 1 - PlayerValue::GetValue()->GetExpRate();
@@ -240,7 +327,7 @@ void BottomBar::LevelUpdate()
 
 void BottomBar::HPAndMPUpdate()
 {
-	std::string Hp = "[" + std::to_string(PlayerValue::GetValue()->GetHp()) + " / " + std::to_string(PlayerValue::GetValue()->GetMaxHp()) + " ]";
+	std::string Hp = "[" + std::to_string(RenderHP) + " / " + std::to_string(PlayerValue::GetValue()->GetMaxHp()) + " ]";
 	HpFont->SetText(Hp);
 
 	std::string Mp = "[" + std::to_string(PlayerValue::GetValue()->GetMp()) + " / " + std::to_string(PlayerValue::GetValue()->GetMaxMp()) + " ]";

@@ -92,6 +92,16 @@ private:
 		std::shared_ptr<class ContentFontRenderer> ToolTip;
 		std::shared_ptr<class ContentUIRenderer> StatInfo = nullptr;
 		std::shared_ptr<StatRenderer> ReQuiredStat = nullptr;
+
+		std::shared_ptr<class ContentFontRenderer> Beginner;
+		std::shared_ptr<class ContentFontRenderer> Warrior;
+		std::shared_ptr<class ContentFontRenderer> archer;
+		std::shared_ptr<class ContentFontRenderer> Magician;
+		std::shared_ptr<class ContentFontRenderer> Log;
+
+		std::shared_ptr<class ContentFontRenderer> InfoText;
+		std::shared_ptr<class ContentFontRenderer> Att;
+
 	};
 
 	void StatRenderOn();

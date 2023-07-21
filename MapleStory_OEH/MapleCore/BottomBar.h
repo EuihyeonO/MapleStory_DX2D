@@ -23,7 +23,7 @@ protected:
 private:
 
 	void BottomBarPosUpdate();
-	void GradationUpdate();
+	void GradationUpdate(float _DeltaTime);
 
 	void LevelUpdate();
 	void HPAndMPUpdate();
@@ -50,6 +50,12 @@ private:
 	float4 ExpBarRightPos = { 0, 0 };
 	float4 HpBarRightPos = { 0, 0 };
 	float4 MpBarRightPos = { 0, 0 };
+
+	int RenderHP = 0;
+	float RenderHP_flt = 0.0f;
+
+	int RenderMP = 0;
+	float RenderMP_flt = 0.0f;
 
 	bool Test = false;
 

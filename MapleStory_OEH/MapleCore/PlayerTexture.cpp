@@ -958,39 +958,39 @@ void Player::SetWeaponTexturePosVector()
 	WeaponOriginPos["Jump"]["Ganier"].push_back({ -13, 5 });
 
 	//∏ﬁ¿Ã«√ Ω∫∑–¡Ó
-	WeaponOriginPos["Stand"]["MapleThroned"].push_back({ -25, 7 });
-	WeaponOriginPos["Stand"]["MapleThroned"].push_back({ -25, 7 });
-	WeaponOriginPos["Stand"]["MapleThroned"].push_back({ -25, 7 });
-	WeaponOriginPos["Stand"]["MapleThroned"].push_back({ -25, 7 });
+	WeaponOriginPos["Stand"]["MAPLETHRONED"].push_back({ -25, 7 });
+	WeaponOriginPos["Stand"]["MAPLETHRONED"].push_back({ -25, 7 });
+	WeaponOriginPos["Stand"]["MAPLETHRONED"].push_back({ -25, 7 });
+	WeaponOriginPos["Stand"]["MAPLETHRONED"].push_back({ -25, 7 });
 
-	WeaponOriginPos["Walk"]["MapleThroned"].push_back({ -25, 7 });
-	WeaponOriginPos["Walk"]["MapleThroned"].push_back({ -25, 7 });
-	WeaponOriginPos["Walk"]["MapleThroned"].push_back({ -25, 7 });
-	WeaponOriginPos["Walk"]["MapleThroned"].push_back({ -25, 7 });
+	WeaponOriginPos["Walk"]["MAPLETHRONED"].push_back({ -25, 7 });
+	WeaponOriginPos["Walk"]["MAPLETHRONED"].push_back({ -25, 7 });
+	WeaponOriginPos["Walk"]["MAPLETHRONED"].push_back({ -25, 7 });
+	WeaponOriginPos["Walk"]["MAPLETHRONED"].push_back({ -25, 7 });
 
-	WeaponOriginPos["Swing0"]["MapleThroned"].push_back({ 10, 5 }); //ªÁ∂Û¡¸
-	WeaponOriginPos["Swing0"]["MapleThroned"].push_back({ -11, 5 });
-	WeaponOriginPos["Swing0"]["MapleThroned"].push_back({ -11, 5 });
+	WeaponOriginPos["Swing0"]["MAPLETHRONED"].push_back({ 10, 5 }); //ªÁ∂Û¡¸
+	WeaponOriginPos["Swing0"]["MAPLETHRONED"].push_back({ -11, 5 });
+	WeaponOriginPos["Swing0"]["MAPLETHRONED"].push_back({ -11, 5 });
 
-	WeaponOriginPos["Swing1"]["MapleThroned"].push_back({ -12, 5 });
-	WeaponOriginPos["Swing1"]["MapleThroned"].push_back({ -12, 5 });
-	WeaponOriginPos["Swing1"]["MapleThroned"].push_back({ -12, 5 });
+	WeaponOriginPos["Swing1"]["MAPLETHRONED"].push_back({ -12, 5 });
+	WeaponOriginPos["Swing1"]["MAPLETHRONED"].push_back({ -12, 5 });
+	WeaponOriginPos["Swing1"]["MAPLETHRONED"].push_back({ -12, 5 });
 
-	WeaponOriginPos["Swing2"]["MapleThroned"].push_back({ -12, 5 });
-	WeaponOriginPos["Swing2"]["MapleThroned"].push_back({ -12, 5 });
-	WeaponOriginPos["Swing2"]["MapleThroned"].push_back({ -12, 5 });//ªÁ∂Û¡¸
+	WeaponOriginPos["Swing2"]["MAPLETHRONED"].push_back({ -12, 5 });
+	WeaponOriginPos["Swing2"]["MAPLETHRONED"].push_back({ -12, 5 });
+	WeaponOriginPos["Swing2"]["MAPLETHRONED"].push_back({ -12, 5 });//ªÁ∂Û¡¸
 
-	WeaponOriginPos["Stab0"]["MapleThroned"].push_back({ -12, 5 });
-	WeaponOriginPos["Stab0"]["MapleThroned"].push_back({ -12, 5 });
+	WeaponOriginPos["Stab0"]["MAPLETHRONED"].push_back({ -12, 5 });
+	WeaponOriginPos["Stab0"]["MAPLETHRONED"].push_back({ -12, 5 });
 
-	WeaponOriginPos["Stab1"]["MapleThroned"].push_back({ -12, 5 });
-	WeaponOriginPos["Stab1"]["MapleThroned"].push_back({ -12, 5 });
+	WeaponOriginPos["Stab1"]["MAPLETHRONED"].push_back({ -12, 5 });
+	WeaponOriginPos["Stab1"]["MAPLETHRONED"].push_back({ -12, 5 });
 
-	WeaponOriginPos["Alert"]["MapleThroned"].push_back({ -23, 10 });
-	WeaponOriginPos["Alert"]["MapleThroned"].push_back({ -23, 10 });
-	WeaponOriginPos["Alert"]["MapleThroned"].push_back({ -23, 10 });
+	WeaponOriginPos["Alert"]["MAPLETHRONED"].push_back({ -23, 10 });
+	WeaponOriginPos["Alert"]["MAPLETHRONED"].push_back({ -23, 10 });
+	WeaponOriginPos["Alert"]["MAPLETHRONED"].push_back({ -23, 10 });
 
-	WeaponOriginPos["Jump"]["MapleThroned"].push_back({ -13, 5 });
+	WeaponOriginPos["Jump"]["MAPLETHRONED"].push_back({ -13, 5 });
 
 	//∏˘µ’¿Ã
 	WeaponOriginPos["Stand"]["Club"].push_back({ -25, 7 });
@@ -1028,19 +1028,19 @@ void Player::SetWeaponTexturePosVector()
 	WeaponToHandPos["Alert"]["Ganier"].push_back({ 17, -5 });
 	WeaponToHandPos["Alert"]["Ganier"].push_back({ 16, -6 });
 
-	WeaponToHandPos["Stand"]["MapleThroned"].push_back({ 18, 7 });
-	WeaponToHandPos["Stand"]["MapleThroned"].push_back({ 18, 7 });
-	WeaponToHandPos["Stand"]["MapleThroned"].push_back({ 18, 7 });
-	WeaponToHandPos["Stand"]["MapleThroned"].push_back({ 18, 7 });
+	WeaponToHandPos["Stand"]["MAPLETHRONED"].push_back({ 18, 7 });
+	WeaponToHandPos["Stand"]["MAPLETHRONED"].push_back({ 18, 7 });
+	WeaponToHandPos["Stand"]["MAPLETHRONED"].push_back({ 18, 7 });
+	WeaponToHandPos["Stand"]["MAPLETHRONED"].push_back({ 18, 7 });
 
-	WeaponToHandPos["Walk"]["MapleThroned"].push_back({ 18, 8 });
-	WeaponToHandPos["Walk"]["MapleThroned"].push_back({ 19, 8 });
-	WeaponToHandPos["Walk"]["MapleThroned"].push_back({ 17, 9 });
-	WeaponToHandPos["Walk"]["MapleThroned"].push_back({ 19, 8 });
+	WeaponToHandPos["Walk"]["MAPLETHRONED"].push_back({ 18, 8 });
+	WeaponToHandPos["Walk"]["MAPLETHRONED"].push_back({ 19, 8 });
+	WeaponToHandPos["Walk"]["MAPLETHRONED"].push_back({ 17, 9 });
+	WeaponToHandPos["Walk"]["MAPLETHRONED"].push_back({ 19, 8 });
 
-	WeaponToHandPos["Alert"]["MapleThroned"].push_back({ 15, 5 });
-	WeaponToHandPos["Alert"]["MapleThroned"].push_back({ 15, 4 });
-	WeaponToHandPos["Alert"]["MapleThroned"].push_back({ 14, 3 });
+	WeaponToHandPos["Alert"]["MAPLETHRONED"].push_back({ 15, 5 });
+	WeaponToHandPos["Alert"]["MAPLETHRONED"].push_back({ 15, 4 });
+	WeaponToHandPos["Alert"]["MAPLETHRONED"].push_back({ 14, 3 });
 
 	WeaponToHandPos["Stand"]["Club"].push_back({ -5, -4 });
 	WeaponToHandPos["Stand"]["Club"].push_back({ -5, -4 });
@@ -1083,27 +1083,27 @@ void Player::SetWeaponTexturePosVector()
 	WeaponToNavelPos["Stab1"]["Ganier"].push_back({ 18, 11 });
 	WeaponToNavelPos["Stab1"]["Ganier"].push_back({ -19, 7 });
 
-	WeaponToNavelPos["Swing0"]["MapleThroned"].push_back({ -3, 7 });
-	WeaponToNavelPos["Swing0"]["MapleThroned"].push_back({ -3, 7 });
-	WeaponToNavelPos["Swing0"]["MapleThroned"].push_back({ 18, 23 });
+	WeaponToNavelPos["Swing0"]["MAPLETHRONED"].push_back({ -3, 7 });
+	WeaponToNavelPos["Swing0"]["MAPLETHRONED"].push_back({ -3, 7 });
+	WeaponToNavelPos["Swing0"]["MAPLETHRONED"].push_back({ 18, 23 });
 
-	WeaponToNavelPos["Swing1"]["MapleThroned"].push_back({ -11, 17 });
-	WeaponToNavelPos["Swing1"]["MapleThroned"].push_back({ -15, 14 });
-	WeaponToNavelPos["Swing1"]["MapleThroned"].push_back({ 19, 6 });
+	WeaponToNavelPos["Swing1"]["MAPLETHRONED"].push_back({ -11, 17 });
+	WeaponToNavelPos["Swing1"]["MAPLETHRONED"].push_back({ -15, 14 });
+	WeaponToNavelPos["Swing1"]["MAPLETHRONED"].push_back({ 19, 6 });
 
-	WeaponToNavelPos["Swing2"]["MapleThroned"].push_back({ 19, 15 });
-	WeaponToNavelPos["Swing2"]["MapleThroned"].push_back({ -13, 8 });
-	WeaponToNavelPos["Swing2"]["MapleThroned"].push_back({ -13, 8 });
+	WeaponToNavelPos["Swing2"]["MAPLETHRONED"].push_back({ 19, 15 });
+	WeaponToNavelPos["Swing2"]["MAPLETHRONED"].push_back({ -13, 8 });
+	WeaponToNavelPos["Swing2"]["MAPLETHRONED"].push_back({ -13, 8 });
 
-	WeaponToNavelPos["Stab0"]["MapleThroned"].push_back({ 19, 7 });
-	WeaponToNavelPos["Stab0"]["MapleThroned"].push_back({ -20, 8 });
+	WeaponToNavelPos["Stab0"]["MAPLETHRONED"].push_back({ 19, 7 });
+	WeaponToNavelPos["Stab0"]["MAPLETHRONED"].push_back({ -20, 8 });
 
-	WeaponToNavelPos["Stab1"]["MapleThroned"].push_back({ 13, 13 });
-	WeaponToNavelPos["Stab1"]["MapleThroned"].push_back({ -17, 7 });
+	WeaponToNavelPos["Stab1"]["MAPLETHRONED"].push_back({ 13, 13 });
+	WeaponToNavelPos["Stab1"]["MAPLETHRONED"].push_back({ -17, 7 });
 
 	WeaponToNavelPos["Jump"]["BasicSword"].push_back({ 11, 27 });
 	WeaponToNavelPos["Jump"]["Ganier"].push_back({ 12, 9 });
-	WeaponToNavelPos["Jump"]["MapleThroned"].push_back({ 11, 9 });
+	WeaponToNavelPos["Jump"]["MAPLETHRONED"].push_back({ 11, 9 });
 
 }
 
@@ -1256,7 +1256,16 @@ void Player::TextureAnimationUpdate()
 		if ((isSwing == true && AniIndex == 3) || (isSwing == true && (MoveType == "Stab0" || MoveType == "Stab1") && AniIndex == 2))
 		{
 			isSwing = false;
-			MoveType = "Jump";
+
+			if (isFalling == true || isKeyJump == true)
+			{
+				MoveType = "Jump";
+			}
+			else
+			{
+				MoveType = "Stand";
+			}
+
 			AniIndex = 0;
 			AnimationCount = 0.0f;
 

@@ -88,6 +88,12 @@ void TitleObjects::Start()
 	ChannelCheck = CreateComponent<GameEngineSpriteRenderer>();
 	ChannelCheck->CreateAnimation({ .AnimationName = "Check",.SpriteName = "ChannelCheck",.Loop = false,.ScaleToTexture = true,.FrameTime = {0.1f, 0.05f ,0.05f ,0.1f } });
 	ChannelCheck->Off();
+	
+	NickName = CreateComponent<GameEngineFontRenderer>();
+	NickName->SetFont("±¼¸²");
+	NickName->SetScale(13.0f);
+	NickName->SetColor({ 1.0f, 1.0f, 1.0f, 1.0f });
+	NickName->GetTransform()->SetLocalPosition({ 110, 1909 });
 
 	LoginID = CreateComponent<GameEngineFontRenderer>();
 	LoginID->SetFont("±¼¸²");
@@ -100,13 +106,6 @@ void TitleObjects::Start()
 	LoginPassWord->SetScale(13.0f);
 	LoginPassWord->SetColor({ 1.0f, 1.0f, 1.0f, 1.0f });
 	LoginPassWord->GetTransform()->SetLocalPosition({ 37, 21 });
-
-	NickName = CreateComponent<GameEngineFontRenderer>();
-	NickName->SetFont("±¼¸²");
-	NickName->SetScale(13.0f);
-	NickName->SetColor({ 1.0f, 1.0f, 1.0f, 1.0f });
-	NickName->GetTransform()->SetLocalPosition({ 110, 1909 });
-	NickName->SetText("ÀÇÇöÂ¯Â¯");
 
 	TypingUpdateFunc = std::bind(&TitleObjects::TypingLoginInfo, this, std::placeholders::_1);
 
@@ -200,9 +199,9 @@ void TitleObjects::Create_LoginBox()
 	Exit->SetPressSound("ButtonClick.mp3");
 
 	LoginBt = GetLevel()->CreateActor<ContentButton>();
-	LoginBt->SetReleaseTexture("LoginRelease.png");
-	LoginBt->SetHoverTexture("LoginHover.png");
-	LoginBt->SetPressTexture("LogInPress.png");
+	LoginBt->SetReleaseTexture("LoginDisable.png");
+	LoginBt->SetHoverTexture("LoginDisable.png");
+	LoginBt->SetPressTexture("LoginDisable.png");
 	LoginBt->SetAllPos(LoginBoardPos + float4{ 128, 70 });
 	LoginBt->SetAllScale({ 95, 48 });
 	LoginBt->SetisUIRenderer(false);
@@ -465,6 +464,14 @@ void TitleObjects::ActivateToCharSelect()
 				}
 			};
 		});
+
+	EmptySlot1->Off();
+	EmptyAnimation1->Off();
+
+	CharCreate->SetReleaseTexture("CreateDisable.png");
+	CharCreate->SetHoverTexture("CreateDisable.png");
+	CharCreate->SetPressTexture("CreateDisable.png");
+	CharCreate->SetEvent(nullptr);
 }
 
 void TitleObjects::TypingLoginInfo(float _DeltaTtime)
@@ -473,6 +480,8 @@ void TitleObjects::TypingLoginInfo(float _DeltaTtime)
 
 	if(TypingCount >= 0.08f)
 	{
+		GameEngineSound::Play("Typing.mp3");
+
 		if(isEndID == false)
 		{
 			std::string CopyText = "OhEuiHyeon";
@@ -501,9 +510,39 @@ void TitleObjects::TypingLoginInfo(float _DeltaTtime)
 
 			if (TypingIndex >= CopyText.size())
 			{
+				LoginBt->SetReleaseTexture("LoginRelease.png");
+				LoginBt->SetHoverTexture("LoginHover.png");
+				LoginBt->SetPressTexture("LogInPress.png");
+
+				LoginBt->SetHoverSound("ButtonHover.mp3");
+				LoginBt->SetPressSound("ButtonClick.mp3");								
+				LoginBt->SetEvent(LogintBtFunc);
+
 				TypingIndex = 0;
 				TypingUpdateFunc = nullptr;
 			}
+		}
+	}
+}
+
+void TitleObjects::TypingNickName(float _DeltaTtime)
+{
+	NickNameCount += _DeltaTtime;
+
+	if (NickNameCount >= 0.08f)
+	{
+		GameEngineSound::Play("Typing.mp3");
+
+		std::string CopyText = "EuiHyeon";
+		NickNameText.push_back(CopyText[NickNameIndex]);
+		NickName->SetText(NickNameText);
+
+		NickNameCount = 0.0f;
+		NickNameIndex++;
+
+		if (NickNameIndex >= CopyText.size())
+		{
+			TypingUpdateFunc = nullptr;
 		}
 	}
 }

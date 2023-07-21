@@ -62,6 +62,114 @@ void Item::SetMyInfoBox()
 		MyInfoBox->ItemNameLayer->SetText(KrName);
 		MyInfoBox->ItemNameLayer->Off();
 
+		MyInfoBox->Beginner = CreateComponent<ContentFontRenderer>();
+		MyInfoBox->Beginner->SetFont("굴림");
+		MyInfoBox->Beginner->SetScale(12.0f);
+		MyInfoBox->Beginner->SetText("초보자");
+		MyInfoBox->Beginner->SetFontFlag(FW1_TEXT_FLAG::FW1_CENTER);
+		MyInfoBox->Beginner->GetTransform()->SetLocalPosition(BoxPos + float4{ -70, 40 });
+		MyInfoBox->Beginner->Off();
+
+		MyInfoBox->Warrior = CreateComponent<ContentFontRenderer>();
+		MyInfoBox->Warrior->SetFont("굴림"); 
+		MyInfoBox->Warrior->SetScale(12.0f);
+		MyInfoBox->Warrior->SetText("전사");
+		MyInfoBox->Warrior->SetFontFlag(FW1_TEXT_FLAG::FW1_CENTER);
+		MyInfoBox->Warrior->GetTransform()->SetLocalPosition(BoxPos + float4{ -32, 40 });
+		MyInfoBox->Warrior->Off();
+
+		MyInfoBox->archer = CreateComponent<ContentFontRenderer>();
+		MyInfoBox->archer->SetFont("굴림"); 
+		MyInfoBox->archer->SetScale(12.0f);
+		MyInfoBox->archer->SetText("궁수");
+		MyInfoBox->archer->SetFontFlag(FW1_TEXT_FLAG::FW1_CENTER);
+		MyInfoBox->archer->GetTransform()->SetLocalPosition(BoxPos + float4{ 0, 40 });
+		MyInfoBox->archer->Off();
+
+		MyInfoBox->Log = CreateComponent<ContentFontRenderer>();
+		MyInfoBox->Log->SetFont("굴림");
+		MyInfoBox->Log->SetScale(12.0f);
+		MyInfoBox->Log->SetText("도적");
+		MyInfoBox->Log->SetFontFlag(FW1_TEXT_FLAG::FW1_CENTER);
+		MyInfoBox->Log->GetTransform()->SetLocalPosition(BoxPos + float4{ 32, 40 });
+		MyInfoBox->Log->Off();
+
+		MyInfoBox->Magician = CreateComponent<ContentFontRenderer>();
+		MyInfoBox->Magician->SetFont("굴림"); 
+		MyInfoBox->Magician->SetScale(12.0f);		
+		MyInfoBox->Magician->SetText("마법사");
+		MyInfoBox->Magician->SetFontFlag(FW1_TEXT_FLAG::FW1_CENTER);
+		MyInfoBox->Magician->GetTransform()->SetLocalPosition(BoxPos + float4{ 70, 40 });
+		MyInfoBox->Magician->Off();
+
+		MyInfoBox->Beginner->SetColor({ 1.0f, 0.0f, 0.0f, 1.0f });
+		MyInfoBox->Warrior->SetColor({ 1.0f, 0.0f, 0.0f, 1.0f });
+		MyInfoBox->archer->SetColor({ 1.0f, 0.0f, 0.0f, 1.0f });
+		MyInfoBox->Log->SetColor({ 1.0f, 0.0f, 0.0f, 1.0f });
+		MyInfoBox->Magician->SetColor({ 1.0f, 0.0f, 0.0f, 1.0f });
+
+		if (MyInfo->Class == static_cast<int>(PlayerClass::Beginners))
+		{
+			MyInfoBox->Beginner->SetColor({ 1.0f, 1.0f, 1.0f, 1.0f });
+		}
+		else if (MyInfo->Class == static_cast<int>(PlayerClass::Warrior))
+		{
+			MyInfoBox->Warrior->SetColor({ 1.0f, 1.0f, 1.0f, 1.0f });
+		}
+		else if (MyInfo->Class == static_cast<int>(PlayerClass::Archer))
+		{
+			MyInfoBox->archer->SetColor({ 1.0f, 1.0f, 1.0f, 1.0f });
+		}
+		else if (MyInfo->Class == static_cast<int>(PlayerClass::Log))
+		{
+			MyInfoBox->Log->SetColor({ 1.0f, 1.0f, 1.0f, 1.0f });
+		}
+		else if (MyInfo->Class == static_cast<int>(PlayerClass::Magician))
+		{
+			MyInfoBox->Magician->SetColor({ 1.0f, 1.0f, 1.0f, 1.0f });
+		}
+		else if (MyInfo->Class == -1)
+		{
+			MyInfoBox->Beginner->SetColor({ 1.0f, 1.0f, 1.0f, 1.0f });
+			MyInfoBox->Warrior->SetColor({ 1.0f, 1.0f, 1.0f, 1.0f });
+			MyInfoBox->archer->SetColor({ 1.0f, 1.0f, 1.0f, 1.0f });
+			MyInfoBox->Log->SetColor({ 1.0f, 1.0f, 1.0f, 1.0f });
+			MyInfoBox->Magician->SetColor({ 1.0f, 1.0f, 1.0f, 1.0f });
+		}
+
+		MyInfoBox->InfoText = CreateComponent<ContentFontRenderer>();
+		MyInfoBox->InfoText->SetFont("굴림");
+		MyInfoBox->InfoText->SetScale(12.0f);
+		MyInfoBox->InfoText->SetColor({ 1.0f, 1.0f, 1.0f, 1.0f });
+		MyInfoBox->InfoText->SetFontFlag(FW1_TEXT_FLAG::FW1_CENTER);
+		MyInfoBox->InfoText->GetTransform()->SetLocalPosition(BoxPos + float4{ 0, 20 });
+		MyInfoBox->InfoText->Off();
+
+		if (MyInfo->EquipType == static_cast<int>(EquipType::Cap))
+		{
+			MyInfoBox->InfoText->SetText("장비분류 : 모자\n방어력 : +" + std::to_string(MyInfo->Def) + "\n");
+		}
+		else if (MyInfo->EquipType == static_cast<int>(EquipType::Coat))
+		{
+			MyInfoBox->InfoText->SetText("장비분류 : 상의\n방어력 : +" + std::to_string(MyInfo->Def) + "\n");
+		}
+		else if (MyInfo->EquipType == static_cast<int>(EquipType::OnePiece))
+		{
+			MyInfoBox->InfoText->SetText("장비분류 : 한벌옷\n방어력 : +" + std::to_string(MyInfo->Def) + "\n");
+		}
+		else if (MyInfo->EquipType == static_cast<int>(EquipType::Pants))
+		{
+			MyInfoBox->InfoText->SetText("장비분류 : 하의\n방어력 : +" + std::to_string(MyInfo->Def) + "\n");
+		}
+		else if (MyInfo->EquipType == static_cast<int>(EquipType::Shoes))
+		{
+			MyInfoBox->InfoText->SetText("장비분류 : 신발\n방어력 : +" + std::to_string(MyInfo->Def) + "\n");
+		}
+		else if (MyInfo->EquipType == static_cast<int>(EquipType::Weapon))
+		{
+			MyInfoBox->InfoText->SetText("장비분류 : 무기\n공격력 : +" + std::to_string(MyInfo->Att) + "\n");
+		}
+
 		SetRequiredStat();
 		SetStatRender();
 		StatRenderOff();
@@ -132,7 +240,7 @@ void Item::SetInfoBoxPos()
 	{
 		float4 InfoBoxScreenPos = MyInfoBox->BoxRender->GetTransform()->GetWorldPosition();
 
-		if (InfoBoxScreenPos.x >= 250.0f)
+		if (ItemType != static_cast<int>(ItemType::Equip) && InfoBoxScreenPos.x >= 250.0f)
 		{
 			MyInfoBox->BoxRender->GetTransform()->AddLocalPosition({ 240.0f - InfoBoxScreenPos.x, 0.0f, -50.0f });
 
@@ -191,10 +299,10 @@ void Item::SetRequiredStat()
 	{
 		*MyRequiredStat = { 0, 0, 0, 0, 0 };
 	}
-	//else if (ItemName == "Ganier")
-	//{
-	//	*MyRequiredStat = { 0, 0, 0, 0, 0 };
-	//}
+	else if (ItemName == "Ganier")
+	{
+		*MyRequiredStat = { 10, 0, 0, 0, 0 };
+	}
 }
 
 void Item::SetStatRender()
@@ -466,6 +574,36 @@ void Item::InfoBoxOn()
 		MyInfoBox->StatInfo->On();
 	}
 
+	if (MyInfoBox->Beginner != nullptr)
+	{
+		MyInfoBox->Beginner->On();
+	}
+
+	if (MyInfoBox->Warrior != nullptr)
+	{
+		MyInfoBox->Warrior->On();
+	}
+
+	if (MyInfoBox->archer != nullptr)
+	{
+		MyInfoBox->archer->On();
+	}
+
+	if (MyInfoBox->Log != nullptr)
+	{
+		MyInfoBox->Log->On();
+	}
+
+	if (MyInfoBox->Magician != nullptr)
+	{
+		MyInfoBox->Magician->On();
+	}
+
+	if (MyInfoBox->InfoText != nullptr)
+	{
+		MyInfoBox->InfoText->On();
+	}
+
 	StatRenderOn();
 
 	SetInfoBoxPos();
@@ -511,6 +649,36 @@ void Item::InfoBoxOff()
 	if (MyInfoBox->StatInfo != nullptr)
 	{
 		MyInfoBox->StatInfo->Off();
+	}
+
+	if (MyInfoBox->Beginner != nullptr)
+	{
+		MyInfoBox->Beginner->Off();
+	}
+
+	if (MyInfoBox->Warrior != nullptr)
+	{
+		MyInfoBox->Warrior->Off();
+	}
+
+	if (MyInfoBox->archer != nullptr)
+	{
+		MyInfoBox->archer->Off();
+	}
+
+	if (MyInfoBox->Log != nullptr)
+	{
+		MyInfoBox->Log->Off();
+	}
+
+	if (MyInfoBox->Magician != nullptr)
+	{
+		MyInfoBox->Magician->Off();
+	}
+
+	if (MyInfoBox->InfoText != nullptr)
+	{
+		MyInfoBox->InfoText->Off();
 	}
 
 	StatRenderOff();
@@ -575,6 +743,14 @@ const std::string_view Item::GetItemNameToKr(const std::string_view& _Name)
 	else if (Name == "EYEOFFIRE")
 	{
 		return "불의 눈";
+	}
+	else if (Name == "MAPLETHRONED")
+	{
+		return "메이플 스론즈";
+	}
+	else if (Name == "BLUEGOWN")
+	{
+		return "파란색 가운";
 	}
 	else
 	{

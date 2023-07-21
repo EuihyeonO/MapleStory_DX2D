@@ -19,7 +19,7 @@ public:
 
 	void SetLoginBtEvent(std::function<void()> _Event)
 	{
-		LoginBt->SetEvent(_Event);
+		LogintBtFunc = _Event;
 	}
 
 	void SetChannelClickFunc(std::function<void()> _Event)
@@ -27,10 +27,9 @@ public:
 		ChannelClickFunc = _Event;
 	}
 
-
 	void SetCharCreateEvent(std::function<void()> _Event)
 	{
-		CharCreate->SetEvent(_Event);
+		CharCreate->SetEvent([=, this] {TypingUpdateFunc = std::bind(&TitleObjects::TypingNickName, this, std::placeholders::_1); _Event(); });
 	}
 
 	void SetCharCreateOKButtonEvent(std::function<void()> _Event)
@@ -60,7 +59,7 @@ private:
 	void StatChange();
 
 	void TypingLoginInfo(float _DeltaTtime);
-
+	
 	float TypingCount = -1.0f;
 	int TypingIndex = 0;
 
@@ -72,8 +71,6 @@ private:
 
 	std::shared_ptr<class GameEngineFontRenderer> LoginID;
 	std::shared_ptr<class GameEngineFontRenderer> LoginPassWord;
-
-	std::shared_ptr<class GameEngineFontRenderer> NickName;
 
 	std::shared_ptr<class GameEngineUIRenderer> Frame;
 	std::shared_ptr<GameEngineSpriteRenderer> BackGround;
@@ -113,6 +110,8 @@ private:
 	std::shared_ptr<GameEngineSpriteRenderer> FindPass;
 	std::shared_ptr<GameEngineSpriteRenderer> Check;
 
+	std::function<void()> LogintBtFunc = nullptr;
+
 	//채널
 	std::shared_ptr<class ContentButton> Demetos;
 	std::shared_ptr<class ContentButton> Bellokan;
@@ -134,6 +133,7 @@ private:
 	std::shared_ptr<class ContentButton> CharCreate;
 	std::shared_ptr<class ContentButton> CharSelect;
 	std::shared_ptr<class ContentButton> CharDelete;
+
 	//캐릭터 관련 오브젝트
 	std::shared_ptr<GameEngineSpriteRenderer> EmptySlot1;
 	std::shared_ptr<GameEngineSpriteRenderer> EmptySlot2;
@@ -144,6 +144,9 @@ private:
 	std::shared_ptr<GameEngineSpriteRenderer> EmptyAnimation3;
 	
 	//캐릭터 생성창 오브젝트
+
+	void TypingNickName(float _DeltaTtime);
+
 	std::shared_ptr<GameEngineSpriteRenderer> CharInfo;
 	std::shared_ptr<GameEngineSpriteRenderer> InfoScroll;
 
@@ -163,6 +166,11 @@ private:
 	std::shared_ptr<GameEngineSpriteRenderer> NoButton;
 
 	std::map<int, std::vector<std::pair<std::string, std::string>>> ClothesVec;
+
+	std::string NickNameText = "";
+	std::shared_ptr<GameEngineFontRenderer> NickName = nullptr;
+	float NickNameCount = -1.0f;
+	int NickNameIndex = 0;
 
 	int CoatIndex = 0;
 	int PantsIndex = 0;

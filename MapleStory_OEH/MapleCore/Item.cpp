@@ -61,7 +61,7 @@ void Item::SetItemInfo(std::shared_ptr<ItemInfo> _ItemInfo, int _ItemType)
 
 	ItemCollision = CreateComponent<GameEngineCollision>();
 	ItemCollision->GetTransform()->SetLocalScale({30, 30});
-	ItemCollision->Off();
+	//ItemCollision->Off();
 
 	SetMyInfoBox();
 

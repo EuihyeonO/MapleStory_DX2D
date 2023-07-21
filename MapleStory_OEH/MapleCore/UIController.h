@@ -13,7 +13,11 @@
 struct ItemInfo {
 	int Num = 1;
 	int Level = 0;
-	int EquipType = 0;	
+	int EquipType = -1;	
+	int Class = -1;
+	
+	int Att = 0;
+	int Def = 0;
 
 	float4 Stat = { 0, 0, 0, 0 };
 	std::string ItemName = "";
@@ -170,6 +174,15 @@ public:
 	{	
 		int EquipType = _EquipItem->EquipType;
 		
+		if (EquipType == static_cast<int>(EquipType::Weapon))
+		{
+			PlayerValue::GetValue()->AddToEquipAtt(_EquipItem->Att);
+		}
+		else
+		{
+			PlayerValue::GetValue()->AddToEquipDef(_EquipItem->Def);
+		}
+
 		if (EquipType == static_cast<int>(EquipType::OnePiece))
 		{
 			EquipType = static_cast<int>(EquipType::Coat);
@@ -182,15 +195,23 @@ public:
 		}
 		else
 		{
+			PlayerValue::GetValue()->SubToEquipAtt(EquipItemList[EquipType]->Att);
 			AddToItemList(EquipItemList[EquipType], _ItemType);
 			EquipItemList[EquipType] = _EquipItem;
 		}
+
+		PlayerValue::GetValue()->AttUpdate();
 
 		//한벌옷을 착용했을 때, 바지를 입고 있다면 바지도 벗음
 		if (_EquipItem->EquipType == static_cast<int>(EquipType::OnePiece) && EquipItemList[static_cast<int>(EquipType::Pants)] != nullptr)
 		{
 			AddToItemList(EquipItemList[static_cast<int>(EquipType::Pants)], _ItemType);
-			EquipItemList[static_cast<int>(EquipType::Pants)] = _EquipItem;
+			EquipItemList[static_cast<int>(EquipType::Pants)] = nullptr;
+
+			if (CurEquipItemList != nullptr)
+			{
+				CurEquipItemList->DeleteEquipItem(static_cast<int>(EquipType::Pants));
+			}
 		}
 
 		//아이템창이 켜있으면, 렌더러를 만들어준다.

@@ -115,7 +115,7 @@ void Player::TripleThrow()
 
 	std::shared_ptr<Star> NewStar1 = GetLevel()->CreateActor<Star>(static_cast<int>(RenderOrder::Weapon));
 	NewStar1->SetStarName("shuriken");
-	NewStar1->SetTimingTime(0.10f);
+	NewStar1->SetTimingTime(0.25f);
 	NewStar1->SetUpdateFuction(UpdateFunction);
 	NewStar1->SetTargetMonster(HitMonsterVector, PlayerPos);
 	NewStar1->SetType("TripleThrow");
@@ -123,7 +123,7 @@ void Player::TripleThrow()
 
 	std::shared_ptr<Star> NewStar2 = GetLevel()->CreateActor<Star>(static_cast<int>(RenderOrder::Weapon));
 	NewStar2->SetStarName("shuriken");
-	NewStar2->SetTimingTime(0.25f);
+	NewStar2->SetTimingTime(0.325f);
 	NewStar2->SetUpdateFuction(UpdateFunction);
 	NewStar2->SetTargetMonster(HitMonsterVector, PlayerPos);
 	NewStar2->SetType("TripleThrow");
@@ -141,7 +141,7 @@ void Player::TripleThrow()
 
 		std::shared_ptr<Star> NewStar3 = GetLevel()->CreateActor<Star>(static_cast<int>(RenderOrder::Weapon));
 		NewStar3->SetStarName("shuriken");
-		NewStar3->SetTimingTime(0.55f);
+		NewStar3->SetTimingTime(0.475f);
 		NewStar3->SetUpdateFuction(UpdateFunction);
 		NewStar3->SetTargetMonster(HitMonsterVector, PlayerPos);
 		NewStar3->SetType("TripleThrow");
@@ -149,14 +149,14 @@ void Player::TripleThrow()
 
 		std::shared_ptr<Star> NewStar4 = GetLevel()->CreateActor<Star>(static_cast<int>(RenderOrder::Weapon));
 		NewStar4->SetStarName("shuriken");
-		NewStar4->SetTimingTime(0.7f);
+		NewStar4->SetTimingTime(0.55f);
 		NewStar4->SetUpdateFuction(UpdateFunction);
 		NewStar4->SetTargetMonster(HitMonsterVector, PlayerPos);
 		NewStar4->SetType("TripleThrow");
 
 		std::shared_ptr<Star> NewStar5 = GetLevel()->CreateActor<Star>(static_cast<int>(RenderOrder::Weapon));
 		NewStar4->SetStarName("shuriken");
-		NewStar4->SetTimingTime(0.85f);
+		NewStar4->SetTimingTime(0.625f);
 		NewStar4->SetUpdateFuction(UpdateFunction);
 		NewStar4->SetTargetMonster(HitMonsterVector, PlayerPos);
 		NewStar4->SetType("TripleThrow");

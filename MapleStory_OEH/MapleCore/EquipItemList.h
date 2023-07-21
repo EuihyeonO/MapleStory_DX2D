@@ -22,9 +22,10 @@ public:
 	void LoadEquipItem(int _ItemType);
 
 	void ClearEquipItem();
-
-	
 	void SortItem();
+
+	void DeleteEquipItem(int _EquipType);
+
 protected:
 	void Start();
 	void Update(float _DeltaTime) override;

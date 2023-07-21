@@ -165,14 +165,18 @@ void Level_Title::Update(float _DeltaTime)
 				std::shared_ptr<ItemInfo> NewItem1 = std::make_shared<ItemInfo>();
 				NewItem1->EquipType = static_cast<int>(EquipType::Coat);
 				NewItem1->ItemName = NewTitleObjects->ClothesVec[static_cast<int>(EquipType::Coat)][NewTitleObjects->CoatIndex].second;
+				NewItem1->Def = 3;
 
 				std::shared_ptr<ItemInfo> NewItem2 = std::make_shared<ItemInfo>();
 				NewItem2->EquipType = static_cast<int>(EquipType::Pants);
 				NewItem2->ItemName = NewTitleObjects->ClothesVec[static_cast<int>(EquipType::Pants)][NewTitleObjects->PantsIndex].second;
+				NewItem2->Def = 2;
 
 				std::shared_ptr<ItemInfo> NewItem3 = std::make_shared<ItemInfo>();
 				NewItem3->EquipType = static_cast<int>(EquipType::Weapon);
 				NewItem3->ItemName = "Ganier";
+				NewItem3->Class = static_cast<int>(PlayerClass::Log);
+				NewItem3->Att = 10;
 
 				UIController::GetUIController()->AddToEquipItemList(NewItem1, static_cast<int>(ItemType::Equip));
 				UIController::GetUIController()->AddToEquipItemList(NewItem2, static_cast<int>(ItemType::Equip));
@@ -187,23 +191,6 @@ void Level_Title::Update(float _DeltaTime)
 
 		GameLogo->Death();
 		GameLogo = nullptr;
-	}
-
-	if (GameEngineInput::IsDown("LevelChange1") == true)
-	{
-		GameEngineCore::ChangeLevel("Level_BeginnersTown1");
-	}
-	else if (GameEngineInput::IsDown("LevelChange2") == true)
-	{
-		GameEngineCore::ChangeLevel("Level_BeginnersTown2");
-	}
-	else if (GameEngineInput::IsDown("LevelChange3") == true)
-	{
-		GameEngineCore::ChangeLevel("Level_CrossRoad");
-	}
-	else if (GameEngineInput::IsDown("LevelChange4") == true)
-	{
-		GameEngineCore::ChangeLevel("Level_AlterOfZakum");
 	}
 
 	CameraMove(_DeltaTime);

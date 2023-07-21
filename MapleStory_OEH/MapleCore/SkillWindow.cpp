@@ -56,8 +56,9 @@ void SkillWindow::Start()
 	SkillActivate();
 
 	MySkillList = GetLevel()->CreateActor<SkillList>();
-
+	
 	SkillWindowRender->SetTexture("SkillWindow0.png");
+
 	MySkillList->IndexSkillOn(0);
 	MySkillList->SortSkillList(0, SkillWindowRender->GetTransform()->GetWorldPosition() + float4{ 0, 29 });
 
@@ -67,7 +68,7 @@ void SkillWindow::Update(float _DeltaTime)
 {
 	ChangeWindowIndex();
 	ColPosUpdate();
-
+	
 	SkillPoint->SetText(std::to_string(PlayerValue::GetValue()->GetSkillPoint()));
 }
 

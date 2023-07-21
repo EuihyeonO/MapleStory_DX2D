@@ -23,6 +23,15 @@ enum class WeaponType
 	Claw,
 };
 
+enum class PlayerClass
+{
+	Beginners,
+	Warrior,
+	Archer,
+	Log,
+	Magician,
+};
+
 enum class RenderOrder
 {
 	BasicMap,

@@ -324,10 +324,30 @@ public: //local
 
 	void AttUpdate()
 	{ 
-		Att = Luk * 5.0f + EquipAtt * 12.5f + Level * 2.5f;
+		Att = Luk * 5.0f + EquipAtt * (Luk * 0.25f + Level) + Level * 2.5f;
 
 		MaxAttack = Att * 1.2f;
 		MinAttack = Att * 0.8f;
+	}
+
+	void AddToEquipAtt(int _Att)
+	{
+		EquipAtt += _Att;
+	}
+
+	void SubToEquipAtt(int _Att)
+	{
+		EquipAtt -= _Att;
+	}
+
+	void AddToEquipDef(int _Def)
+	{
+		EquipDef += _Def;
+	}
+
+	void SubToEquipDef(int _Def)
+	{
+		EquipDef -= _Def;
 	}
 
 	float GetMaxAtt()
@@ -465,8 +485,8 @@ private:
 	float MaxAttack = 0.0f;
 	float MinAttack = 0.0f;
 
-	float PDef = 0.0f;
-	float MDef = 0.0f;
+	float Def = 0.0f;
+	float EquipDef = 0.0f;
 	
 	int HitRate = 0;
 	int EvRate = 0;

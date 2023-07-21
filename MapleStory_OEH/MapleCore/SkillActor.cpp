@@ -283,12 +283,12 @@ void SkillActor::TripleThrow()
 		if (Player::GetCurPlayer()->GetLeftRightDir() == "Right")
 		{
 			AnimationRender->GetTransform()->SetLocalNegativeScaleX();
-			AnimationRender->GetTransform()->AddLocalPosition({ 20, 0 });
+			AnimationRender->GetTransform()->AddLocalPosition({ 30, 0 });
 		}
 		else if (Player::GetCurPlayer()->GetLeftRightDir() == "Left")
 		{
 			AnimationRender->GetTransform()->SetLocalPositiveScaleX();
-			AnimationRender->GetTransform()->AddLocalPosition({ -20, 0 });
+			AnimationRender->GetTransform()->AddLocalPosition({ -30, 0 });
 		}
 
 		TimeCounting();
@@ -319,12 +319,12 @@ void SkillActor::TripleThrow()
 		if (Player::GetCurPlayer()->GetLeftRightDir() == "Right")
 		{
 			AnimationRender->GetTransform()->SetLocalNegativeScaleX();
-			AnimationRender->GetTransform()->AddLocalPosition({ 20, 0 });
+			AnimationRender->GetTransform()->AddLocalPosition({ 30, 0 });
 		}
 		else if (Player::GetCurPlayer()->GetLeftRightDir() == "Left")
 		{
 			AnimationRender->GetTransform()->SetLocalPositiveScaleX();
-			AnimationRender->GetTransform()->AddLocalPosition({ -20, 0 });
+			AnimationRender->GetTransform()->AddLocalPosition({ -30, 0 });
 		}
 
 		AnimationCount = 0.0f;

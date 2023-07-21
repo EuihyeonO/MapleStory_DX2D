@@ -19,9 +19,12 @@ private:
 public:
 	void SkillListDeath()
 	{
-		MySkillList->ClearList();
-		MySkillList->Death();
-		MySkillList = nullptr;
+		if(MySkillList != nullptr)
+		{
+			MySkillList->ClearList();
+			MySkillList->Death();
+			MySkillList = nullptr;
+		}
 	}
 
 	SkillWindow();
