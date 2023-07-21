@@ -159,7 +159,7 @@ void EquipItemList::SortItem()
 
 	if (MyEquipItems[static_cast<int>(EquipType::Cap)] != nullptr)
 	{
-		MyEquipItems[static_cast<int>(EquipType::Cap)]->GetTransform()->SetLocalPosition({ -200 , 193, -1 });
+		MyEquipItems[static_cast<int>(EquipType::Cap)]->GetTransform()->SetLocalPosition({ -233 , 193, -1 });
 	}
 
 	if (MyEquipItems[static_cast<int>(EquipType::Coat)] != nullptr)

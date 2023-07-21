@@ -191,6 +191,19 @@ void DarkLord::OpenWindow()
 
 				UIController::GetUIController()->AddToItemList(NewItem2, static_cast<int>(ItemType::Equip));
 
+				std::shared_ptr<ItemInfo> NewItem3 = std::make_shared<ItemInfo>();
+				NewItem3->EquipType = static_cast<int>(EquipType::Shoes);
+				NewItem3->ItemName = "EISEN";
+
+				UIController::GetUIController()->AddToItemList(NewItem3, static_cast<int>(ItemType::Equip));
+
+
+				std::shared_ptr<ItemInfo> NewItem4 = std::make_shared<ItemInfo>();
+				NewItem4->EquipType = static_cast<int>(EquipType::Cap);
+				NewItem4->ItemName = "RICEHAT";
+
+				UIController::GetUIController()->AddToItemList(NewItem4, static_cast<int>(ItemType::Equip));
+
 				MyWindow->SetCloseButton(1, [this] {ActorDeath(); });
 			});
 	}

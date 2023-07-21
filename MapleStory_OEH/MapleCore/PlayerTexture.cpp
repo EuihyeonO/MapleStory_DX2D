@@ -56,6 +56,8 @@ void Player::SetAllTexturePosVector()
 	SetPantsTexturePosVector();
 	//Weapon
 	SetWeaponTexturePosVector();
+	//Shoes
+	SetShoesTexturePosVector();
 	//HairAndFace
 	SetHairAndFaceTexturePosVector();
 }
@@ -1107,6 +1109,235 @@ void Player::SetWeaponTexturePosVector()
 
 }
 
+void Player::SetShoesTexturePosVector()
+{
+	ShoesOriginPos["Stand"]["SANDAL"].push_back({ -10, 5 });
+	ShoesOriginPos["Stand"]["SANDAL"].push_back({ -10, 5 });
+	ShoesOriginPos["Stand"]["SANDAL"].push_back({ -10, 5 });
+	ShoesOriginPos["Stand"]["SANDAL"].push_back({ -10, 5 });
+
+	ShoesOriginPos["Walk"]["SANDAL"].push_back({ -5, 5 });
+	ShoesOriginPos["Walk"]["SANDAL"].push_back({ -13, 5 });
+	ShoesOriginPos["Walk"]["SANDAL"].push_back({ -5, 5 });
+	ShoesOriginPos["Walk"]["SANDAL"].push_back({ -11, 5 });
+
+	ShoesOriginPos["Swing0"]["SANDAL"].push_back({ -11, 5 });
+	ShoesOriginPos["Swing0"]["SANDAL"].push_back({ -14, 5 });
+	ShoesOriginPos["Swing0"]["SANDAL"].push_back({ -14, 5 });
+
+	ShoesOriginPos["Swing1"]["SANDAL"].push_back({ -11, 5 });
+	ShoesOriginPos["Swing1"]["SANDAL"].push_back({ -11, 5 });
+	ShoesOriginPos["Swing1"]["SANDAL"].push_back({ -14, 5 });
+
+	ShoesOriginPos["Swing2"]["SANDAL"].push_back({ -11, 5 });
+	ShoesOriginPos["Swing2"]["SANDAL"].push_back({ -11, 5 });
+	ShoesOriginPos["Swing2"]["SANDAL"].push_back({ -14, 5 });
+
+	ShoesOriginPos["Stab0"]["SANDAL"].push_back({ -11, 5 });
+	ShoesOriginPos["Stab0"]["SANDAL"].push_back({ -11, 5 });
+
+	ShoesOriginPos["Stab1"]["SANDAL"].push_back({ -11, 5 });
+	ShoesOriginPos["Stab1"]["SANDAL"].push_back({ -11, 5 });
+
+	ShoesOriginPos["Alert"]["SANDAL"].push_back({ -12, 5 });
+	ShoesOriginPos["Alert"]["SANDAL"].push_back({ -12, 5 });
+	ShoesOriginPos["Alert"]["SANDAL"].push_back({ -12, 5 });
+
+	ShoesOriginPos["Ladder"]["SANDAL"].push_back({ -8, 6 });
+	ShoesOriginPos["Ladder"]["SANDAL"].push_back({ -8, 6 });
+
+	ShoesOriginPos["Jump"]["SANDAL"].push_back({ -17, 6 });
+
+	//
+	ShoesToNavelPos["Stand"]["SANDAL"].push_back({ 3, -19 });
+	ShoesToNavelPos["Stand"]["SANDAL"].push_back({ 2, -18 });
+	ShoesToNavelPos["Stand"]["SANDAL"].push_back({ 1, -19 });
+	ShoesToNavelPos["Stand"]["SANDAL"].push_back({ 2, -18 });
+
+	ShoesToNavelPos["Walk"]["SANDAL"].push_back({ 9, -14 });
+	ShoesToNavelPos["Walk"]["SANDAL"].push_back({ 3, -15 });
+	ShoesToNavelPos["Walk"]["SANDAL"].push_back({ 4, -16 });
+	ShoesToNavelPos["Walk"]["SANDAL"].push_back({ 2, -12 });
+
+	ShoesToNavelPos["Swing0"]["SANDAL"].push_back({ 1, -12 });
+	ShoesToNavelPos["Swing0"]["SANDAL"].push_back({ 11, -17 });
+	ShoesToNavelPos["Swing0"]["SANDAL"].push_back({ 6, -14 });
+
+	ShoesToNavelPos["Swing1"]["SANDAL"].push_back({ 0, -17 });
+	ShoesToNavelPos["Swing1"]["SANDAL"].push_back({ -2, -15 });
+	ShoesToNavelPos["Swing1"]["SANDAL"].push_back({ 2, -14 });
+
+	ShoesToNavelPos["Swing2"]["SANDAL"].push_back({ 3, -13 });
+	ShoesToNavelPos["Swing2"]["SANDAL"].push_back({ 9, -14 });
+	ShoesToNavelPos["Swing2"]["SANDAL"].push_back({ 8, -12 });
+
+	ShoesToNavelPos["Stab0"]["SANDAL"].push_back({ -9, -15 });
+	ShoesToNavelPos["Stab0"]["SANDAL"].push_back({ 0, -12 });
+
+	ShoesToNavelPos["Stab1"]["SANDAL"].push_back({ -2, -16 });
+	ShoesToNavelPos["Stab1"]["SANDAL"].push_back({ 1, -14 });
+
+	ShoesToNavelPos["Alert"]["SANDAL"].push_back({ -2, -16 });
+	ShoesToNavelPos["Alert"]["SANDAL"].push_back({ -2, -17 });
+	ShoesToNavelPos["Alert"]["SANDAL"].push_back({ -2, -18 });
+
+	ShoesToNavelPos["Ladder"]["SANDAL"].push_back({ 0, -15 });
+	ShoesToNavelPos["Ladder"]["SANDAL"].push_back({ 0, -15 });
+
+	ShoesToNavelPos["Jump"]["SANDAL"].push_back({ 1, -13 });
+
+	//
+	ShoesOriginPos["Stand"]["RAINBOOTS"].push_back({ -10, 5 });
+	ShoesOriginPos["Stand"]["RAINBOOTS"].push_back({ -10, 5 });
+	ShoesOriginPos["Stand"]["RAINBOOTS"].push_back({ -10, 5 });
+	ShoesOriginPos["Stand"]["RAINBOOTS"].push_back({ -10, 5 });
+
+	ShoesOriginPos["Walk"]["RAINBOOTS"].push_back({ -5, 5 });
+	ShoesOriginPos["Walk"]["RAINBOOTS"].push_back({ -13, 5 });
+	ShoesOriginPos["Walk"]["RAINBOOTS"].push_back({ -6, 5 });
+	ShoesOriginPos["Walk"]["RAINBOOTS"].push_back({ -11, 5 });
+
+	ShoesOriginPos["Swing0"]["RAINBOOTS"].push_back({ -14, 5 });
+	ShoesOriginPos["Swing0"]["RAINBOOTS"].push_back({ -14, 5 });
+	ShoesOriginPos["Swing0"]["RAINBOOTS"].push_back({ -14, 5 });
+
+	ShoesOriginPos["Swing1"]["RAINBOOTS"].push_back({ -11, 5 });
+	ShoesOriginPos["Swing1"]["RAINBOOTS"].push_back({ -11, 5 });
+	ShoesOriginPos["Swing1"]["RAINBOOTS"].push_back({ -14, 5 });
+
+	ShoesOriginPos["Swing2"]["RAINBOOTS"].push_back({ -11, 5 });
+	ShoesOriginPos["Swing2"]["RAINBOOTS"].push_back({ -11, 5 });
+	ShoesOriginPos["Swing2"]["RAINBOOTS"].push_back({ -14, 5 });
+
+	ShoesOriginPos["Stab0"]["RAINBOOTS"].push_back({ -11, 5 });
+	ShoesOriginPos["Stab0"]["RAINBOOTS"].push_back({ -11, 5 });
+
+	ShoesOriginPos["Stab1"]["RAINBOOTS"].push_back({ -11, 5 });
+	ShoesOriginPos["Stab1"]["RAINBOOTS"].push_back({ -11, 5 });
+
+	ShoesOriginPos["Alert"]["RAINBOOTS"].push_back({ -12, 5 });
+	ShoesOriginPos["Alert"]["RAINBOOTS"].push_back({ -12, 5 });
+	ShoesOriginPos["Alert"]["RAINBOOTS"].push_back({ -12, 5 });
+
+	ShoesOriginPos["Ladder"]["RAINBOOTS"].push_back({ -8, 6 });
+	ShoesOriginPos["Ladder"]["RAINBOOTS"].push_back({ -8, 6 });
+
+	ShoesOriginPos["Jump"]["RAINBOOTS"].push_back({ -17, 6 });
+
+	//
+	ShoesToNavelPos["Stand"]["RAINBOOTS"].push_back({ 3, -17 });
+	ShoesToNavelPos["Stand"]["RAINBOOTS"].push_back({ 2, -16 });
+	ShoesToNavelPos["Stand"]["RAINBOOTS"].push_back({ 1, -17 });
+	ShoesToNavelPos["Stand"]["RAINBOOTS"].push_back({ 2, -16 });
+
+	ShoesToNavelPos["Walk"]["RAINBOOTS"].push_back({ 9, -14 });
+	ShoesToNavelPos["Walk"]["RAINBOOTS"].push_back({ 3, -15 });
+	ShoesToNavelPos["Walk"]["RAINBOOTS"].push_back({ 4, -15 });
+	ShoesToNavelPos["Walk"]["RAINBOOTS"].push_back({ 2, -12 });
+
+	ShoesToNavelPos["Swing0"]["RAINBOOTS"].push_back({ 4, -11 });
+	ShoesToNavelPos["Swing0"]["RAINBOOTS"].push_back({ 11, -15 });
+	ShoesToNavelPos["Swing0"]["RAINBOOTS"].push_back({ 6, -13 });
+
+	ShoesToNavelPos["Swing1"]["RAINBOOTS"].push_back({ 0, -16 });
+	ShoesToNavelPos["Swing1"]["RAINBOOTS"].push_back({ -2, -14 });
+	ShoesToNavelPos["Swing1"]["RAINBOOTS"].push_back({ 2, -12 });
+
+	ShoesToNavelPos["Swing2"]["RAINBOOTS"].push_back({ 3, -12 });
+	ShoesToNavelPos["Swing2"]["RAINBOOTS"].push_back({ 9, -12 });
+	ShoesToNavelPos["Swing2"]["RAINBOOTS"].push_back({ 8, -11 });
+
+	ShoesToNavelPos["Stab0"]["RAINBOOTS"].push_back({ -9, -13 });
+	ShoesToNavelPos["Stab0"]["RAINBOOTS"].push_back({ 0, -11 });
+
+	ShoesToNavelPos["Stab1"]["RAINBOOTS"].push_back({ -2, -15 });
+	ShoesToNavelPos["Stab1"]["RAINBOOTS"].push_back({ 1, -12 });
+
+	ShoesToNavelPos["Alert"]["RAINBOOTS"].push_back({ -1, -15 });
+	ShoesToNavelPos["Alert"]["RAINBOOTS"].push_back({ -1, -16 });
+	ShoesToNavelPos["Alert"]["RAINBOOTS"].push_back({ -1, -16 });
+
+	ShoesToNavelPos["Ladder"]["RAINBOOTS"].push_back({ 0, -15 });
+	ShoesToNavelPos["Ladder"]["RAINBOOTS"].push_back({ 0, -15 });
+
+	ShoesToNavelPos["Jump"]["RAINBOOTS"].push_back({ 0, -12 });
+	
+	//
+	ShoesOriginPos["Stand"]["EISEN"].push_back({ -10, 5 });
+	ShoesOriginPos["Stand"]["EISEN"].push_back({ -10, 5 });
+	ShoesOriginPos["Stand"]["EISEN"].push_back({ -10, 5 });
+	ShoesOriginPos["Stand"]["EISEN"].push_back({ -10, 5 });
+
+	ShoesOriginPos["Walk"]["EISEN"].push_back({ -5, 5 });
+	ShoesOriginPos["Walk"]["EISEN"].push_back({ -13, 5 });
+	ShoesOriginPos["Walk"]["EISEN"].push_back({ -6, 5 });
+	ShoesOriginPos["Walk"]["EISEN"].push_back({ -11, 5 });
+
+	ShoesOriginPos["Swing0"]["EISEN"].push_back({ -11, 5 });
+	ShoesOriginPos["Swing0"]["EISEN"].push_back({ -14, 5 });
+	ShoesOriginPos["Swing0"]["EISEN"].push_back({ -14, 5 });
+
+	ShoesOriginPos["Swing1"]["EISEN"].push_back({ -11, 5 });
+	ShoesOriginPos["Swing1"]["EISEN"].push_back({ -11, 5 });
+	ShoesOriginPos["Swing1"]["EISEN"].push_back({ -14, 5 });
+
+	ShoesOriginPos["Swing2"]["EISEN"].push_back({ -11, 5 });
+	ShoesOriginPos["Swing2"]["EISEN"].push_back({ -11, 5 });
+	ShoesOriginPos["Swing2"]["EISEN"].push_back({ -14, 5 });
+
+	ShoesOriginPos["Stab0"]["EISEN"].push_back({ -11, 5 });
+	ShoesOriginPos["Stab0"]["EISEN"].push_back({ -11, 5 });
+
+	ShoesOriginPos["Stab1"]["EISEN"].push_back({ -11, 5 });
+	ShoesOriginPos["Stab1"]["EISEN"].push_back({ -11, 5 });
+
+	ShoesOriginPos["Alert"]["EISEN"].push_back({ -12, 5 });
+	ShoesOriginPos["Alert"]["EISEN"].push_back({ -12, 5 });
+	ShoesOriginPos["Alert"]["EISEN"].push_back({ -12, 5 });
+
+	ShoesOriginPos["Ladder"]["EISEN"].push_back({ -8, 6 });
+	ShoesOriginPos["Ladder"]["EISEN"].push_back({ -8, 6 });
+
+	ShoesOriginPos["Jump"]["EISEN"].push_back({ -17, 6 });
+
+	//
+	ShoesToNavelPos["Stand"]["EISEN"].push_back({ 3, -16 });
+	ShoesToNavelPos["Stand"]["EISEN"].push_back({ 2, -15 });
+	ShoesToNavelPos["Stand"]["EISEN"].push_back({ 1, -16 });
+	ShoesToNavelPos["Stand"]["EISEN"].push_back({ 2, -15 });
+
+	ShoesToNavelPos["Walk"]["EISEN"].push_back({ 9, -14 });
+	ShoesToNavelPos["Walk"]["EISEN"].push_back({ 2, -15 });
+	ShoesToNavelPos["Walk"]["EISEN"].push_back({ 3, -15 });
+	ShoesToNavelPos["Walk"]["EISEN"].push_back({ 2, -12 });
+
+	ShoesToNavelPos["Swing0"]["EISEN"].push_back({ 0, -11 });
+	ShoesToNavelPos["Swing0"]["EISEN"].push_back({ 11, -14 });
+	ShoesToNavelPos["Swing0"]["EISEN"].push_back({ 6, -13 });
+
+	ShoesToNavelPos["Swing1"]["EISEN"].push_back({ 0, -14 });
+	ShoesToNavelPos["Swing1"]["EISEN"].push_back({ -2, -12 });
+	ShoesToNavelPos["Swing1"]["EISEN"].push_back({ 2, -10 });
+
+	ShoesToNavelPos["Swing2"]["EISEN"].push_back({ 3, -11 });
+	ShoesToNavelPos["Swing2"]["EISEN"].push_back({ 8, -12 });
+	ShoesToNavelPos["Swing2"]["EISEN"].push_back({ 7, -11 });
+
+	ShoesToNavelPos["Stab0"]["EISEN"].push_back({ -9, -12 });
+	ShoesToNavelPos["Stab0"]["EISEN"].push_back({ -1, -10 });
+
+	ShoesToNavelPos["Stab1"]["EISEN"].push_back({ -2, -14 });
+	ShoesToNavelPos["Stab1"]["EISEN"].push_back({ 1, -11 });
+
+	ShoesToNavelPos["Alert"]["EISEN"].push_back({ -2, -13 });
+	ShoesToNavelPos["Alert"]["EISEN"].push_back({ -2, -14 });
+	ShoesToNavelPos["Alert"]["EISEN"].push_back({ -2, -15 });
+
+	ShoesToNavelPos["Ladder"]["EISEN"].push_back({ 0, -13 });
+	ShoesToNavelPos["Ladder"]["EISEN"].push_back({ -2, -13 });
+
+	ShoesToNavelPos["Jump"]["EISEN"].push_back({ -1, -10 });
+}	
 
 void Player::SetHairAndFaceTexturePosVector()
 {
@@ -1126,14 +1357,16 @@ void Player::SetHairAndFaceTexturePosVector()
 	//Face
 
 	FaceOriginPos["Face1"]["Default"] = float4{ -13, 8 };
-	//x,y 둘다반전
+	FaceOriginPos["Face2"]["Default"] = float4{ -11.5, 6.5 };
+	//x반전
 	FaceToBrowPos["Face1"]["Default"] = float4{ 1, -12 };
+	FaceToBrowPos["Face2"]["Default"] = float4{ 1, -12 };
 
-	CapOriginPos["RiceHat"]["Front"] = float4{ -15, 25 };
-	CapOriginPos["RiceHat"]["Back"] = float4{ -15, 25 };
+	CapOriginPos["RICEHAT"]["Front"] = float4{ -15, 25 };
+	CapOriginPos["RICEHAT"]["Back"] = float4{ -15, 25 };
 
-	CapToBrowPos["RiceHat"]["Front"] = float4{ -13, -8 };
-	CapToBrowPos["RiceHat"]["Back"] = float4{ -11, -7 };
+	CapToBrowPos["RICEHAT"]["Front"] = float4{ -13, -8 };
+	CapToBrowPos["RICEHAT"]["Back"] = float4{ -11, -7 };
 }
 
 void Player::TextureUpdate()
@@ -1187,11 +1420,18 @@ void Player::TextureUpdate()
 	std::string CoatTexture = CoatName + MoveType + std::to_string(AniIndex) + ".png";
 	Coat->SetScaleToTexture(CoatTexture);
 
-	std::string PantsTexture = PantsName + MoveType + std::to_string(AniIndex) + ".png";
-	Pants->SetScaleToTexture(PantsTexture);
+	if(PantsName != "")
+	{
+		std::string PantsTexture = PantsName + MoveType + std::to_string(AniIndex) + ".png";
+		Pants->SetScaleToTexture(PantsTexture);
+	}
+
+	std::string ShoesTexture = ShoesName + MoveType + std::to_string(AniIndex) + ".png";
+	Shoes->SetScaleToTexture(ShoesTexture);
 
 	if(CapName != "")
 	{
+		Cap->On();
 		std::string CapTexture = CapName + FrontBackDir + ".png";
 		Cap->SetScaleToTexture(CapTexture);
 	}
@@ -1325,10 +1565,17 @@ void Player::TexturePosUpdate()
 	Coat->GetTransform()->SetLocalPosition({ CoatScale.hx(), -CoatScale.hy(), 0 });
 	Coat->GetTransform()->AddLocalPosition(BodyNavelPos[MoveType][AniIndex] + CoatToNavelPos[MoveType][CoatName][AniIndex] + CoatOriginPos[MoveType][CoatName][AniIndex]);
 
-	float4 PantsScale = Pants->GetTransform()->GetLocalScale();
-	Pants->GetTransform()->SetLocalPosition({ PantsScale.hx(), -PantsScale.hy(), 0 });
-	Pants->GetTransform()->AddLocalPosition(BodyNavelPos[MoveType][AniIndex] + PantsToNavelPos[MoveType][PantsName][AniIndex] + PantsOriginPos[MoveType][PantsName][AniIndex]);
-	
+	if(PantsName != "")
+	{
+		float4 PantsScale = Pants->GetTransform()->GetLocalScale();
+		Pants->GetTransform()->SetLocalPosition({ PantsScale.hx(), -PantsScale.hy(), 0 });
+		Pants->GetTransform()->AddLocalPosition(BodyNavelPos[MoveType][AniIndex] + PantsToNavelPos[MoveType][PantsName][AniIndex] + PantsOriginPos[MoveType][PantsName][AniIndex]);
+	}
+
+	float4 ShoesScale = Shoes->GetTransform()->GetLocalScale();
+	Shoes->GetTransform()->SetLocalPosition({ ShoesScale.hx(), -ShoesScale.hy(), 0 });
+	Shoes->GetTransform()->AddLocalPosition(BodyNavelPos[MoveType][AniIndex] + ShoesToNavelPos[MoveType][ShoesName][AniIndex] + ShoesOriginPos[MoveType][ShoesName][AniIndex]);
+
 	if (MoveType != "Ladder" && MoveType != "Rope")
 	{
 		float4 ArmScale = Arm->GetTransform()->GetLocalScale();
@@ -1374,9 +1621,13 @@ void Player::SetMulColorAllTexture(float _MulColor)
 	Arm->ColorOptionValue.MulColor = { _MulColor, _MulColor, _MulColor, 1 };
 	Face->ColorOptionValue.MulColor = { _MulColor, _MulColor, _MulColor, 1 };
 	CoatArm->ColorOptionValue.MulColor = { _MulColor, _MulColor, _MulColor, 1 };
-	Pants->ColorOptionValue.MulColor = { _MulColor, _MulColor, _MulColor, 1 };
 	Weapon->ColorOptionValue.MulColor = { _MulColor, _MulColor, _MulColor, 1 };
 	Head->ColorOptionValue.MulColor = { _MulColor, _MulColor, _MulColor, 1 };
 	Hair->ColorOptionValue.MulColor = { _MulColor, _MulColor, _MulColor, 1 };
 	Coat->ColorOptionValue.MulColor = { _MulColor, _MulColor, _MulColor, 1 };
+	
+	if(PantsName != "")
+	{
+		Pants->ColorOptionValue.MulColor = { _MulColor, _MulColor, _MulColor, 1 };
+	}
 }

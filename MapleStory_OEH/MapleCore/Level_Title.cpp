@@ -178,9 +178,15 @@ void Level_Title::Update(float _DeltaTime)
 				NewItem3->Class = static_cast<int>(PlayerClass::Log);
 				NewItem3->Att = 10;
 
+				std::shared_ptr<ItemInfo> NewItem4 = std::make_shared<ItemInfo>();
+				NewItem4->EquipType = static_cast<int>(EquipType::Shoes);
+				NewItem4->ItemName = NewTitleObjects->ClothesVec[static_cast<int>(EquipType::Shoes)][NewTitleObjects->ShoesIndex].second;
+				NewItem4->Def = 1;
+
 				UIController::GetUIController()->AddToEquipItemList(NewItem1, static_cast<int>(ItemType::Equip));
 				UIController::GetUIController()->AddToEquipItemList(NewItem2, static_cast<int>(ItemType::Equip));
 				UIController::GetUIController()->AddToEquipItemList(NewItem3, static_cast<int>(ItemType::Equip));
+				UIController::GetUIController()->AddToEquipItemList(NewItem4, static_cast<int>(ItemType::Equip));
 
 				Player::GetCurPlayer()->GetTransform()->SetLocalPosition({ -162, 1138, -1 });
 				Player::GetCurPlayer()->SetMoveType("Walk");

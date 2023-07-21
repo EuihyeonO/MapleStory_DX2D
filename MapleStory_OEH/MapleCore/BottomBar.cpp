@@ -81,10 +81,10 @@ void BottomBar::Start()
 	ClassFont->GetTransform()->SetLocalPosition({ -315, -266 });
 
 	RenderHP = PlayerValue::GetValue()->GetHp() - 1;
-	RenderHP_flt = RenderHP;
+	RenderHP_flt = static_cast<float>(RenderHP);
 
 	RenderMP = PlayerValue::GetValue()->GetMp() - 1;
-	RenderMP_flt = RenderMP;
+	RenderMP_flt = static_cast<float>(RenderMP);
 
 	BottomBarPosUpdate();	
 }

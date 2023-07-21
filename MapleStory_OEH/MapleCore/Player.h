@@ -155,9 +155,28 @@ public:
 
 	void SetPantsName(const std::string_view& _Name)
 	{
+		if (_Name == "")
+		{
+			Pants->Off();
+		}
+		else
+		{
+			Pants->On();
+		}
+
 		PantsName = _Name;
 	}
-	
+
+	void SetShoesName(const std::string_view& _Name)
+	{
+		ShoesName = _Name;
+	}
+
+	void SetFaceName(const std::string_view& _Name)
+	{
+		FaceName = _Name;
+	}
+
 	void SetLeft();
 	void SetRight();
 	void KnockBack(float4 _Dir, float _Distance, int _Damage, float _Speed = 750.0f, float _MinTime = 10.0f);
@@ -317,6 +336,7 @@ private:
 	void SetCoatTexturePosVector();
 	void SetPantsTexturePosVector();
 	void SetWeaponTexturePosVector();
+	void SetShoesTexturePosVector();
 	void SetHairAndFaceTexturePosVector();
 	void TextureUpdate();
 	void TextureAnimationUpdate();
@@ -344,6 +364,8 @@ private:
 
 	std::string CoatName = "";
 	std::string PantsName = "";
+
+	std::string ShoesName = "";
 
 	std::string WeaponName = "";
 	std::string CapName = "";

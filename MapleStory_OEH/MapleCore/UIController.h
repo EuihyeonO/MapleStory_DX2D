@@ -225,7 +225,7 @@ public:
 		//캐릭터의 텍스쳐도 바꿔줌
 		if(Player::GetCurPlayer() != nullptr)
 		{
-			switch (EquipType)
+			switch (_EquipItem->EquipType)
 			{
 			case static_cast<int>(EquipType::Weapon):
 				Player::GetCurPlayer()->SetWeaponName(_EquipItem->ItemName);
@@ -236,8 +236,15 @@ public:
 			case static_cast<int>(EquipType::Coat):
 				Player::GetCurPlayer()->SetCoatName(_EquipItem->ItemName);
 				break;
+			case static_cast<int>(EquipType::OnePiece):
+				Player::GetCurPlayer()->SetCoatName(_EquipItem->ItemName);
+				Player::GetCurPlayer()->SetPantsName("");
+				break;
 			case static_cast<int>(EquipType::Pants):
 				Player::GetCurPlayer()->SetPantsName(_EquipItem->ItemName);
+				break;
+			case static_cast<int>(EquipType::Shoes):
+				Player::GetCurPlayer()->SetShoesName(_EquipItem->ItemName);
 				break;
 			}
 		}

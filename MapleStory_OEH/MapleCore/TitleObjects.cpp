@@ -684,10 +684,17 @@ void TitleObjects::Create_CharCreateObject()
 	LukRender->SetText("4");
 	LukRender->GetTransform()->SetLocalPosition(CharInfoPos + float4{ -31, -51 });
 
+	Hair = CreateComponent<GameEngineFontRenderer>();
+	Face = CreateComponent<GameEngineFontRenderer>();
 	Coat = CreateComponent<GameEngineFontRenderer>();
 	Pants = CreateComponent<GameEngineFontRenderer>();
 	Weapon = CreateComponent<GameEngineFontRenderer>();
-	
+	Shoes = CreateComponent<GameEngineFontRenderer>();
+
+	FaceVec.reserve(4);
+	FaceVec.push_back({"µµÀüÀûÀÎ ¾ó±¼", "Face1"});
+	FaceVec.push_back({"½ÅÁßÇÑ ¾ó±¼", "Face2"});
+
 	ClothesVec[static_cast<int>(EquipType::Coat)].reserve(4);
 	ClothesVec[static_cast<int>(EquipType::Cap)].reserve(4);
 	ClothesVec[static_cast<int>(EquipType::Weapon)].reserve(4);
@@ -698,23 +705,50 @@ void TitleObjects::Create_CharCreateObject()
 	ClothesVec[static_cast<int>(EquipType::Pants)].push_back({ "ÆÄ¶û Ã» ¹Ý¹ÙÁö", "BLUEPANTS" });
 	ClothesVec[static_cast<int>(EquipType::Pants)].push_back({ "ÁÖÈ² Ã» ¹Ý¹ÙÁö", "BROWNPANTS" });
 
+	ClothesVec[static_cast<int>(EquipType::Shoes)].push_back({ "°¡Á× »÷µé", "SANDAL" });
+	ClothesVec[static_cast<int>(EquipType::Shoes)].push_back({ "»¡°£ °í¹« ÀåÈ­", "RAINBOOTS" });
+
+	Hair->SetFont("±¼¸²");
+	Hair->SetColor({ 0, 0, 0, 1 });
+	Hair->SetScale(12.0f);
+	Hair->SetText("Åäº¥ ¸Ó¸®");
+	Hair->SetFontFlag(FW1_TEXT_FLAG::FW1_CENTER);
+	Hair->GetTransform()->SetLocalPosition(InfoScrollPos + float4{ 21, 56 });
+
+	Face->SetFont("±¼¸²");
+	Face->SetColor({ 0, 0, 0, 1 });
+	Face->SetScale(12.0f);
+	Face->SetText("µµÀüÀûÀÎ ¾ó±¼");
+	Face->SetFontFlag(FW1_TEXT_FLAG::FW1_CENTER);
+	Face->GetTransform()->SetLocalPosition(InfoScrollPos + float4{ 21, 35 });
+
 	Coat->SetFont("±¼¸²");
 	Coat->SetColor({ 0, 0, 0, 1 });
 	Coat->SetScale(12.0f);
 	Coat->SetText("ÇÏ¾á ¹ÝÆÈ ¸éÆ¼");
-	Coat->GetTransform()->SetLocalPosition(InfoScrollPos + float4{ -20, 14 });
+	Coat->SetFontFlag(FW1_TEXT_FLAG::FW1_CENTER);
+	Coat->GetTransform()->SetLocalPosition(InfoScrollPos + float4{ 21, 14 });
 	
 	Pants->SetFont("±¼¸²");
 	Pants->SetColor({ 0, 0, 0, 1 });
 	Pants->SetScale(12.0f);
 	Pants->SetText("ÆÄ¶õ Ã» ¹Ý¹ÙÁö");
-	Pants->GetTransform()->SetLocalPosition(InfoScrollPos + float4{ -20, -7 });
+	Pants->SetFontFlag(FW1_TEXT_FLAG::FW1_CENTER);
+	Pants->GetTransform()->SetLocalPosition(InfoScrollPos + float4{ 21, -7 });
 	
+	Shoes->SetFont("±¼¸²");
+	Shoes->SetColor({ 0, 0, 0, 1 });
+	Shoes->SetScale(12.0f);
+	Shoes->SetText("°¡Á× »÷µé");
+	Shoes->SetFontFlag(FW1_TEXT_FLAG::FW1_CENTER);
+	Shoes->GetTransform()->SetLocalPosition(InfoScrollPos + float4{ 21, -28 });
+
 	Weapon->SetFont("±¼¸²");
 	Weapon->SetColor({ 0, 0, 0, 1 });
 	Weapon->SetScale(12.0f);
-	Weapon->SetText("     °¡´Ï¾î");
-	Weapon->GetTransform()->SetLocalPosition(InfoScrollPos + float4{ -20, -49 });
+	Weapon->SetText("°¡´Ï¾î");
+	Weapon->SetFontFlag(FW1_TEXT_FLAG::FW1_CENTER);
+	Weapon->GetTransform()->SetLocalPosition(InfoScrollPos + float4{ 21, -49 });
 
 	LChangeCoat = GetLevel()->CreateActor<ContentButton>();
 	LChangeCoat->SetReleaseTexture("LeftButtonRelease.png");
@@ -726,10 +760,12 @@ void TitleObjects::Create_CharCreateObject()
 	LChangeCoat->SetEvent([this]
 		{
 			CoatIndex--;
+
 			if (CoatIndex < 0)
 			{
-				CoatIndex = ClothesVec[static_cast<int>(EquipType::Coat)].size() - 1;
+				CoatIndex = (int)ClothesVec[static_cast<int>(EquipType::Coat)].size() - 1;
 			}
+
 			Coat->SetText(ClothesVec[static_cast<int>(EquipType::Coat)][CoatIndex].first);
 
 			std::shared_ptr<ItemInfo> NewItem = std::make_shared<ItemInfo>();
@@ -749,7 +785,7 @@ void TitleObjects::Create_CharCreateObject()
 	RChangeCoat->SetEvent([this]
 		{
 			CoatIndex++;
-			if (CoatIndex >= ClothesVec[static_cast<int>(EquipType::Coat)].size())
+			if (CoatIndex >= (int)ClothesVec[static_cast<int>(EquipType::Coat)].size())
 			{
 				CoatIndex = 0;
 			}
@@ -775,13 +811,13 @@ void TitleObjects::Create_CharCreateObject()
 
 			if (PantsIndex < 0)
 			{
-				PantsIndex = ClothesVec[static_cast<int>(EquipType::Pants)].size() - 1;
+				PantsIndex = (int)ClothesVec[static_cast<int>(EquipType::Pants)].size() - 1;
 			}
 			Pants->SetText(ClothesVec[static_cast<int>(EquipType::Pants)][PantsIndex].first);
 
 			std::shared_ptr<ItemInfo> NewItem = std::make_shared<ItemInfo>();
 			NewItem->EquipType = static_cast<int>(EquipType::Pants);
-			NewItem->ItemName = ClothesVec[static_cast<int>(EquipType::Pants)][CoatIndex].second;
+			NewItem->ItemName = ClothesVec[static_cast<int>(EquipType::Pants)][PantsIndex].second;
 
 			Player::GetCurPlayer()->SetPantsName(ClothesVec[static_cast<int>(EquipType::Pants)][PantsIndex].second);
 		});
@@ -796,7 +832,7 @@ void TitleObjects::Create_CharCreateObject()
 	RChangePants->SetEvent([this]
 		{
 			PantsIndex++;
-			if (PantsIndex >= ClothesVec[static_cast<int>(EquipType::Pants)].size())
+			if (PantsIndex >= (int)ClothesVec[static_cast<int>(EquipType::Pants)].size())
 			{
 				PantsIndex = 0;
 			}
@@ -807,6 +843,93 @@ void TitleObjects::Create_CharCreateObject()
 			NewItem->ItemName = ClothesVec[static_cast<int>(EquipType::Pants)][PantsIndex].second;
 
 			Player::GetCurPlayer()->SetPantsName(ClothesVec[static_cast<int>(EquipType::Pants)][PantsIndex].second);
+		});
+
+	LChangeShoes = GetLevel()->CreateActor<ContentButton>();
+	LChangeShoes->SetReleaseTexture("LeftButtonRelease.png");
+	LChangeShoes->SetHoverTexture("LeftButtonHover.png");
+	LChangeShoes->SetPressTexture("LeftButtonPress.png");
+	LChangeShoes->SetAllScale({ 15, 16 });
+	LChangeShoes->SetisUIRenderer(false);
+	LChangeShoes->SetAllPos(InfoScrollPos + float4{ -35, -34 });
+	LChangeShoes->SetEvent([this]
+		{
+			ShoesIndex--;
+
+			if (ShoesIndex < 0)
+			{
+				ShoesIndex = (int)ClothesVec[static_cast<int>(EquipType::Shoes)].size() - 1;
+			}
+			Shoes->SetText(ClothesVec[static_cast<int>(EquipType::Shoes)][ShoesIndex].first);
+
+			std::shared_ptr<ItemInfo> NewItem = std::make_shared<ItemInfo>();
+			NewItem->EquipType = static_cast<int>(EquipType::Shoes);
+			NewItem->ItemName = ClothesVec[static_cast<int>(EquipType::Shoes)][ShoesIndex].second;
+
+			Player::GetCurPlayer()->SetShoesName(ClothesVec[static_cast<int>(EquipType::Shoes)][ShoesIndex].second);
+		});
+
+	RChangeShoes = GetLevel()->CreateActor<ContentButton>();
+	RChangeShoes->SetReleaseTexture("RightButtonRelease.png");
+	RChangeShoes->SetHoverTexture("RightButtonHover.png");
+	RChangeShoes->SetPressTexture("RightButtonPress.png");
+	RChangeShoes->SetAllScale({ 15, 16 });
+	RChangeShoes->SetisUIRenderer(false);
+	RChangeShoes->SetAllPos(InfoScrollPos + float4{ 78, -34 });
+	RChangeShoes->SetEvent([this]
+		{
+			ShoesIndex++;
+			if (ShoesIndex >= (int)ClothesVec[static_cast<int>(EquipType::Shoes)].size())
+			{
+				ShoesIndex = 0;
+			}
+			Shoes->SetText(ClothesVec[static_cast<int>(EquipType::Shoes)][ShoesIndex].first);
+
+			std::shared_ptr<ItemInfo> NewItem = std::make_shared<ItemInfo>();
+			NewItem->EquipType = static_cast<int>(EquipType::Shoes);
+			NewItem->ItemName = ClothesVec[static_cast<int>(EquipType::Shoes)][ShoesIndex].second;
+
+			Player::GetCurPlayer()->SetShoesName(ClothesVec[static_cast<int>(EquipType::Shoes)][ShoesIndex].second);
+		});
+
+	LChangeFace = GetLevel()->CreateActor<ContentButton>();
+	LChangeFace->SetReleaseTexture("LeftButtonRelease.png");
+	LChangeFace->SetHoverTexture("LeftButtonHover.png");
+	LChangeFace->SetPressTexture("LeftButtonPress.png");
+	LChangeFace->SetAllScale({ 15, 16 });
+	LChangeFace->SetisUIRenderer(false);
+	LChangeFace->SetAllPos(InfoScrollPos + float4{ -35, 26 });
+	LChangeFace->SetEvent([this]
+		{
+			FaceIndex--;
+
+			if (FaceIndex < 0)
+			{
+				FaceIndex = (int)FaceVec.size() - 1;
+			}
+
+			Face->SetText(FaceVec[FaceIndex].first);
+			PlayerValue::GetValue()->SetFace(FaceVec[FaceIndex].second);
+		});
+
+	RChangeShoes = GetLevel()->CreateActor<ContentButton>();
+	RChangeShoes->SetReleaseTexture("RightButtonRelease.png");
+	RChangeShoes->SetHoverTexture("RightButtonHover.png");
+	RChangeShoes->SetPressTexture("RightButtonPress.png");
+	RChangeShoes->SetAllScale({ 15, 16 });
+	RChangeShoes->SetisUIRenderer(false);
+	RChangeShoes->SetAllPos(InfoScrollPos + float4{ 78, 26 });
+	RChangeShoes->SetEvent([this]
+		{
+			FaceIndex++;
+
+			if (FaceIndex >= (int)FaceVec.size())
+			{
+				FaceIndex = 0;
+			}
+
+			Face->SetText(FaceVec[FaceIndex].first);
+			PlayerValue::GetValue()->SetFace(FaceVec[FaceIndex].second);
 		});
 }
 

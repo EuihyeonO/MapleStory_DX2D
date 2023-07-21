@@ -60,6 +60,8 @@ void Player::Start()
 	Pants = CreateComponent<GameEngineSpriteRenderer>();
 	Coat = CreateComponent<GameEngineSpriteRenderer>();
 	Cap = CreateComponent<GameEngineSpriteRenderer>();
+	Shoes = CreateComponent<GameEngineSpriteRenderer>();
+	
 	Cap->Off();
 
 	Arm = CreateComponent<GameEngineSpriteRenderer>();
@@ -88,6 +90,7 @@ void Player::Start()
 		CoatName = "WHITETSHIRT";
 		WeaponName = "Ganier";
 		PantsName = "BLUEPANTS";
+		ShoesName = "SANDAL";
 	}
 	else
 	{
@@ -97,7 +100,17 @@ void Player::Start()
 		
 		CoatName = UIController::GetUIController()->GetEquipItem(static_cast<int>(EquipType::Coat))->ItemName;
 		WeaponName = UIController::GetUIController()->GetEquipItem(static_cast<int>(EquipType::Weapon))->ItemName;
-		PantsName = UIController::GetUIController()->GetEquipItem(static_cast<int>(EquipType::Pants))->ItemName;
+		
+		if(UIController::GetUIController()->GetEquipItem(static_cast<int>(EquipType::Pants)) != nullptr)
+		{
+			PantsName = UIController::GetUIController()->GetEquipItem(static_cast<int>(EquipType::Pants))->ItemName;
+		}
+		else
+		{
+			PantsName = "";
+		}
+
+		ShoesName = UIController::GetUIController()->GetEquipItem(static_cast<int>(EquipType::Shoes))->ItemName;
 	}
 	
 	//초기애니메이션
@@ -106,6 +119,9 @@ void Player::Start()
 	WeaponType = static_cast<int>(WeaponType::Claw);
 
 	MyBuffList = GetLevel()->CreateActor<BuffList>();
+
+
+	//test
 
 	WSkill = &Player::LuckySeven;
 	ESkill = &Player::Avenger;

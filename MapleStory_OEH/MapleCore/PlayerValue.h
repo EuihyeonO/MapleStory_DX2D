@@ -385,6 +385,16 @@ public: //local
 		return Face;
 	}
 
+	void SetFace(const std::string_view& _FaceName)
+	{
+		Face = _FaceName;
+
+		if (Player::GetCurPlayer() != nullptr)
+		{
+			Player::GetCurPlayer()->SetFaceName(_FaceName);
+		}
+	}
+
 	const std::string_view GetClass()
 	{
 		return Class;

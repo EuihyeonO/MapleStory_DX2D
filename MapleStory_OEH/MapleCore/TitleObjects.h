@@ -150,7 +150,10 @@ private:
 	std::shared_ptr<GameEngineSpriteRenderer> CharInfo;
 	std::shared_ptr<GameEngineSpriteRenderer> InfoScroll;
 
+	std::shared_ptr<class GameEngineFontRenderer> Hair;
+	std::shared_ptr<class GameEngineFontRenderer> Face;
 	std::shared_ptr<class GameEngineFontRenderer> Coat;
+	std::shared_ptr<class GameEngineFontRenderer> Shoes;
 	std::shared_ptr<class GameEngineFontRenderer> Pants;
 	std::shared_ptr<class GameEngineFontRenderer> Weapon;
 
@@ -158,6 +161,10 @@ private:
 	std::shared_ptr<class ContentButton> RChangeCoat;
 	std::shared_ptr<class ContentButton> LChangePants;
 	std::shared_ptr<class ContentButton> RChangePants;
+	std::shared_ptr<class ContentButton> LChangeShoes;
+	std::shared_ptr<class ContentButton> RChangeShoes;
+	std::shared_ptr<class ContentButton> LChangeFace;
+	std::shared_ptr<class ContentButton> RChangeFace;
 
 	std::shared_ptr<GameEngineSpriteRenderer> InfoScrollLayer;
 	std::shared_ptr<class GameEngineSpriteRenderer> Dice;
@@ -166,6 +173,7 @@ private:
 	std::shared_ptr<GameEngineSpriteRenderer> NoButton;
 
 	std::map<int, std::vector<std::pair<std::string, std::string>>> ClothesVec;
+	std::vector<std::pair<std::string, std::string>> FaceVec;
 
 	std::string NickNameText = "";
 	std::shared_ptr<GameEngineFontRenderer> NickName = nullptr;
@@ -174,6 +182,8 @@ private:
 
 	int CoatIndex = 0;
 	int PantsIndex = 0;
+	int ShoesIndex = 0;
+	int FaceIndex = 0;
 
 	//프레임에 달려있는 버튼
 	std::shared_ptr<GameEngineSpriteRenderer> ToLogin;
