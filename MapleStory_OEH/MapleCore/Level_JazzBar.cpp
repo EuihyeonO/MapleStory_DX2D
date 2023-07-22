@@ -72,6 +72,10 @@ void Level_JazzBar::ActorCreate()
 		MyPlayer->SetCurPlayer(MyPlayer);
 		MyPlayer->SetColMap(Map->GetColMapName());
 		MyPlayer->SetCurPlayer(MyPlayer);
+
+		MyPlayer->SetRight();
+		MyPlayer->SetMoveType("Jump");
+		MyPlayer->GetTransform()->SetLocalPosition({ 190, 170 });
 	}
 
 	if (MyMouse == nullptr)
@@ -96,18 +100,6 @@ void Level_JazzBar::ActorCreate()
 	}
 
 
-	if (PlayerValue::GetValue()->GetPrevLevelName() == "123")
-	{
-		MyPlayer->SetRight();
-		MyPlayer->SetMoveType("Jump");
-		MyPlayer->GetTransform()->SetLocalPosition({ -500, 200 });
-	}
-	else if (PlayerValue::GetValue()->GetPrevLevelName() == "123")
-	{
-		MyPlayer->SetLeft();
-		MyPlayer->SetMoveType("Jump");
-		MyPlayer->GetTransform()->SetLocalPosition({ 625, -10 });
-	}
 }
 
 void Level_JazzBar::ActorDeath()

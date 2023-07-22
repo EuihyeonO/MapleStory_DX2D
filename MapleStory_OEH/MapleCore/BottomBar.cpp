@@ -80,6 +80,13 @@ void BottomBar::Start()
 	ClassFont->SetScale(13.0f);
 	ClassFont->GetTransform()->SetLocalPosition({ -315, -266 });
 
+	NameFont = CreateComponent<ContentFontRenderer>();
+	NameFont->SetFont("±¼¸²");
+	NameFont->SetColor({ 1, 1, 1, 1 });
+	NameFont->SetScale(13.0f);
+	NameFont->GetTransform()->SetLocalPosition({ -315, -282 });
+	NameFont->SetText("EuiHyeon");
+
 	RenderHP = PlayerValue::GetValue()->GetHp() - 1;
 	RenderHP_flt = static_cast<float>(RenderHP);
 

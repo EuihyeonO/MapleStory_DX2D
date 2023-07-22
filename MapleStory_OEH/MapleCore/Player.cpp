@@ -132,7 +132,7 @@ void Player::Start()
 
 	NameCard = CreateComponent<GameEngineSpriteRenderer>();
 	NameCard->GetTransform()->SetLocalScale({ 60, 16 });
-	NameCard->GetTransform()->SetLocalPosition({ 0, -10 });
+	NameCard->GetTransform()->SetLocalPosition({ 0, -10, -999 });
 	NameCard->ColorOptionValue.MulColor = { 0.0f, 0.0f, 0.0f, 0.7f };
 
 	NickName = CreateComponent<GameEngineFontRenderer>();
@@ -141,7 +141,7 @@ void Player::Start()
 	NickName->SetScale(12.0f);
 	NickName->SetColor({ 1.0f, 1.0f, 1.0f, 1.0f });
 	NickName->SetText("EuiHyeon");
-	NickName->GetTransform()->SetLocalPosition(NameCard->GetTransform()->GetLocalPosition() + float4{0, 8});
+	NickName->GetTransform()->SetLocalPosition(NameCard->GetTransform()->GetLocalPosition() + float4{0, 8, -1000});
 
 	//EuiHyeon
 	PlayerValue::Value.AttUpdate();

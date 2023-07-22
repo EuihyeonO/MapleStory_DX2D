@@ -52,7 +52,7 @@ void StarHitEffect::HitAnimationUpdate()
 
 void StarHitEffect::SetFrame()
 {
-	if (SkillType == "LuckySeven")
+	if (SkillType == "LuckySeven" || SkillType == "Swing")
 	{
 		FrameList.reserve(4);
 

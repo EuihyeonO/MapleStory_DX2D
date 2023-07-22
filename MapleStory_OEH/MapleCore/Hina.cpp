@@ -115,7 +115,7 @@ void Hina::OpenWindow()
 		MyWindow->SetDialogText(1, "아~ 그나저나 햇빛이 너무 따가운 걸요? \n내 백옥같은 피부가 다 상해 버리겠네... 어떻게 하지? \n죄송하지만 바쁘지 않으시다면 \n여기서 멀지 않은 곳에서 빨래를 널고 있는 \n세라 언니에게서 거울 좀 빌려와 주세요.");
 		MyWindow->CreateUIButtonList(1);
 		
-		MyWindow->AddToTextButton("네 가져다 드릴게요.", 1, [this] {MyWindow->ChangeDialog("고맙습니다. 세라 언니는 언덕에서 빨래를 널고 있을 거예요. \n...아! 지금 받은 퀘스트 내용을 다시 한 번 확인하고 싶다면 \n키보드의 단축키 Q를 누르면 된답니다."); UIController::GetUIController()->AddToQuestList("HINA0"); });
+		MyWindow->AddToTextButton("네 가져다 드릴게요.", 1, [this] {MyWindow->ChangeDialog("고맙습니다. 세라 언니는 언덕에서 빨래를 널고 있을 거예요."); UIController::GetUIController()->AddToQuestList("HINA0"); });
 		MyWindow->AddToTextButton("싫어요.", 1, [this] {MyWindow->ChangeDialog("제 부탁을 들어주기 싫으신가요? \n흐음~ 마음이 바뀌면 다시 찾아와 주세요."); });
 		
 		MyWindow->CreateUIButtonList(2);
