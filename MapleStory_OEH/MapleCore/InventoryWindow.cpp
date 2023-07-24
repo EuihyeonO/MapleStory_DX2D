@@ -2,6 +2,7 @@
 #include "InventoryWindow.h"
 #include "ItemList.h"
 #include "Item.h"
+#include "UIController.h"
 
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEnginePlatform/GameEngineInput.h>
@@ -17,6 +18,8 @@ InventoryWindow::~InventoryWindow()
 
 void InventoryWindow::Start()
 {
+	UIController::GetUIController()->SetCurInventoryWindow(DynamicThis<InventoryWindow>());
+
 	InventoryRender = CreateComponent<GameEngineUIRenderer>();
 	InventoryRender->SetScaleToTexture("EquipInventory.png");
 

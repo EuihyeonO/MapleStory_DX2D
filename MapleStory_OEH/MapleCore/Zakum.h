@@ -140,7 +140,7 @@ private:
 
 	bool isArm = false;
 
-	int Hp = 4600;
+	int Hp = 90000;
 
 	void FunctionUpdate();
 	std::list<std::function<bool()>> UpdateFuncList;

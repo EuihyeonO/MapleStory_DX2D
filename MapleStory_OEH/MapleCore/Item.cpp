@@ -2,6 +2,7 @@
 #include "Item.h"
 #include "Mouse.h"
 #include "ItemList.h"
+#include "InventoryWindow.h"
 #include "UIController.h"
 #include "ContentFontRenderer.h"
 #include "DropItem.h"
@@ -32,13 +33,13 @@ void Item::Start()
 	}
 }
 
-void Item::Update(float _DeltaTime) 
+void Item::Update(float _DeltaTime)
 {
 	Clicked();
-	
+
 	float4 CamPos = GetLevel()->GetMainCamera()->GetTransform()->GetLocalPosition();
 	ItemCollision->GetTransform()->SetLocalPosition(CamPos);
-	
+
 	EquipThis();
 
 	InfoBoxUpdate();
@@ -46,7 +47,7 @@ void Item::Update(float _DeltaTime)
 	UseItem();
 }
 
-void Item::Render(float _DeltaTime) 
+void Item::Render(float _DeltaTime)
 {
 }
 
@@ -60,11 +61,17 @@ void Item::SetItemInfo(std::shared_ptr<ItemInfo> _ItemInfo, int _ItemType)
 	ItemRender->Off();
 
 	ItemCollision = CreateComponent<GameEngineCollision>();
-	ItemCollision->GetTransform()->SetLocalScale({30, 30});
-	//ItemCollision->Off();
+	ItemCollision->GetTransform()->SetLocalScale({ 30, 30 });
+
+	if (UIController::GetUIController()->GetCurInventoryWindow() != nullptr)
+	{
+		if (UIController::GetUIController()->GetCurInventoryWindow()->GetInventoryType() != ItemType)
+		{
+			ItemCollision->Off();
+		}
+	}
 
 	SetMyInfoBox();
-
 }
 
 void Item::Clicked()

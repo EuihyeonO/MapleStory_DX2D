@@ -24,6 +24,11 @@ public:
 		return Inventory;
 	}
 
+	int GetInventoryType()
+	{
+		return InventoryType;
+	}
+
 	void InventoryUpdate();
 
 	void ChangeInventory();

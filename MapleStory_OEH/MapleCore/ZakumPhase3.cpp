@@ -162,7 +162,7 @@ void Zakum::SetPhase3Attack()
 
 								if (EffCol.lock()->Collision(static_cast<int>(CollisionOrder::Player), ColType::AABBBOX2D, ColType::AABBBOX2D) != nullptr)
 								{
-									Player::GetCurPlayer()->Hit(Att);
+									Player::GetCurPlayer()->Hit(static_cast<int>(PlayerValue::GetValue()->GetHp() * 0.1f));
 								}
 							}
 						});
@@ -207,7 +207,7 @@ void Zakum::SetPhase3Attack()
 
 								if (EffCol.lock()->Collision(static_cast<int>(CollisionOrder::Player), ColType::AABBBOX2D, ColType::AABBBOX2D) != nullptr)
 								{
-									Player::GetCurPlayer()->Hit(Att);
+									Player::GetCurPlayer()->Hit(static_cast<int>(PlayerValue::GetValue()->GetHp() * 0.1f));
 								}
 							}
 						});
@@ -251,7 +251,7 @@ void Zakum::SetPhase3Attack()
 
 								if (EffCol.lock()->Collision(static_cast<int>(CollisionOrder::Player), ColType::AABBBOX2D, ColType::AABBBOX2D) != nullptr)
 								{
-									Player::GetCurPlayer()->Hit(Att);
+									Player::GetCurPlayer()->Hit(static_cast<int>(PlayerValue::GetValue()->GetHp() * 0.1f));
 								}
 							}
 						});
@@ -335,18 +335,17 @@ void Zakum::SetPhase3Attack()
 
 				std::weak_ptr<GameEngineCollision> AtObjCol = CreateComponent<GameEngineCollision>();
 				AtObjCol.lock()->SetColType(ColType::AABBBOX2D);
-				AtObjCol.lock()->GetTransform()->SetParent(AtObj.lock()->GetTransform());
 				AtObjCol.lock()->GetTransform()->SetWorldScale({ 50, 220 });
 
 				for (int i = 0; i < 5; i++)
 				{
 					AtObj.lock()->SetAnimationUpdateEvent("Phase3_3AtObj", i + 8, [AtObj, AtObjCol, i]
 						{
-							AtObjCol.lock()->GetTransform()->SetLocalPosition({ 0, 165.0f + i * -95.0f });
+							AtObjCol.lock()->GetTransform()->SetLocalPosition({ 0, 205.0f + i * -95.0f });
 
 							if (AtObjCol.lock()->Collision(static_cast<int>(CollisionOrder::Player), ColType::AABBBOX2D, ColType::AABBBOX2D) != nullptr)
 							{
-								Player::GetCurPlayer()->Hit(10);
+								Player::GetCurPlayer()->Hit(static_cast<int>(PlayerValue::GetValue()->GetHp() * 0.1f));
 								AtObjCol.lock()->Off();
 							}
 						}

@@ -29,6 +29,7 @@ void StarHitEffect::Render(float _DeltaTime)
 
 void StarHitEffect::HitAnimationUpdate()
 {
+
 	TimeCounting();
 
 	AnimationCount += TimeCount;
@@ -52,7 +53,7 @@ void StarHitEffect::HitAnimationUpdate()
 
 void StarHitEffect::SetFrame()
 {
-	if (SkillType == "LuckySeven" || SkillType == "Swing")
+	if (SkillType == "LuckySeven")
 	{
 		FrameList.reserve(4);
 
@@ -63,7 +64,7 @@ void StarHitEffect::SetFrame()
 
 		EffectRender->SetScaleToTexture("LuckySevenHit0.png");
 	}
-	if (SkillType == "TripleThrow")
+	else if (SkillType == "TripleThrow")
 	{
 		FrameList.reserve(4);
 
@@ -72,5 +73,14 @@ void StarHitEffect::SetFrame()
 		FrameList.push_back(0.12f);
 
 		EffectRender->SetScaleToTexture("TripleThrowHit0.png");
+	}
+	else if (SkillType == "Swing")
+	{
+		FrameList.reserve(4);
+
+		FrameList.push_back(0.02f);
+		FrameList.push_back(0.1f);
+
+		EffectRender->SetScaleToTexture("SwingHit0.png");
 	}
 }

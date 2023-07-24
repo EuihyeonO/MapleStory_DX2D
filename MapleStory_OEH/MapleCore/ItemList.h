@@ -50,7 +50,7 @@ private:
 	float Xinterval = 36.0f;
 	float Yinterval = -34.0f;
 
-	std::shared_ptr<Item> _item;
+	std::shared_ptr<class Item> _item;
 	std::map<int, std::vector<std::shared_ptr<class Item>>> MyItemList;
 };
 

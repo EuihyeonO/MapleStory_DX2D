@@ -37,7 +37,7 @@ void Player::Start()
 	CurPlayer = DynamicThis<Player>();
 	TimeCounting();
 
-	GetTransform()->SetLocalPosition({ 0, 0, -5.0f});
+	GetTransform()->SetLocalPosition({ 0, 0, -5.0f });
 	GetTransform()->SetLocalScale({ 1, 1, 1 });
 
 	FootCollision = CreateComponent<GameEngineCollision>();
@@ -61,8 +61,6 @@ void Player::Start()
 	Coat = CreateComponent<GameEngineSpriteRenderer>();
 	Cap = CreateComponent<GameEngineSpriteRenderer>();
 	Shoes = CreateComponent<GameEngineSpriteRenderer>();
-	
-	Cap->Off();
 
 	Arm = CreateComponent<GameEngineSpriteRenderer>();
 	CoatArm = CreateComponent<GameEngineSpriteRenderer>();
@@ -70,15 +68,15 @@ void Player::Start()
 	Hair = CreateComponent<GameEngineSpriteRenderer>();
 	Face = CreateComponent<GameEngineSpriteRenderer>();
 	Weapon = CreateComponent<GameEngineSpriteRenderer>();
-	
+
 	//콜리전
 	RangeCheck = CreateComponent<GameEngineCollision>();
-	RangeCheck->GetTransform()->SetLocalScale({ PlayerValue::Value.GetAttackDistance() , 100.0f});
+	RangeCheck->GetTransform()->SetLocalScale({ PlayerValue::Value.GetAttackDistance() , 100.0f });
 	RangeCheck->SetOrder(static_cast<int>(CollisionOrder::Range));
 	RangeCheck->SetColType(ColType::AABBBOX2D);
 
 	float4 RangeScale = RangeCheck->GetTransform()->GetLocalScale();
-	RangeCheck->GetTransform()->SetLocalPosition({ -RangeScale.hx(), RangeScale.hy()});
+	RangeCheck->GetTransform()->SetLocalPosition({ -RangeScale.hx(), RangeScale.hy() });
 
 
 	if (GetLevel()->GetName() == "TITLE")
@@ -97,11 +95,11 @@ void Player::Start()
 		HairName = PlayerValue::Value.Hair;
 		FaceName = PlayerValue::Value.Face;
 		SkinType = PlayerValue::Value.Skin;
-		
+
 		CoatName = UIController::GetUIController()->GetEquipItem(static_cast<int>(EquipType::Coat))->ItemName;
 		WeaponName = UIController::GetUIController()->GetEquipItem(static_cast<int>(EquipType::Weapon))->ItemName;
-		
-		if(UIController::GetUIController()->GetEquipItem(static_cast<int>(EquipType::Pants)) != nullptr)
+
+		if (UIController::GetUIController()->GetEquipItem(static_cast<int>(EquipType::Pants)) != nullptr)
 		{
 			PantsName = UIController::GetUIController()->GetEquipItem(static_cast<int>(EquipType::Pants))->ItemName;
 		}
@@ -110,9 +108,22 @@ void Player::Start()
 			PantsName = "";
 		}
 
+		if(UIController::GetUIController()->GetEquipItem(static_cast<int>(EquipType::Cap)) != nullptr)
+		{
+			CapName = UIController::GetUIController()->GetEquipItem(static_cast<int>(EquipType::Cap))->ItemName;
+		}
+		else
+		{
+			CapName = "";
+		}
 		ShoesName = UIController::GetUIController()->GetEquipItem(static_cast<int>(EquipType::Shoes))->ItemName;
 	}
 	
+	if (CapName == "")
+	{
+		Cap->Off();
+	}
+
 	//초기애니메이션
 	MoveType = "Stand";
 
@@ -173,7 +184,14 @@ void Player::Update(float _DeltaTime)
 
 	if (GameEngineInput::IsDown("MyTest") == true)
 	{
-		PlayerValue::Value.AddExp(30000);
+		std::shared_ptr<ItemInfo> NewItem = std::make_shared<ItemInfo>();
+		NewItem->ItemName = "EYEOFFIRE";
+
+		std::shared_ptr<ItemInfo> NewItem1 = std::make_shared<ItemInfo>();
+		NewItem1->ItemName = "CAPOFZAKUM";
+		NewItem1->EquipType = static_cast<int>(EquipType::Cap);
+		UIController::GetUIController()->AddToItemList(NewItem, static_cast<int>(ItemType::Etc));
+		UIController::GetUIController()->AddToItemList(NewItem1, static_cast<int>(ItemType::Equip));
 	}
 }
 

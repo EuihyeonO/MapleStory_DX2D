@@ -3,6 +3,7 @@
 #include "Zakum.h"
 #include "Boogie.h"
 #include "DropItem.h"
+#include "RingPortal.h"
 
 #include "ContentRenderer.h"
 #include <GameEngineCore/GameEngineLevel.h>
@@ -54,6 +55,14 @@ void AlterOfZakum::Start()
 	Magma->GetTransform()->SetLocalScale({ 264 * 5, 96 });
 	Magma->GetTransform()->SetLocalPosition({ 0, -220, -6.0f });
 	Magma->SetUVconstant({ 0, 0, 5, 1 });
+
+	RingPortal1 = GetLevel()->CreateActor<RingPortal>();
+	RingPortal1->GetTransform()->SetLocalPosition({ 430, 220, -8 });
+	RingPortal1->SetLinkedPos({ -410, 150, -8 });
+	
+	RingPortal2 = GetLevel()->CreateActor<RingPortal>();
+	RingPortal2->GetTransform()->SetLocalPosition({ -410, 210, -8 });
+	RingPortal2->SetLinkedPos({ 430, 160, -8 });
 
 	std::shared_ptr<GameEngineSpriteRenderer> FootHold0 = CreateComponent<GameEngineSpriteRenderer>();
 	FootHold0->SetScaleToTexture("FootHold1.png");

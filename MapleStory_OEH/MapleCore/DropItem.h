@@ -28,10 +28,11 @@ public:
 		return DropItemRender;
 	}
 
-	void SetQuadraticFunction(float _XDistance, float4 _StartPos)
+	void SetQuadraticFunction(float _XDistance, float4 _StartPos, float _MaxY = 60.0f)
 	{
 		XDistance = _XDistance;
 		Xintercept = XDistance + _StartPos.x;
+		MaxY = _MaxY;
 		MaxY += StartPos.y;
 		StartPos = _StartPos;
 

@@ -76,9 +76,14 @@ public:
 		isRealAttack = _IsRealAttack;
 	}
 
+	void SetStarIndex(int _Index)
+	{
+		StarIndex = _Index;
+	}
+
 	void Damage();
 	void AvengerDamage();
-
+	
 	Star(const Star& _Other) = delete;
 	Star(Star&& _Other) noexcept = delete;
 	Star& operator=(const Star& _Other) = delete;
@@ -121,5 +126,8 @@ private:
 	std::shared_ptr<class GameEngineCollision> Target = nullptr;
 	
 	std::function<void(Star&, float)> UpdateFuction = nullptr;
+	
+	std::vector<std::shared_ptr<class GameEngineCollision>> HitMonsterVec;
+	int StarIndex = 0;
 };
 

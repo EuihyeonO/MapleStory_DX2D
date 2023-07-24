@@ -38,6 +38,16 @@ public:
 		return &Value;
 	}
 
+	void SetCurInventoryWindow(std::shared_ptr<class InventoryWindow> _CurWindow)
+	{
+		CurInventoryWindow = _CurWindow;
+	}
+
+	std::shared_ptr<class InventoryWindow> GetCurInventoryWindow()
+	{
+		return CurInventoryWindow;
+	}
+
 	void SetCurQuickSlot(std::shared_ptr<class QuickSlot> _QuickSlot)
 	{
 		CurQuickSlot = _QuickSlot;
@@ -454,8 +464,9 @@ private:
 
 	//ItemWindow
 	std::map<int, std::vector<std::shared_ptr<ItemInfo>>> MyItemList;
-
+	std::shared_ptr<class InventoryWindow> CurInventoryWindow = nullptr;
 	std::shared_ptr<class ItemList> CurItemList = nullptr;
+
 	//EquipWindow
 	std::map <int, std::shared_ptr<ItemInfo>> EquipItemList;
 

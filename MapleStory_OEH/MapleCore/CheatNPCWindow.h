@@ -25,7 +25,7 @@ private:
 	void GetEXP();
 	void SelectLevel();
 	void ColSwitch();
-
+	void UpGradeClass();
 	std::shared_ptr<class NPCWindow> MyWindow = nullptr;
 };
 

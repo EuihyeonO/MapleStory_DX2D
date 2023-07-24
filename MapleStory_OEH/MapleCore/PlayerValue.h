@@ -438,21 +438,24 @@ public: //local
 		if (Class == "BEGINNER" && Level >= 10)
 		{
 			Class = "LOG";
+			Grade++;
 		}
 		else if (Class == "LOG" && Level >= 30)
 		{
 			Class = "ASSASSIN";
+			Grade++;
 		}
 		else if (Class == "ASSASSIN" && Level >=70)
 		{
 			Class = "HERMIT";
+			Grade++;
 		}
 		else if (Class == "HERMIT" && Level >= 120)
 		{
 			Class = "NIGHTLORD";
+			Grade++;
 		}
 
-		Grade++;
 	}
 
 protected:

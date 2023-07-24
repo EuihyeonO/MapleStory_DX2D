@@ -1365,8 +1365,11 @@ void Player::SetHairAndFaceTexturePosVector()
 	CapOriginPos["RICEHAT"]["Front"] = float4{ -15, 25 };
 	CapOriginPos["RICEHAT"]["Back"] = float4{ -15, 25 };
 
-	CapToBrowPos["RICEHAT"]["Front"] = float4{ -13, -8 };
-	CapToBrowPos["RICEHAT"]["Back"] = float4{ -11, -7 };
+	CapOriginPos["CAPOFZAKUM"]["Front"] = float4{ -15, 25 };
+	CapOriginPos["CAPOFZAKUM"]["Back"] = float4{ -15, 25 };
+
+	CapToBrowPos["CAPOFZAKUM"]["Front"] = float4{ -6, -2 };
+	CapToBrowPos["CAPOFZAKUM"]["Back"] = float4{ -5, -5 };
 }
 
 void Player::TextureUpdate()

@@ -48,6 +48,8 @@ private:
 	
 	std::shared_ptr<class Portal> Portal1 = nullptr;
 
+	std::shared_ptr<class RingPortal> RingPortal1 = nullptr;
+	std::shared_ptr<class RingPortal> RingPortal2 = nullptr;
 	std::vector<std::pair<bool, std::shared_ptr<class GameEngineSpriteRenderer>>> FireDewDropList;
 					
 };

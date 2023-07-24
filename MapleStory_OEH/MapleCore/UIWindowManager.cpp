@@ -103,7 +103,9 @@ void UIWindowManager::UIOnOff()
 			MyInventoryWindow->ClearInventory();
 			MyInventoryWindow->GetInventory()->Death();
 
+			UIController::GetUIController()->SetCurInventoryWindow(nullptr);
 			UIController::GetUIController()->SetCurItemList(nullptr);
+
 			MyInventoryWindow->Death();
 			MyInventoryWindow = nullptr;
 		}
@@ -149,7 +151,9 @@ void UIWindowManager::AllWindowDeath()
 		MyInventoryWindow->ClearInventory();
 		MyInventoryWindow->GetInventory()->Death();
 
+		UIController::GetUIController()->SetCurInventoryWindow(nullptr);
 		UIController::GetUIController()->SetCurItemList(nullptr);
+
 		MyInventoryWindow->Death();
 		MyInventoryWindow = nullptr;
 	}
@@ -160,6 +164,7 @@ void UIWindowManager::AllWindowDeath()
 		MyEquipWindow->GetEquipItemList()->Death();
 
 		UIController::GetUIController()->SetCurEquipItemList(nullptr);
+
 		MyEquipWindow->Death();
 		MyEquipWindow = nullptr;
 	}

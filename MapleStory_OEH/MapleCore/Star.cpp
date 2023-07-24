@@ -32,6 +32,8 @@ void Star::Start()
 	StarCollision->SetOrder(static_cast<int>(CollisionOrder::Star));
 	StarCollision->Off();
 
+	HitMonsterVec.reserve(8);
+
 	if (Player::GetCurPlayer()->GetLeftRightDir() == "Left")
 	{
 		Dir = {-1, 0};
@@ -196,7 +198,7 @@ void Star::Damage()
 	
 		std::shared_ptr<DamageRender> NewDR = GetLevel()->CreateActor<DamageRender>();
 		NewDR->PushDamageToQueue(Damage);
-		NewDR->GetTransform()->SetWorldPosition(_Collision->GetTransform()->GetWorldPosition() + float4{-16.0f, 5.0f, -20.0f});
+		NewDR->GetTransform()->SetWorldPosition(_Collision->GetTransform()->GetWorldPosition() + float4{-16.0f, 5.0f + StarIndex * 20.0f, -20.0f});
 
 		_Collision->GetActor()->DynamicThis<MonsterBasicFunction>()->Hit(Damage, isRealAttack);
 
@@ -214,9 +216,26 @@ void Star::AvengerDamage()
 	//한대만 쳐야됨
 	//맞은 애들 VECTOR에 넣어놓고 있는 애들은 안때리기
 
-	std::shared_ptr<GameEngineCollision> _Collision;
-	if (_Collision = StarCollision->Collision(static_cast<int>(CollisionOrder::Monster), ColType::AABBBOX2D, ColType::AABBBOX2D), _Collision != nullptr)
+	std::shared_ptr<GameEngineCollision> _Collision = StarCollision->Collision(static_cast<int>(CollisionOrder::Monster), ColType::AABBBOX2D, ColType::AABBBOX2D);
+	
+	for (int i = 0; i < HitMonsterVec.size(); i++)
 	{
-		_Collision->GetActor()->DynamicThis<MonsterBasicFunction>()->Hit(50, true);
+		if (HitMonsterVec[i] == _Collision)
+		{
+			return;
+		}
+	}
+
+	if (_Collision != nullptr)
+	{
+		int Damage = GameEngineRandom::MainRandom.RandomInt(static_cast<int>(PlayerValue::GetValue()->GetMinAtt()), static_cast<int>(PlayerValue::GetValue()->GetMaxAtt()));
+
+		std::shared_ptr<DamageRender> NewDR = GetLevel()->CreateActor<DamageRender>();
+		NewDR->PushDamageToQueue(Damage);
+		NewDR->GetTransform()->SetWorldPosition(_Collision->GetTransform()->GetWorldPosition() + float4{ -16.0f, 5.0f + StarIndex * 20.0f, -20.0f });
+
+		_Collision->GetActor()->DynamicThis<MonsterBasicFunction>()->Hit(Damage, true);
+
+		HitMonsterVec.push_back(_Collision);
 	}
 }

@@ -3,6 +3,7 @@
 #include "Adovis.h"
 #include "ContentRenderer.h"
 #include "Portal.h"
+#include "RingPortal.h"
 
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineCore/GameEngineLevel.h>
@@ -59,6 +60,15 @@ void AlterOfZakumEnt::Start()
 	Portal1 = GetLevel()->CreateActor<Portal>();
 	Portal1->SetLinkedMap("Level_AlterOfZakum");
 	Portal1->GetTransform()->SetLocalPosition({ 1170, -90, -100 });
+
+	RingPortal1 = GetLevel()->CreateActor<RingPortal>();
+	RingPortal1->SetPortalPos({ -900, -148, -10.0f });
+	RingPortal1->SetLinkedPos({ 800, -208 });
+
+	RingPortal2 = GetLevel()->CreateActor<RingPortal>();
+	RingPortal2->SetPortalPos({ 800, -148, -10.0f });
+	RingPortal2->SetLinkedPos({ -900, -208 });
+
 
 	Black = CreateComponent<GameEngineUIRenderer>();
 	Black->GetTransform()->SetWorldScale({ 800, 600 });
@@ -154,5 +164,23 @@ void AlterOfZakumEnt::ActorDeath()
 		MyAdovis->ActorDeath();
 		MyAdovis->Death();
 		MyAdovis = nullptr;
+	}
+
+	if (Portal1 != nullptr)
+	{
+		Portal1->Death();
+		Portal1 = nullptr;
+	}
+
+	if (RingPortal1 != nullptr)
+	{
+		RingPortal1->Death();
+		RingPortal1 = nullptr;
+	}
+
+	if (RingPortal2 != nullptr)
+	{
+		RingPortal2->Death();
+		RingPortal2 = nullptr;
 	}
 }

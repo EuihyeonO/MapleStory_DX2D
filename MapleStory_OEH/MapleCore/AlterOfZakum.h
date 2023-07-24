@@ -43,6 +43,9 @@ private:
 	std::shared_ptr<class GameEngineSpriteRenderer> Alter = nullptr;
 	std::shared_ptr<class GameEngineSpriteRenderer> AlterBack = nullptr;
 
+	std::shared_ptr<class RingPortal> RingPortal1 = nullptr;
+	std::shared_ptr<class RingPortal> RingPortal2 = nullptr;
+
 	std::shared_ptr<class GameEngineSpriteRenderer> BackGround = nullptr;
 	std::shared_ptr<class GameEngineSpriteRenderer> Layer = nullptr;
 

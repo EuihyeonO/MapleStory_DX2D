@@ -149,32 +149,41 @@ void Level_BeginnersTown2::ActorDeath()
 
 void Level_BeginnersTown2::LoadResources()
 {
-	if (nullptr == GameEngineTexture::Find("RozarStand0.png"))
-	{
-		GameEngineDirectory NewDir;
-		NewDir.MoveParentToDirectory("MapleResources");
-		NewDir.Move("MapleResources");
-		NewDir.Move("BeginnersTown2");
-		NewDir.Move("BeginnersTown2NotSprite");
+	GameEngineDirectory NewDir;
+	NewDir.MoveParentToDirectory("MapleResources");
+	NewDir.Move("MapleResources");
+	NewDir.Move("BeginnersTown2");
+	NewDir.Move("BeginnersTown2NotSprite");
 
-		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
-		for (size_t i = 0; i < File.size(); i++)
+	std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
+
+	for (size_t i = 0; i < File.size(); i++)
+	{
+		std::string FileFullPath = File[i].GetFullPath();
+		std::string FileName = "";
+		size_t Count = 0;
+
+		for (Count = FileFullPath.size(); Count > 0; Count--)
 		{
-			GameEngineTexture::Load(File[i].GetFullPath());
+			char a = FileFullPath[Count];
+			if (FileFullPath[Count] == '\\')
+			{
+				break;
+			}
 		}
-	}
-	else
-	{
-		GameEngineDirectory NewDir;
-		NewDir.MoveParentToDirectory("MapleResources");
-		NewDir.Move("MapleResources");
-		NewDir.Move("BeginnersTown2");
-		NewDir.Move("BeginnersTown2NotSprite");
 
-		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
-		for (size_t i = 0; i < File.size(); i++)
+		for (size_t j = Count + 1; j < FileFullPath.size(); j++)
+		{
+			FileName.push_back(FileFullPath[j]);
+		}
+
+		if (GameEngineTexture::Find(FileName) != nullptr)
 		{
 			GameEngineTexture::ReLoad(File[i].GetFullPath());
+		}
+		else
+		{
+			GameEngineTexture::Load(File[i].GetFullPath());
 		}
 	}
 }

@@ -113,27 +113,31 @@ void Player::TripleThrow()
 	std::shared_ptr<SkillActor> NewSkillActor = GetLevel()->CreateActor<SkillActor>(RenderOrder::Skill);
 	NewSkillActor->SetSkillActor("TripleThrow");
 
+	std::shared_ptr<Star> NewStar0 = GetLevel()->CreateActor<Star>(static_cast<int>(RenderOrder::Weapon));
+	NewStar0->SetStarName("shuriken");
+	NewStar0->SetTimingTime(0.25f);
+	NewStar0->SetUpdateFuction(UpdateFunction);
+	NewStar0->SetTargetMonster(HitMonsterVector, PlayerPos);
+	NewStar0->SetType("TripleThrow");
+	NewStar0->Set_IsRealAttack(false);
+	NewStar0->SetStarIndex(0);
+
 	std::shared_ptr<Star> NewStar1 = GetLevel()->CreateActor<Star>(static_cast<int>(RenderOrder::Weapon));
 	NewStar1->SetStarName("shuriken");
-	NewStar1->SetTimingTime(0.25f);
+	NewStar1->SetTimingTime(0.325f);
 	NewStar1->SetUpdateFuction(UpdateFunction);
 	NewStar1->SetTargetMonster(HitMonsterVector, PlayerPos);
 	NewStar1->SetType("TripleThrow");
 	NewStar1->Set_IsRealAttack(false);
+	NewStar1->SetStarIndex(1);
 
 	std::shared_ptr<Star> NewStar2 = GetLevel()->CreateActor<Star>(static_cast<int>(RenderOrder::Weapon));
 	NewStar2->SetStarName("shuriken");
-	NewStar2->SetTimingTime(0.325f);
+	NewStar2->SetTimingTime(0.40f);
 	NewStar2->SetUpdateFuction(UpdateFunction);
 	NewStar2->SetTargetMonster(HitMonsterVector, PlayerPos);
 	NewStar2->SetType("TripleThrow");
-
-	std::shared_ptr<Star> NewStar3 = GetLevel()->CreateActor<Star>(static_cast<int>(RenderOrder::Weapon));
-	NewStar3->SetStarName("shuriken");
-	NewStar3->SetTimingTime(0.40f);
-	NewStar3->SetUpdateFuction(UpdateFunction);
-	NewStar3->SetTargetMonster(HitMonsterVector, PlayerPos);
-	NewStar3->SetType("TripleThrow");
+	NewStar2->SetStarIndex(2);
 
 	if (isOnShadow == true)
 	{
@@ -146,6 +150,7 @@ void Player::TripleThrow()
 		NewStar3->SetTargetMonster(HitMonsterVector, PlayerPos);
 		NewStar3->SetType("TripleThrow");
 		NewStar3->Set_IsRealAttack(false);
+		NewStar3->SetStarIndex(3);
 
 		std::shared_ptr<Star> NewStar4 = GetLevel()->CreateActor<Star>(static_cast<int>(RenderOrder::Weapon));
 		NewStar4->SetStarName("shuriken");
@@ -153,13 +158,16 @@ void Player::TripleThrow()
 		NewStar4->SetUpdateFuction(UpdateFunction);
 		NewStar4->SetTargetMonster(HitMonsterVector, PlayerPos);
 		NewStar4->SetType("TripleThrow");
+		NewStar4->Set_IsRealAttack(false);
+		NewStar4->SetStarIndex(4);
 
 		std::shared_ptr<Star> NewStar5 = GetLevel()->CreateActor<Star>(static_cast<int>(RenderOrder::Weapon));
-		NewStar4->SetStarName("shuriken");
-		NewStar4->SetTimingTime(0.625f);
-		NewStar4->SetUpdateFuction(UpdateFunction);
-		NewStar4->SetTargetMonster(HitMonsterVector, PlayerPos);
-		NewStar4->SetType("TripleThrow");
+		NewStar5->SetStarName("shuriken");
+		NewStar5->SetTimingTime(0.625f);
+		NewStar5->SetUpdateFuction(UpdateFunction);
+		NewStar5->SetTargetMonster(HitMonsterVector, PlayerPos);
+		NewStar5->SetType("TripleThrow");
+		NewStar5->SetStarIndex(5);
 	}
 }
 
