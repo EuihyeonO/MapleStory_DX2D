@@ -81,9 +81,6 @@ void AlterOfZakumEnt::Start()
 
 void AlterOfZakumEnt::Update(float _DeltaTime)
 {
-	float4 Pos = MyAdovis->GetTransform()->GetWorldPosition();
-	float4 MyPos = Player::GetCurPlayer()->GetTransform()->GetWorldPosition();
-
 	XUVCount += 0.05f * _DeltaTime;
 	
 	if (XUVCount >= 1.0f)
