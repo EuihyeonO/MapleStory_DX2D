@@ -601,7 +601,8 @@ void Player::FallingDown(float _DeltaTime)
 
 void Player::Level_Up()
 {
-	GameEngineSound::Play("LevelUp.mp3");
+	GameEngineSoundPlayer Sound = GameEngineSound::Play("LevelUp.mp3");
+	Sound.SetVolume(0.1f);
 
 	std::weak_ptr<GameEngineSpriteRenderer> LevelUp = CreateComponent<GameEngineSpriteRenderer>();
 	

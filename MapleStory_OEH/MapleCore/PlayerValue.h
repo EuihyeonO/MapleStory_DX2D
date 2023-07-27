@@ -91,7 +91,7 @@ public: //local
 		MaxMp = static_cast<int>(Mp * 1.02f);
 		Hp = MaxHp;
 		Mp = MaxMp;
-
+		
 		Player::GetCurPlayer()->Level_Up();
 		PlayerValue::Value.AttUpdate();
 	}
