@@ -383,7 +383,7 @@ void Player::Swing()
 	isSwing = true;
 	
 	std::shared_ptr<Star> NewStar1 = GetLevel()->CreateActor<Star>(11);
-	NewStar1->SetStarName("Wednes");
+	NewStar1->SetStarName("shuriken");
 	NewStar1->SetTimingTime(0.25);
 
 	float4 PlayerPos = GetTransform()->GetWorldPosition();
@@ -398,7 +398,7 @@ void Player::Swing()
 		NewStar1->Set_IsRealAttack(false);
 
 		std::shared_ptr<Star> NewStar2 = GetLevel()->CreateActor<Star>(11);
-		NewStar2->SetStarName("Wednes");
+		NewStar2->SetStarName("shuriken");
 		NewStar2->SetTimingTime(0.40f);
 
 		std::shared_ptr<GameEngineCollision> HitMonster = RangeCheck->Collision(static_cast<int>(CollisionOrder::Monster), ColType::AABBBOX2D, ColType::AABBBOX2D);

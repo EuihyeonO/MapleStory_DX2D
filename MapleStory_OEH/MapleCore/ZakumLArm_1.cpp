@@ -71,6 +71,7 @@ void ZakumLArm_1::Attack()
 	switch (Num)
 	{
 	case 0:
+		GameEngineSound::Play("ZakumLArm1Att1.mp3");
 		ArmRender->ChangeAnimation("1Attack");
 		break;
 	case 1:
@@ -78,7 +79,8 @@ void ZakumLArm_1::Attack()
 		{
 			return;
 		}
-
+		
+		GameEngineSound::Play("ZakumLArm1Sk1.mp3");
 		ArmRender->ChangeAnimation("Skill");
 		break;
 	}

@@ -61,12 +61,14 @@ void ZakumRArm_2::Attack()
 	case 0:
 		if(Zakum::GetZakum()->GetIsAtPowerUp() == false)
 		{
+			GameEngineSound::Play("ZakumRArm2Sk1.mp3");
 			ArmRender->ChangeAnimation("1Skill");
 		}
 		break;
 	case 1:
 		if(Zakum::GetZakum()->GetIsDefUp() == false)
 		{
+			GameEngineSound::Play("ZakumRArm2Sk2.mp3");
 			ArmRender->ChangeAnimation("2Skill");
 		}
 		break;

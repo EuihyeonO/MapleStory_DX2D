@@ -61,9 +61,11 @@ void ZakumLArm_3::Attack()
 	switch (Num)
 	{
 	case 0:
+		GameEngineSound::Play("ZakumLArm3Att1.mp3");
 		ArmRender->ChangeAnimation("1Attack");
 		break;
 	case 1:
+		GameEngineSound::Play("ZakumLArm3Att2.mp3");
 		ArmRender->ChangeAnimation("2Attack");
 		break;
 

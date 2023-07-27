@@ -4,9 +4,12 @@
 #include "Boogie.h"
 #include "DropItem.h"
 #include "RingPortal.h"
-
 #include "ContentRenderer.h"
+
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineBase/GameEngineThread.h>
+
+bool AlterOfZakum::isLoadEnd = false;
 
 AlterOfZakum::AlterOfZakum()
 {
@@ -149,6 +152,346 @@ void AlterOfZakum::MagmaMove(float _DeltaTime)
 	Magma->SetUVconstant({ Magma_UVXMove, 0, 5, 1 });
 }
 
+
+void LoadAllResources(GameEngineThread* Thread)
+{
+	if (nullptr == GameEngineSprite::Find("ZakumSpawn"))
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("MapleResources");
+		NewDir.Move("MapleResources");
+		NewDir.Move("AlterOfZakum");
+		NewDir.Move("AlterOfZakumSprite");
+		NewDir.Move("Monster");
+		NewDir.Move("Zakum");
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("ZakumSpawn").GetFullPath());
+
+		NewDir.Move("Phase1");
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase1_1Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("1AtEffect0").GetFullPath());
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase1_2Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("2AtEffect0").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("2AtEffect1").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("2AtEffect2").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("2AtEffect3").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("2AtEffect4").GetFullPath());
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase1_3Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("3AtEffect").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("3AtObj").GetFullPath());
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase1_1Skill").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("1SkEffect").GetFullPath());
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase1_2Skill").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("2SkEffect").GetFullPath());
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase1_3Skill").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("3SkEffect").GetFullPath());
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase1Die").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase1Hit").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase1Stand").GetFullPath());
+
+		NewDir.Move("1AtEffect1");
+
+		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
+
+		for (size_t i = 0; i < File.size(); i++)
+		{
+			GameEngineTexture::Load(File[i].GetFullPath());
+		}
+
+		NewDir.MoveParent();
+
+		NewDir.MoveParent();
+		NewDir.Move("Phase2");
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase2_1Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase2_2Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase2_3Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase2_1Skill").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase2_2Skill").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase2_3Skill").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase2Die").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase2Hit").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase2Stand").GetFullPath());
+
+		NewDir.MoveParent();
+		NewDir.Move("Phase3");
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase3_1Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase3_2Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase3_3Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase3_1Skill").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase3_2Skill").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase3_3Skill").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase3Die").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase3Hit").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase3Stand").GetFullPath());
+	}
+
+	if (nullptr == GameEngineSprite::Find("Poison"))
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("MapleResources");
+		NewDir.Move("MapleResources");
+		NewDir.Move("AlterOfZakum");
+		NewDir.Move("AlterOfZakumSprite");
+		NewDir.Move("StatusEffect");
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Poison").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("SkillLock").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("MoreMiss").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("DamagedDouble").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("CannotJump").GetFullPath());
+	}
+
+	if (nullptr == GameEngineSprite::Find("BoogieMove"))
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("MapleResources");
+		NewDir.Move("MapleResources");
+		NewDir.Move("AlterOfZakum");
+		NewDir.Move("AlterOfZakumSprite");
+		NewDir.Move("Monster");
+		NewDir.Move("Boogie");
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("BoogieMove").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("BoogieStand").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("BoogieHit").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("BoogieDeath").GetFullPath());
+	}
+
+	if (nullptr == GameEngineSprite::Find("SmallZakum0Fly"))
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("MapleResources");
+		NewDir.Move("MapleResources");
+		NewDir.Move("AlterOfZakum");
+		NewDir.Move("AlterOfZakumSprite");
+		NewDir.Move("Monster");
+		NewDir.Move("SmallZakum0");
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("SmallZakum0Fly").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("SmallZakum0Hit").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("SmallZakum0Death").GetFullPath());
+	}
+
+	if (nullptr == GameEngineSprite::Find("SmallZakum1Fly"))
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("MapleResources");
+		NewDir.Move("MapleResources");
+		NewDir.Move("AlterOfZakum");
+		NewDir.Move("AlterOfZakumSprite");
+		NewDir.Move("Monster");
+		NewDir.Move("SmallZakum1");
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("SmallZakum1Fly").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("SmallZakum1Hit").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("SmallZakum1Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("SmallZakum1Death").GetFullPath());
+	}
+
+	if (nullptr == GameEngineSprite::Find("SmallZakum2Fly"))
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("MapleResources");
+		NewDir.Move("MapleResources");
+		NewDir.Move("AlterOfZakum");
+		NewDir.Move("AlterOfZakumSprite");
+		NewDir.Move("Monster");
+		NewDir.Move("SmallZakum2");
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("SmallZakum2Fly").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("SmallZakum2Hit").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("SmallZakum2Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("SmallZakum2Death").GetFullPath());
+	}
+
+	if (nullptr == GameEngineSprite::Find("LArm0_Stand"))
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("MapleResources");
+		NewDir.Move("MapleResources");
+		NewDir.Move("AlterOfZakum");
+		NewDir.Move("AlterOfZakumSprite");
+		NewDir.Move("Monster");
+		NewDir.Move("Zakum");
+		NewDir.Move("ZakumArm");
+		NewDir.Move("Left_0");
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm0_Stand").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm0_Death").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm0_Hit").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm0_1Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm0_1AtEffect").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm0_2Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm0_2AtEffect").GetFullPath());
+	}
+
+	if (nullptr == GameEngineSprite::Find("LArm1_Stand"))
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("MapleResources");
+		NewDir.Move("MapleResources");
+		NewDir.Move("AlterOfZakum");
+		NewDir.Move("AlterOfZakumSprite");
+		NewDir.Move("Monster");
+		NewDir.Move("Zakum");
+		NewDir.Move("ZakumArm");
+		NewDir.Move("Left_1");
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm1_Stand").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm1_Death").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm1_Hit").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm1_1Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm1_1AtEffect").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm1_1AtObj0").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm1_1AtObj1").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm1_1AtObj2").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm1_Skill").GetFullPath());
+	}
+
+	if (nullptr == GameEngineSprite::Find("LArm2_Stand"))
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("MapleResources");
+		NewDir.Move("MapleResources");
+		NewDir.Move("AlterOfZakum");
+		NewDir.Move("AlterOfZakumSprite");
+		NewDir.Move("Monster");
+		NewDir.Move("Zakum");
+		NewDir.Move("ZakumArm");
+		NewDir.Move("Left_2");
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm2_Stand").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm2_Death").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm2_Hit").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm2_1Skill").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm2_2Skill").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm2_3Skill").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm2_4Skill").GetFullPath());
+	}
+
+	if (nullptr == GameEngineSprite::Find("LArm3_Stand"))
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("MapleResources");
+		NewDir.Move("MapleResources");
+		NewDir.Move("AlterOfZakum");
+		NewDir.Move("AlterOfZakumSprite");
+		NewDir.Move("Monster");
+		NewDir.Move("Zakum");
+		NewDir.Move("ZakumArm");
+		NewDir.Move("Left_3");
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm3_Stand").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm3_Death").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm3_Hit").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm3_1Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm3_1AtEffect").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm3_2Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("LArm3_2AtEffect").GetFullPath());
+	}
+
+	if (nullptr == GameEngineSprite::Find("RArm0_Stand"))
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("MapleResources");
+		NewDir.Move("MapleResources");
+		NewDir.Move("AlterOfZakum");
+		NewDir.Move("AlterOfZakumSprite");
+		NewDir.Move("Monster");
+		NewDir.Move("Zakum");
+		NewDir.Move("ZakumArm");
+		NewDir.Move("Right_0");
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm0_Stand").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm0_Death").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm0_Hit").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm0_1Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm0_1AtEffect").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm0_2Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm0_2AtEffect").GetFullPath());
+	}
+
+	if (nullptr == GameEngineSprite::Find("RArm1_Stand"))
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("MapleResources");
+		NewDir.Move("MapleResources");
+		NewDir.Move("AlterOfZakum");
+		NewDir.Move("AlterOfZakumSprite");
+		NewDir.Move("Monster");
+		NewDir.Move("Zakum");
+		NewDir.Move("ZakumArm");
+		NewDir.Move("Right_1");
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm1_Stand").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm1_Death").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm1_Hit").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm1_1Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm1_1AtEffect").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm1_1AtObj").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm1_2Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm1_2AtObj0").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm1_2AtObj1").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm1_2AtObj2").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm1_2AtObj3").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm1_2AtObj4").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm1_2AtObj5").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm1_2AtEffect").GetFullPath());
+	}
+
+	if (nullptr == GameEngineSprite::Find("RArm2_Stand"))
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("MapleResources");
+		NewDir.Move("MapleResources");
+		NewDir.Move("AlterOfZakum");
+		NewDir.Move("AlterOfZakumSprite");
+		NewDir.Move("Monster");
+		NewDir.Move("Zakum");
+		NewDir.Move("ZakumArm");
+		NewDir.Move("Right_2");
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm2_Stand").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm2_Death").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm2_Hit").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm2_1Skill").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm2_1SkEffect").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm2_2Skill").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm2_2SkEffect").GetFullPath());
+	}
+
+	if (nullptr == GameEngineSprite::Find("RArm3_Stand"))
+	{
+		GameEngineDirectory NewDir;
+		NewDir.MoveParentToDirectory("MapleResources");
+		NewDir.Move("MapleResources");
+		NewDir.Move("AlterOfZakum");
+		NewDir.Move("AlterOfZakumSprite");
+		NewDir.Move("Monster");
+		NewDir.Move("Zakum");
+		NewDir.Move("ZakumArm");
+		NewDir.Move("Right_3");
+
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm3_Stand").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm3_Death").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm3_Hit").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm3_1Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm3_1AtEffect").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm3_2Attack").GetFullPath());
+		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("RArm3_2AtEffect").GetFullPath());
+	}
+
+	AlterOfZakum::isLoadEnd = true;
+}
+
 void AlterOfZakum::SpawnZakum(float _DeltaTime)
 {
 	if (AlterCollision == nullptr)
@@ -165,15 +508,21 @@ void AlterOfZakum::SpawnZakum(float _DeltaTime)
 
 		if (ItemName == "EYEOFFIRE")
 		{
-			ColCount += _DeltaTime;
+			if (isLoadStart == false)
+			{
+				GameEngineCore::JobQueue.Work(LoadAllResources);
+				isLoadStart = true;
+			}
 
-			if (ColCount >= 2.0f)
+			if (isLoadEnd == true)
 			{
 				ColItem->GetRender()->ColorOptionValue.MulColor.a -= 1.0f * _DeltaTime;
 
 				if (ColItem->GetRender()->ColorOptionValue.MulColor.a <= 0.0f)
 				{
+					ColItem->GetRender()->ColorOptionValue.MulColor.a = 0.0f;
 					ColItem->Death();
+					
 					std::shared_ptr<Zakum> NewZakum = GetLevel()->CreateActor<Zakum>();
 					UpdateFunc = nullptr;
 				}

@@ -55,21 +55,24 @@ void ZakumLArm_2::Attack()
 		return;
 	}
 
-
 	int Num = GameEngineRandom::MainRandom.RandomInt(0,3);
 
 	switch (Num)
 	{
 	case 0:
+		GameEngineSound::Play("ZakumLArm2Sk1.mp3");
 		ArmRender->ChangeAnimation("1Skill");
 		break;
 	case 1:
+		GameEngineSound::Play("ZakumLArm2Sk2.mp3");
 		ArmRender->ChangeAnimation("2Skill");
 		break;
 	case 2:
+		GameEngineSound::Play("ZakumLArm2Sk3.mp3");
 		ArmRender->ChangeAnimation("3Skill");
 		break;
 	case 3:
+		GameEngineSound::Play("ZakumLArm2Sk4.mp3");
 		ArmRender->ChangeAnimation("4Skill");
 		break;
 	}

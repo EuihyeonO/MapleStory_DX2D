@@ -88,7 +88,8 @@ void Level_AlterOfZakumEnt::ActorCreate()
 
 	MyPlayer->SetRight();
 	MyPlayer->SetMoveType("Jump");
-	MyPlayer->GetTransform()->SetLocalPosition({ -1200, -100 });
+
+	MyPlayer->GetTransform()->SetLocalPosition({ -1200, -100, -5.0f });
 
 	if (PlayerValue::GetValue()->GetPrevLevelName() != "Level_ZakumRoad1")
 	{

@@ -752,6 +752,14 @@ const std::string_view Item::GetItemNameToKr(const std::string_view& _Name)
 	{
 		return "파란색 가운";
 	}
+	else if (Name == "RAINBOOTS")
+	{
+		return "빨간 고무 장화";
+	}
+	else if (Name == "RICEHAT")
+	{
+		return "갈색 삿갓";
+	}
 	else
 	{
 		return "";

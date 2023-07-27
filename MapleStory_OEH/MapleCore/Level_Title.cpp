@@ -151,7 +151,6 @@ void Level_Title::Update(float _DeltaTime)
 {
 	if (GameLogo != nullptr && GameLogo->GetIsCreateObject() == true)
 	{
-		//콜백형식으로 바꿔서 Logo에서 알아서 처리하도록 설정, nullptr을 넣어줄 필요 없게 아예 start에 선언된 지역변수에서 처리
 		MapleCore::BGMPlayer = GameEngineSound::Play("Title.mp3");
 		MapleCore::BGMPlayer.SetLoop(-1);
 		MapleCore::BGMPlayer.SetVolume(0.3f);

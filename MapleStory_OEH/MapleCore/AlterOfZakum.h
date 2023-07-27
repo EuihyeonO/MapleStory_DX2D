@@ -20,6 +20,8 @@ public:
 	AlterOfZakum(AlterOfZakum&& _Other) noexcept = delete;
 	AlterOfZakum& operator=(const AlterOfZakum& _Other) = delete;
 	AlterOfZakum& operator=(AlterOfZakum&& _Other) noexcept = delete;
+	
+	static bool isLoadEnd;
 
 protected:
 	void Start();
@@ -56,5 +58,8 @@ private:
 	float Magma_UVXMove = 0.0f;
 
 	std::shared_ptr<class ContentRenderer> Magma = nullptr;
+	bool isSpawnZakum = false;
+	bool isLoadStart = false;
 };
+
 

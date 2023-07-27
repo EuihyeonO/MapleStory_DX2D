@@ -4,6 +4,7 @@
 #include "ContentRenderer.h"
 #include "Portal.h"
 #include "RingPortal.h"
+#include "Player.h"
 
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineCore/GameEngineLevel.h>
@@ -55,7 +56,7 @@ void AlterOfZakumEnt::Start()
 	}
 
 	MyAdovis = GetLevel()->CreateActor<Adovis>();
-	MyAdovis->GetTransform()->SetLocalPosition({ 1000, -168, -5 });
+	MyAdovis->GetTransform()->SetWorldPosition({ 1000, -168, -0.0f });
 
 	Portal1 = GetLevel()->CreateActor<Portal>();
 	Portal1->SetLinkedMap("Level_AlterOfZakum");
@@ -80,6 +81,9 @@ void AlterOfZakumEnt::Start()
 
 void AlterOfZakumEnt::Update(float _DeltaTime)
 {
+	float4 Pos = MyAdovis->GetTransform()->GetWorldPosition();
+	float4 MyPos = Player::GetCurPlayer()->GetTransform()->GetWorldPosition();
+
 	XUVCount += 0.05f * _DeltaTime;
 	
 	if (XUVCount >= 1.0f)

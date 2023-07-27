@@ -24,6 +24,7 @@
 
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineBase/GameEngineRandom.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 
 std::shared_ptr<Zakum> Zakum::GlobalZakum = nullptr;
@@ -38,6 +39,9 @@ Zakum::~Zakum()
 
 void Zakum::Start()
 {
+	GameEngineSoundPlayer Sound = GameEngineSound::Play("ZakumSpawn.mp3");
+	Sound.SetVolume(1.0f);
+
 	GlobalZakum = DynamicThis<Zakum>();
 
 	TimeCounting();
@@ -184,99 +188,10 @@ void Zakum::CreateArm(bool _isLeft, int _ArmIndex)
 
 void Zakum::SetAnimation()
 {
-	if (nullptr == GameEngineSprite::Find("ZakumSpawn"))
-	{
-		GameEngineDirectory NewDir;
-		NewDir.MoveParentToDirectory("MapleResources");
-		NewDir.Move("MapleResources");
-		NewDir.Move("AlterOfZakum");
-		NewDir.Move("AlterOfZakumSprite");
-		NewDir.Move("Monster");
-		NewDir.Move("Zakum");
-
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("ZakumSpawn").GetFullPath());
-
-		NewDir.Move("Phase1");
-
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase1_1Attack").GetFullPath());
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("1AtEffect0").GetFullPath());
-
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase1_2Attack").GetFullPath());
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("2AtEffect0").GetFullPath());
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("2AtEffect1").GetFullPath());
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("2AtEffect2").GetFullPath());
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("2AtEffect3").GetFullPath());
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("2AtEffect4").GetFullPath());
-
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase1_3Attack").GetFullPath());
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("3AtEffect").GetFullPath());
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("3AtObj").GetFullPath());
-
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase1_1Skill").GetFullPath());
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("1SkEffect").GetFullPath());
-
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase1_2Skill").GetFullPath());
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("2SkEffect").GetFullPath());
-
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase1_3Skill").GetFullPath());
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("3SkEffect").GetFullPath());
-
-		NewDir.Move("1AtEffect1");
-
-		std::vector<GameEngineFile> File = NewDir.GetAllFile({ ".Png", });
-
-		for (size_t i = 0; i < File.size(); i++)
-		{
-			GameEngineTexture::Load(File[i].GetFullPath());
-		}
-
-		NewDir.MoveParent();
-
-		NewDir.MoveParent();
-		NewDir.Move("Phase2");
-
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase2_1Attack").GetFullPath());
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase2_2Attack").GetFullPath());
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase2_3Attack").GetFullPath());
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase2_1Skill").GetFullPath());
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase2_2Skill").GetFullPath());
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase2_3Skill").GetFullPath());
-		
-		NewDir.MoveParent();
-		NewDir.Move("Phase3");
-
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase3_1Attack").GetFullPath());
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase3_2Attack").GetFullPath());
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase3_3Attack").GetFullPath());
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase3_1Skill").GetFullPath());
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase3_2Skill").GetFullPath());
-		GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase3_3Skill").GetFullPath());
-
-	}
-
 	BodyRender->CreateAnimation({ .AnimationName = "Spawn",.SpriteName = "ZakumSpawn",.FrameInter = 0.11f,.Loop = false,.ScaleToTexture = true });
 	
 	BodyRender->SetAnimationStartEvent("Spawn", 1, [this]
 		{
-			GameEngineDirectory NewDir;
-			NewDir.MoveParentToDirectory("MapleResources");
-			NewDir.Move("MapleResources");
-			NewDir.Move("AlterOfZakum");
-			NewDir.Move("AlterOfZakumSprite");
-			NewDir.Move("Monster");
-			NewDir.Move("Zakum");
-
-			NewDir.Move("Phase1");
-			GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase1Die").GetFullPath());
-
-			NewDir.MoveParent();
-			NewDir.Move("Phase2");
-			GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase2Die").GetFullPath());
-
-			NewDir.MoveParent();
-			NewDir.Move("Phase3");
-			GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase3Die").GetFullPath());
-
 			BodyRender->CreateAnimation({ .AnimationName = "Phase1Die",.SpriteName = "Phase1Die",.FrameInter = 0.11f,.Loop = false,.ScaleToTexture = true });
 			BodyRender->CreateAnimation({ .AnimationName = "Phase2Die",.SpriteName = "Phase2Die",.FrameInter = 0.11f,.Loop = false,.ScaleToTexture = true });
 			BodyRender->CreateAnimation({ .AnimationName = "Phase3Die",.SpriteName = "Phase3Die",.FrameInter = 0.11f,.Loop = false,.ScaleToTexture = true });
@@ -336,20 +251,20 @@ void Zakum::SetAnimation()
 							GetLevel()->TimeEvent.AddEvent(1.0f, [this](GameEngineTimeEvent::TimeEvent&, GameEngineTimeEvent*)
 								{
 									std::shared_ptr<DropItem> NewItem = GetLevel()->CreateActor<DropItem>();
-									NewItem->SetQuadraticFunction(1.0f, GetTransform()->GetWorldPosition() + float4{ 0, 5.0f }, 150.0f);
+									NewItem->SetQuadraticFunction(1.0f, GetTransform()->GetWorldPosition() + float4{ 0, -150.0f }, 250.0f);
 									NewItem->SetDropItemInfo("CAPOFZAKUM", static_cast<int>(ItemType::Equip));
 									
 									for (int i = 0; i < 10; i++)
 									{
 										std::shared_ptr<DropItem> NewItem = GetLevel()->CreateActor<DropItem>();
-										NewItem->SetQuadraticFunction(1.0f - 30.0f * (i + 1), GetTransform()->GetWorldPosition() + float4{0, 5.0f}, 150.0f);
+										NewItem->SetQuadraticFunction(1.0f - 30.0f * (i + 1), GetTransform()->GetWorldPosition() + float4{ 0, -150.0f }, 250.0f);
 										NewItem->SetDropItemInfo("ZAKUMSTONE", static_cast<int>(ItemType::Etc));
 									}
 
 									for (int i = 0; i < 10; i++)
 									{
 										std::shared_ptr<DropItem> NewItem = GetLevel()->CreateActor<DropItem>();
-										NewItem->SetQuadraticFunction(1.0f + 30.0f * (i + 1), GetTransform()->GetWorldPosition() + float4{ 0, 5.0f }, 150.0f);
+										NewItem->SetQuadraticFunction(1.0f + 30.0f * (i + 1), GetTransform()->GetWorldPosition() + float4{ 0, -150.0f }, 250.0f);
 										NewItem->SetDropItemInfo("ZAKUMSTONE", static_cast<int>(ItemType::Etc));
 									}
 								});
@@ -365,24 +280,6 @@ void Zakum::SetAnimation()
 
 	BodyRender->SetAnimationStartEvent("Spawn", 2, [this]
 		{
-			GameEngineDirectory NewDir;
-			NewDir.MoveParentToDirectory("MapleResources");
-			NewDir.Move("MapleResources");
-			NewDir.Move("AlterOfZakum");
-			NewDir.Move("AlterOfZakumSprite");
-			NewDir.Move("Monster");
-			NewDir.Move("Zakum");
-
-			NewDir.Move("Phase1");
-			GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase1Hit").GetFullPath());
-
-			NewDir.MoveParent();
-			NewDir.Move("Phase2");
-			GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase2Hit").GetFullPath());
-
-			NewDir.MoveParent();
-			NewDir.Move("Phase3");
-			GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase3Hit").GetFullPath());
 
 			BodyRender->CreateAnimation({ .AnimationName = "Phase1Hit",.SpriteName = "Phase1Hit",.FrameInter = 0.6f,.Loop = false,.ScaleToTexture = true });
 			BodyRender->CreateAnimation({ .AnimationName = "Phase2Hit",.SpriteName = "Phase2Hit",.FrameInter = 0.6f,.Loop = false,.ScaleToTexture = true });
@@ -419,25 +316,6 @@ void Zakum::SetAnimation()
 
 	BodyRender->SetAnimationStartEvent("Spawn", 3, [this]
 		{
-			GameEngineDirectory NewDir;
-			NewDir.MoveParentToDirectory("MapleResources");
-			NewDir.Move("MapleResources");
-			NewDir.Move("AlterOfZakum");
-			NewDir.Move("AlterOfZakumSprite");
-			NewDir.Move("Monster");
-			NewDir.Move("Zakum");
-
-			NewDir.Move("Phase1");
-			GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase1Stand").GetFullPath());
-
-			NewDir.MoveParent();
-			NewDir.Move("Phase2");
-			GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase2Stand").GetFullPath());
-
-			NewDir.MoveParent();
-			NewDir.Move("Phase3");
-			GameEngineSprite::LoadFolder(NewDir.GetPlusFileName("Phase3Stand").GetFullPath());
-
 			BodyRender->CreateAnimation({ .AnimationName = "Phase1Stand",.SpriteName = "Phase1Stand",.FrameInter = 0.09f,.Loop = true,.ScaleToTexture = true });
 			BodyRender->CreateAnimation({ .AnimationName = "Phase2Stand",.SpriteName = "Phase2Stand",.FrameInter = 0.09f,.Loop = true,.ScaleToTexture = true });
 			BodyRender->CreateAnimation({ .AnimationName = "Phase3Stand",.SpriteName = "Phase3Stand",.FrameInter = 0.09f,.Loop = true,.ScaleToTexture = true }); 
@@ -646,14 +524,17 @@ void Zakum::BodyAttack()
 	case 0:
 		AttackName = "Phase" + std::to_string(CurPhase) + "_1Attack";
 		BodyRender->ChangeAnimation(AttackName);
+		GameEngineSound::Play("ZakumAttack1.mp3");
 		break;
 	case 1:
 		AttackName = "Phase" + std::to_string(CurPhase) + "_2Attack";
 		BodyRender->ChangeAnimation(AttackName);
+		GameEngineSound::Play("ZakumAttack2.mp3");
 		break;
 	case 2:
 		AttackName = "Phase" + std::to_string(CurPhase) + "_3Attack";
 		BodyRender->ChangeAnimation(AttackName);
+		GameEngineSound::Play("ZakumAttack3.mp3");
 		break;
 	case 3:
 		BlackOut();
@@ -663,15 +544,18 @@ void Zakum::BodyAttack()
 		{
 			AttackName = "Phase" + std::to_string(CurPhase) + "_1Skill";
 			BodyRender->ChangeAnimation(AttackName);
+			GameEngineSound::Play("ZakumSKill1.mp3");
 		}
 		break;
 	case 5:
 		AttackName = "Phase" + std::to_string(CurPhase) + "_2Skill";
 		BodyRender->ChangeAnimation(AttackName);
+		GameEngineSound::Play("ZakumSKill2.mp3");
 		break;
 	case 6:
 		AttackName = "Phase" + std::to_string(CurPhase) + "_3Skill";
 		BodyRender->ChangeAnimation(AttackName);
+		GameEngineSound::Play("ZakumSKill3.mp3");
 		break;
 	}
 
@@ -744,6 +628,8 @@ void Zakum::BlackOut()
 
 void Zakum::Hit(int _Damage, bool _isRealAttack)
 {
+	GameEngineSound::Play("ZakumHit.mp3");
+
 	if(isAttack == false && isHit == false)
 	{
 		std::string AniName = "Phase" + std::to_string(CurPhase) + "Hit";
@@ -758,16 +644,19 @@ void Zakum::Hit(int _Damage, bool _isRealAttack)
 		{
 			BodyCollision->Off();
 			BodyRender->ChangeAnimation("Phase1Die");
+			GameEngineSound::Play("ZakumPhaseChange.mp3");
 		}
 		else if(Hp > 0 && Hp <= 30000 && isAttack == false && CurPhase == 2)
 		{
 			BodyCollision->Off();
 			BodyRender->ChangeAnimation("Phase2Die");
+			GameEngineSound::Play("ZakumPhaseChange.mp3");
 		}
 		else if (Hp <= 0)
 		{
 			BodyCollision->Off();
 			BodyRender->ChangeAnimation("Phase3Die");
+			GameEngineSound::Play("ZakumDeath.mp3");
 		}
 	}
 

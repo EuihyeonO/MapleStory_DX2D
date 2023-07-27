@@ -81,6 +81,8 @@ void GreenSnail::Spawn(float _DeltaTime)
 
 void GreenSnail::Hit(int _Damage, bool _isRealAttack)
 {
+	BasicRender->ChangeAnimation("HIT");
+
 	if (_isRealAttack == true)
 	{
 		Hp -= _Damage;

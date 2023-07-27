@@ -95,6 +95,7 @@ void Zakum::SetPhase2Attack()
 
 			int CurHp = PlayerValue::GetValue()->GetHp();
 
+			GameEngineSound::Play("ZakumAttack1Hit.mp3");
 			Player::GetCurPlayer()->KnockBack(Dir, 1000.0f, CurHp - 1);
 		});
 
@@ -162,6 +163,7 @@ void Zakum::SetPhase2Attack()
 
 								if (EffCol.lock()->Collision(static_cast<int>(CollisionOrder::Player), ColType::AABBBOX2D, ColType::AABBBOX2D) != nullptr)
 								{
+									GameEngineSound::Play("ZakumAttack2Hit.mp3");
 									Player::GetCurPlayer()->Hit(static_cast<int>(PlayerValue::GetValue()->GetHp() * 0.1f));
 								}
 							}
@@ -207,6 +209,7 @@ void Zakum::SetPhase2Attack()
 
 								if (EffCol.lock()->Collision(static_cast<int>(CollisionOrder::Player), ColType::AABBBOX2D, ColType::AABBBOX2D) != nullptr)
 								{
+									GameEngineSound::Play("ZakumAttack2Hit.mp3");
 									Player::GetCurPlayer()->Hit(static_cast<int>(PlayerValue::GetValue()->GetHp() * 0.1f));
 								}
 							}
@@ -251,6 +254,7 @@ void Zakum::SetPhase2Attack()
 
 								if (EffCol.lock()->Collision(static_cast<int>(CollisionOrder::Player), ColType::AABBBOX2D, ColType::AABBBOX2D) != nullptr)
 								{
+									GameEngineSound::Play("ZakumAttack2Hit.mp3");
 									Player::GetCurPlayer()->Hit(static_cast<int>(PlayerValue::GetValue()->GetHp() * 0.1f));
 								}
 							}
@@ -345,6 +349,7 @@ void Zakum::SetPhase2Attack()
 
 							if (AtObjCol.lock()->Collision(static_cast<int>(CollisionOrder::Player), ColType::AABBBOX2D, ColType::AABBBOX2D) != nullptr)
 							{
+								GameEngineSound::Play("ZakumAttack3Hit.mp3");
 								Player::GetCurPlayer()->Hit(static_cast<int>(PlayerValue::GetValue()->GetHp() * 0.1f));
 								AtObjCol.lock()->Off();
 							}
