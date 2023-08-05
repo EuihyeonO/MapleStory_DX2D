@@ -40,7 +40,7 @@ void Player::Haste()
 			};
 
 			//지속시간은 나중에 따로 변수 만들어야함
-			MyBuffList->BuffOn("Haste", EndFunction, 200.0f);
+			MyBuffList->BuffOn("Haste", EndFunction, 50.0f);
 
 			MoveSpeed = BasicMoveSpeed + 30.0f;
 			JumpPower += 30.0f;
@@ -89,7 +89,7 @@ void Player::HeroesOfMaple()
 			};
 
 			//지속시간은 나중에 따로 변수 만들어야함
-			MyBuffList->BuffOn("HeroesOfMaple", EndFunction, 200.0f);
+			MyBuffList->BuffOn("HeroesOfMaple", EndFunction, 50.0f);
 
 			PlayerValue::GetValue()->AddStr(static_cast<int>(Str * 0.15f));
 			PlayerValue::GetValue()->AddDex(static_cast<int>(Dex * 0.15f));
@@ -132,7 +132,7 @@ void Player::JavelinBooster()
 			};
 
 			//지속시간은 나중에 따로 변수 만들어야함
-			MyBuffList->BuffOn("JavelinBooster", EndFunction, 200.0f);
+			MyBuffList->BuffOn("JavelinBooster", EndFunction, 50.0f);
 
 			int GetJavelinBoosterLv = PlayerValue::Value.GetJavelinBoosterLv();
 			PlayerValue::Value.PlusAttackSpeed(GetJavelinBoosterLv * 0.05f);
@@ -174,7 +174,7 @@ void Player::ShadowPartner()
 			};
 
 			//지속시간은 나중에 따로 변수 만들어야함
-			MyBuffList->BuffOn("ShadowPartner", EndFunction, 200.0f);
+			MyBuffList->BuffOn("ShadowPartner", EndFunction, 50.0f);
 			isOnShadow = true;
 		}
 

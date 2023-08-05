@@ -125,6 +125,7 @@ void Level_AlterOfZakum::ActorCreate()
 		MyPlayer->SetRight();
 		MyPlayer->SetColMap(Map->GetColMapName());
 		MyPlayer->SetCurPlayer(MyPlayer);
+		MyPlayer->GetTransform()->SetLocalPosition({ 0, -100 });
 	}
 
 	if (MyMouse == nullptr)

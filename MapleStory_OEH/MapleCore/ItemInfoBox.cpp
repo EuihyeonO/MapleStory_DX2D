@@ -760,6 +760,10 @@ const std::string_view Item::GetItemNameToKr(const std::string_view& _Name)
 	{
 		return "°¥»ö »ñ°«";
 	}
+	else if (Name == "EISEN")
+	{
+		return "ºí·¢ ¾ÆÀÌÁ¨";
+	}
 	else
 	{
 		return "";

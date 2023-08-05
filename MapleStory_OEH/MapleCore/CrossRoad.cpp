@@ -23,20 +23,20 @@ void CrossRoad::Start()
 
 	LandScape0 = CreateComponent<ContentRenderer>();
 	LandScape0->SetTexture("MapBackGround5.png");
-	LandScape0->GetTransform()->SetLocalScale({ 635 * 6 , 719 });
+	LandScape0->GetTransform()->SetLocalScale({ 635 * 6 , 718 });
 	LandScape0->GetTransform()->SetLocalPosition({ 0 , 350.0f });
 	LandScape0->SetUVconstant({0, 0, 6, 1});
 	
 	LandScape1 = CreateComponent<ContentRenderer>();
 	LandScape1->SetTexture("MapBackGround4.png");
-	LandScape1->GetTransform()->SetLocalScale({ 1024 * 3, 439 });
+	LandScape1->GetTransform()->SetLocalScale({ 1024 * 3, 438 });
 	LandScape1->GetTransform()->SetLocalPosition({ 0 , 250.0f });
 	LandScape1->SetUVconstant({ 0, 0, 3, 1 });
 	LandScape1->SetMulColor({ 1.0f, 1.0f, 1.0f, 0.75f });
 
 	LandScape2 = CreateComponent<ContentRenderer>();
 	LandScape2->SetTexture("MapBackGround3.png");
-	LandScape2->GetTransform()->SetLocalScale({ 2049 * 2, 503 });
+	LandScape2->GetTransform()->SetLocalScale({ 2049 * 2, 502 });
 	LandScape2->GetTransform()->SetLocalPosition({ 0 , 150.0f });
 	LandScape2->SetUVconstant({ 0, 0, 2, 1 });
 

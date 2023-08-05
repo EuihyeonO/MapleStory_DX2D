@@ -35,8 +35,8 @@ void GameEngineCamera::Start()
 
 		GameEngineInput::CreateKey("CamRot", VK_RBUTTON);
 		GameEngineInput::CreateKey("SpeedBoost", VK_LSHIFT);
-		GameEngineInput::CreateKey("FreeCameraSwitch", 'P');
-		GameEngineInput::CreateKey("ProjectionModeChange", 'O');
+		GameEngineInput::CreateKey("FreeCameraSwitch", 'G');
+		GameEngineInput::CreateKey("ProjectionModeChange", 'H');
 	}
 
 	// float _Width, float _Height, float _Left, float _Right, float _ZMin = 0.0f, float _ZMax = 1.0f

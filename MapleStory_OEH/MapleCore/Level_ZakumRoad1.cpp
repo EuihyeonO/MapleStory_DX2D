@@ -69,6 +69,7 @@ void Level_ZakumRoad1::ActorCreate()
 		MyPlayer = CreateActor<Player>();
 		MyPlayer->SetCurPlayer(MyPlayer);
 		MyPlayer->SetColMap(Map->GetColMapName());
+		MyPlayer->GetTransform()->SetLocalPosition({ 0, -200 });
 	}
 
 	if (MyMouse == nullptr)

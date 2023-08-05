@@ -30,7 +30,7 @@ private:
 
 	float RenderAlpha = 0.0f;
 
-	int Hp = 50;
+	int Hp = 30;
 
 	std::map<std::string, std::vector<float>> FrameList;
 	std::vector<std::pair<std::string, /*0이상 100이하의 정수*/int>> DropItemList;

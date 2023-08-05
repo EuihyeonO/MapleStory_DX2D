@@ -85,11 +85,13 @@ void GreenSnail::Hit(int _Damage, bool _isRealAttack)
 
 	if (_isRealAttack == true)
 	{
+		GameEngineSound::Play("MobHit0.mp3");
 		Hp -= _Damage;
 	}
 
 	if (Hp <= 0)
 	{
+		GameEngineSound::Play("MobDie0.mp3");
 		BasicRender->ChangeAnimation("DEATH");
 		MoveType = "DEATH";
 
@@ -143,6 +145,7 @@ void GreenSnail::MonsterDeath(float _DeltaTime)
 
 	if (BasicRender->ColorOptionValue.MulColor.a <= 0.0f)
 	{
+		GetMyZone()->NumOfMonsterDown(static_cast<int>(MonsterName::GreenSnail));
 		Death();
 	}
 }

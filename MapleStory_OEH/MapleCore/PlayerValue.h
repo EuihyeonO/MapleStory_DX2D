@@ -486,10 +486,10 @@ private:
 	int MaxMp = 100;
 	int Mp = 100;
 	
-	int Str = 0;
-	int Dex = 0;
-	int Int = 0;
-	int Luk = 0;
+	int Str = 8;
+	int Dex = 8;
+	int Int = 4;
+	int Luk = 5;
 
 	int StatPoint = 0;
 
