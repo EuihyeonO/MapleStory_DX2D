@@ -195,7 +195,7 @@ void Level_BeginnersTown1::LoadResources()
 		}
 	}
 
-	if (nullptr == GameEngineSprite::Find("SeraStand.png"))
+	if (nullptr == GameEngineSprite::Find("SeraHair"))
 	{
 		GameEngineDirectory NewDir;
 		NewDir.MoveParentToDirectory("MapleResources");
@@ -259,7 +259,7 @@ void Level_BeginnersTown1::UnLoadResources()
 		}
 	}
 
-	if (nullptr != GameEngineSprite::Find("SeraStand.png"))
+	if (nullptr != GameEngineSprite::Find("SeraHair"))
 	{
 		GameEngineSprite::UnLoad("SeraHair");
 		GameEngineSprite::UnLoad("SeraMove");
