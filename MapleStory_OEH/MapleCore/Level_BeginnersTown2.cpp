@@ -43,7 +43,6 @@ void Level_BeginnersTown2::LevelChangeStart()
 
 void Level_BeginnersTown2::Start()
 {
-
 	SetName("BEGINNERSTOWN2");
 	
 	GetMainCamera()->SetProjectionType(CameraType::Orthogonal);
@@ -59,8 +58,8 @@ void Level_BeginnersTown2::LevelChangeEnd()
 
 	ActorDeath();
 	UnLoadResources();
-
 }
+
 void Level_BeginnersTown2::Update(float _DeltaTime)
 {
 
@@ -124,11 +123,13 @@ void Level_BeginnersTown2::ActorDeath()
 
 	if (MyQuickSlot != nullptr)
 	{
+		MyQuickSlot->Death();
 		MyQuickSlot = nullptr;
 	}
 
 	if (MyBottomBar != nullptr)
 	{
+		MyBottomBar->Death();
 		MyBottomBar = nullptr;
 	}
 
