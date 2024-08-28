@@ -1,7 +1,7 @@
 #pragma once
 #include "BasicFunction.h"
 #include <functional>
-#include <Map>
+#include <map>
 
 class GameEngineSpriteRenderer;
 class BuffList : public BasicFunction
